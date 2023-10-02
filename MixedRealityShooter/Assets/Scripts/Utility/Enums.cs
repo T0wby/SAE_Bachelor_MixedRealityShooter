@@ -10,4 +10,12 @@ namespace Utility
         InGame,
         GameOver
     }
+
+    public enum EWeaponType
+    {
+        AssaultRifle,
+        Pistol,
+        Dagger,
+        Grenade
+    }
 }
