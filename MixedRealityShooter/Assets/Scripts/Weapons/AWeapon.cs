@@ -9,14 +9,14 @@ namespace Weapons
 {
     public abstract class AWeapon : MonoBehaviour
     {
-        [SerializeField] private WeaponSettings _defaultSettings;
-        private int _damage;
-        private float _projectileSpeed;
-        private float _bulletsPerSecond;
-        private int _weaponLevel = 0;
+        [SerializeField] protected WeaponSettings _defaultSettings;
+        protected int _damage;
+        protected float _projectileSpeed;
+        protected float _bulletsPerSecond;
+        protected int _weaponLevel = 0;
 
-        private const float UPGRADE_STRENGTH = 0.1f;
-        private const float BPSLIMIT_AR = 5.0f;
+        protected const float UPGRADE_STRENGTH = 0.1f;
+        protected const float BPSLIMIT_AR = 5.0f;
         
         public WeaponSettings DefaultSettings => _defaultSettings;
 
