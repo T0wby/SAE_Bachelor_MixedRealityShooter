@@ -24,5 +24,13 @@ namespace Player
         {
             _interact.Disable();
         }
+        
+        public void Interact(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                Debug.Log("Interact!");
+            }
+        }
     }
 }

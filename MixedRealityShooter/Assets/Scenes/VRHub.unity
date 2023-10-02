@@ -558,6 +558,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 968299945}
+    - targetCorrespondingSourceObject: {fileID: 100004, guid: 126d619cf4daa52469682f85c1378b4a,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 968299946}
   m_SourcePrefab: {fileID: 100100000, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
 --- !u!4 &599824985 stripped
 Transform:
@@ -920,7 +924,19 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 968299946}
+        m_TargetAssemblyTypeName: Player.PlayerController, Assembly-CSharp
+        m_MethodName: Interact
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 94c259a8-c77f-46ab-8876-cad1ecbede92
     m_ActionName: Player/Interact
   m_NeverAutoSwitchControlSchemes: 0
@@ -928,6 +944,18 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &968299946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 968299944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0983a1f88778b174da4cefa2f2311210, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1004185656
 GameObject:
   m_ObjectHideFlags: 0
@@ -2167,6 +2195,15 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1116965030203947, guid: 76ab2617340c0de43b9ff6891f65b26f, type: 3}
+      propertyPath: _interactor
+      value: 
+      objectReference: {fileID: 1301850021}
+    - target: {fileID: 1938345304718160110, guid: 76ab2617340c0de43b9ff6891f65b26f,
+        type: 3}
+      propertyPath: _interactor
+      value: 
+      objectReference: {fileID: 2075422614}
     - target: {fileID: 2193878248088033636, guid: 76ab2617340c0de43b9ff6891f65b26f,
         type: 3}
       propertyPath: m_Name
@@ -2230,67 +2267,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2193878248088033636, guid: 76ab2617340c0de43b9ff6891f65b26f,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1795169537847022655}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76ab2617340c0de43b9ff6891f65b26f, type: 3}
---- !u!1 &1795169537847022653 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2193878248088033636, guid: 76ab2617340c0de43b9ff6891f65b26f,
-    type: 3}
-  m_PrefabInstance: {fileID: 1795169537847022652}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1795169537847022654 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2220577351910604170, guid: 76ab2617340c0de43b9ff6891f65b26f,
-    type: 3}
-  m_PrefabInstance: {fileID: 1795169537847022652}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1795169537847022653}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9a7676b01585ce43908639a27765dfc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1795169537847022655
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1795169537847022653}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1464721f2283eb14e94a33e812b47be4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interactableView: {fileID: 1795169537847022654}
-  _whenHover:
-    m_PersistentCalls:
-      m_Calls: []
-  _whenUnhover:
-    m_PersistentCalls:
-      m_Calls: []
-  _whenSelect:
-    m_PersistentCalls:
-      m_Calls: []
-  _whenUnselect:
-    m_PersistentCalls:
-      m_Calls: []
-  _whenInteractorViewAdded:
-    m_PersistentCalls:
-      m_Calls: []
-  _whenInteractorViewRemoved:
-    m_PersistentCalls:
-      m_Calls: []
-  _whenSelectingInteractorViewAdded:
-    m_PersistentCalls:
-      m_Calls: []
-  _whenSelectingInteractorViewRemoved:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &1826905053428418195
 GameObject:
   m_ObjectHideFlags: 0
