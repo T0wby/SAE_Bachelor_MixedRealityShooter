@@ -1,4 +1,5 @@
 using System;
+using Oculus.Interaction;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Utility;
@@ -10,7 +11,9 @@ namespace Weapons
         [SerializeField] private GameObject _barrel;
         [Tooltip("Number of the Layer that should be ignored")]
         [SerializeField] private int _layerMaskNum = 8;
+        [SerializeField] private ActiveStateUnityEventWrapper _activeStateEvent;
         private int _layerMask;
+        private bool _isGrabbed = false;
 
         private void Start()
         {
@@ -18,6 +21,9 @@ namespace Weapons
             
             // Invert bitmask
             _layerMask = ~_layerMask;
+            
+            _activeStateEvent.WhenActivated.AddListener(OnGrabbed);
+            _activeStateEvent.WhenDeactivated.AddListener(OnReleased);
         }
 
         public void FireWeapon()
@@ -31,6 +37,15 @@ namespace Weapons
                     Debug.Log("Did Hit");
                 }
             }
+        }
+
+        public void OnGrabbed()
+        {
+            _isGrabbed = true;
+        }
+        public void OnReleased()
+        {
+            _isGrabbed = false;
         }
     }
 }
