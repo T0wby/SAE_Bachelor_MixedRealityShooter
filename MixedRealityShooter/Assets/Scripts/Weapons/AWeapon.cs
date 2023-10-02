@@ -6,6 +6,6 @@ namespace Weapons
 {
     public abstract class AWeapon : MonoBehaviour
     {
-        [SerializeField] private WeaponSettings settings;
+        [SerializeField] private WeaponSettings _settings;
     }
 }
