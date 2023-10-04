@@ -29,6 +29,7 @@ namespace Player
         {
             if (context.started)
             {
+                // TODO: Connect Interact and firering a weapon that is grabbed
                 Debug.Log("Interact!");
             }
         }
