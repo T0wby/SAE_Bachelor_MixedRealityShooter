@@ -192,6 +192,18 @@ MonoBehaviour:
   edgeRenderingEnabled_: 0
   edgeColor_: {r: 1, g: 1, b: 1, a: 1}
   colorMapType: 0
+--- !u!114 &421118235 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9110928824219187687, guid: a922cb2ef391d554a94e9f5dbce06911,
+    type: 3}
+  m_PrefabInstance: {fileID: 477502737}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acb743c666c1ab34e928a0b62c2fa862, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &477502737
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -434,6 +446,15 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1116965030203947, guid: 76ab2617340c0de43b9ff6891f65b26f, type: 3}
+      propertyPath: _interactor
+      value: 
+      objectReference: {fileID: 1472551813}
+    - target: {fileID: 1938345304718160110, guid: 76ab2617340c0de43b9ff6891f65b26f,
+        type: 3}
+      propertyPath: _interactor
+      value: 
+      objectReference: {fileID: 421118235}
     - target: {fileID: 2193878248088033636, guid: 76ab2617340c0de43b9ff6891f65b26f,
         type: 3}
       propertyPath: m_Name
@@ -499,6 +520,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76ab2617340c0de43b9ff6891f65b26f, type: 3}
+--- !u!114 &1472551813 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 523810230992498996, guid: a922cb2ef391d554a94e9f5dbce06911,
+    type: 3}
+  m_PrefabInstance: {fileID: 477502737}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acb743c666c1ab34e928a0b62c2fa862, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1602959067 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1491376356943504763, guid: a922cb2ef391d554a94e9f5dbce06911,
