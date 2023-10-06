@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 namespace Player
@@ -8,6 +9,8 @@ namespace Player
     {
         private PlayerControls _playerControls;
         private InputAction _interact;
+
+        public UnityEvent OnInteraction;
 
         private void Awake()
         {
@@ -31,6 +34,7 @@ namespace Player
             {
                 // TODO: Connect Interact and firering a weapon that is grabbed
                 Debug.Log("Interact!");
+                OnInteraction.Invoke();
             }
         }
     }
