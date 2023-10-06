@@ -129,6 +129,7 @@ GameObject:
   - component: {fileID: 7709894587531133387}
   - component: {fileID: 8555705244980336855}
   - component: {fileID: 2220577351910604170}
+  - component: {fileID: 9004878985501860797}
   - component: {fileID: 4157862974538235369}
   - component: {fileID: 1938345304718160110}
   - component: {fileID: 1116965030203947}
@@ -285,7 +286,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2193878248088033636}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9a7676b01585ce43908639a27765dfc, type: 3}
   m_Name: 
@@ -318,6 +319,29 @@ MonoBehaviour:
   _movementProvider: {fileID: 0}
   _handAligment: 1
   _handGrabPoses: []
+--- !u!114 &9004878985501860797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2193878248088033636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a1bc992571301d4a9602ac95ef4c71a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactorFilters: []
+  _maxInteractors: -1
+  _maxSelectingInteractors: -1
+  _data: {fileID: 0}
+  _pointableElement: {fileID: 8555705244980336855}
+  _rigidbody: {fileID: 7709894587531133387}
+  _grabSource: {fileID: 0}
+  _useClosestPointAsGrabSource: 0
+  _releaseDistance: 0
+  _resetGrabOnGrabsUpdated: 1
+  _physicsGrabbable: {fileID: 0}
 --- !u!114 &4157862974538235369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -330,9 +354,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f9cbd9605824b844b129fb2fb494df8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultSettings: {fileID: 0}
+  _defaultSettings: {fileID: 11400000, guid: 714cb359c3ab0d44da51f623dbcac860, type: 2}
   _barrel: {fileID: 1182300125785582002}
   _layerMaskNum: 8
+  _activeStateEvent: {fileID: 6501865713223741657}
 --- !u!114 &1938345304718160110
 MonoBehaviour:
   m_ObjectHideFlags: 0
