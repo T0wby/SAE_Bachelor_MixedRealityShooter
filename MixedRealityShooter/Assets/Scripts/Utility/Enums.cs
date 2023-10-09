@@ -18,4 +18,10 @@ namespace Utility
         Dagger,
         Grenade
     }
+    public enum EColliderState
+    {
+        Position,
+        Rotation,
+        Scale
+    }
 }

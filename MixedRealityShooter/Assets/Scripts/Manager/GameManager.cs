@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using Utility;
 
 namespace Manager
@@ -8,6 +9,7 @@ namespace Manager
         #region Variables
 
         private EGameStates _currState = EGameStates.PrepareMRScene;
+        public UnityEvent OnGameStateChange;
 
         #endregion
 
@@ -15,8 +17,15 @@ namespace Manager
 
         public EGameStates CurrState
         {
-            get => _currState;
-            set => _currState = value;
+            get
+            {
+                return _currState;
+            }
+            set
+            {
+                _currState = value;
+                OnGameStateChange.Invoke();
+            }
         }
 
         #endregion
