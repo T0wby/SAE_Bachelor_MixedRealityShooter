@@ -911,6 +911,15 @@ MonoBehaviour:
   OnInteraction:
     m_PersistentCalls:
       m_Calls: []
+  OnSwitchRotateScale:
+    m_PersistentCalls:
+      m_Calls: []
+  OnRotation:
+    m_PersistentCalls:
+      m_Calls: []
+  OnScale:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &72083191016185260
 PrefabInstance:
   m_ObjectHideFlags: 0

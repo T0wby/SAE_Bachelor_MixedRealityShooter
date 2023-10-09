@@ -35,6 +35,24 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotateAndScale"",
+                    ""type"": ""Value"",
+                    ""id"": ""bbc274d9-5eec-4318-82e0-2611bd29f952"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""SwitchRotScale"",
+                    ""type"": ""Button"",
+                    ""id"": ""ec6d25cf-1a3c-413b-9f1c-cecf331b77a3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -48,6 +66,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0656d94d-7825-4416-a6e7-291b073b0e4b"",
+                    ""path"": ""<XRController>{RightHand}/thumbstick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateAndScale"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""28407a08-8e95-4a0e-b7da-96af3697f2a4"",
+                    ""path"": ""<XRController>{RightHand}/secondaryButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchRotScale"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -57,6 +97,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+        m_Player_RotateAndScale = m_Player.FindAction("RotateAndScale", throwIfNotFound: true);
+        m_Player_SwitchRotScale = m_Player.FindAction("SwitchRotScale", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -119,11 +161,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Interact;
+    private readonly InputAction m_Player_RotateAndScale;
+    private readonly InputAction m_Player_SwitchRotScale;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
         public PlayerActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
+        public InputAction @RotateAndScale => m_Wrapper.m_Player_RotateAndScale;
+        public InputAction @SwitchRotScale => m_Wrapper.m_Player_SwitchRotScale;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -136,6 +182,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @RotateAndScale.started += instance.OnRotateAndScale;
+            @RotateAndScale.performed += instance.OnRotateAndScale;
+            @RotateAndScale.canceled += instance.OnRotateAndScale;
+            @SwitchRotScale.started += instance.OnSwitchRotScale;
+            @SwitchRotScale.performed += instance.OnSwitchRotScale;
+            @SwitchRotScale.canceled += instance.OnSwitchRotScale;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -143,6 +195,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @RotateAndScale.started -= instance.OnRotateAndScale;
+            @RotateAndScale.performed -= instance.OnRotateAndScale;
+            @RotateAndScale.canceled -= instance.OnRotateAndScale;
+            @SwitchRotScale.started -= instance.OnSwitchRotScale;
+            @SwitchRotScale.performed -= instance.OnSwitchRotScale;
+            @SwitchRotScale.canceled -= instance.OnSwitchRotScale;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -163,5 +221,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     public interface IPlayerActions
     {
         void OnInteract(InputAction.CallbackContext context);
+        void OnRotateAndScale(InputAction.CallbackContext context);
+        void OnSwitchRotScale(InputAction.CallbackContext context);
     }
 }
