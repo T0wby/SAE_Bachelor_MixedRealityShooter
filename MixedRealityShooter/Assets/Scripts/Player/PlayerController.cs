@@ -11,9 +11,11 @@ namespace Player
         private InputAction _interact;
         private InputAction _rotateScale;
         private InputAction _switchRotateScale;
+        private InputAction _placeObj;
 
         public UnityEvent OnInteraction;
         public UnityEvent OnSwitchRotateScale;
+        public UnityEvent OnPlaceObj;
         public UnityEvent<Vector2> OnRotation;
         public UnityEvent<Vector2> OnScale;
         
@@ -32,6 +34,8 @@ namespace Player
             _rotateScale.Enable();
             _switchRotateScale = _playerControls.Player.SwitchRotScale;
             _switchRotateScale.Enable();
+            _placeObj = _playerControls.Player.PlaceObj;
+            _placeObj.Enable();
         }
 
         private void OnDisable()
@@ -39,6 +43,7 @@ namespace Player
             _interact.Disable();
             _rotateScale.Disable();
             _switchRotateScale.Disable();
+            _placeObj.Disable();
         }
 
         public void Interact(InputAction.CallbackContext context)
@@ -53,6 +58,13 @@ namespace Player
             if (context.started)
             {
                 OnSwitchRotateScale.Invoke();
+            }
+        }
+        public void OnPrimaryButton(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                OnPlaceObj.Invoke();
             }
         }
         

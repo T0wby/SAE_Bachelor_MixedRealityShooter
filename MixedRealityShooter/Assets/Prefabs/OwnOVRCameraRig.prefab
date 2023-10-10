@@ -914,6 +914,9 @@ MonoBehaviour:
   OnSwitchRotateScale:
     m_PersistentCalls:
       m_Calls: []
+  OnPlaceObj:
+    m_PersistentCalls:
+      m_Calls: []
   OnRotation:
     m_PersistentCalls:
       m_Calls: []

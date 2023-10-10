@@ -53,6 +53,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PlaceObj"",
+                    ""type"": ""Button"",
+                    ""id"": ""270daba7-a55e-4435-8561-cb9bd17f5765"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -88,6 +97,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""SwitchRotScale"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""df0bc007-ee77-43a9-947e-cd570a6a489e"",
+                    ""path"": ""<XRController>{RightHand}/primaryButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PlaceObj"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -99,6 +119,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_RotateAndScale = m_Player.FindAction("RotateAndScale", throwIfNotFound: true);
         m_Player_SwitchRotScale = m_Player.FindAction("SwitchRotScale", throwIfNotFound: true);
+        m_Player_PlaceObj = m_Player.FindAction("PlaceObj", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -163,6 +184,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_RotateAndScale;
     private readonly InputAction m_Player_SwitchRotScale;
+    private readonly InputAction m_Player_PlaceObj;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -170,6 +192,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @RotateAndScale => m_Wrapper.m_Player_RotateAndScale;
         public InputAction @SwitchRotScale => m_Wrapper.m_Player_SwitchRotScale;
+        public InputAction @PlaceObj => m_Wrapper.m_Player_PlaceObj;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -188,6 +211,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @SwitchRotScale.started += instance.OnSwitchRotScale;
             @SwitchRotScale.performed += instance.OnSwitchRotScale;
             @SwitchRotScale.canceled += instance.OnSwitchRotScale;
+            @PlaceObj.started += instance.OnPlaceObj;
+            @PlaceObj.performed += instance.OnPlaceObj;
+            @PlaceObj.canceled += instance.OnPlaceObj;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -201,6 +227,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @SwitchRotScale.started -= instance.OnSwitchRotScale;
             @SwitchRotScale.performed -= instance.OnSwitchRotScale;
             @SwitchRotScale.canceled -= instance.OnSwitchRotScale;
+            @PlaceObj.started -= instance.OnPlaceObj;
+            @PlaceObj.performed -= instance.OnPlaceObj;
+            @PlaceObj.canceled -= instance.OnPlaceObj;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -223,5 +252,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnRotateAndScale(InputAction.CallbackContext context);
         void OnSwitchRotScale(InputAction.CallbackContext context);
+        void OnPlaceObj(InputAction.CallbackContext context);
     }
 }

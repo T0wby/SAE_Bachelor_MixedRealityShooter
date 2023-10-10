@@ -20,6 +20,7 @@ namespace Utility
     }
     public enum EColliderState
     {
+        NONE,
         Position,
         Rotation,
         Scale

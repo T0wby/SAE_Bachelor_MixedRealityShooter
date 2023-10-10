@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Manager;
 using Oculus.Interaction;
 using UnityEngine;
@@ -12,7 +13,7 @@ public class MRPreperationBuilder : MonoBehaviour
     [SerializeField] private PlayerController _playerController;
 
     private GameObject _currCube;
-    
+    private GameObject _objToDelete;
 
     [Header("Raycast Logic")]
     [SerializeField] private GameObject _rightControllerVisual;
@@ -30,28 +31,41 @@ public class MRPreperationBuilder : MonoBehaviour
     private Vector3 _currScale;
     private EColliderState _colliderState = EColliderState.Position; 
     private bool _isBuilding = true;
+    private List<GameObject> _placedObjects;
 
     private void Awake()
     {
         _layerMask = 1 << _layerMaskNum;
+        _placedObjects = new List<GameObject>();
     }
 
     private void Start()
     {
+        ConnectMethods();
+    }
+
+    private void FixedUpdate()
+    {
+        if (_isBuilding)
+            SearchForPoint();
+        else
+            SearchForObject();
+    }
+
+    private void ConnectMethods()
+    {
         GameManager.Instance.OnGameStateChange.AddListener(CheckGameState);
+        
+        // BuildMode
         _playerController.OnInteraction.AddListener(SwitchStates);
         _playerController.OnSwitchRotateScale.AddListener(SwitchRotation);
         _playerController.OnSwitchRotateScale.AddListener(SwitchScaling);
         _playerController.OnRotation.AddListener(RotateCurrCube);
         _playerController.OnScale.AddListener(ScaleCurrCube);
-    }
-
-    private void FixedUpdate()
-    {
-        if (!_isBuilding)return;
-    
-        SearchForPoint();
+        _playerController.OnPlaceObj.AddListener(AddPlacedObject);
         
+        // DeleteMode
+        _playerController.OnPlaceObj.AddListener(DeleteFocusedObject);
     }
 
     private void CheckGameState()
@@ -59,6 +73,27 @@ public class MRPreperationBuilder : MonoBehaviour
         _isBuilding = GameManager.Instance.CurrState == EGameStates.PrepareMRScene;
     }
 
+    /// <summary>
+    /// Uses a Raytrace to search for placed Objects and sets a reference if one is hit
+    /// </summary>
+    private void SearchForObject()
+    {
+        if (Physics.Raycast(_rightControllerVisual.transform.position, _rightControllerVisual.transform.forward, out var hit, Mathf.Infinity, _layerMask))
+        {
+            Debug.DrawRay(_rightControllerVisual.transform.position,_rightControllerVisual.transform.forward * hit.distance, Color.green);
+            if (!hit.transform.gameObject.CompareTag("PlacedObj")) return;
+            _objToDelete = hit.transform.gameObject;
+        }
+        else
+        {
+            Debug.DrawRay(_rightControllerVisual.transform.position, _rightControllerVisual.transform.forward * 1000, Color.red);
+            _objToDelete = null;
+        }
+    }
+    
+    /// <summary>
+    /// Uses a Raytrace to find a point in the Environment, to spawn and place a new Object
+    /// </summary>
     private void SearchForPoint()
     {
         if (_colliderState != EColliderState.Position)return;
@@ -132,19 +167,54 @@ public class MRPreperationBuilder : MonoBehaviour
 
     private void SwitchStates()
     {
+        if (!_isBuilding)return;
+        
         int newState = (int)(_colliderState + 1);
-        _colliderState = (EColliderState)(newState % 3); // %3 due to EColliderState having 3 different states
+        
+        _colliderState = (EColliderState)(newState % 4); // %4 due to EColliderState having 4 different states
+        if (_colliderState == EColliderState.NONE)
+            _colliderState = EColliderState.Position;
     }
     private void SwitchRotation()
     {
+        if (!_isBuilding)return;
         if (_colliderState != EColliderState.Rotation)return;
 
         _rotationNumber = (_rotationNumber+1) % 3;
     }
     private void SwitchScaling()
     {
+        if (!_isBuilding)return;
         if (_colliderState != EColliderState.Scale)return;
 
         _scaleNumber = (_scaleNumber+1) % 3;
+    }
+
+    public void SwitchBuildMode()
+    {
+        _isBuilding = !_isBuilding;
+
+        _colliderState = _isBuilding ? EColliderState.Position : EColliderState.NONE;
+    }
+
+    private void AddPlacedObject()
+    {
+        if (!_isBuilding) return;
+        if (_currCube == null) return;
+
+        _currCube.layer = LayerMask.NameToLayer("Environment");
+        _currCube.transform.GetChild(0).transform.gameObject.layer = LayerMask.NameToLayer("Environment"); // Currently only holds one children that has the collision component
+        _placedObjects.Add(_currCube);
+        _currCube = null;
+    }
+    
+    private void DeleteFocusedObject()
+    {
+        if (_isBuilding) return;
+        if (_objToDelete == null) return;
+
+        _placedObjects.Remove(_objToDelete);
+        Destroy(_objToDelete);
+        _objToDelete = null;
     }
 }
