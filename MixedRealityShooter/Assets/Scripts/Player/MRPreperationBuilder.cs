@@ -4,13 +4,15 @@ using Oculus.Interaction;
 using UnityEngine;
 using Utility;
 using Player;
+using UI;
 using UnityEngine.Serialization;
 
 public class MRPreperationBuilder : MonoBehaviour
 {
-    [Header("Referenzes")]
+    [Header("References")]
     [SerializeField] private GameObject _cubePrefab;
     [SerializeField] private PlayerController _playerController;
+    [SerializeField] private MrPreparationUI _mrPreparationUI;
 
     private GameObject _currCube;
     private GameObject _objToDelete;
@@ -37,6 +39,7 @@ public class MRPreperationBuilder : MonoBehaviour
     {
         _layerMask = 1 << _layerMaskNum;
         _placedObjects = new List<GameObject>();
+        _mrPreparationUI.ChangeBuildModeName(_isBuilding);
     }
 
     private void Start()
@@ -195,6 +198,7 @@ public class MRPreperationBuilder : MonoBehaviour
         _isBuilding = !_isBuilding;
 
         _colliderState = _isBuilding ? EColliderState.Position : EColliderState.NONE;
+        _mrPreparationUI.ChangeBuildModeName(_isBuilding);
     }
 
     private void AddPlacedObject()
