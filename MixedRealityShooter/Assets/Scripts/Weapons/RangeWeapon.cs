@@ -2,6 +2,7 @@ using Oculus.Interaction;
 using UnityEngine;
 using Utility;
 using Player;
+using Projectile;
 
 namespace Weapons
 {
@@ -12,15 +13,18 @@ namespace Weapons
         [SerializeField] private int _layerMaskNum = 8;
         [SerializeField] private ActiveStateUnityEventWrapper _activeStateEvent;
         private PlayerController _playerController;
+        private ProjectilePool _projectilePool;
         private int _layerMask;
         private bool _isGrabbed = false;
 
         private void Start()
         {
             _playerController = GameObject.FindObjectOfType<PlayerController>(); //TODO: Search for alternative
+            _projectilePool = GameObject.FindObjectOfType<ProjectilePool>();
             if (_playerController != null)
             {
-                _playerController.OnInteraction.AddListener(FireWeapon);
+                //_playerController.OnInteraction.AddListener(FireWeapon);
+                _playerController.OnInteraction.AddListener(FireWeaponProjectile);
             }
             _layerMask = 1 << _layerMaskNum;
             
@@ -46,6 +50,16 @@ namespace Weapons
             }
             
             Debug.Log("Fire");
+        }
+        
+        public void FireWeaponProjectile()
+        {
+            if(!_isGrabbed)return;
+            if(_projectilePool == null)return;
+
+            var tmp = _projectilePool.ArPool.GetItem();
+            tmp.transform.position = _barrel.transform.position;
+            tmp.ThisRb.AddForce(_barrel.transform.forward * _projectileSpeed, ForceMode.Impulse);
         }
 
         public void OnGrabbed()

@@ -12,6 +12,8 @@ namespace Projectile
 
         private ObjectPool<RangeWeaponProjectile> _arPool;
         private List<RangeWeaponProjectile> _weapons;
+
+        public ObjectPool<RangeWeaponProjectile> ArPool => _arPool;
         
         private new void Awake()
         {

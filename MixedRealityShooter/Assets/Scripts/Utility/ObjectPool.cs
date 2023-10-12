@@ -21,7 +21,6 @@ namespace Utility
         {
             T tmp;
 
-            //TODO: anzahl maximaler objects beschränken und stattdessen ältestes direkt re-usen
             if (_queue.Count == 0)
             {
                 tmp = GameObject.Instantiate(_prefab).GetComponent<T>();
