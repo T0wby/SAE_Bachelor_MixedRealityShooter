@@ -35,6 +35,9 @@ namespace Weapons
             _activeStateEvent.WhenDeactivated.AddListener(OnReleased);
         }
 
+        /// <summary>
+        /// Fire Weapon using a Raycast
+        /// </summary>
         public void FireWeapon()
         {
             if(!_isGrabbed)return;
@@ -52,6 +55,9 @@ namespace Weapons
             Debug.Log("Fire");
         }
         
+        /// <summary>
+        /// Fire Weapon using a projectile
+        /// </summary>
         public void FireWeaponProjectile()
         {
             if(!_isGrabbed)return;
