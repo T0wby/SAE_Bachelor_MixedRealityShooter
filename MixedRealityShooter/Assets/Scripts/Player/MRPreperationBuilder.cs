@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Manager;
 using Oculus.Interaction;
+using PlacedObjects;
 using UnityEngine;
 using Utility;
 using Player;
@@ -15,7 +16,9 @@ public class MRPreperationBuilder : MonoBehaviour
     [SerializeField] private MrPreparationUI _mrPreparationUI;
 
     private GameObject _currCube;
-    private GameObject _objToDelete;
+    private GameObject _prevSelectedObj;
+    private GameObject _selectedObj;
+    private PlacedCube _objToDelete;
 
     [Header("Raycast Logic")]
     [SerializeField] private GameObject _rightControllerVisual;
@@ -85,13 +88,29 @@ public class MRPreperationBuilder : MonoBehaviour
         {
             Debug.DrawRay(_rightControllerVisual.transform.position,_rightControllerVisual.transform.forward * hit.distance, Color.green);
             if (!hit.transform.gameObject.CompareTag("PlacedObj")) return;
-            _objToDelete = hit.transform.gameObject;
+            _prevSelectedObj = _selectedObj;
+            _selectedObj = hit.transform.gameObject;
+            if (_objToDelete == null || _prevSelectedObj != _selectedObj)
+            {
+                ResetPrevSelected();
+                _objToDelete = _selectedObj.GetComponent<PlacedCube>();
+                _objToDelete.SetSelectedColor();
+            }
         }
         else
         {
             Debug.DrawRay(_rightControllerVisual.transform.position, _rightControllerVisual.transform.forward * 1000, Color.red);
+            ResetPrevSelected();
+            _prevSelectedObj = null;
+            _selectedObj = null;
             _objToDelete = null;
         }
+    }
+
+    private void ResetPrevSelected()
+    {
+        if (_prevSelectedObj == null)return;
+        _prevSelectedObj.GetComponent<PlacedCube>().SetNormalColor();
     }
     
     /// <summary>
@@ -217,8 +236,9 @@ public class MRPreperationBuilder : MonoBehaviour
         if (_isBuilding) return;
         if (_objToDelete == null) return;
 
-        _placedObjects.Remove(_objToDelete);
-        Destroy(_objToDelete);
+        _placedObjects.Remove(_selectedObj);
+        Destroy(_selectedObj);
         _objToDelete = null;
+        _selectedObj = null;
     }
 }
