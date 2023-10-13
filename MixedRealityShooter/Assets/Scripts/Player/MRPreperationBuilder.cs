@@ -6,6 +6,7 @@ using PlacedObjects;
 using UI;
 using UnityEngine;
 using Utility;
+using Items;
 
 namespace Player
 {
@@ -48,6 +49,7 @@ namespace Player
         private Vector3 _currScale;
         private EColliderState _colliderState = EColliderState.Position;
         private bool _isBuilding = true;
+        // TODO: Save in a file and load when the scene got switched
         private List<GameObject> _placedObjects;
 
         private void Awake()
@@ -145,6 +147,7 @@ namespace Player
             _playerController.OnRotation.AddListener(RotateCurrCube);
             _playerController.OnScale.AddListener(ScaleCurrCube);
             _playerController.OnPlaceObj.AddListener(AddPlacedObject);
+            _playerController.OnPlaceObj.AddListener(AddPlacedObjectFromInven);
 
             // DeleteMode
             _playerController.OnPlaceObj.AddListener(DeleteFocusedObject);
@@ -230,7 +233,10 @@ namespace Player
                 Debug.DrawRay(_rightControllerVisual.transform.position,
                     _rightControllerVisual.transform.forward * hit.distance, Color.green);
                 if (_currCube == null)
-                    _currCube = Instantiate(_inventory.PlaceableVRItems[_placeInvenNumber].gameObject, hit.transform.position, Quaternion.identity);
+                {
+                    _currCube = ItemManager.Instance.ReceivePoolObject(_inventory.PlaceableVRItems[_placeInvenNumber].Type).gameObject;
+                    _currCube.SetActive(true);
+                }
                 _currCube.transform.position = hit.point;
             }
             else
@@ -248,8 +254,8 @@ namespace Player
         public void SwitchThroughPlaceInven()
         {
             if(GameManager.Instance.CurrState != EGameStates.PreparePlayScene || !_isBuilding)return;
-            
-            _placeInvenNumber += 1 % _inventory.PlaceableVRItems.Count;
+            if(_inventory.PlaceableVRItems.Count <= 1)return;
+            _placeInvenNumber = (_placeInvenNumber + 1) % _inventory.PlaceableVRItems.Count;
             _currCube = null;
         }
 
@@ -371,13 +377,23 @@ namespace Player
 
         private void AddPlacedObject()
         {
-            if (!_isBuilding) return;
+            if (GameManager.Instance.CurrState != EGameStates.PrepareMRScene || !_isBuilding) return;
             if (_currCube == null) return;
 
             _currCube.layer = LayerMask.NameToLayer("Environment");
             _currCube.transform.GetChild(0).transform.gameObject.layer =
                 LayerMask.NameToLayer("Environment"); // Currently only holds one children that has the collision component
             _placedObjects.Add(_currCube);
+            _currCube = null;
+        }
+        private void AddPlacedObjectFromInven()
+        {
+            if (GameManager.Instance.CurrState != EGameStates.PreparePlayScene ||!_isBuilding) return;
+            if (_currCube == null) return;
+
+            _currCube.layer = LayerMask.NameToLayer("Environment");
+            _placedObjects.Add(_currCube);
+            _inventory.PlaceableVRItems.RemoveAt(_placeInvenNumber);
             _currCube = null;
         }
 
@@ -387,7 +403,16 @@ namespace Player
             if (_objToDelete == null) return;
 
             _placedObjects.Remove(_selectedObj);
-            Destroy(_selectedObj);
+            var tmp = _selectedObj.GetComponent<PlaceableVRItem>();
+            if (tmp != null)
+            {
+                _inventory.PlaceableVRItems.Add(tmp);
+                tmp.Deactivate();
+            }
+            else
+            {
+                Destroy(_selectedObj);
+            }
             _objToDelete = null;
             _selectedObj = null;
         }

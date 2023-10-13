@@ -26,4 +26,11 @@ namespace Utility
         Rotation,
         Scale
     }
+    public enum EPlaceableItemType
+    {
+        NONE,
+        Wall,
+        Sphere,
+        Cylinder
+    }
 }

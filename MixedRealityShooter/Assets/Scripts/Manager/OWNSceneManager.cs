@@ -8,13 +8,13 @@ namespace Manager
     {
         public void LoadVRScene()
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(2);
             GameManager.Instance.CurrState = EGameStates.InHub;
         }
         
         public void LoadMRScene()
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(1);
             GameManager.Instance.CurrState = EGameStates.PreparePlayScene;
         }
     }
