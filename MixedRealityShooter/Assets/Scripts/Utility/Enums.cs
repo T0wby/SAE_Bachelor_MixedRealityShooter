@@ -5,10 +5,11 @@ namespace Utility
     public enum EGameStates
     {
         PrepareMRScene,
-        PrepareVRScene,
+        PreparePlayScene,
         InHub,
         InGame,
-        GameOver
+        GameOver,
+        GameStart
     }
 
     public enum EWeaponType

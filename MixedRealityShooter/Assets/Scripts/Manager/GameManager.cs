@@ -8,7 +8,7 @@ namespace Manager
     {
         #region Variables
 
-        private EGameStates _currState = EGameStates.PrepareMRScene;
+        private EGameStates _currState = EGameStates.GameStart;
         public UnityEvent OnGameStateChange;
 
         #endregion
@@ -29,5 +29,6 @@ namespace Manager
         }
 
         #endregion
+
     }
 }
