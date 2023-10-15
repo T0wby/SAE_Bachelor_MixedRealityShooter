@@ -5,10 +5,9 @@ using Utility;
 
 namespace Items
 {
-    public class PlaceableItemPool : Singleton<PlaceableItemPool>
+    public class PlaceableItemPool : MonoBehaviour
     {
         [SerializeField] private GameObject _placeablePrefab;
-        [SerializeField] private GameObject _placeablePrefabTwo;
         [SerializeField] private int _poolSize = 50;
         [SerializeField] private EPlaceableItemType _ePlaceable = EPlaceableItemType.Cylinder;
 
@@ -17,9 +16,9 @@ namespace Items
         public ObjectPool<PlaceableVRItem> ItemPool => _itemPool;
         public EPlaceableItemType EPlaceable => _ePlaceable;
         
-        private new void Awake()
+        private void Awake()
         {
-            base.Awake();
+            DontDestroyOnLoad(gameObject);
             _itemPool = new ObjectPool<PlaceableVRItem>(_placeablePrefab, _poolSize, transform);
         }
     }

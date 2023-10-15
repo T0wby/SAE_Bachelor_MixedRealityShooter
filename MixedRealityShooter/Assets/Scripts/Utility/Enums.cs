@@ -4,7 +4,8 @@ namespace Utility
 {
     public enum EGameStates
     {
-        PrepareMRScene,
+        PrepareMRSceneWall,
+        PrepareMRSceneInner,
         PreparePlayScene,
         InHub,
         InGame,

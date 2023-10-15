@@ -17,6 +17,6 @@ public class StartOverallGame : MonoBehaviour
 
     private void ChangeToMrPrep(PointerEvent pointerEvent)
     {
-        GameManager.Instance.CurrState = EGameStates.PrepareMRScene;
+        GameManager.Instance.CurrState = EGameStates.PrepareMRSceneWall;
     }
 }
