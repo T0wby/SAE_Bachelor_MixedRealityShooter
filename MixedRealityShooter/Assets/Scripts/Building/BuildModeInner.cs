@@ -72,6 +72,21 @@ public class BuildModeInner : MonoBehaviour
         Debug.Log("Disable Inner");
         DisconnectMethods();
     }
+    
+    private void AddPlacedObjToOverall(List<GameObject> overallList)
+    {
+        foreach (var obj in _placedObjects)
+        {
+            if(obj == null) continue;
+            if (overallList.Contains(obj)) continue;
+            overallList.Add(obj);
+        }
+    }
+    private void RemovePlacedObjFromOverall(List<GameObject> overallList, GameObject objToRemove)
+    {
+        if (overallList.Contains(objToRemove))
+            overallList.Remove(objToRemove);
+    }
 
     private void ConnectMethods()
     {
@@ -222,6 +237,7 @@ public class BuildModeInner : MonoBehaviour
         _currCube.transform.GetChild(0).transform.gameObject.layer =
             LayerMask.NameToLayer("Environment"); // Currently only holds one children that has the collision component
         _placedObjects.Add(_currCube);
+        AddPlacedObjToOverall(GameManager.Instance.MrPlacedObjects);
         _currCube = null;
     }
 
@@ -231,6 +247,7 @@ public class BuildModeInner : MonoBehaviour
         if (_objToDelete == null) return;
 
         _placedObjects.Remove(_selectedObj);
+        RemovePlacedObjFromOverall(GameManager.Instance.MrPlacedObjects, _selectedObj);
         Destroy(_selectedObj);
         _objToDelete = null;
         _selectedObj = null;

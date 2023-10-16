@@ -77,6 +77,7 @@ namespace Building
         private void OnDisable()
         {
             Debug.Log("Disable Wall");
+            AddPlacedObjToOverall(GameManager.Instance.MrPlacedObjects);
             DisconnectMethods();
         }
 
@@ -109,6 +110,16 @@ namespace Building
         //     }
         // }
 
+        private void AddPlacedObjToOverall(List<GameObject> overallList)
+        {
+            foreach (var obj in _placedObjects)
+            {
+                if(obj == null) continue;
+                if (overallList.Contains(obj)) continue;
+                overallList.Add(obj);
+            }
+        }
+        
         private void ConnectMethods()
         {
             // BuildMode
@@ -259,6 +270,9 @@ namespace Building
         // }
         
         #endregion
+
+        #region Object Interactions
+
         private void RotateCurrCube(Vector2 thumbstickValue)
         {
             if (_colliderState != EColliderState.Rotation || _currWall == null) return;
@@ -310,6 +324,42 @@ namespace Building
 
             _currWall.transform.localScale = _currScale;
         }
+        
+        private void AddPlacedObject()
+        {
+            if (GameManager.Instance.CurrState != EGameStates.PrepareMRSceneWall || !_isBuilding) return;
+            if (_currWall == null) return;
+
+            _currWall.layer = LayerMask.NameToLayer("Environment");
+            _currWall.transform.GetChild(0).transform.gameObject.layer =
+                LayerMask.NameToLayer("Environment"); // Currently only holds one children that has the collision component
+            _placedObjects.Add(_currWall);
+            _currWall = null;
+        }
+        
+        private void DeleteFocusedObject()
+        {
+            if (_isBuilding) return;
+            if (_objToDelete == null) return;
+
+            _placedObjects.Remove(_selectedObj);
+            var tmp = _selectedObj.GetComponent<PlaceableVRItem>();
+            if (tmp != null)
+            {
+                _inventory.PlaceableVRItems.Add(tmp);
+                tmp.Deactivate();
+            }
+            else
+            {
+                Destroy(_selectedObj);
+            }
+            _objToDelete = null;
+            _selectedObj = null;
+        }
+
+        #endregion
+
+        #region SwitchModes
 
         private void SwitchStates()
         {
@@ -346,47 +396,6 @@ namespace Building
             _mrPreparationUI.ChangeBuildModeName(_isBuilding);
         }
 
-        private void AddPlacedObject()
-        {
-            if (GameManager.Instance.CurrState != EGameStates.PrepareMRSceneWall || !_isBuilding) return;
-            if (_currWall == null) return;
-
-            _currWall.layer = LayerMask.NameToLayer("Environment");
-            _currWall.transform.GetChild(0).transform.gameObject.layer =
-                LayerMask.NameToLayer("Environment"); // Currently only holds one children that has the collision component
-            _placedObjects.Add(_currWall);
-            _currWall = null;
-        }
-        
-        // private void AddPlacedObjectFromInven()
-        // {
-        //     if (GameManager.Instance.CurrState != EGameStates.PreparePlayScene ||!_isBuilding) return;
-        //     if (_currWall == null) return;
-        //
-        //     _currWall.layer = LayerMask.NameToLayer("Environment");
-        //     _placedObjects.Add(_currWall);
-        //     _inventory.PlaceableVRItems.RemoveAt(_placeInvenNumber);
-        //     _currWall = null;
-        // }
-
-        private void DeleteFocusedObject()
-        {
-            if (_isBuilding) return;
-            if (_objToDelete == null) return;
-
-            _placedObjects.Remove(_selectedObj);
-            var tmp = _selectedObj.GetComponent<PlaceableVRItem>();
-            if (tmp != null)
-            {
-                _inventory.PlaceableVRItems.Add(tmp);
-                tmp.Deactivate();
-            }
-            else
-            {
-                Destroy(_selectedObj);
-            }
-            _objToDelete = null;
-            _selectedObj = null;
-        }
+        #endregion
     }
 }

@@ -67,7 +67,18 @@ public class BuildModeGamePrep : MonoBehaviour
     private void OnDisable()
     {
         Debug.Log("Disable GamePrep");
+        AddPlacedObjToOverall(GameManager.Instance.MrPlacedObjects);
         DisconnectMethods();
+    }
+    
+    private void AddPlacedObjToOverall(List<GameObject> overallList)
+    {
+        foreach (var obj in _placedObjects)
+        {
+            if(obj == null) continue;
+            if (overallList.Contains(obj)) continue;
+            overallList.Add(obj);
+        }
     }
 
     private void ConnectMethods()

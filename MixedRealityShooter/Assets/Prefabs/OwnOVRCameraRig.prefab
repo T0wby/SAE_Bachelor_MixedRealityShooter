@@ -922,6 +922,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: 100
+  _centerEyeAnchor: {fileID: 0}
+  _thisCollider: {fileID: 0}
   OnHealthChange:
     m_PersistentCalls:
       m_Calls: []

@@ -12,6 +12,7 @@ namespace PlacedObjects
         {
             _ownMat = GetComponent<MeshRenderer>().material;
             DontDestroyOnLoad(transform.parent.gameObject);
+            SetNormalColor();
         }
 
         public void SetSelectedColor()
