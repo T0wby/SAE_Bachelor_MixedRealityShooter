@@ -298,6 +298,8 @@ public class BuildModeInner : MonoBehaviour
 
         _colliderState = _isBuilding ? EColliderState.Position : EColliderState.NONE;
         _mrPreparationUI.ChangeBuildModeName(_isBuilding);
+        if(!_isBuilding && _currCube != null)
+            Destroy(_currCube);
     }
 
     #endregion

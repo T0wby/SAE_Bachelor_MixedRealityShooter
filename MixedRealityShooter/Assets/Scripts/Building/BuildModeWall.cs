@@ -18,7 +18,6 @@ namespace Building
         [SerializeField] private PlayerController _playerController;
         [SerializeField] private MrPreparationUI _mrPreparationUI;
 
-        private PlayerInventory _inventory;
         private GameObject _currWall;
         private GameObject _prevSelectedObj;
         private GameObject _selectedObj;
@@ -50,7 +49,6 @@ namespace Building
             _layerMask = 1 << _layerMaskNum;
             _placedObjects = new List<GameObject>();
             _mrPreparationUI.ChangeBuildModeName(_isBuilding);
-            _inventory = FindObjectOfType<PlayerInventory>();
         }
 
         private void FixedUpdate()
@@ -294,6 +292,8 @@ namespace Building
 
             _colliderState = _isBuilding ? EColliderState.Position : EColliderState.NONE;
             _mrPreparationUI.ChangeBuildModeName(_isBuilding);
+            if(!_isBuilding && _currWall != null)
+                Destroy(_currWall);
         }
 
         #endregion
