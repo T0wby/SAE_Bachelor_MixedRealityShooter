@@ -10,7 +10,7 @@ namespace UI
         public void ChangeBuildModeName(bool isBuildMode)
         {
             if(_buildModeName == null) return;
-            _buildModeName.text = isBuildMode ? "Build" : "Delete";
+            _buildModeName.text = isBuildMode ? "BuildMode: Place Object" : "BuildMode: Delete Object";
         }
     }
 }

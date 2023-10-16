@@ -4,7 +4,7 @@ using Utility;
 
 namespace Items
 {
-    public class PlaceableVRItem : APlacedObject, IPoolable<PlaceableVRItem>
+    public class PlaceableVRItem : APlacedObject, IPoolable<PlaceableVRItem>, IDamage
     {
         private ObjectPool<PlaceableVRItem> _pool;
         [SerializeField] private EPlaceableItemType _type;
@@ -24,6 +24,11 @@ namespace Items
         public void Deactivate()
         {
             gameObject.SetActive(false);
+        }
+
+        public void TakeDamage(int damage)
+        {
+            Debug.Log($"{gameObject.name} took {damage} damage!");
         }
     }
 }

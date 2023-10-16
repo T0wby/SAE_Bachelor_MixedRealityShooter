@@ -11,6 +11,7 @@ namespace PlacedObjects
         private void Awake()
         {
             _ownMat = GetComponent<MeshRenderer>().material;
+            DontDestroyOnLoad(transform.parent.gameObject);
         }
 
         public void SetSelectedColor()

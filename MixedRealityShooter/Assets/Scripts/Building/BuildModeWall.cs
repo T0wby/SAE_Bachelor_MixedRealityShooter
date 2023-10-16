@@ -118,7 +118,6 @@ namespace Building
             _playerController.OnRotation.AddListener(RotateCurrCube);
             _playerController.OnScale.AddListener(ScaleCurrCube);
             _playerController.OnPlaceObj.AddListener(AddPlacedObject);
-            //_playerController.OnPlaceObj.AddListener(AddPlacedObjectFromInven);
 
             // DeleteMode
             _playerController.OnPlaceObj.AddListener(DeleteFocusedObject);
@@ -133,7 +132,6 @@ namespace Building
             _playerController.OnRotation.RemoveListener(RotateCurrCube);
             _playerController.OnScale.RemoveListener(ScaleCurrCube);
             _playerController.OnPlaceObj.RemoveListener(AddPlacedObject);
-            //_playerController.OnPlaceObj.RemoveListener(AddPlacedObjectFromInven);
 
             // DeleteMode
             _playerController.OnPlaceObj.RemoveListener(DeleteFocusedObject);

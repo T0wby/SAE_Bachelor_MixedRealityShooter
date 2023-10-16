@@ -720,6 +720,7 @@ GameObject:
   - component: {fileID: 2773668993758144159}
   - component: {fileID: 2147292498392458744}
   - component: {fileID: 8479065825429728324}
+  - component: {fileID: 535936744382945476}
   - component: {fileID: 2138098259580122615}
   m_Layer: 0
   m_Name: OwnOVRCameraRig
@@ -743,7 +744,7 @@ Transform:
   - {fileID: 3215305100013737615}
   - {fileID: 3414705969302807475}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1926705710425129782
 MonoBehaviour:
@@ -891,11 +892,39 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 94c259a8-c77f-46ab-8876-cad1ecbede92
     m_ActionName: Player/Interact
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: bbc274d9-5eec-4318-82e0-2611bd29f952
+    m_ActionName: Player/RotateAndScale
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ec6d25cf-1a3c-413b-9f1c-cecf331b77a3
+    m_ActionName: Player/SwitchRotScale
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 270daba7-a55e-4435-8561-cb9bd17f5765
+    m_ActionName: Player/PlaceObj
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &535936744382945476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9031611998157723857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3f508e6df9ed7e47ad068e34e172d39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: 100
+  OnHealthChange:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &2138098259580122615
 MonoBehaviour:
   m_ObjectHideFlags: 0
