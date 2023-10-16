@@ -115,8 +115,6 @@ public class BuildModeGamePrep : MonoBehaviour
             if (Physics.Raycast(_rightControllerVisual.transform.position, _rightControllerVisual.transform.forward,
                     out var hit, Mathf.Infinity, _layerMask))
             {
-                Debug.DrawRay(_rightControllerVisual.transform.position,
-                    _rightControllerVisual.transform.forward * hit.distance, Color.green);
                 if (_currCube == null)
                 {
                     _currCube = ItemManager.Instance.ReceivePoolObject(_inventory.PlaceableVRItems[_placeInvenNumber].Type).gameObject;
@@ -126,28 +124,33 @@ public class BuildModeGamePrep : MonoBehaviour
             }
             else
             {
-                Debug.DrawRay(_rightControllerVisual.transform.position, _rightControllerVisual.transform.forward * 1000,
-                    Color.red);
                 if (_currCube != null)
                     Destroy(_currCube);
             }
         }
         
         
-        private void ResetPrevSelected()
+    private void ResetPrevSelected()
         {
             if (_prevSelectedObj == null) return;
             _prevSelectedObj.GetComponent<APlacedObject>().SetNormalColor();
         }
 
-        private void SearchForPlacedInvenObjectToDelete()
+    private void SearchForPlacedInvenObjectToDelete()
         {
             if (Physics.Raycast(_rightControllerVisual.transform.position, _rightControllerVisual.transform.forward,
                     out var hit, Mathf.Infinity, _layerMask))
             {
-                Debug.DrawRay(_rightControllerVisual.transform.position,
-                    _rightControllerVisual.transform.forward * hit.distance, Color.green);
-                if (!hit.transform.gameObject.CompareTag("InvenObj")) return;
+                if (!hit.transform.gameObject.CompareTag("InvenObj"))
+                {
+                    if (_objToDelete != null)
+                    {
+                        _objToDelete.SetNormalColor();
+                        _objToDelete = null;
+                    }
+                    _selectedObj = null;
+                    return;
+                }
                 _prevSelectedObj = _selectedObj;
                 _selectedObj = hit.transform.gameObject;
                 if (_objToDelete == null || _prevSelectedObj != _selectedObj)
@@ -159,8 +162,6 @@ public class BuildModeGamePrep : MonoBehaviour
             }
             else
             {
-                Debug.DrawRay(_rightControllerVisual.transform.position, _rightControllerVisual.transform.forward * 1000,
-                    Color.red);
                 ResetPrevSelected();
                 _prevSelectedObj = null;
                 _selectedObj = null;
@@ -244,7 +245,7 @@ public class BuildModeGamePrep : MonoBehaviour
         int newState = (int)(_colliderState + 1);
 
         _colliderState = (EColliderState)(newState % 4); // %4 due to EColliderState having 4 different states
-        if (_colliderState == EColliderState.NONE)
+        if (_colliderState is EColliderState.NONE or EColliderState.Scale)
             _colliderState = EColliderState.Position;
     }
 

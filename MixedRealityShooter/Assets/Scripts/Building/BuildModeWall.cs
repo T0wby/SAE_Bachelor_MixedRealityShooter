@@ -43,7 +43,6 @@ namespace Building
         private Vector3 _currScale;
         private EColliderState _colliderState = EColliderState.Position;
         private bool _isBuilding = true;
-        // TODO: Save in a file and load when the scene got switched
         private List<GameObject> _placedObjects;
 
         private void Awake()
@@ -53,11 +52,6 @@ namespace Building
             _mrPreparationUI.ChangeBuildModeName(_isBuilding);
             _inventory = FindObjectOfType<PlayerInventory>();
         }
-
-        // private void Start()
-        // {
-        //     ConnectMethods();
-        // }
 
         private void FixedUpdate()
         {
@@ -80,35 +74,6 @@ namespace Building
             AddPlacedObjToOverall(GameManager.Instance.MrPlacedObjects);
             DisconnectMethods();
         }
-
-        // private void PickRayMethod()
-        // {
-        //     switch (GameManager.Instance.CurrState)
-        //     {
-        //         case EGameStates.PrepareMRSceneWall:
-        //             if (_isBuilding)
-        //                 SearchForPoint();
-        //             else
-        //                 SearchForObject();
-        //             break;
-        //         case EGameStates.PreparePlayScene:
-        //             if (_isBuilding)
-        //                 SearchForPointFromInven();
-        //             else
-        //                 SearchForPlacedInvenObjectToDelete();
-        //             break;
-        //         case EGameStates.InHub:
-        //             break;
-        //         case EGameStates.InGame:
-        //             break;
-        //         case EGameStates.GameOver:
-        //             break;
-        //         case EGameStates.GameStart:
-        //             break;
-        //         default:
-        //             throw new ArgumentOutOfRangeException();
-        //     }
-        // }
 
         private void AddPlacedObjToOverall(List<GameObject> overallList)
         {
@@ -158,9 +123,16 @@ namespace Building
             if (Physics.Raycast(_rightControllerVisual.transform.position, _rightControllerVisual.transform.forward,
                     out var hit, Mathf.Infinity, _layerMask))
             {
-                Debug.DrawRay(_rightControllerVisual.transform.position,
-                    _rightControllerVisual.transform.forward * hit.distance, Color.green);
-                if (!hit.transform.gameObject.CompareTag("PlacedObj") && !hit.transform.gameObject.CompareTag("Wall")) return;
+                if (!hit.transform.gameObject.CompareTag("Wall"))
+                {
+                    if (_objToDelete != null)
+                    {
+                        _objToDelete.SetNormalColor();
+                        _objToDelete = null;
+                    }
+                    _selectedObj = null;
+                    return;
+                }
                 _prevSelectedObj = _selectedObj;
                 _selectedObj = hit.transform.gameObject;
                 if (_objToDelete == null || _prevSelectedObj != _selectedObj)
@@ -172,8 +144,6 @@ namespace Building
             }
             else
             {
-                Debug.DrawRay(_rightControllerVisual.transform.position, _rightControllerVisual.transform.forward * 1000,
-                    Color.red);
                 ResetPrevSelected();
                 _prevSelectedObj = null;
                 _selectedObj = null;
@@ -207,67 +177,6 @@ namespace Building
                     Destroy(_currWall);
             }
         }
-        
-        // private void SearchForPointFromInven()
-        // {
-        //     if (_colliderState != EColliderState.Position) return;
-        //     if (_inventory.PlaceableVRItems.Count <= 0) return;
-        //
-        //     if (Physics.Raycast(_rightControllerVisual.transform.position, _rightControllerVisual.transform.forward,
-        //             out var hit, Mathf.Infinity, _layerMask))
-        //     {
-        //         if (_currWall == null)
-        //         {
-        //             _currWall = ItemManager.Instance.ReceivePoolObject(_inventory.PlaceableVRItems[_placeInvenNumber].Type).gameObject;
-        //             _currWall.SetActive(true);
-        //         }
-        //         _currWall.transform.position = hit.point;
-        //     }
-        //     else
-        //     {
-        //         if (_currWall != null)
-        //             Destroy(_currWall);
-        //     }
-        // }
-        //
-        // /// <summary>
-        // /// Ref on Button to switch through Inventory
-        // /// </summary>
-        // public void SwitchThroughPlaceInven()
-        // {
-        //     if(GameManager.Instance.CurrState != EGameStates.PreparePlayScene || !_isBuilding)return;
-        //     if(_inventory.PlaceableVRItems.Count <= 1)return;
-        //     _placeInvenNumber = (_placeInvenNumber + 1) % _inventory.PlaceableVRItems.Count;
-        //     _currWall = null;
-        // }
-        //
-        // private void SearchForPlacedInvenObjectToDelete()
-        // {
-        //     if (Physics.Raycast(_rightControllerVisual.transform.position, _rightControllerVisual.transform.forward,
-        //             out var hit, Mathf.Infinity, _layerMask))
-        //     {
-        //         Debug.DrawRay(_rightControllerVisual.transform.position,
-        //             _rightControllerVisual.transform.forward * hit.distance, Color.green);
-        //         if (!hit.transform.gameObject.CompareTag("InvenObj")) return;
-        //         _prevSelectedObj = _selectedObj;
-        //         _selectedObj = hit.transform.gameObject;
-        //         if (_objToDelete == null || _prevSelectedObj != _selectedObj)
-        //         {
-        //             ResetPrevSelected();
-        //             _objToDelete = _selectedObj.GetComponent<APlacedObject>();
-        //             _objToDelete.SetSelectedColor();
-        //         }
-        //     }
-        //     else
-        //     {
-        //         Debug.DrawRay(_rightControllerVisual.transform.position, _rightControllerVisual.transform.forward * 1000,
-        //             Color.red);
-        //         ResetPrevSelected();
-        //         _prevSelectedObj = null;
-        //         _selectedObj = null;
-        //         _objToDelete = null;
-        //     }
-        // }
         
         #endregion
 
@@ -343,16 +252,7 @@ namespace Building
             if (_objToDelete == null) return;
 
             _placedObjects.Remove(_selectedObj);
-            var tmp = _selectedObj.GetComponent<PlaceableVRItem>();
-            if (tmp != null)
-            {
-                _inventory.PlaceableVRItems.Add(tmp);
-                tmp.Deactivate();
-            }
-            else
-            {
-                Destroy(_selectedObj);
-            }
+            Destroy(_selectedObj);
             _objToDelete = null;
             _selectedObj = null;
         }

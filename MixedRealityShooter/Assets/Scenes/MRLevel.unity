@@ -1495,6 +1495,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 637320457}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &637320459 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8841918610056004026, guid: 3da73395eaa4f9f4492e74d90062c2ee,
+    type: 3}
+  m_PrefabInstance: {fileID: 637320457}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cf1ec6b6e44d2342ac9ecc7fc989006, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &676060218
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2589,7 +2601,7 @@ MonoBehaviour:
   _wallPrefab: {fileID: 2553025659263086903, guid: 977d53966f3e5bc498d2fd5d465aa8af,
     type: 3}
   _playerController: {fileID: 477502738}
-  _mrPreparationUI: {fileID: 941895465}
+  _mrPreparationUI: {fileID: 637320459}
   _rightControllerVisual: {fileID: 1376203894}
   _rightController: {fileID: 371680762}
   _layerMaskNum: 6

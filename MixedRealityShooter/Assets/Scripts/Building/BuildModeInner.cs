@@ -126,7 +126,16 @@ public class BuildModeInner : MonoBehaviour
         if (Physics.Raycast(_rightControllerVisual.transform.position, _rightControllerVisual.transform.forward,
                 out var hit, Mathf.Infinity, _layerMask))
         {
-            if (!hit.transform.gameObject.CompareTag("PlacedObj")) return;
+            if (!hit.transform.gameObject.CompareTag("PlacedObj"))
+            {
+                if (_objToDelete != null)
+                {
+                    _objToDelete.SetNormalColor();
+                    _objToDelete = null;
+                }
+                _selectedObj = null;
+                return;
+            }
             _prevSelectedObj = _selectedObj;
             _selectedObj = hit.transform.gameObject;
             if (_objToDelete == null || _prevSelectedObj != _selectedObj)
