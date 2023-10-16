@@ -34,4 +34,11 @@ namespace Utility
         Sphere,
         Cylinder
     }
+    
+    public enum ENodeState
+    {
+        RUNNING,
+        SUCCESS,
+        FAILURE
+    }
 }
