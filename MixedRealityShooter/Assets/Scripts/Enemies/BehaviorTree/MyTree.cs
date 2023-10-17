@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Enemys.BehaviorTree
+namespace Enemies.BehaviorTree
 {
     public abstract class MyTree : MonoBehaviour
     {

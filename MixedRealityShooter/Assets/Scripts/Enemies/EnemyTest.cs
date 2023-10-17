@@ -2,7 +2,7 @@ using System;
 using Player;
 using UnityEngine;
 
-namespace Enemys
+namespace Enemies
 {
     public class EnemyTest : MonoBehaviour
     {

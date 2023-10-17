@@ -12,13 +12,17 @@ namespace Utility
         GameOver,
         GameStart
     }
-
     public enum EWeaponType
     {
         AssaultRifle,
         Pistol,
         Dagger,
         Grenade
+    }
+    public enum EEnemyType
+    {
+        Range,
+        Melee
     }
     public enum EColliderState
     {
@@ -34,7 +38,6 @@ namespace Utility
         Sphere,
         Cylinder
     }
-    
     public enum ENodeState
     {
         RUNNING,

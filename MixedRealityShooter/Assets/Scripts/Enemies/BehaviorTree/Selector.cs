@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Utility;
 
-namespace Enemys.BehaviorTree
+namespace Enemies.BehaviorTree
 {
     public class Selector : Node
     {
