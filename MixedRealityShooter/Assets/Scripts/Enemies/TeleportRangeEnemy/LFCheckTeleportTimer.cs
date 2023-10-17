@@ -5,6 +5,9 @@ namespace Enemies.TeleportRangeEnemy
 {
     public class LFCheckTeleportTimer : Node
     {
-        
+        public LFCheckTeleportTimer()
+        {
+            
+        }
     }
 }

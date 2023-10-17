@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Enemies.TeleportRangeEnemy;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Utility;
@@ -31,6 +32,8 @@ namespace Weapons
             _projectileSpeed = _defaultSettings.ProjectileSpeed;
             _bulletsPerSecond = _defaultSettings.BulletsPerSecond;
         }
+
+        public virtual void Attack(){ }
 
         public void UpgradeDamage()
         {

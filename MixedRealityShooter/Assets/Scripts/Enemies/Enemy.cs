@@ -1,6 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Net.Http.Headers;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using Utility;
@@ -17,6 +16,7 @@ namespace Enemies
         private int _healthPotionAmount = 0;
         private Transform _destination;
         private AWeapon _activeWeapon;
+        private bool _isAttacking = false;
 
         #endregion
 
@@ -24,6 +24,8 @@ namespace Enemies
 
         public EnemySettings Settings => _settings;
         public Transform Destination => _destination;
+        public bool IsAttacking => _isAttacking;
+        public int HealthPotionAmount => _healthPotionAmount;
         public int CurrHealth
         {
             get => _currHealth;
@@ -73,6 +75,24 @@ namespace Enemies
         public void SearchDestination()
         {
             
+        }
+
+        public void StartAttack()
+        {
+            StartCoroutine(Attack());
+        }
+
+        IEnumerator Attack()
+        {
+            if (!_isAttacking)
+            {
+                _isAttacking = true;
+                _activeWeapon.Attack();
+                yield return new WaitForSeconds(_settings.AttackTimer);
+                _isAttacking = false;
+            }
+
+            yield return null;
         }
 
         public void Heal()

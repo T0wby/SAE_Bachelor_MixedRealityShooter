@@ -14,14 +14,14 @@ namespace Enemies.TeleportRangeEnemy
                 new Sequence(new List<Node>
                 {
                     new LFCheckHealth(_enemy.CurrHealth, _enemy.Settings.HealthThreshold),
-                    new LFCheckForPotion(),
+                    new LFCheckForPotion(_enemy),
                     new LFHeal(_enemy),
                 }),
                 new Sequence(new List<Node>
                 {
                     new LFCheckForEnemy(),
-                    new LFCheckAttackTimer(),
-                    new LFAttack(),
+                    new LFCheckAttackTimer(_enemy),
+                    new LFAttack(_enemy),
                 }),
                 new Sequence(new List<Node>
                 {

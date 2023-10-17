@@ -6,18 +6,18 @@ namespace Enemies.TeleportRangeEnemy
 {
     public class LFAttack : Node
     {
-        public LFAttack()
+        private Enemy _enemy;
+        
+        public LFAttack(Enemy enemy)
         {
-            
+            _enemy = enemy;
         }
         
         public override ENodeState CalculateState()
         {
-            var tmp = GetData("target");
-
-            if (tmp == null) return ENodeState.FAILURE;
+            _enemy.StartAttack();
             
-            return _state;
+            return ENodeState.SUCCESS;
         }
     }
 }
