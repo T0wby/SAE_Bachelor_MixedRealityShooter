@@ -10,7 +10,9 @@ namespace Enemies
 
         private void OnCollisionEnter(Collision other)
         {
-            var tmp = other.transform.parent.GetComponent<PlayerStatus>();
+            Transform tmpTR = other.transform.parent;
+            if (tmpTR == null) return;
+            var tmp = tmpTR.GetComponent<PlayerStatus>();
             if (tmp != null)
             {
                 Debug.Log($"{gameObject.name} dealt {_damage} damage!");

@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ce9ad64fe71e9d145a2e9eae5110b427, type: 2}
+  - {fileID: 2100000, guid: 6253d56846cd2ab4b8576e30db526671, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -130,7 +130,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6477807211363765846}
   m_Layer: 0
-  m_Name: ColliderCube
+  m_Name: InnerObjectPrefab
   m_TagString: PlacedObj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
