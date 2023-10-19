@@ -23,7 +23,11 @@ namespace Enemies
         #region Properties
 
         public EnemySettings Settings => _settings;
-        public Transform Destination => _destination;
+        public Transform Destination
+        {
+            get => _destination;
+            set => _destination = value;
+        }
         public bool IsAttacking => _isAttacking;
         public int HealthPotionAmount => _healthPotionAmount;
         public int CurrHealth
@@ -68,11 +72,6 @@ namespace Enemies
         }
 
         private void SpawnWeapon()
-        {
-            
-        }
-        
-        public void SearchDestination()
         {
             
         }

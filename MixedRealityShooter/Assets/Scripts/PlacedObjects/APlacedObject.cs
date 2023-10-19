@@ -18,12 +18,10 @@ namespace PlacedObjects
         public void SetSelectedColor()
         {
             _ownMat.SetColor("_NormalColor", _selectedColor);
-            //_ownMat.SetFloat("_Alpha", _selectedColor.a);
         }
         public void SetNormalColor()
         {
             _ownMat.SetColor("_NormalColor", _normalColor);
-            //_ownMat.SetFloat("_Alpha", _normalColor.a);
         }
     }
 }

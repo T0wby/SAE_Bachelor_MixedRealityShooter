@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using PlacedObjects;
 using Player;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Enemies
 {
@@ -44,6 +46,62 @@ namespace Enemies
                 if (!_placedObjs.Contains(other.gameObject))return;
                 _placedObjs.Remove(other.gameObject);
             }
+        }
+
+        public void GetSpawnPoint()
+        {
+            Transform point = GetRandomSpawnPoint();
+            if (point == null)
+            {
+                point = GetRandomPointAroundPlayer();
+            }
+
+            _enemy.Destination = point;
+        }
+
+        private Transform GetRandomSpawnPoint()
+        {
+            int ran = Random.Range(0, _placedObjs.Count);
+            var ranSelect = _placedObjs[ran].GetComponent<PlacedCube>();
+            if (ranSelect != null)
+            {
+                Transform furthest = FurthestPoint(ranSelect.GetValidSpawnPoints());
+                if (furthest == null)
+                    Debug.LogError("furthest Spawnpoint is null, which means no valid point was found");
+                return furthest;
+            }
+
+            return null;
+        }
+
+        private Transform GetRandomPointAroundPlayer()
+        {
+            Transform targetPos = transform;
+            var pos = Random.insideUnitCircle * 3;
+
+            targetPos.position = new Vector3(pos.x, 0.5f, pos.y);
+
+            return targetPos;
+        }
+
+        private Transform FurthestPoint(List<Transform> availableSpawns)
+        {
+            Transform furthest = null;
+            float tmp;
+            float highest = float.MinValue;
+
+            foreach (var spawn in availableSpawns)
+            {
+                tmp = (spawn.position - _enemy.transform.position).sqrMagnitude;
+
+                if (tmp > highest)
+                {
+                    highest = tmp;
+                    furthest = spawn;
+                }
+            }
+
+            return furthest;
         }
     }
 }

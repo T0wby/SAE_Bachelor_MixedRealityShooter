@@ -26,7 +26,7 @@ namespace Enemies.TeleportRangeEnemy
                 new Sequence(new List<Node>
                 {
                     new LFCheckTeleportTimer(),
-                    new LFTeleport(),
+                    new LFTeleport(_enemy),
                 }),
             });
         
