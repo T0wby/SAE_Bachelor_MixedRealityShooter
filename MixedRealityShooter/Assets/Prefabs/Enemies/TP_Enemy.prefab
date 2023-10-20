@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8508166158600086913}
   - component: {fileID: 3046139209404889859}
   - component: {fileID: 8556925650299385306}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TargetDetection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 5365257457002110247}
   - component: {fileID: 6888922258055260203}
   - component: {fileID: 5155923785409460447}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TP_Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,6 +115,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _settings: {fileID: 11400000, guid: 6367e36de380fe24996833e625bfa764, type: 2}
+  _ownTargetDetection: {fileID: 8556925650299385306}
+  _weaponSlot: {fileID: 7342669677090084179}
   OnHealthChange:
     m_PersistentCalls:
       m_Calls: []
@@ -142,7 +144,7 @@ GameObject:
   - component: {fileID: 3968838072890278990}
   - component: {fileID: 3934246731965135268}
   - component: {fileID: 2941639643722138564}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -214,6 +216,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &7706116070428755589
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7342669677090084179}
+  m_Layer: 7
+  m_Name: WeaponSlot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7342669677090084179
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7706116070428755589}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.23, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5673172370584949660}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7757929339039113175
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,7 +257,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5673172370584949660}
   - component: {fileID: 343784404261855204}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -244,6 +277,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8508166158600086913}
+  - {fileID: 7342669677090084179}
   m_Father: {fileID: 5365257457002110247}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -12,11 +12,15 @@ namespace Enemies
         #region Variables
 
         [SerializeField] private EnemySettings _settings;
+        [SerializeField] private EnemyTargetDetection _ownTargetDetection;
+        [SerializeField] private Transform _weaponSlot;
         private int _currHealth = 0;
         private int _healthPotionAmount = 0;
         private Transform _destination;
         private AWeapon _activeWeapon;
         private bool _isAttacking = false;
+        private bool _canMove = true;
+        private int _layermask;
 
         #endregion
 
@@ -29,6 +33,7 @@ namespace Enemies
             set => _destination = value;
         }
         public bool IsAttacking => _isAttacking;
+        public bool CanMove => _canMove;
         public int HealthPotionAmount => _healthPotionAmount;
         public int CurrHealth
         {
@@ -59,6 +64,8 @@ namespace Enemies
         private void Awake()
         {
             SetDefaultStats();
+            _layermask = LayerMask.NameToLayer("Enemy");
+            _layermask = ~_layermask;
         }
 
         #endregion
@@ -74,6 +81,25 @@ namespace Enemies
         private void SpawnWeapon()
         {
             
+        }
+
+        public void StartTeleport()
+        {
+            StartCoroutine(Teleport());
+        }
+        
+        IEnumerator Teleport()
+        {
+            if (_canMove)
+            {
+                _canMove = false;
+                transform.position = _destination.position;
+                Quaternion.LookRotation(_ownTargetDetection.Player.transform.position, Vector3.up);
+                yield return new WaitForSeconds(_settings.MoveTimer);
+                _canMove = true;
+            }
+
+            yield return null;
         }
 
         public void StartAttack()
@@ -103,6 +129,23 @@ namespace Enemies
         public void TakeDamage(int damage)
         {
             CurrHealth -= damage;
+        }
+
+        public bool CheckForPlayerInSight()
+        {
+            float angle = Vector3.Angle(transform.position, _ownTargetDetection.Player.transform.position);
+
+            if (angle <= _settings.FOV)
+            {
+                if (Physics.Raycast(_weaponSlot.transform.position, _ownTargetDetection.Player.transform.position, out var hit, Mathf.Infinity, _layermask))
+                {
+                    return hit.transform.CompareTag("Player");
+                }
+                else
+                    return false;
+            }
+            else
+                return false;
         }
 
         #region Pool Methods

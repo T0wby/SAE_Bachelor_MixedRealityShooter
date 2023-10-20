@@ -19,13 +19,13 @@ namespace Enemies.TeleportRangeEnemy
                 }),
                 new Sequence(new List<Node>
                 {
-                    new LFCheckForEnemy(),
+                    new LFCheckForEnemy(_enemy),
                     new LFCheckAttackTimer(_enemy),
                     new LFAttack(_enemy),
                 }),
                 new Sequence(new List<Node>
                 {
-                    new LFCheckTeleportTimer(),
+                    new LFCheckTeleportTimer(_enemy),
                     new LFTeleport(_enemy),
                 }),
             });
