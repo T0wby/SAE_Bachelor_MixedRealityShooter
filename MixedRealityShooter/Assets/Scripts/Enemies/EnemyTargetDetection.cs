@@ -61,7 +61,11 @@ namespace Enemies
 
         private Transform GetRandomSpawnPoint()
         {
-            int ran = Random.Range(0, _placedObjs.Count);
+            int count = _placedObjs.Count;
+
+            if (count == 0) return null;
+            
+            int ran = Random.Range(0, count);
             var ranSelect = _placedObjs[ran].GetComponent<PlacedCube>();
             if (ranSelect != null)
             {

@@ -1,4 +1,5 @@
 using Enemies.BehaviorTree;
+using UnityEngine;
 using Utility;
 
 namespace Enemies.TeleportRangeEnemy
@@ -16,6 +17,7 @@ namespace Enemies.TeleportRangeEnemy
 
         public override ENodeState CalculateState()
         {
+            Debug.Log("LFCheckHealth");
             return _state = (_currHealth < _healthThreshold) ? ENodeState.SUCCESS : ENodeState.FAILURE;
         }
     }

@@ -14,13 +14,9 @@ namespace Enemies.TeleportRangeEnemy
 
         public override ENodeState CalculateState()
         {
-            if (_enemy.Destination != null)
-            {
-                _enemy.transform.position = _enemy.Destination.position;
-                return ENodeState.SUCCESS;
-            }
-
-            return ENodeState.FAILURE;
+            Debug.Log("LFTeleport");
+            _enemy.StartTeleport();
+            return ENodeState.SUCCESS;
         }
     }
 }

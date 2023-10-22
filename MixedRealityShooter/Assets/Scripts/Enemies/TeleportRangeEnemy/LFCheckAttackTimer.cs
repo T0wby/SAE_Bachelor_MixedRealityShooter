@@ -14,6 +14,7 @@ namespace Enemies.TeleportRangeEnemy
 
         public override ENodeState CalculateState()
         {
+            Debug.Log("LFCheckAttackTimer");
             return _enemy.IsAttacking ? ENodeState.FAILURE : ENodeState.SUCCESS;
         }
     }

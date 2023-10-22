@@ -15,6 +15,7 @@ namespace Enemies.TeleportRangeEnemy
         
         public override ENodeState CalculateState()
         {
+            Debug.Log("LFAttack");
             _enemy.StartAttack();
             
             return ENodeState.SUCCESS;

@@ -14,6 +14,7 @@ namespace Enemies.TeleportRangeEnemy
 
         public override ENodeState CalculateState()
         {
+            Debug.Log("LFCheckTeleportTimer");
             return _enemy.CanMove ? ENodeState.SUCCESS : ENodeState.FAILURE;
         }
     }

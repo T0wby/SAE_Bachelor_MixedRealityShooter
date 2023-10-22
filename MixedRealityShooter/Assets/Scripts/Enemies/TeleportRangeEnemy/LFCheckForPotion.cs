@@ -14,6 +14,7 @@ namespace Enemies.TeleportRangeEnemy
 
         public override ENodeState CalculateState()
         {
+            Debug.Log("LFCheckForPotion");
             return _enemy.HealthPotionAmount > 0 ? ENodeState.SUCCESS : ENodeState.FAILURE;
         }
     }

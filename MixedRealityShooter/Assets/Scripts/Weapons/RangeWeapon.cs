@@ -68,6 +68,16 @@ namespace Weapons
             tmp.ThisRb.AddForce(_barrel.transform.forward * _projectileSpeed, ForceMode.Impulse);
         }
 
+        public override void Attack()
+        {
+            Debug.Log("ATTACK!");
+            if(_projectilePool == null)return;
+
+            var tmp = _projectilePool.ArPool.GetItem();
+            tmp.transform.position = _barrel.transform.position;
+            tmp.ThisRb.AddForce(_barrel.transform.forward * _projectileSpeed, ForceMode.Impulse);
+        }
+
         public void OnGrabbed()
         {
             _isGrabbed = true;

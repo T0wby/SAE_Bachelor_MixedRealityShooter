@@ -15,6 +15,7 @@ namespace Enemies.TeleportRangeEnemy
 
         public override ENodeState CalculateState()
         {
+            Debug.Log("LFCheckForEnemy");
             return _enemy.CheckForPlayerInSight() ? ENodeState.SUCCESS : ENodeState.FAILURE;
         }
     }

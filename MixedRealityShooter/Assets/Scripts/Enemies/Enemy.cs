@@ -68,6 +68,12 @@ namespace Enemies
             _layermask = ~_layermask;
         }
 
+        private void Update()
+        {
+            if (_ownTargetDetection.Player == null) return;
+            transform.rotation = Quaternion.LookRotation(_ownTargetDetection.Player.transform.position - transform.position, Vector3.up);
+        }
+
         #endregion
 
         #region Methods
@@ -92,11 +98,16 @@ namespace Enemies
         {
             if (_canMove)
             {
-                _canMove = false;
-                transform.position = _destination.position;
-                Quaternion.LookRotation(_ownTargetDetection.Player.transform.position, Vector3.up);
-                yield return new WaitForSeconds(_settings.MoveTimer);
-                _canMove = true;
+                _ownTargetDetection.GetSpawnPoint();
+                if (_destination != null)
+                {
+                    _canMove = false;
+                    gameObject.transform.position = _destination.position;
+                    _ownTargetDetection.transform.localPosition = Vector3.zero; // Resetting pos since it wanders off???
+                    yield return new WaitForSeconds(_settings.MoveTimer);
+                    _canMove = true; 
+                }
+                
             }
 
             yield return null;
@@ -133,12 +144,16 @@ namespace Enemies
 
         public bool CheckForPlayerInSight()
         {
+            if (_ownTargetDetection.Player == null) return false;
+            
             float angle = Vector3.Angle(transform.position, _ownTargetDetection.Player.transform.position);
 
             if (angle <= _settings.FOV)
             {
-                if (Physics.Raycast(_weaponSlot.transform.position, _ownTargetDetection.Player.transform.position, out var hit, Mathf.Infinity, _layermask))
+                Vector3 dir = _ownTargetDetection.Player.transform.position - _weaponSlot.transform.position;
+                if (Physics.Raycast(_weaponSlot.transform.position, dir, out var hit, Mathf.Infinity, _layermask))
                 {
+                    Debug.DrawRay(_weaponSlot.transform.position, dir, Color.red);
                     return hit.transform.CompareTag("Player");
                 }
                 else
