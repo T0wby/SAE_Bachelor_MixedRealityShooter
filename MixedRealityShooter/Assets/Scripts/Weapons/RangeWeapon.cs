@@ -19,20 +19,22 @@ namespace Weapons
 
         private void Start()
         {
-            _playerController = GameObject.FindObjectOfType<PlayerController>(); //TODO: Search for alternative
-            _projectilePool = GameObject.FindObjectOfType<ProjectilePool>();
+            _playerController = FindObjectOfType<PlayerController>(); //TODO: Search for alternative
+            _projectilePool = FindObjectOfType<ProjectilePool>();
             if (_playerController != null)
             {
-                //_playerController.OnInteraction.AddListener(FireWeapon);
                 _playerController.OnInteraction.AddListener(FireWeaponProjectile);
             }
             _layerMask = 1 << _layerMaskNum;
             
             // Invert bitmask
             _layerMask = ~_layerMask;
-            
-            _activeStateEvent.WhenActivated.AddListener(OnGrabbed);
-            _activeStateEvent.WhenDeactivated.AddListener(OnReleased);
+
+            if (_activeStateEvent != null)
+            {
+                _activeStateEvent.WhenActivated.AddListener(OnGrabbed);
+                _activeStateEvent.WhenDeactivated.AddListener(OnReleased);
+            }
         }
 
         /// <summary>

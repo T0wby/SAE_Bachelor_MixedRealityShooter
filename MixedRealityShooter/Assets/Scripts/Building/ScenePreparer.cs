@@ -23,12 +23,12 @@ namespace Building
             GameManager.Instance.OnGameStateChange.AddListener(PrepareScene);
             _eventsStartGameButton.WhenSelect.AddListener(ChangeToMrWallPrep);
             _eventsInnerModeButton.WhenSelect.AddListener(ChangeToMrInsidePrep);
-            PrepareScene();
+            PrepareScene(GameManager.Instance.CurrState);
         }
 
-        private void PrepareScene()
+        private void PrepareScene(EGameStates state)
         {
-            switch (GameManager.Instance.CurrState)
+            switch (state)
             {
                 case EGameStates.PrepareMRSceneWall:
                     MrWallPreparation();

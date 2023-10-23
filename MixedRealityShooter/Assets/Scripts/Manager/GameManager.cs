@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Enemies;
 using UnityEngine;
 using UnityEngine.Events;
 using Utility;
@@ -12,8 +13,10 @@ namespace Manager
 
         private EGameStates _currState = EGameStates.GameStart;
         private List<GameObject> _mrPlacedObjects;
-        public UnityEvent OnGameStateChange;
-
+        private int _currRound = 0;
+        public UnityEvent<EGameStates> OnGameStateChange;
+        
+        private List<AEnemy> _enemiesAlive = new List<AEnemy>();
         #endregion
 
         #region Properties
@@ -24,11 +27,13 @@ namespace Manager
             set
             {
                 _currState = value;
-                OnGameStateChange.Invoke();
+                OnGameStateChange.Invoke(_currState);
             }
         }
 
         public List<GameObject> MrPlacedObjects => _mrPlacedObjects;
+        public List<AEnemy> EnemiesAlive => _enemiesAlive;
+        public int CurrRound => _currRound;
 
         #endregion
 
@@ -37,6 +42,12 @@ namespace Manager
         {
             _mrPlacedObjects = new List<GameObject>();
             OnGameStateChange.AddListener(SwitchObjVisibility);
+        }
+
+        public void StartRound()
+        {
+            _currRound++;
+            CurrState = EGameStates.InGame;
         }
 
         private void ChangeMrObjectStatus(bool statusToChangeTo)
@@ -49,9 +60,9 @@ namespace Manager
             }
         }
 
-        private void SwitchObjVisibility()
+        private void SwitchObjVisibility(EGameStates state)
         {
-            switch (_currState)
+            switch (state)
             {
                 case EGameStates.PrepareMRSceneWall:
                     break;

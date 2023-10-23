@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Manager;
 using UnityEngine;
 using UnityEngine.Events;
 using Utility;
@@ -7,13 +8,14 @@ using Weapons;
 
 namespace Enemies
 {
-    public class Enemy : MonoBehaviour, IDamage, IPoolable<Enemy>
+    public class Enemy : AEnemy
     {
         #region Variables
 
         [SerializeField] private EnemySettings _settings;
         [SerializeField] private EnemyTargetDetection _ownTargetDetection;
         [SerializeField] private Transform _weaponSlot;
+        
         private int _currHealth = 0;
         private int _healthPotionAmount = 0;
         private Transform _destination;
@@ -53,12 +55,6 @@ namespace Enemies
 
         #endregion
 
-        #region Events
-
-        public UnityEvent<int> OnHealthChange;
-
-        #endregion
-
         #region Unity Loop
 
         private void Awake()
@@ -66,6 +62,8 @@ namespace Enemies
             SetDefaultStats();
             _layermask = LayerMask.NameToLayer("Enemy");
             _layermask = ~_layermask;
+            OnHealthChange.AddListener(OnDeath);
+            SpawnWeapon();
         }
 
         private void Update()
@@ -80,13 +78,14 @@ namespace Enemies
 
         private void SetDefaultStats()
         {
-            _currHealth = _settings.Health;
+            CurrHealth = _settings.Health;
             _healthPotionAmount = _settings.HealthPotionAmount;
         }
 
         private void SpawnWeapon()
         {
-            
+            var wpnobj = Instantiate(_settings.Weapon, _weaponSlot.position, Quaternion.identity, _weaponSlot);
+            _activeWeapon = wpnobj.GetComponent<AWeapon>();
         }
 
         public void StartTeleport()
@@ -137,7 +136,7 @@ namespace Enemies
             CurrHealth += 20;
         }
 
-        public void TakeDamage(int damage)
+        public override void TakeDamage(int damage)
         {
             CurrHealth -= damage;
         }
@@ -153,7 +152,6 @@ namespace Enemies
                 Vector3 dir = _ownTargetDetection.Player.transform.position - _weaponSlot.transform.position;
                 if (Physics.Raycast(_weaponSlot.transform.position, dir, out var hit, Mathf.Infinity, _layermask))
                 {
-                    Debug.DrawRay(_weaponSlot.transform.position, dir, Color.red);
                     return hit.transform.CompareTag("Player");
                 }
                 else
@@ -163,21 +161,32 @@ namespace Enemies
                 return false;
         }
 
+        private void OnDeath(int health)
+        {
+            if (health > 0)return;
+            
+            _pool.ReturnItem(this);
+        }
+        
+
         #region Pool Methods
 
-        public void Initialize(ObjectPool<Enemy> pool)
+        public override void Initialize(ObjectPool<AEnemy> pool)
         {
-            throw new NotImplementedException();
+            _pool = pool;
         }
 
-        public void Reset()
+        public override void Reset()
         {
-            throw new NotImplementedException();
+            gameObject.SetActive(true);
+            GameManager.Instance.EnemiesAlive.Add(this);
         }
 
-        public void Deactivate()
+        public override void Deactivate()
         {
-            throw new NotImplementedException();
+            SetDefaultStats();
+            GameManager.Instance.EnemiesAlive.Remove(this);
+            gameObject.SetActive(false);
         }
 
 #endregion
