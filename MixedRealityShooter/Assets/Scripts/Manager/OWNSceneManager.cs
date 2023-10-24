@@ -17,5 +17,10 @@ namespace Manager
             SceneManager.LoadScene(1);
             GameManager.Instance.CurrState = EGameStates.PreparePlayScene;
         }
+
+        public void QuitGame()
+        {
+            Application.Quit();
+        }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using Manager;
 using Oculus.Interaction;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Utility;
 
 namespace Building
@@ -13,6 +14,8 @@ namespace Building
         [SerializeField] private GameObject _mrInsidePrepObjs;
         [SerializeField] private GameObject _playPrepObjs;
         [SerializeField] private GameObject _startObjs;
+        [SerializeField] private GameObject _roundDoneObjs;
+        [SerializeField] private GameObject _gameOverObjs;
 
         [Header("ButtonEvents")] 
         [SerializeField] private PointableUnityEventWrapper _eventsStartGameButton;
@@ -42,12 +45,15 @@ namespace Building
                 case EGameStates.InHub:
                     break;
                 case EGameStates.InGame:
+                    StartGame();
                     break;
                 case EGameStates.GameOver:
+                    GameOverPreparation();
                     break;
                 case EGameStates.GameStart:
                     break;
                 case EGameStates.RoundOver:
+                    RoundOverPreparation();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -58,6 +64,8 @@ namespace Building
             _startObjs.SetActive(false);
             _playPrepObjs.SetActive(false);
             _mrInsidePrepObjs.SetActive(false);
+            _roundDoneObjs.SetActive(false);
+            _gameOverObjs.SetActive(false);
             _mrWallPrepObjs.SetActive(true);
         }
         private void MrInnerPreparation()
@@ -65,6 +73,8 @@ namespace Building
             _startObjs.SetActive(false);
             _playPrepObjs.SetActive(false);
             _mrWallPrepObjs.SetActive(false);
+            _roundDoneObjs.SetActive(false);
+            _gameOverObjs.SetActive(false);
             _mrInsidePrepObjs.SetActive(true);
         }
         private void GamePreparation()
@@ -72,7 +82,37 @@ namespace Building
             _startObjs.SetActive(false);
             _playPrepObjs.SetActive(true);
             _mrWallPrepObjs.SetActive(false);
+            _roundDoneObjs.SetActive(false);
+            _gameOverObjs.SetActive(false);
             _mrInsidePrepObjs.SetActive(false);
+        }
+        private void GameOverPreparation()
+        {
+            _startObjs.SetActive(false);
+            _playPrepObjs.SetActive(false);
+            _mrWallPrepObjs.SetActive(false);
+            _roundDoneObjs.SetActive(false);
+            _gameOverObjs.SetActive(true);
+            _mrInsidePrepObjs.SetActive(false);
+        }
+        private void RoundOverPreparation()
+        {
+            _startObjs.SetActive(false);
+            _playPrepObjs.SetActive(false);
+            _mrWallPrepObjs.SetActive(false);
+            _roundDoneObjs.SetActive(true);
+            _gameOverObjs.SetActive(false);
+            _mrInsidePrepObjs.SetActive(false);
+        }
+
+        private void StartGame()
+        {
+            _startObjs.SetActive(false);
+            _playPrepObjs.SetActive(false);
+            _mrWallPrepObjs.SetActive(false);
+            _mrInsidePrepObjs.SetActive(false);
+            _roundDoneObjs.SetActive(false);
+            _gameOverObjs.SetActive(false);
         }
 
         #region Event Methods

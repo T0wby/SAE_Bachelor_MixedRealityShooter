@@ -51,11 +51,11 @@ namespace Manager
         private void Awake()
         {
             OnWaveChange.AddListener(SpawnWave);
-            OnEnemyCountChange.AddListener(GameManager.Instance.CheckIfRoundIsOver);
         }
 
         private void Start()
         {
+            OnEnemyCountChange.AddListener(GameManager.Instance.CheckIfRoundIsOver);
             GameManager.Instance.OnGameStateChange.AddListener(StartWaves);
             _enemyPools = FindObjectsByType<EnemyPool>(FindObjectsInactive.Include,FindObjectsSortMode.None);
             _enemyFactory = new EnemyFactory(_enemyPools);

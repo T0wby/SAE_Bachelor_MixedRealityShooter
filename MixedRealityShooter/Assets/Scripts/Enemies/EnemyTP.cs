@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Manager;
+using Oculus.Interaction;
 using UnityEngine;
 using UnityEngine.Events;
 using Utility;
@@ -20,6 +21,7 @@ namespace Enemies
         private bool _isAttacking = false;
         private bool _canMove = true;
         private int _layermask;
+        private Vector3 _playerPos;
 
         #endregion
 
@@ -49,7 +51,9 @@ namespace Enemies
         private void Update()
         {
             if (_ownTargetDetection.Player == null) return;
-            transform.rotation = Quaternion.LookRotation(_ownTargetDetection.Player.transform.position - transform.position, Vector3.up);
+            _playerPos = _ownTargetDetection.Player.transform.position;
+            transform.rotation = Quaternion.LookRotation(_playerPos - transform.position, Vector3.up);
+            RotateWeaponToTarget();
         }
 
         #endregion
@@ -66,6 +70,13 @@ namespace Enemies
         {
             var wpnobj = Instantiate(_settings.Weapon, _weaponSlot.position, Quaternion.identity, _weaponSlot);
             _activeWeapon = wpnobj.GetComponent<AWeapon>();
+        }
+
+        private void RotateWeaponToTarget()
+        {
+            if(_activeWeapon == null)return;
+            _playerPos.y *= 0.5f;
+            _activeWeapon.transform.rotation = Quaternion.LookRotation(_playerPos - _activeWeapon.transform.position, Vector3.up);
         }
 
         public void StartTeleport()
@@ -130,8 +141,10 @@ namespace Enemies
             if (angle <= _settings.FOV)
             {
                 Vector3 dir = _ownTargetDetection.Player.transform.position - _weaponSlot.transform.position;
+                dir.y *= 0.5f;
                 if (Physics.Raycast(_weaponSlot.transform.position, dir, out var hit, Mathf.Infinity, _layermask))
                 {
+                    Debug.DrawRay(_weaponSlot.transform.position, dir * 2, Color.red, 2.0f);
                     return hit.transform.CompareTag("Player");
                 }
                 else

@@ -66,6 +66,7 @@ namespace Weapons
             if(_projectilePool == null)return;
 
             var tmp = _projectilePool.ArPool.GetItem();
+            tmp.InitProjectileStats(_defaultSettings.Damage);
             tmp.transform.position = _barrel.transform.position;
             tmp.ThisRb.AddForce(_barrel.transform.forward * _projectileSpeed, ForceMode.Impulse);
         }
@@ -76,6 +77,7 @@ namespace Weapons
             if(_projectilePool == null)return;
 
             var tmp = _projectilePool.ArPool.GetItem();
+            tmp.InitProjectileStats(_defaultSettings.Damage);
             tmp.transform.position = _barrel.transform.position;
             tmp.ThisRb.AddForce(_barrel.transform.forward * _projectileSpeed, ForceMode.Impulse);
         }

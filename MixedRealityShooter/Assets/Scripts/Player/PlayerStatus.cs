@@ -5,7 +5,7 @@ using Utility;
 
 namespace Player
 {
-    public class PlayerStatus : MonoBehaviour, IDamage
+    public class PlayerStatus : MonoBehaviour
     {
         [SerializeField] private int _health = 100;
         [SerializeField] private Transform _centerEyeAnchor;
@@ -37,11 +37,6 @@ namespace Player
             _thisCollider.height = _centerEyeAnchor.position.y;
             _colliderGO.transform.position = new Vector3(_centerEyeAnchor.position.x, _thisCollider.height * 0.5f,
                 _centerEyeAnchor.position.z);
-        }
-
-        public void TakeDamage(int damage)
-        {
-            Health -= damage;
         }
     }
 }
