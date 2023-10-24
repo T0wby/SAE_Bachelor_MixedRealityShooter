@@ -15,6 +15,7 @@ namespace Manager
 
         [SerializeField] private List<WaveSettings> _settings;
         private int _currWaveNumb = 0;
+        private List<AEnemy> _enemiesAlive = new List<AEnemy>();
         private EnemyPool[] _enemyPools;
         private EnemyFactory _enemyFactory;
 
@@ -34,12 +35,14 @@ namespace Manager
                 }
             }
         }
+        public List<AEnemy> EnemiesAlive => _enemiesAlive;
 
         #endregion
 
         #region Events
 
         public UnityEvent<int> OnWaveChange;
+        public UnityEvent<int> OnEnemyCountChange;
 
         #endregion
 
@@ -48,6 +51,7 @@ namespace Manager
         private void Awake()
         {
             OnWaveChange.AddListener(SpawnWave);
+            OnEnemyCountChange.AddListener(GameManager.Instance.CheckIfRoundIsOver);
         }
 
         private void Start()
@@ -88,10 +92,23 @@ namespace Manager
             for (int i = 0; i < _settings[currWave - 1].EnemyAmount; i++)
             {
                 var ran = Random.Range(0, _settings[currWave - 1].EnemyTypes.Count);
-                _enemyFactory.CreateEnemy(_settings[currWave - 1].EnemyTypes[ran]);
+                var tmp = _enemyFactory.CreateEnemy(_settings[currWave - 1].EnemyTypes[ran]);
+                tmp.WaveManager = this;
+                AddLivingEnemy(tmp);
             }
         }
 
         #endregion
+
+        private void AddLivingEnemy(AEnemy enemyToAdd)
+        {
+            _enemiesAlive.Add(enemyToAdd);
+            OnEnemyCountChange.Invoke(_enemiesAlive.Count);
+        }
+        public void RemoveDeadEnemy(AEnemy enemyToRemove)
+        {
+            _enemiesAlive.Remove(enemyToRemove);
+            OnEnemyCountChange.Invoke(_enemiesAlive.Count);
+        }
     }
 }

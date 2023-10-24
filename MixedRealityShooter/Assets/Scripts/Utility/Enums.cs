@@ -10,7 +10,8 @@ namespace Utility
         InHub,
         InGame,
         GameOver,
-        GameStart
+        GameStart,
+        RoundOver
     }
     public enum EWeaponType
     {

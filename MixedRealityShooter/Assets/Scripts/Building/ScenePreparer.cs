@@ -47,6 +47,8 @@ namespace Building
                     break;
                 case EGameStates.GameStart:
                     break;
+                case EGameStates.RoundOver:
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

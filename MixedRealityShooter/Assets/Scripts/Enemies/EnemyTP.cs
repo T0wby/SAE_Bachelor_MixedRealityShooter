@@ -145,6 +145,7 @@ namespace Enemies
         {
             if (health > 0)return;
             
+            _waveManager.RemoveDeadEnemy(this);
             _pool.ReturnItem(this);
         }
         
@@ -159,13 +160,11 @@ namespace Enemies
         public override void Reset()
         {
             gameObject.SetActive(true);
-            GameManager.Instance.EnemiesAlive.Add(this);
         }
 
         public override void Deactivate()
         {
             SetDefaultStats();
-            GameManager.Instance.EnemiesAlive.Remove(this);
             gameObject.SetActive(false);
         }
 

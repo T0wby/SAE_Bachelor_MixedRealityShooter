@@ -1,4 +1,5 @@
 using System;
+using Manager;
 using UnityEngine;
 using UnityEngine.Events;
 using Utility;
@@ -13,6 +14,7 @@ namespace Enemies
         protected ObjectPool<AEnemy> _pool;
         protected int _healthPotionAmount = 0;
         protected int _currHealth = 0;
+        protected WaveManager _waveManager;
 
         #endregion
 
@@ -20,7 +22,6 @@ namespace Enemies
 
         public EnemySettings Settings => _settings;
         public int HealthPotionAmount => _healthPotionAmount;
-        
         public int CurrHealth
         {
             get => _currHealth;
@@ -35,6 +36,11 @@ namespace Enemies
                 
                 OnHealthChange.Invoke(_currHealth);
             }
+        }
+        public WaveManager WaveManager
+        {
+            get => _waveManager;
+            set => _waveManager = value;
         }
 
         #endregion

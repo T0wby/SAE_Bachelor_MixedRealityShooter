@@ -15,7 +15,6 @@ namespace Manager
         private List<GameObject> _mrPlacedObjects;
         private int _currRound = 0;
         public UnityEvent<EGameStates> OnGameStateChange;
-        private List<AEnemy> _enemiesAlive = new List<AEnemy>();
         #endregion
 
         #region Properties
@@ -30,7 +29,6 @@ namespace Manager
             }
         }
         public List<GameObject> MrPlacedObjects => _mrPlacedObjects;
-        public List<AEnemy> EnemiesAlive => _enemiesAlive;
         public int CurrRound => _currRound;
 
         #endregion
@@ -46,6 +44,13 @@ namespace Manager
         {
             _currRound++;
             CurrState = EGameStates.InGame;
+        }
+
+        public void CheckIfRoundIsOver(int livingEnemyCount)
+        {
+            if (livingEnemyCount > 0)return;
+
+            CurrState = EGameStates.RoundOver;
         }
 
         private void ChangeMrObjectStatus(bool statusToChangeTo)
