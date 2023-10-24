@@ -9,7 +9,6 @@ namespace Player
         public void TakeDamage(int damage)
         {
             _playerStatus.Health -= damage;
-            Debug.Log($"Health: {_playerStatus.Health}");
         }
     }
 }

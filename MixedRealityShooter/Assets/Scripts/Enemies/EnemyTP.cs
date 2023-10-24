@@ -92,7 +92,10 @@ namespace Enemies
                 if (_destination != null)
                 {
                     _canMove = false;
-                    gameObject.transform.position = _destination.position;
+                    if (_destination.position.y != 0.5f)
+                        gameObject.transform.position = _destination.position + (transform.localScale * 0.5f);
+                    else
+                        gameObject.transform.position = _destination.position;
                     _ownTargetDetection.transform.localPosition = Vector3.zero; // Resetting pos since it wanders off???
                     yield return new WaitForSeconds(_settings.MoveTimer);
                     _canMove = true; 
