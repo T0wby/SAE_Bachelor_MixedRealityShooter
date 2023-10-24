@@ -6,17 +6,17 @@ namespace Enemies.TeleportRangeEnemy
 {
     public class LFCheckForEnemy : Node
     {
-        private Enemy _enemy;
+        private EnemyTP _enemyTp;
         
-        public LFCheckForEnemy(Enemy enemy)
+        public LFCheckForEnemy(EnemyTP enemyTp)
         {
-            _enemy = enemy;
+            _enemyTp = enemyTp;
         }
 
         public override ENodeState CalculateState()
         {
             Debug.Log("LFCheckForEnemy");
-            return _enemy.CheckForPlayerInSight() ? ENodeState.SUCCESS : ENodeState.FAILURE;
+            return _enemyTp.CheckForPlayerInSight() ? ENodeState.SUCCESS : ENodeState.FAILURE;
         }
     }
 }

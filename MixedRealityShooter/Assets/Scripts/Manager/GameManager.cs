@@ -15,7 +15,6 @@ namespace Manager
         private List<GameObject> _mrPlacedObjects;
         private int _currRound = 0;
         public UnityEvent<EGameStates> OnGameStateChange;
-        
         private List<AEnemy> _enemiesAlive = new List<AEnemy>();
         #endregion
 
@@ -30,7 +29,6 @@ namespace Manager
                 OnGameStateChange.Invoke(_currState);
             }
         }
-
         public List<GameObject> MrPlacedObjects => _mrPlacedObjects;
         public List<AEnemy> EnemiesAlive => _enemiesAlive;
         public int CurrRound => _currRound;

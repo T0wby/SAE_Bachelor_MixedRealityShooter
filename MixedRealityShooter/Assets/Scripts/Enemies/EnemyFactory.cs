@@ -6,7 +6,7 @@ namespace Enemies
 {
     public class EnemyFactory
     {
-        private EnemyPool[] _enemyPools;
+        private readonly EnemyPool[] _enemyPools;
         
         public EnemyFactory(EnemyPool[] enemyPools)
         {

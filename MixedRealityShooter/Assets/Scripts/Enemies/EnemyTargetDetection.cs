@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using PlacedObjects;
 using Player;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Enemies
@@ -10,13 +11,23 @@ namespace Enemies
     [RequireComponent(typeof(SphereCollider))]
     public class EnemyTargetDetection : MonoBehaviour
     {
-        [SerializeField] private Enemy _enemy;
+        #region Variables
+
+        [SerializeField] private EnemyTP _enemy;
         private SphereCollider _collider;
         private List<GameObject> _placedObjs;
         private PlayerStatus _player;
 
+        #endregion
+
+        #region Properties
+
         public List<GameObject> PlacedObjs => _placedObjs;
         public PlayerStatus Player => _player;
+
+        #endregion
+
+        #region Unity Methods
 
         private void Awake()
         {
@@ -47,6 +58,10 @@ namespace Enemies
                 _placedObjs.Remove(other.gameObject);
             }
         }
+
+        #endregion
+
+        #region Find Destination Methods
 
         public void GetSpawnPoint()
         {
@@ -107,5 +122,7 @@ namespace Enemies
 
             return furthest;
         }
+
+        #endregion
     }
 }

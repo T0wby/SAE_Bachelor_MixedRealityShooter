@@ -6,17 +6,17 @@ namespace Enemies.TeleportRangeEnemy
 {
     public class LFHeal : Node
     {
-        private Enemy _enemySelf;
+        private EnemyTP _enemyTpSelf;
         
-        public LFHeal(Enemy enemySelf)
+        public LFHeal(EnemyTP enemyTpSelf)
         {
-            _enemySelf = enemySelf;
+            _enemyTpSelf = enemyTpSelf;
         }
         
         public override ENodeState CalculateState()
         {
             Debug.Log("LFHeal");
-            _enemySelf.Heal();
+            _enemyTpSelf.Heal();
             return ENodeState.SUCCESS;
         }
     }

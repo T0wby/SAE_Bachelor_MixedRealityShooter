@@ -6,16 +6,16 @@ namespace Enemies.TeleportRangeEnemy
 {
     public class LFTeleport : Node
     {
-        private Enemy _enemy;
-        public LFTeleport(Enemy enemy)
+        private EnemyTP _enemyTp;
+        public LFTeleport(EnemyTP enemyTp)
         {
-            _enemy = enemy;
+            _enemyTp = enemyTp;
         }
 
         public override ENodeState CalculateState()
         {
             Debug.Log("LFTeleport");
-            _enemy.StartTeleport();
+            _enemyTp.StartTeleport();
             return ENodeState.SUCCESS;
         }
     }

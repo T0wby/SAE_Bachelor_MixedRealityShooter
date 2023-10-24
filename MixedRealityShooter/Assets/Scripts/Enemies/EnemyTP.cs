@@ -8,16 +8,13 @@ using Weapons;
 
 namespace Enemies
 {
-    public class Enemy : AEnemy
+    public class EnemyTP : AEnemy
     {
         #region Variables
 
-        [SerializeField] private EnemySettings _settings;
         [SerializeField] private EnemyTargetDetection _ownTargetDetection;
         [SerializeField] private Transform _weaponSlot;
         
-        private int _currHealth = 0;
-        private int _healthPotionAmount = 0;
         private Transform _destination;
         private AWeapon _activeWeapon;
         private bool _isAttacking = false;
@@ -28,7 +25,6 @@ namespace Enemies
 
         #region Properties
 
-        public EnemySettings Settings => _settings;
         public Transform Destination
         {
             get => _destination;
@@ -36,22 +32,6 @@ namespace Enemies
         }
         public bool IsAttacking => _isAttacking;
         public bool CanMove => _canMove;
-        public int HealthPotionAmount => _healthPotionAmount;
-        public int CurrHealth
-        {
-            get => _currHealth;
-            set
-            {
-                if (value > 100)
-                    _currHealth = 100;
-                else if (value < 0)
-                    _currHealth = 0;
-                else
-                    _currHealth = value;
-                
-                OnHealthChange.Invoke(_currHealth);
-            }
-        }
 
         #endregion
 

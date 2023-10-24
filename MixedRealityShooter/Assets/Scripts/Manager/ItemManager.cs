@@ -7,17 +7,28 @@ namespace Manager
 {
     public class ItemManager : Singleton<ItemManager>
     {
+        #region Variables
+
         private PlaceableItemPool _spherePool;
         private PlaceableItemPool _cylinderPool;
 
+        #endregion
+
+        #region Properties
+
         public PlaceableItemPool SpherePool => _spherePool;
         public PlaceableItemPool CylinderPool => _cylinderPool;
+
+        #endregion
 
         private void Start()
         {
             SortFoundPools();
         }
-
+        
+        /// <summary>
+        /// Searches for pools of placeable Items and adds the reference according to their type.
+        /// </summary>
         private void SortFoundPools()
         {
             var pools = FindObjectsOfType<PlaceableItemPool>();
@@ -40,7 +51,12 @@ namespace Manager
                 }
             }
         }
-
+        
+        /// <summary>
+        /// Returns an Item depending on the requested type
+        /// </summary>
+        /// <param name="type">Type to get</param>
+        /// <returns>Returns the requested type or null</returns>
         public PlaceableVRItem ReceivePoolObject(EPlaceableItemType type)
         {
             switch (type)

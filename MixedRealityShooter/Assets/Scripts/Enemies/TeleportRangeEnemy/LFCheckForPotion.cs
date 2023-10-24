@@ -6,16 +6,16 @@ namespace Enemies.TeleportRangeEnemy
 {
     public class LFCheckForPotion : Node
     {
-        private Enemy _enemy;
-        public LFCheckForPotion(Enemy enemy)
+        private EnemyTP _enemyTp;
+        public LFCheckForPotion(EnemyTP enemyTp)
         {
-            _enemy = enemy;
+            _enemyTp = enemyTp;
         }
 
         public override ENodeState CalculateState()
         {
             Debug.Log("LFCheckForPotion");
-            return _enemy.HealthPotionAmount > 0 ? ENodeState.SUCCESS : ENodeState.FAILURE;
+            return _enemyTp.HealthPotionAmount > 0 ? ENodeState.SUCCESS : ENodeState.FAILURE;
         }
     }
 }
