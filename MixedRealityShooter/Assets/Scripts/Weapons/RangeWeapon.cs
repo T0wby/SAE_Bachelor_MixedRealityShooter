@@ -14,13 +14,10 @@ namespace Weapons
         [SerializeField] private ActiveStateUnityEventWrapper _activeStateEvent;
         private PlayerController _playerController;
         private ProjectilePool _projectilePool;
-        private Rigidbody _thisRB;
         private int _layerMask;
-        private bool _isGrabbed = false;
 
         private void Start()
         {
-            _thisRB = GetComponent<Rigidbody>();
             _playerController = FindObjectOfType<PlayerController>();
             _projectilePool = FindObjectOfType<ProjectilePool>();
             if (_playerController != null)
@@ -81,19 +78,6 @@ namespace Weapons
             tmp.InitProjectileStats(_defaultSettings.Damage);
             tmp.transform.position = _barrel.transform.position;
             tmp.ThisRb.AddForce(_barrel.transform.forward * _projectileSpeed, ForceMode.Impulse);
-        }
-
-        public void OnGrabbed()
-        {
-            _isGrabbed = true;
-        }
-        public void OnReleased()
-        {
-            _isGrabbed = false;
-            if (_thisRB != null)
-            {
-                _thisRB.useGravity = true;
-            }
         }
     }
 }

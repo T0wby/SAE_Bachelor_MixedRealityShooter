@@ -15,15 +15,19 @@ namespace Weapons
         protected float _projectileSpeed;
         protected float _bulletsPerSecond;
         protected int _weaponLevel = 0;
+        protected bool _isGrabbed = false;
+        private Rigidbody _thisRB;
 
         protected const float UPGRADE_STRENGTH = 0.1f;
         protected const float BPSLIMIT_AR = 5.0f;
         
         public WeaponSettings DefaultSettings => _defaultSettings;
+        public bool IsGrabbed => _isGrabbed;
 
         private void Awake()
         {
             InitDefaultSettings();
+            _thisRB = GetComponent<Rigidbody>();
         }
 
         private void InitDefaultSettings()
@@ -58,6 +62,19 @@ namespace Weapons
                     return;
             }
             _weaponLevel++;
+        }
+        
+        public void OnGrabbed()
+        {
+            _isGrabbed = true;
+        }
+        public void OnReleased()
+        {
+            _isGrabbed = false;
+            if (_thisRB != null)
+            {
+                _thisRB.useGravity = true;
+            }
         }
 
     }

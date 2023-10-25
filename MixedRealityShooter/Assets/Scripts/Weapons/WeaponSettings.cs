@@ -7,12 +7,14 @@ namespace Weapons
     public class WeaponSettings : ScriptableObject
     {
         [SerializeField] private string _weaponName;
+        [SerializeField] private GameObject _weaponPrefab;
         [SerializeField] private EWeaponType _type = EWeaponType.AssaultRifle;
         [SerializeField] private int _damage;
         [SerializeField] private float _projectileSpeed;
         [SerializeField] private float _bulletsPerSecond;
 
         public string WeaponName => _weaponName;
+        public GameObject WeaponPrefab => _weaponPrefab;
         public EWeaponType WeaponType => _type;
         public int Damage => _damage;
         public float ProjectileSpeed => _projectileSpeed;
