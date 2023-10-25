@@ -16,6 +16,7 @@ namespace Building
         [SerializeField] private GameObject _startObjs;
         [SerializeField] private GameObject _roundDoneObjs;
         [SerializeField] private GameObject _gameOverObjs;
+        [SerializeField] private GameObject _ongoingRoundObjs;
 
         [Header("ButtonEvents")] 
         [SerializeField] private PointableUnityEventWrapper _eventsStartGameButton;
@@ -45,7 +46,7 @@ namespace Building
                 case EGameStates.InHub:
                     break;
                 case EGameStates.InGame:
-                    StartGame();
+                    OngoingRoundObjs();
                     break;
                 case EGameStates.GameOver:
                     GameOverPreparation();
@@ -66,6 +67,7 @@ namespace Building
             _mrInsidePrepObjs.SetActive(false);
             _roundDoneObjs.SetActive(false);
             _gameOverObjs.SetActive(false);
+            _ongoingRoundObjs.SetActive(false);
             _mrWallPrepObjs.SetActive(true);
         }
         private void MrInnerPreparation()
@@ -75,6 +77,7 @@ namespace Building
             _mrWallPrepObjs.SetActive(false);
             _roundDoneObjs.SetActive(false);
             _gameOverObjs.SetActive(false);
+            _ongoingRoundObjs.SetActive(false);
             _mrInsidePrepObjs.SetActive(true);
         }
         private void GamePreparation()
@@ -84,6 +87,7 @@ namespace Building
             _mrWallPrepObjs.SetActive(false);
             _roundDoneObjs.SetActive(false);
             _gameOverObjs.SetActive(false);
+            _ongoingRoundObjs.SetActive(false);
             _mrInsidePrepObjs.SetActive(false);
         }
         private void GameOverPreparation()
@@ -94,6 +98,7 @@ namespace Building
             _roundDoneObjs.SetActive(false);
             _gameOverObjs.SetActive(true);
             _mrInsidePrepObjs.SetActive(false);
+            _ongoingRoundObjs.SetActive(false);
         }
         private void RoundOverPreparation()
         {
@@ -103,16 +108,17 @@ namespace Building
             _roundDoneObjs.SetActive(true);
             _gameOverObjs.SetActive(false);
             _mrInsidePrepObjs.SetActive(false);
+            _ongoingRoundObjs.SetActive(false);
         }
-
-        private void StartGame()
+        private void OngoingRoundObjs()
         {
             _startObjs.SetActive(false);
             _playPrepObjs.SetActive(false);
             _mrWallPrepObjs.SetActive(false);
-            _mrInsidePrepObjs.SetActive(false);
             _roundDoneObjs.SetActive(false);
             _gameOverObjs.SetActive(false);
+            _mrInsidePrepObjs.SetActive(false);
+            _ongoingRoundObjs.SetActive(true);
         }
 
         #region Event Methods

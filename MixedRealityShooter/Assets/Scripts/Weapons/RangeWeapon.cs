@@ -14,12 +14,14 @@ namespace Weapons
         [SerializeField] private ActiveStateUnityEventWrapper _activeStateEvent;
         private PlayerController _playerController;
         private ProjectilePool _projectilePool;
+        private Rigidbody _thisRB;
         private int _layerMask;
         private bool _isGrabbed = false;
 
         private void Start()
         {
-            _playerController = FindObjectOfType<PlayerController>(); //TODO: Search for alternative
+            _thisRB = GetComponent<Rigidbody>();
+            _playerController = FindObjectOfType<PlayerController>();
             _projectilePool = FindObjectOfType<ProjectilePool>();
             if (_playerController != null)
             {
@@ -73,7 +75,6 @@ namespace Weapons
 
         public override void Attack()
         {
-            Debug.Log("ATTACK!");
             if(_projectilePool == null)return;
 
             var tmp = _projectilePool.ArPool.GetItem();
@@ -89,6 +90,10 @@ namespace Weapons
         public void OnReleased()
         {
             _isGrabbed = false;
+            if (_thisRB != null)
+            {
+                _thisRB.useGravity = true;
+            }
         }
     }
 }
