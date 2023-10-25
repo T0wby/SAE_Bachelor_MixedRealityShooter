@@ -1,13 +1,9 @@
-using System;
 using System.Collections;
-using Manager;
-using Oculus.Interaction;
 using UnityEngine;
-using UnityEngine.Events;
 using Utility;
 using Weapons;
 
-namespace Enemies
+namespace Enemies.TeleportRangeEnemy
 {
     public class EnemyTP : AEnemy
     {
@@ -50,7 +46,7 @@ namespace Enemies
 
         private void Update()
         {
-            if (_ownTargetDetection.Player == null) return;
+            if (_ownTargetDetection == null || _ownTargetDetection.Player == null) return;
             _playerPos = _ownTargetDetection.Player.transform.position;
             transform.rotation = Quaternion.LookRotation(_playerPos - transform.position, Vector3.up);
             RotateWeaponToTarget();

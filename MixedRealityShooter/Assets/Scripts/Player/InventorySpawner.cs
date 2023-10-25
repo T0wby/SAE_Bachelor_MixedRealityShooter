@@ -19,7 +19,7 @@ namespace Player
 
         private void SpawnInventory(EGameStates state)
         {
-            if (state != EGameStates.InGame)return;
+            if (state != EGameStates.InGame)return; // Might need to do it on Enable instead
 
             Instantiate(_playerInventory.ActiveRangeWeaponPrefab, _rangeWeaponSpawn.position, Quaternion.identity);
             Instantiate(_playerInventory.ActiveMeleeWeaponPrefab, _meleeWeaponSpawn.position, Quaternion.identity);

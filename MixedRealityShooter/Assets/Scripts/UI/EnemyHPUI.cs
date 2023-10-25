@@ -1,5 +1,6 @@
 using System;
 using Enemies;
+using Enemies.TeleportRangeEnemy;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Slider = UnityEngine.UI.Slider;
@@ -8,17 +9,17 @@ namespace UI
 {
     public class EnemyHPUI : MonoBehaviour
     {
-        [FormerlySerializedAs("_enemy")] [SerializeField] private EnemyTP enemyTp;
+        [SerializeField] private AEnemy _enemy;
         [SerializeField] private Slider _slider;
 
         private void Awake()
         {
-            enemyTp.OnHealthChange.AddListener(UpdateHealthBar);
+            _enemy.OnHealthChange.AddListener(UpdateHealthBar);
         }
 
         private void UpdateHealthBar(int newHealthValue)
         {
-            _slider.value = newHealthValue / (float)enemyTp.Settings.Health;
+            _slider.value = newHealthValue / (float)_enemy.Settings.Health;
         }
     }
 }

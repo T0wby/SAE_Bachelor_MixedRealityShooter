@@ -510,6 +510,7 @@ GameObject:
   - component: {fileID: 5365257457002110247}
   - component: {fileID: 6888922258055260203}
   - component: {fileID: 5155923785409460447}
+  - component: {fileID: 7092473333786602576}
   m_Layer: 7
   m_Name: TP_Enemy
   m_TagString: Untagged
@@ -532,7 +533,7 @@ Transform:
   - {fileID: 5673172370584949660}
   - {fileID: 3968838072890278990}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6888922258055260203
 MonoBehaviour:
@@ -546,10 +547,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f73f99a4f5e0b34b9f0cfd33586d10a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _settings: {fileID: 11400000, guid: 6367e36de380fe24996833e625bfa764, type: 2}
   OnHealthChange:
     m_PersistentCalls:
       m_Calls: []
-  _settings: {fileID: 11400000, guid: 6367e36de380fe24996833e625bfa764, type: 2}
   _ownTargetDetection: {fileID: 8556925650299385306}
   _weaponSlot: {fileID: 7342669677090084179}
 --- !u!114 &5155923785409460447
@@ -564,7 +565,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43220a2534027af41b4ba47bad3caf1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemy: {fileID: 6888922258055260203}
+  enemyTp: {fileID: 6888922258055260203}
+--- !u!136 &7092473333786602576
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6323178400535022785}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.25
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7636411440804817697
 GameObject:
   m_ObjectHideFlags: 0
@@ -690,7 +714,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5673172370584949660}
-  - component: {fileID: 343784404261855204}
   m_Layer: 7
   m_Name: Model
   m_TagString: Untagged
@@ -715,29 +738,6 @@ Transform:
   m_Father: {fileID: 5365257457002110247}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &343784404261855204
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7757929339039113175}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.25
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7894229234945287063
 GameObject:
   m_ObjectHideFlags: 0
