@@ -24,8 +24,9 @@ namespace Player
 
         public List<PlaceableVRItem> PlaceableVRItems => _placeableVRItems;
         public GameObject ActiveRangeWeaponPrefab => _activeRangeWeaponPrefab;
-
         public GameObject ActiveMeleeWeaponPrefab => _activeMeleeWeaponPrefab;
+        public RangeWeapon ActiveRangeWeapon => _activeRangeWeapon;
+        public MeleeWeapon ActiveMeleeWeapon => _activeMeleeWeapon;
 
         #endregion
 

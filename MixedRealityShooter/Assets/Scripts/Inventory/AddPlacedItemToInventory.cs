@@ -4,12 +4,16 @@ using UnityEngine;
 using Utility;
 using Weapons;
 
-namespace Items
+namespace Inventory
 {
     public class AddPlacedItemToInventory : MonoBehaviour
     {
+        [SerializeField] private Transform _rangeSpawn;
+        [SerializeField] private Transform _meleeSpawn;
         private PlayerInventory _playerInventory;
         private AWeapon _weapon;
+        private GameObject _spawnedRangeProp;
+        private GameObject _spawnedMeleeProp;
 
         private void Awake()
         {
@@ -31,14 +35,17 @@ namespace Items
             {
                 case EWeaponType.AssaultRifle:
                     _playerInventory.AddRangeWeapon(_weapon.DefaultSettings.WeaponPrefab);
+                    SpawnProp(_rangeSpawn, ref _spawnedRangeProp, _weapon.DefaultSettings.WeaponProp);
                     _weapon.gameObject.SetActive(false);
                     break;
                 case EWeaponType.Pistol:
                     _playerInventory.AddRangeWeapon(_weapon.DefaultSettings.WeaponPrefab);
+                    SpawnProp(_rangeSpawn, ref _spawnedRangeProp, _weapon.DefaultSettings.WeaponProp);
                     _weapon.gameObject.SetActive(false);
                     break;
                 case EWeaponType.Dagger:
                     _playerInventory.AddMeleeWeapon(_weapon.DefaultSettings.WeaponPrefab);
+                    SpawnProp(_meleeSpawn, ref _spawnedMeleeProp, _weapon.DefaultSettings.WeaponProp);
                     _weapon.gameObject.SetActive(false);
                     break;
                 case EWeaponType.Grenade:
@@ -47,6 +54,14 @@ namespace Items
                     throw new ArgumentOutOfRangeException();
             }
             
+        }
+
+        private void SpawnProp(Transform spawnPoint, ref GameObject spawnRef, GameObject propToSpawn)
+        {
+            if (spawnRef != null)
+                Destroy(spawnRef);
+
+            spawnRef = Instantiate(propToSpawn, spawnPoint.position, spawnPoint.rotation);
         }
     }
 }

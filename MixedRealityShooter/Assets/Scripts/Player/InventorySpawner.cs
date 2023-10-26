@@ -21,8 +21,8 @@ namespace Player
         {
             if (state != EGameStates.InGame)return; // Might need to do it on Enable instead
 
-            Instantiate(_playerInventory.ActiveRangeWeaponPrefab, _rangeWeaponSpawn.position, Quaternion.identity);
-            Instantiate(_playerInventory.ActiveMeleeWeaponPrefab, _meleeWeaponSpawn.position, Quaternion.identity);
+            Instantiate(_playerInventory.ActiveRangeWeapon.gameObject, _rangeWeaponSpawn.position, Quaternion.identity);
+            Instantiate(_playerInventory.ActiveMeleeWeapon.gameObject, _meleeWeaponSpawn.position, Quaternion.identity);
         }
     }
 }

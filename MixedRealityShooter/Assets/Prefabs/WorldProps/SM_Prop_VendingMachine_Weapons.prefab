@@ -121,7 +121,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1713008720660378080}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7409191464855373412}
+        m_TargetAssemblyTypeName: Shop.WeaponShop, Assembly-CSharp
+        m_MethodName: SpawnBoughtWeapon
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &72874483924573447
 GameObject:
   m_ObjectHideFlags: 0
@@ -378,7 +390,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 987060820732387413}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7409191464855373412}
+        m_TargetAssemblyTypeName: Shop.WeaponShop, Assembly-CSharp
+        m_MethodName: SpawnBoughtWeapon
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 6
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &782259215915029301
 GameObject:
   m_ObjectHideFlags: 0
@@ -536,7 +560,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8062230571140926279}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7409191464855373412}
+        m_TargetAssemblyTypeName: Shop.WeaponShop, Assembly-CSharp
+        m_MethodName: SpawnBoughtWeapon
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1272322575021184126
 GameObject:
   m_ObjectHideFlags: 0
@@ -928,7 +964,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1441576935800604456}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7409191464855373412}
+        m_TargetAssemblyTypeName: Shop.WeaponShop, Assembly-CSharp
+        m_MethodName: SpawnBoughtWeapon
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 5
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3111060917800771460
 GameObject:
   m_ObjectHideFlags: 0
@@ -1108,7 +1156,7 @@ GameObject:
   - component: {fileID: 1307265656509845483}
   - component: {fileID: 7398366747407105359}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Canvas_Numpad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1633,7 +1681,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8611457618878774487}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7409191464855373412}
+        m_TargetAssemblyTypeName: Shop.WeaponShop, Assembly-CSharp
+        m_MethodName: SpawnBoughtWeapon
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4187474740165019545
 GameObject:
   m_ObjectHideFlags: 0
@@ -1755,7 +1815,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7499013522579101782}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7409191464855373412}
+        m_TargetAssemblyTypeName: Shop.WeaponShop, Assembly-CSharp
+        m_MethodName: SpawnBoughtWeapon
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4532825491162150180
 GameObject:
   m_ObjectHideFlags: 0
@@ -1877,7 +1949,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3944735231281713160}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7409191464855373412}
+        m_TargetAssemblyTypeName: Shop.WeaponShop, Assembly-CSharp
+        m_MethodName: SpawnBoughtWeapon
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5624203840961136900
 GameObject:
   m_ObjectHideFlags: 0
@@ -2139,6 +2223,7 @@ MonoBehaviour:
   _availableWeaponPrefabs:
   - {fileID: 2193878248088033636, guid: 76ab2617340c0de43b9ff6891f65b26f, type: 3}
   - {fileID: 1562996608389564, guid: c6aa8ec413dfcd24791391ed325e9729, type: 3}
+  _weaponSpawn: {fileID: 3614923560870636081}
 --- !u!1 &6337467126983897356
 GameObject:
   m_ObjectHideFlags: 0
@@ -2395,7 +2480,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6107326954699013455}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7409191464855373412}
+        m_TargetAssemblyTypeName: Shop.WeaponShop, Assembly-CSharp
+        m_MethodName: SpawnBoughtWeapon
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 7
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7215017126039418244
 GameObject:
   m_ObjectHideFlags: 0

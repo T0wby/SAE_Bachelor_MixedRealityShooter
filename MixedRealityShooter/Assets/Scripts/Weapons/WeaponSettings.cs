@@ -8,6 +8,7 @@ namespace Weapons
     {
         [SerializeField] private string _weaponName;
         [SerializeField] private GameObject _weaponPrefab;
+        [SerializeField] private GameObject _weaponProp;
         [SerializeField] private EWeaponType _type = EWeaponType.AssaultRifle;
         [SerializeField] private int _damage;
         [SerializeField] private float _projectileSpeed;
@@ -15,6 +16,7 @@ namespace Weapons
 
         public string WeaponName => _weaponName;
         public GameObject WeaponPrefab => _weaponPrefab;
+        public GameObject WeaponProp => _weaponProp;
         public EWeaponType WeaponType => _type;
         public int Damage => _damage;
         public float ProjectileSpeed => _projectileSpeed;

@@ -23,6 +23,7 @@ namespace Weapons
         
         public WeaponSettings DefaultSettings => _defaultSettings;
         public bool IsGrabbed => _isGrabbed;
+        public int WeaponLevel => _weaponLevel;
 
         private void Awake()
         {
@@ -46,6 +47,20 @@ namespace Weapons
             int tmp = (int)(_damage * UPGRADE_STRENGTH);
             _damage += tmp;
             _weaponLevel++;
+        }
+        
+        /// <summary>
+        /// Downgrade via rule of three
+        /// </summary>
+        public void DowngradeDamage()
+        {
+            if (_weaponLevel == 0)return;
+
+            int perc = (int)UPGRADE_STRENGTH * 100 + 100;
+            
+            int tmp = ((_damage /perc) * 100);
+            _damage = tmp;
+            _weaponLevel--;
         }
         
         public void UpgradeFireRate()
