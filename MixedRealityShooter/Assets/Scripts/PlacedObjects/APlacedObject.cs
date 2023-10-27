@@ -6,7 +6,7 @@ namespace PlacedObjects
     {
         [SerializeField] protected Color _normalColor;
         [SerializeField] protected Color _selectedColor;
-        protected Material _ownMat;
+        private Material _ownMat;
 
         private void Awake()
         {

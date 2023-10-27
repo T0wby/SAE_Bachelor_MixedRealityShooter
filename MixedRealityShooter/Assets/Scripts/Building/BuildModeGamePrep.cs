@@ -60,13 +60,11 @@ public class BuildModeGamePrep : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log("Enable GamePrep");
         ConnectMethods();
     }
 
     private void OnDisable()
     {
-        Debug.Log("Disable GamePrep");
         AddPlacedObjToOverall(GameManager.Instance.MrPlacedObjects);
         DisconnectMethods();
     }
@@ -206,6 +204,7 @@ public class BuildModeGamePrep : MonoBehaviour
         _placedObjects.Add(_currCube);
         _inventory.PlaceableVRItems.RemoveAt(_placeInvenNumber);
         _currCube = null;
+        //TODO: Add Spatial Anchor, save it locally and save UUID separately
     }
 
     private void DeleteFocusedObject()
@@ -222,6 +221,7 @@ public class BuildModeGamePrep : MonoBehaviour
         }
         _objToDelete = null;
         _selectedObj = null;
+        //TODO: Delete Spatial Anchor, delete it locally and delete UUID
     }
     #endregion
 

@@ -12,6 +12,13 @@ namespace Manager
             GameManager.Instance.CurrState = EGameStates.InHub;
         }
         
+        public void LoadVRSceneFirst()
+        {
+            AnchorManager.Instance.SaveAllAnchors();
+            SceneManager.LoadScene(2);
+            GameManager.Instance.CurrState = EGameStates.InHub;
+        }
+        
         public void LoadMRScene()
         {
             SceneManager.LoadScene(1);

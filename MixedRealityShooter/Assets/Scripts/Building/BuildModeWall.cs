@@ -53,7 +53,6 @@ namespace Building
 
         private void FixedUpdate()
         {
-            //PickRayMethod();
             if (_isBuilding)
                 SearchForPoint();
             else
@@ -62,13 +61,11 @@ namespace Building
 
         private void OnEnable()
         {
-            Debug.Log("Enable Wall");
             ConnectMethods();
         }
 
         private void OnDisable()
         {
-            Debug.Log("Disable Wall");
             AddPlacedObjToOverall(GameManager.Instance.MrPlacedObjects);
             DisconnectMethods();
         }
@@ -242,6 +239,7 @@ namespace Building
                 LayerMask.NameToLayer("Environment"); // Currently only holds one children that has the collision component
             _placedObjects.Add(_currWall);
             _currWall = null;
+            //TODO: Add Spatial Anchor, save it locally and save UUID separately
         }
         
         private void DeleteFocusedObject()
@@ -253,6 +251,7 @@ namespace Building
             Destroy(_selectedObj);
             _objToDelete = null;
             _selectedObj = null;
+            //TODO: Delete Spatial Anchor, delete it locally and delete UUID
         }
 
         #endregion
