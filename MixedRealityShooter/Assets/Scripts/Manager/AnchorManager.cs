@@ -23,9 +23,10 @@ namespace Manager
         private Guid[] _anchorSavedUUIDList;
         private string _filePathSavedObjs;
 
-        private List<SPLacedObjects> _placedObjects;
+        private List<SPLacedObject> _placedObjects;
+        private List<SPLacedObject> _loadedPlacedObjects;
 
-        public List<SPLacedObjects> PlacedObjects => _placedObjects;
+        public List<SPLacedObject> PlacedObjects => _placedObjects;
         
         private Action<OVRSpatialAnchor.UnboundAnchor, bool> _onLoadAnchor;
 
@@ -34,7 +35,7 @@ namespace Manager
             base.Awake();
             _allSavedAnchors = new List<OVRSpatialAnchor>();
             _allRunningAnchors = new List<OVRSpatialAnchor>();
-            _placedObjects = new List<SPLacedObjects>();
+            _placedObjects = new List<SPLacedObject>();
             _anchorSavedUUIDList = new Guid[_anchorSavedUUIDListMaxSize];
             _anchorSavedUUIDListSize = 0;
             _filePathSavedObjs = $"{Application.dataPath}/mrobjs.json";
@@ -57,11 +58,11 @@ namespace Manager
                 json = reader.ReadToEnd();
             }
             
-            var templist = JsonConvert.DeserializeObject<List<SPLacedObjects>>(json);
+            _loadedPlacedObjects = JsonConvert.DeserializeObject<List<SPLacedObject>>(json);
 
-            for (int i = 0; i < templist.Count(); i++)
+            for (int i = 0; i < _loadedPlacedObjects.Count(); i++)
             {
-                _anchorSavedUUIDList[i] = templist[i].UniqueId;
+                _anchorSavedUUIDList[i] = _loadedPlacedObjects[i].UniqueId;
                 _anchorSavedUUIDListSize = i;
             }
 
@@ -74,13 +75,13 @@ namespace Manager
             
             foreach (var go in objList)
             {
-                var tmp = new SPLacedObjects
+                var tmp = new SPLacedObject
                 {
                     UniqueId = new Guid(),
                     IsWall = go.CompareTag("Wall"),
                     Scaling = go.transform.localScale
                 };
-                CreateAnchor(go, ref tmp);
+                CreateAnchor(go, tmp);
                 _placedObjects.Add(tmp);
             }
             
@@ -92,13 +93,13 @@ namespace Manager
             }
         }
 
-        public void CreateAnchor(GameObject usedObj, ref SPLacedObjects saveStruct)
+        public void CreateAnchor(GameObject usedObj, SPLacedObject saveStruct)
         {
             _workingAnchor = usedObj.AddComponent<OVRSpatialAnchor>();
             StartCoroutine(AnchorCreated(_workingAnchor, saveStruct));
         }
 
-        private IEnumerator AnchorCreated(OVRSpatialAnchor anchor, SPLacedObjects saveStruct)
+        private IEnumerator AnchorCreated(OVRSpatialAnchor anchor, SPLacedObject saveStruct)
         {
             while (!anchor.Created && !anchor.Localized)
             {
@@ -186,9 +187,9 @@ namespace Manager
         private void OnLocalized(OVRSpatialAnchor.UnboundAnchor unboundAnchor, bool success)
         {
             var pose = unboundAnchor.Pose;
-            SPLacedObjects tmp = new SPLacedObjects();
+            SPLacedObject tmp = new SPLacedObject();
 
-            foreach (var placedObject in _placedObjects)
+            foreach (var placedObject in _loadedPlacedObjects)
             {
                 if (unboundAnchor.Uuid == placedObject.UniqueId)
                 {
@@ -209,6 +210,10 @@ namespace Manager
             }
 
             go.transform.localScale = tmp.Scaling;
+            
+            go.layer = LayerMask.NameToLayer("Environment");
+            go.transform.GetChild(0).transform.gameObject.layer =
+                LayerMask.NameToLayer("Environment");
             
             _workingAnchor = go.AddComponent<OVRSpatialAnchor>();
             unboundAnchor.BindTo(_workingAnchor);

@@ -246,7 +246,6 @@ public class BuildModeInner : MonoBehaviour
         _placedObjects.Add(_currCube);
         AddPlacedObjToOverall(GameManager.Instance.MrPlacedObjects);
         _currCube = null;
-        //TODO: Add Spatial Anchor, save it locally and save UUID separately
     }
 
     private void DeleteFocusedObject()
@@ -259,7 +258,6 @@ public class BuildModeInner : MonoBehaviour
         Destroy(_selectedObj);
         _objToDelete = null;
         _selectedObj = null;
-        //TODO: Delete Spatial Anchor, delete it locally and delete UUID
     }
     #endregion
 

@@ -3,7 +3,8 @@ using UnityEngine;
 
 namespace Utility
 {
-    public struct SPLacedObjects
+    [Serializable]
+    public struct SPLacedObject
     {
         public Guid UniqueId;
         public bool IsWall;
