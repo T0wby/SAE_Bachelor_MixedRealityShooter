@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Enemies;
+using Oculus.Interaction;
 using UnityEngine;
 using UnityEngine.Events;
 using Utility;
@@ -40,7 +41,7 @@ namespace Manager
             OnGameStateChange.AddListener(SwitchObjVisibility);
         }
 
-        public void StartRound()
+        public void StartRound(PointerEvent pointEvent)
         {
             _currRound++;
             CurrState = EGameStates.InGame;

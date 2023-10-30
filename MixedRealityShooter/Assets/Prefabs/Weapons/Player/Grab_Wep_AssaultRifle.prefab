@@ -158,7 +158,7 @@ Transform:
   - {fileID: 3715501391309681094}
   - {fileID: 4481669505380604368}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6408854503879012844
 MeshFilter:
@@ -225,7 +225,7 @@ MeshCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
@@ -258,7 +258,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &8555705244980336855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -316,6 +316,8 @@ MonoBehaviour:
   _defaultSettings: {fileID: 11400000, guid: 714cb359c3ab0d44da51f623dbcac860, type: 2}
   _barrel: {fileID: 1182300125785582002}
   _layerMaskNum: 8
+  _rightHandEvent: {fileID: 1116965030203947}
+  _leftHandEvent: {fileID: 1938345304718160110}
   _activeStateEvent: {fileID: 6501865713223741657}
 --- !u!114 &1938345304718160110
 MonoBehaviour:

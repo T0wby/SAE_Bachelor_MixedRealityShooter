@@ -97,7 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: c233e570dae274348b8ed0b013533aa4,
+    type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -161,7 +162,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4300965689403036, guid: c6aa8ec413dfcd24791391ed325e9729, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.91
+      value: 0.497
       objectReference: {fileID: 0}
     - target: {fileID: 4300965689403036, guid: c6aa8ec413dfcd24791391ed325e9729, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2517,6 +2518,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2772380858449774584, guid: a922cb2ef391d554a94e9f5dbce06911,
+        type: 3}
+      propertyPath: m_TagString
+      value: RightGrab
+      objectReference: {fileID: 0}
     - target: {fileID: 5266254150910237773, guid: a922cb2ef391d554a94e9f5dbce06911,
         type: 3}
       propertyPath: _interactors.Array.size
@@ -2527,6 +2533,11 @@ PrefabInstance:
       propertyPath: _interactors.Array.data[1]
       value: 
       objectReference: {fileID: 2107949100}
+    - target: {fileID: 6867160867730591531, guid: a922cb2ef391d554a94e9f5dbce06911,
+        type: 3}
+      propertyPath: m_TagString
+      value: LeftGrab
+      objectReference: {fileID: 0}
     - target: {fileID: 7506297191509846095, guid: a922cb2ef391d554a94e9f5dbce06911,
         type: 3}
       propertyPath: m_RootOrder
@@ -2598,7 +2609,8 @@ PrefabInstance:
       value: OwnOVRCameraRig
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5039632849189252307, guid: a922cb2ef391d554a94e9f5dbce06911, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8488927383593227742, guid: a922cb2ef391d554a94e9f5dbce06911,
         type: 3}
@@ -2686,7 +2698,7 @@ PrefabInstance:
     - target: {fileID: 3586991903900419220, guid: 76ab2617340c0de43b9ff6891f65b26f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.766
+      value: 0.384
       objectReference: {fileID: 0}
     - target: {fileID: 3586991903900419220, guid: 76ab2617340c0de43b9ff6891f65b26f,
         type: 3}
