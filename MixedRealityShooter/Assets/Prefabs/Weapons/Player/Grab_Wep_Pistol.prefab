@@ -310,7 +310,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &2059794033372095646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,6 +326,8 @@ MonoBehaviour:
   _defaultSettings: {fileID: 11400000, guid: adec2abdf3e0d3442a39407fb164c7e0, type: 2}
   _barrel: {fileID: 787837101955584382}
   _layerMaskNum: 8
+  _rightHandEvent: {fileID: 5103009437916976382}
+  _leftHandEvent: {fileID: 9140227709138607164}
   _activeStateEvent: {fileID: 7687603062793655233}
 --- !u!114 &9057903899216776896
 MonoBehaviour:
