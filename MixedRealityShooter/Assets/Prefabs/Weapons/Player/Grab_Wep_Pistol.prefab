@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4389793416851796}
   - component: {fileID: 33495576682654528}
   - component: {fileID: 23761909137395854}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SM_Wep_Pistol_01_Trigger_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 4643839630470814}
   - component: {fileID: 33577224928813808}
   - component: {fileID: 23299596719339052}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SM_Wep_Pistol_01_Slide_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,7 +186,7 @@ GameObject:
   - component: {fileID: 9140227709138607164}
   - component: {fileID: 5113718194116318257}
   - component: {fileID: 7687603062793655233}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Grab_Wep_Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -324,11 +324,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _defaultSettings: {fileID: 11400000, guid: adec2abdf3e0d3442a39407fb164c7e0, type: 2}
+  _grabInteractable: {fileID: 1624447679432339223}
   _barrel: {fileID: 787837101955584382}
   _layerMaskNum: 8
-  _rightHandEvent: {fileID: 5103009437916976382}
-  _leftHandEvent: {fileID: 9140227709138607164}
-  _activeStateEvent: {fileID: 7687603062793655233}
 --- !u!114 &9057903899216776896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -378,7 +376,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1562996608389564}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a56054f6e3838f4e85dce4e71979800, type: 3}
   m_Name: 
@@ -392,7 +390,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1562996608389564}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a56054f6e3838f4e85dce4e71979800, type: 3}
   m_Name: 
@@ -406,7 +404,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1562996608389564}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aebd5da9a8bd22243b407f1927f4965b, type: 3}
   m_Name: 
@@ -422,7 +420,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1562996608389564}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1d2705674196dfc4da9c25fbacda72d8, type: 3}
   m_Name: 
@@ -446,7 +444,7 @@ GameObject:
   - component: {fileID: 4949550751971396}
   - component: {fileID: 33621400450968114}
   - component: {fileID: 23675158842297408}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SM_Wep_Pistol_01_Magazine_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -527,7 +525,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8741495145149934706}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}

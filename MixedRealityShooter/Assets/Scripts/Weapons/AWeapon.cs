@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Enemies.TeleportRangeEnemy;
+using Oculus.Interaction;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Utility;
@@ -10,7 +11,10 @@ namespace Weapons
 {
     public abstract class AWeapon : MonoBehaviour
     {
+        [Header("Settings")]
         [SerializeField] protected WeaponSettings _defaultSettings;
+        [Header("GrabEvent")]
+        [SerializeField] private GrabInteractable _grabInteractable;
         protected int _damage;
         protected float _projectileSpeed;
         protected float _bulletsPerSecond;
@@ -29,6 +33,12 @@ namespace Weapons
         {
             InitDefaultSettings();
             _thisRB = GetComponent<Rigidbody>();
+            _grabInteractable = GetComponent<GrabInteractable>();
+            if (_grabInteractable != null)
+            {
+                _grabInteractable.WhenSelectingInteractorAdded.Action += OnGrabbed;
+                _grabInteractable.WhenSelectingInteractorRemoved.Action += OnReleased;
+            }
         }
 
         private void InitDefaultSettings()
@@ -79,11 +89,11 @@ namespace Weapons
             _weaponLevel++;
         }
         
-        public void OnGrabbed()
+        public void OnGrabbed(GrabInteractor interactor)
         {
             _isGrabbed = true;
         }
-        public void OnReleased()
+        public void OnReleased(GrabInteractor interactor)
         {
             _isGrabbed = false;
             if (_thisRB != null)

@@ -8,13 +8,10 @@ namespace Weapons
 {
     public class RangeWeapon : AWeapon
     {
+        [Header("Other")]
         [SerializeField] private GameObject _barrel;
         [Tooltip("Number of the Layer that should be ignored")]
         [SerializeField] private int _layerMaskNum = 8;
-        [Header("GrabEvent")]
-        [SerializeField] private InteractorActiveState _rightHandEvent;
-        [SerializeField] private InteractorActiveState _leftHandEvent;
-        [SerializeField] private ActiveStateUnityEventWrapper _activeStateEvent;
         private PlayerController _playerController;
         private ProjectilePool _projectilePool;
         private int _layerMask;
@@ -31,20 +28,6 @@ namespace Weapons
             
             // Invert bitmask
             _layerMask = ~_layerMask;
-            
-            var rightgrab = GameObject.FindWithTag("RightGrab").GetComponent<IInteractor>();
-            if (rightgrab != null && _rightHandEvent != null )
-                _rightHandEvent.InjectInteractor(rightgrab);
-            
-            var leftgrab = GameObject.FindWithTag("LeftGrab").GetComponent<IInteractor>();
-            if (leftgrab != null && _leftHandEvent != null )
-                _leftHandEvent.InjectInteractor(leftgrab);
-            
-            if (_activeStateEvent != null)
-            {
-                _activeStateEvent.WhenActivated.AddListener(OnGrabbed);
-                _activeStateEvent.WhenDeactivated.AddListener(OnReleased);
-            }
         }
 
         /// <summary>

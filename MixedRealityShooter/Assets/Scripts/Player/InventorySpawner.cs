@@ -11,12 +11,6 @@ namespace Player
         [SerializeField] private Transform _meleeWeaponSpawn;
         private PlayerInventory _playerInventory;
 
-        private void Awake()
-        {
-            _playerInventory = FindObjectOfType<PlayerInventory>();
-            //GameManager.Instance.OnGameStateChange.AddListener(SpawnInventory);
-        }
-
         private void OnEnable()
         {
             _playerInventory = FindObjectOfType<PlayerInventory>();
@@ -25,10 +19,12 @@ namespace Player
 
         private void SpawnInventory(EGameStates state)
         {
-            if (state != EGameStates.InGame)return; // Might need to do it on Enable instead
+            if (_playerInventory == null || state != EGameStates.InGame)return;
 
-            Instantiate(_playerInventory.ActiveRangeWeapon.gameObject, _rangeWeaponSpawn.position, Quaternion.identity);
-            Instantiate(_playerInventory.ActiveMeleeWeapon.gameObject, _meleeWeaponSpawn.position, Quaternion.identity);
+            if(_playerInventory.ActiveRangeWeapon != null)
+                Instantiate(_playerInventory.ActiveRangeWeapon.gameObject, _rangeWeaponSpawn.position, Quaternion.identity);
+            if(_playerInventory.ActiveMeleeWeapon != null)
+                Instantiate(_playerInventory.ActiveMeleeWeapon.gameObject, _meleeWeaponSpawn.position, Quaternion.identity);
         }
     }
 }

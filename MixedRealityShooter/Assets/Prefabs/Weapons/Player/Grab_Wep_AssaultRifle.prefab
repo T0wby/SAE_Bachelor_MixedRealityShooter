@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4551410387789680806}
   - component: {fileID: 4331141086111580807}
   - component: {fileID: 10060197633015802}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SM_Wep_AssaultRifle_01_Magazine_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4481669505380604368}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 1116965030203947}
   - component: {fileID: 433424435325126612}
   - component: {fileID: 6501865713223741657}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Grab_Wep_AssaultRifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -314,11 +314,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _defaultSettings: {fileID: 11400000, guid: 714cb359c3ab0d44da51f623dbcac860, type: 2}
+  _grabInteractable: {fileID: 9004878985501860797}
   _barrel: {fileID: 1182300125785582002}
   _layerMaskNum: 8
-  _rightHandEvent: {fileID: 1116965030203947}
-  _leftHandEvent: {fileID: 1938345304718160110}
-  _activeStateEvent: {fileID: 6501865713223741657}
 --- !u!114 &1938345304718160110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,7 +324,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2193878248088033636}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a56054f6e3838f4e85dce4e71979800, type: 3}
   m_Name: 
@@ -340,7 +338,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2193878248088033636}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a56054f6e3838f4e85dce4e71979800, type: 3}
   m_Name: 
@@ -354,7 +352,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2193878248088033636}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aebd5da9a8bd22243b407f1927f4965b, type: 3}
   m_Name: 
@@ -370,7 +368,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2193878248088033636}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1d2705674196dfc4da9c25fbacda72d8, type: 3}
   m_Name: 
@@ -394,7 +392,7 @@ GameObject:
   - component: {fileID: 3715501391309681094}
   - component: {fileID: 2185306523330743628}
   - component: {fileID: 6181022737274653915}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SM_Wep_AssaultRifle_01_Trigger_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -477,7 +475,7 @@ GameObject:
   - component: {fileID: 5380147908966326548}
   - component: {fileID: 6021968796655747044}
   - component: {fileID: 3257398222088896318}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SM_Wep_AssaultRifle_01_Slide_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
