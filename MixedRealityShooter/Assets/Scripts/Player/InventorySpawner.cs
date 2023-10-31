@@ -14,7 +14,13 @@ namespace Player
         private void Awake()
         {
             _playerInventory = FindObjectOfType<PlayerInventory>();
-            GameManager.Instance.OnGameStateChange.AddListener(SpawnInventory);
+            //GameManager.Instance.OnGameStateChange.AddListener(SpawnInventory);
+        }
+
+        private void OnEnable()
+        {
+            _playerInventory = FindObjectOfType<PlayerInventory>();
+            SpawnInventory(GameManager.Instance.CurrState);
         }
 
         private void SpawnInventory(EGameStates state)

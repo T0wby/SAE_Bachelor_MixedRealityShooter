@@ -20,7 +20,7 @@ namespace Shop
         {
             if (vendingNumber >= _availableWeaponPrefabs.Count || vendingNumber < 0)return;
             
-            Instantiate(_availableWeaponPrefabs[vendingNumber], _weaponSpawn.position, Quaternion.identity);
+            Instantiate(_availableWeaponPrefabs[vendingNumber], _weaponSpawn.position, Quaternion.identity, _weaponSpawn);
         }
     }
 }
