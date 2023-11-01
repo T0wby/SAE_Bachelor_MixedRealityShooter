@@ -9,8 +9,10 @@ namespace Inventory
     public class InventoryUpdater : MonoBehaviour
     {
         [Header("UpdateFields")] 
-        [SerializeField] private GameObject _rangeUpdateField;
-        [SerializeField] private GameObject _meleeUpdateField;
+        [SerializeField] private GameObject _rangeUpdateFieldUI;
+        [SerializeField] private GameObject _rangeUpdateFieldBTN;
+        [SerializeField] private GameObject _meleeUpdateFieldUI;
+        [SerializeField] private GameObject _meleeUpdateFieldBTN;
         
         [Header("UI_TextFields")]
         [SerializeField] private TMP_Text _dmgLevelRange;
@@ -21,8 +23,7 @@ namespace Inventory
         private void Awake()
         {
             _playerInventory = FindObjectOfType<PlayerInventory>();
-            SetCorrectWeaponLevelText();
-            SetFieldsAccordingToInventory();
+            UpdateFields();
         }
 
 
@@ -68,6 +69,12 @@ namespace Inventory
 
         #endregion
 
+        public void UpdateFields()
+        {
+            SetCorrectWeaponLevelText();
+            SetFieldsAccordingToInventory();
+        }
+        
         private void SetCorrectWeaponLevelText()
         {
             if (_playerInventory == null) return;
@@ -80,9 +87,13 @@ namespace Inventory
         private void SetFieldsAccordingToInventory()
         {
             if (_playerInventory == null) return;
+            bool range = _playerInventory.ActiveRangeWeapon != null;
+            bool melee = _playerInventory.ActiveMeleeWeapon != null;
             
-            _rangeUpdateField.SetActive(_playerInventory.ActiveRangeWeapon != null);
-            _meleeUpdateField.SetActive(_playerInventory.ActiveMeleeWeapon != null);
+            _rangeUpdateFieldUI.SetActive(range);
+            _rangeUpdateFieldBTN.SetActive(range);
+            _meleeUpdateFieldUI.SetActive(melee);
+            _meleeUpdateFieldBTN.SetActive(melee);
         }
     }
 }

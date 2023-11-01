@@ -8,6 +8,8 @@ namespace Inventory
 {
     public class AddPlacedItemToInventory : MonoBehaviour
     {
+        [Header("Reference")] 
+        [SerializeField] private InventoryUpdater _inventoryUpdater;
         [SerializeField] private Transform _rangeSpawn;
         [SerializeField] private Transform _meleeSpawn;
         private PlayerInventory _playerInventory;
@@ -18,6 +20,7 @@ namespace Inventory
         private void Awake()
         {
             _playerInventory = FindObjectOfType<PlayerInventory>();
+            _inventoryUpdater = GetComponent<InventoryUpdater>();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -25,6 +28,16 @@ namespace Inventory
             if (_playerInventory == null)return;
 
             _weapon = other.GetComponent<AWeapon>();
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (_playerInventory == null || _weapon == null )return;
+
+            if (_weapon.gameObject == other.gameObject)
+            {
+                _weapon = null;
+            }
         }
 
         private void OnTriggerStay(Collider other)
@@ -62,6 +75,7 @@ namespace Inventory
                 Destroy(spawnRef);
 
             spawnRef = Instantiate(propToSpawn, spawnPoint.position, spawnPoint.rotation);
+            _inventoryUpdater.UpdateFields();
         }
     }
 }
