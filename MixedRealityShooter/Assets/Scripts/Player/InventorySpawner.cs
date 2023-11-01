@@ -21,10 +21,17 @@ namespace Player
         {
             if (_playerInventory == null || state != EGameStates.InGame)return;
 
-            if(_playerInventory.ActiveRangeWeapon != null)
-                Instantiate(_playerInventory.ActiveRangeWeapon.gameObject, _rangeWeaponSpawn.position, Quaternion.identity);
-            if(_playerInventory.ActiveMeleeWeapon != null)
-                Instantiate(_playerInventory.ActiveMeleeWeapon.gameObject, _meleeWeaponSpawn.position, Quaternion.identity);
+            if (_playerInventory.ActiveRangeWeaponPrefab != null)
+            {
+                _playerInventory.ActiveRangeWeaponPrefab.SetActive(true);
+                _playerInventory.ActiveRangeWeaponPrefab.transform.position = _rangeWeaponSpawn.position;
+            }
+
+            if (_playerInventory.ActiveMeleeWeaponPrefab != null)
+            {
+                _playerInventory.ActiveMeleeWeaponPrefab.SetActive(true);
+                _playerInventory.ActiveMeleeWeaponPrefab.transform.position = _meleeWeaponSpawn.position;
+            }
         }
     }
 }

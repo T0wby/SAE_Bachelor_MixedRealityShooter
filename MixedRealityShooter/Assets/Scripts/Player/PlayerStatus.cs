@@ -7,12 +7,16 @@ namespace Player
 {
     public class PlayerStatus : MonoBehaviour
     {
+        #region Variables
+
         [SerializeField] private int _health = 100;
         [SerializeField] private Transform _centerEyeAnchor;
         [SerializeField] private CapsuleCollider _thisCollider;
-
         private GameObject _colliderGO;
-        
+
+        #endregion
+
+        public Vector3 ColliderPos => _colliderGO.transform.position;
         public int Health
         {
             get => _health;

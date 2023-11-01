@@ -31,6 +31,11 @@ namespace Weapons
 
         private void Awake()
         {
+            InitWeapon();
+        }
+
+        private void InitWeapon()
+        {
             InitDefaultSettings();
             _thisRB = GetComponent<Rigidbody>();
             _grabInteractable = GetComponent<GrabInteractable>();
@@ -55,6 +60,9 @@ namespace Weapons
             if (_weaponLevel >= 10)return;
             
             int tmp = (int)(_damage * UPGRADE_STRENGTH);
+            if (tmp == 0)
+                tmp = 1;
+            
             _damage += tmp;
             _weaponLevel++;
         }

@@ -23,11 +23,7 @@ namespace Enemies.TeleportRangeEnemy
 
         #region Properties
 
-        public Transform Destination
-        {
-            get => _destination;
-            set => _destination = value;
-        }
+        public Transform Destination{ get => _destination; set => _destination = value; }
         public bool IsAttacking => _isAttacking;
         public bool CanMove => _canMove;
 
@@ -47,7 +43,7 @@ namespace Enemies.TeleportRangeEnemy
         private void Update()
         {
             if (_ownTargetDetection == null || _ownTargetDetection.Player == null) return;
-            _playerPos = _ownTargetDetection.Player.transform.position;
+            _playerPos = _ownTargetDetection.Player.ColliderPos;
             transform.rotation = Quaternion.LookRotation(_playerPos - transform.position, Vector3.up);
             RotateWeaponToTarget();
         }

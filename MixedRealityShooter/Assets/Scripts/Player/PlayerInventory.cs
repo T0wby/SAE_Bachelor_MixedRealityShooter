@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 using Weapons;
 using Items;
@@ -35,21 +36,31 @@ namespace Player
             DontDestroyOnLoad(gameObject);
         }
 
-        public void AddRangeWeapon(GameObject weaponPrefab)
+        public void AddRangeWeapon(AWeapon weapon)
         {
-            RangeWeapon tmp = weaponPrefab.GetComponent<RangeWeapon>();
-            if (tmp == null)return;
+            if (weapon == null|| weapon.GetType() != typeof(RangeWeapon))return;
 
-            _activeRangeWeapon = tmp;
-            _activeRangeWeaponPrefab = weaponPrefab;
+            if (_activeRangeWeapon != null)
+            {
+                Destroy(_activeRangeWeaponPrefab);
+            }
+            
+            _activeRangeWeaponPrefab = Instantiate(weapon.DefaultSettings.WeaponPrefab, transform.position, Quaternion.identity, transform);
+            _activeRangeWeapon = _activeRangeWeaponPrefab.GetComponent<RangeWeapon>();
+            _activeRangeWeaponPrefab.SetActive(false);
         }
-        public void AddMeleeWeapon(GameObject weaponPrefab)
+        public void AddMeleeWeapon(AWeapon weapon)
         {
-            MeleeWeapon tmp = weaponPrefab.GetComponent<MeleeWeapon>();
-            if (tmp == null)return;
+            if (weapon == null || weapon.GetType() != typeof(MeleeWeapon))return;
 
-            _activeMeleeWeapon = tmp;
-            _activeMeleeWeaponPrefab = weaponPrefab;
+            if (_activeMeleeWeapon != null)
+            {
+                Destroy(_activeMeleeWeaponPrefab);
+            }
+            
+            _activeMeleeWeaponPrefab = Instantiate(weapon.DefaultSettings.WeaponPrefab, transform.position, Quaternion.identity, transform);
+            _activeMeleeWeapon = _activeMeleeWeaponPrefab.GetComponent<MeleeWeapon>();
+            _activeMeleeWeaponPrefab.SetActive(false);
         }
     }
 }

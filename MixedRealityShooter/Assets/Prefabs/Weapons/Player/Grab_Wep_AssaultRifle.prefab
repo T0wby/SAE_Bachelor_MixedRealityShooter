@@ -130,10 +130,6 @@ GameObject:
   - component: {fileID: 8555705244980336855}
   - component: {fileID: 9004878985501860797}
   - component: {fileID: 4157862974538235369}
-  - component: {fileID: 1938345304718160110}
-  - component: {fileID: 1116965030203947}
-  - component: {fileID: 433424435325126612}
-  - component: {fileID: 6501865713223741657}
   m_Layer: 9
   m_Name: Grab_Wep_AssaultRifle
   m_TagString: Untagged
@@ -157,6 +153,7 @@ Transform:
   - {fileID: 5380147908966326548}
   - {fileID: 3715501391309681094}
   - {fileID: 4481669505380604368}
+  - {fileID: 5507823535635267279}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -296,7 +293,7 @@ MonoBehaviour:
   _data: {fileID: 0}
   _pointableElement: {fileID: 8555705244980336855}
   _rigidbody: {fileID: 7709894587531133387}
-  _grabSource: {fileID: 0}
+  _grabSource: {fileID: 5507823535635267279}
   _useClosestPointAsGrabSource: 0
   _releaseDistance: 0
   _resetGrabOnGrabsUpdated: 1
@@ -317,70 +314,6 @@ MonoBehaviour:
   _grabInteractable: {fileID: 9004878985501860797}
   _barrel: {fileID: 1182300125785582002}
   _layerMaskNum: 8
---- !u!114 &1938345304718160110
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2193878248088033636}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a56054f6e3838f4e85dce4e71979800, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interactor: {fileID: 0}
-  _property: 4
---- !u!114 &1116965030203947
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2193878248088033636}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a56054f6e3838f4e85dce4e71979800, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interactor: {fileID: 0}
-  _property: 4
---- !u!114 &433424435325126612
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2193878248088033636}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aebd5da9a8bd22243b407f1927f4965b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _activeStates:
-  - {fileID: 1938345304718160110}
-  - {fileID: 1116965030203947}
-  _logicOperator: 1
---- !u!114 &6501865713223741657
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2193878248088033636}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d2705674196dfc4da9c25fbacda72d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _activeState: {fileID: 433424435325126612}
-  _whenActivated:
-    m_PersistentCalls:
-      m_Calls: []
-  _whenDeactivated:
-    m_PersistentCalls:
-      m_Calls: []
-  _emitOnFirstUpdate: 1
 --- !u!1 &3941537639718258303
 GameObject:
   m_ObjectHideFlags: 0
@@ -464,6 +397,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &4335974579110498806
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5507823535635267279}
+  m_Layer: 9
+  m_Name: GrabTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5507823535635267279
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4335974579110498806}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3586991903900419220}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8185900232940233806
 GameObject:
   m_ObjectHideFlags: 0

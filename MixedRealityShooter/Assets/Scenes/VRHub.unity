@@ -2902,6 +2902,35 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_VendingMachine_Weapons
       objectReference: {fileID: 0}
+    - target: {fileID: 7409191464855373412, guid: b6938364e12ec144ca64e44892ea13f6,
+        type: 3}
+      propertyPath: _availableWeapons.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7409191464855373412, guid: b6938364e12ec144ca64e44892ea13f6,
+        type: 3}
+      propertyPath: _availableWeapons.Array.data[0]
+      value: 
+      objectReference: {fileID: 2059794033372095646, guid: c6aa8ec413dfcd24791391ed325e9729,
+        type: 3}
+    - target: {fileID: 7409191464855373412, guid: b6938364e12ec144ca64e44892ea13f6,
+        type: 3}
+      propertyPath: _availableWeapons.Array.data[1]
+      value: 
+      objectReference: {fileID: 4157862974538235369, guid: 76ab2617340c0de43b9ff6891f65b26f,
+        type: 3}
+    - target: {fileID: 7409191464855373412, guid: b6938364e12ec144ca64e44892ea13f6,
+        type: 3}
+      propertyPath: _availableWeaponPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 1562996608389564, guid: c6aa8ec413dfcd24791391ed325e9729,
+        type: 3}
+    - target: {fileID: 7409191464855373412, guid: b6938364e12ec144ca64e44892ea13f6,
+        type: 3}
+      propertyPath: _availableWeaponPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 2193878248088033636, guid: 76ab2617340c0de43b9ff6891f65b26f,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
