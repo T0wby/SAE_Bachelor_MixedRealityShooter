@@ -6,6 +6,7 @@ namespace PlacedObjects
     {
         [SerializeField] protected Color _normalColor;
         [SerializeField] protected Color _selectedColor;
+        [SerializeField] protected Color _gameColor;
         protected Material _ownMat;
 
         private void Awake()
@@ -22,6 +23,10 @@ namespace PlacedObjects
         public void SetNormalColor()
         {
             _ownMat.SetColor("_NormalColor", _normalColor);
+        }
+        public void SetGameColor()
+        {
+            _ownMat.SetColor("_NormalColor", _gameColor);
         }
     }
 }

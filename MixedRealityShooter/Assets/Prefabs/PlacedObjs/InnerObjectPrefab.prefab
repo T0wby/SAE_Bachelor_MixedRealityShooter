@@ -127,8 +127,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd11d91b1a7d90942b6a6b8c02b31c3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _normalColor: {r: 0.90588236, g: 0.9137255, b: 0.38431373, a: 0.078431375}
+  _normalColor: {r: 0.90588236, g: 0.9137255, b: 0.38431373, a: 0.6666667}
   _selectedColor: {r: 1, g: 0, b: 0, a: 0.7882353}
+  _gameColor: {r: 0.90588236, g: 0.9137255, b: 0.38431373, a: 0.078431375}
   _aiSpawns:
   - {fileID: 998982656492257408}
   - {fileID: 3130486494313124541}

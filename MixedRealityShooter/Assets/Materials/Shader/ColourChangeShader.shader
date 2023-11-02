@@ -4,15 +4,15 @@ Shader "Unlit/ColourChangeShader"
     {
         _MainTex ("Texture", 2D) = "white" {}
         _NormalColor ("NormalColor", Color) = (1,0.5,0.5,0.3)
-        _SelectedColor ("SelectedColor", Color) = (1,0,0,1)
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags { "RenderType"="Transparent" }
         LOD 100
 
         Pass
         {
+            Blend SrcAlpha OneMinusSrcAlpha
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
@@ -38,7 +38,6 @@ Shader "Unlit/ColourChangeShader"
 
             float4 _MainTex_ST;
             float4 _NormalColor;
-            float4 _SelectedColor;
 
             v2f vert (appdata v)
             {

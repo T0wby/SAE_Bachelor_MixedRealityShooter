@@ -8,15 +8,6 @@ namespace PlacedObjects
     {
         [SerializeField] private List<Transform> _aiSpawns;
 
-        // private void Start()
-        // {
-        //     var tmp = 
-        //     foreach (var t in _aiSpawns)
-        //     {
-        //         t.position = new Vector3(t.position.x, t.position.y, t.position.z);
-        //     }
-        // }
-
         /// <summary>
         /// Returns a List of spawn points that are not obstructed by a collider
         /// </summary>
@@ -32,11 +23,10 @@ namespace PlacedObjects
                 Physics.OverlapSphereNonAlloc(spawn.position, 0.0f, hitColliders);
                 foreach (var coll in hitColliders)
                 {
-                    if (coll != null)
-                    {
-                        hasCollision = true;
-                        break;
-                    }
+                    if (coll == null || !coll.isTrigger)
+                        continue;
+                    hasCollision = true;
+                    break;
                 }
 
                 if (!hasCollision)

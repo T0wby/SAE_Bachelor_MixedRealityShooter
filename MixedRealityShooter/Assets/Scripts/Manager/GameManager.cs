@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Enemies;
 using Oculus.Interaction;
+using PlacedObjects;
 using UnityEngine;
 using UnityEngine.Events;
 using Utility;
@@ -64,6 +65,17 @@ namespace Manager
             }
         }
 
+        private void ChangeToGameMaterial()
+        {
+            foreach (var obj in _mrPlacedObjects)
+            {
+                if(obj == null) continue;
+                var placedObj = obj.transform.GetChild(0).GetComponent<APlacedObject>();
+                if (placedObj == null) continue;
+                placedObj.SetGameColor();
+            }
+        }
+
         private void SwitchObjVisibility(EGameStates state)
         {
             switch (state)
@@ -73,6 +85,7 @@ namespace Manager
                 case EGameStates.PrepareMRSceneInner:
                     break;
                 case EGameStates.PreparePlayScene:
+                    ChangeToGameMaterial();
                     ChangeMrObjectStatus(true);
                     break;
                 case EGameStates.InHub:
