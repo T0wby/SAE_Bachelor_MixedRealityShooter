@@ -21,6 +21,8 @@ namespace Inventory
         {
             _playerInventory = FindObjectOfType<PlayerInventory>();
             _inventoryUpdater = GetComponent<InventoryUpdater>();
+            SpawnRangeProp();
+            SpawnMeleeProp();
         }
 
         // private void OnTriggerEnter(Collider other)

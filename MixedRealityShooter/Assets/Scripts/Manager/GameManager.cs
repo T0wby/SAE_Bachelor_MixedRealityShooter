@@ -69,7 +69,7 @@ namespace Manager
         {
             foreach (var obj in _mrPlacedObjects)
             {
-                if(obj == null) continue;
+                if(obj == null || obj.CompareTag("InvenObj")) continue;
                 var placedObj = obj.transform.GetChild(0).GetComponent<APlacedObject>();
                 if (placedObj == null) continue;
                 placedObj.SetGameColor();

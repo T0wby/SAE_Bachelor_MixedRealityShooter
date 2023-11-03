@@ -110,5 +110,16 @@ namespace Manager
             _enemiesAlive.Remove(enemyToRemove);
             OnEnemyCountChange.Invoke(_enemiesAlive.Count);
         }
+
+        private void ReturnEnemiesOnPlayerDeath(EGameStates state)
+        {
+            if (state != EGameStates.GameOver)return;
+            foreach (var enemy in _enemiesAlive)
+            {
+                enemy.ReturnEnemy();
+            }
+            
+            _enemiesAlive.Clear();
+        }
     }
 }

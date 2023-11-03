@@ -59,6 +59,11 @@ namespace Enemies
         }
 
         #region Pooling Methods
+        
+        public void ReturnEnemy()
+        {
+            _pool.ReturnItem(this);
+        }
 
         public virtual void Initialize(ObjectPool<AEnemy> pool)
         {

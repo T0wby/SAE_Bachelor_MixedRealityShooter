@@ -31,16 +31,20 @@ namespace Shop
         {
             _inventory.PlaceableVRItems.Add(ItemManager.Instance.ReceivePoolObject(EPlaceableItemType.Sphere));
         }
+        public void AddCylinder()
+        {
+            _inventory.PlaceableVRItems.Add(ItemManager.Instance.ReceivePoolObject(EPlaceableItemType.Cylinder));
+        }
         
         public void AddRandomItem()
         {
             switch (Random.Range(0, 2))
             {
                 case 0:
-                    _inventory.PlaceableVRItems.Add(ItemManager.Instance.ReceivePoolObject(EPlaceableItemType.Cylinder));
+                    AddCylinder();
                     break;
                 case 1:
-                    _inventory.PlaceableVRItems.Add(ItemManager.Instance.ReceivePoolObject(EPlaceableItemType.Sphere));
+                    AddSphere();
                     break;
                 default:
                     break;

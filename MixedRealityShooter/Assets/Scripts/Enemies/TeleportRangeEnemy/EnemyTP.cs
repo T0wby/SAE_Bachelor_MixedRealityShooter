@@ -67,7 +67,7 @@ namespace Enemies.TeleportRangeEnemy
         private void RotateWeaponToTarget()
         {
             if(_activeWeapon == null)return;
-            _playerPos.y *= 0.5f;
+            //_playerPos.y *= 0.5f;
             _activeWeapon.transform.rotation = Quaternion.LookRotation(_playerPos - _activeWeapon.transform.position, Vector3.up);
         }
 
@@ -154,9 +154,8 @@ namespace Enemies.TeleportRangeEnemy
             if (health > 0)return;
             
             _waveManager.RemoveDeadEnemy(this);
-            _pool.ReturnItem(this);
+            ReturnEnemy();
         }
-        
 
         #region Pool Methods
 
