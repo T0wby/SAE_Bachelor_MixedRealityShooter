@@ -912,6 +912,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerStatus: {fileID: 535936744382945476}
+  _layer: {fileID: 2430615797911685668}
+  _startColor: {r: 1, g: 0, b: 0, a: 0}
+  _targetColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &4536592283206798665
 GameObject:
   m_ObjectHideFlags: 0
@@ -2069,8 +2072,8 @@ MonoBehaviour:
   _flipLutY: 1
   serializedSurfaceGeometry: []
   textureOpacity_: 1
-  edgeRenderingEnabled_: 0
-  edgeColor_: {r: 1, g: 1, b: 1, a: 1}
+  edgeRenderingEnabled_: 1
+  edgeColor_: {r: 1, g: 1, b: 1, a: 0}
   colorMapType: 0
 --- !u!114 &3916734754049513936
 MonoBehaviour:
