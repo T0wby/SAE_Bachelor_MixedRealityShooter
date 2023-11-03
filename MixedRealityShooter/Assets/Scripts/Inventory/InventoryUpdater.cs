@@ -16,7 +16,9 @@ namespace Inventory
         
         [Header("UI_TextFields")]
         [SerializeField] private TMP_Text _dmgLevelRange;
+        [SerializeField] private TMP_Text _dmgCostRange;
         [SerializeField] private TMP_Text _dmgLevelMelee;
+        [SerializeField] private TMP_Text _dmgCostMelee;
         
         private PlayerInventory _playerInventory;
 

@@ -57,6 +57,7 @@ namespace Manager
         {
             OnEnemyCountChange.AddListener(GameManager.Instance.CheckIfRoundIsOver);
             GameManager.Instance.OnGameStateChange.AddListener(StartWaves);
+            GameManager.Instance.OnGameStateChange.AddListener(PlayerDeath);
             _enemyPools = FindObjectsByType<EnemyPool>(FindObjectsInactive.Include,FindObjectsSortMode.None);
             _enemyFactory = new EnemyFactory(_enemyPools);
         }
@@ -111,7 +112,7 @@ namespace Manager
             OnEnemyCountChange.Invoke(_enemiesAlive.Count);
         }
 
-        private void ReturnEnemiesOnPlayerDeath(EGameStates state)
+        private void PlayerDeath(EGameStates state)
         {
             if (state != EGameStates.GameOver)return;
             foreach (var enemy in _enemiesAlive)

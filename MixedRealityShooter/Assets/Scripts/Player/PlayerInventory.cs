@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
 using Weapons;
 using Items;
+using Manager;
+using Utility;
 
 namespace Player
 {
@@ -34,6 +35,7 @@ namespace Player
         private void Awake()
         {
             DontDestroyOnLoad(gameObject);
+            GameManager.Instance.OnGameStateChange.AddListener(ResetInventory);
         }
 
         public void AddRangeWeapon(AWeapon weapon)
@@ -61,6 +63,23 @@ namespace Player
             _activeMeleeWeaponPrefab = Instantiate(weapon.DefaultSettings.WeaponPrefab, transform.position, Quaternion.identity, transform);
             _activeMeleeWeapon = _activeMeleeWeaponPrefab.GetComponent<MeleeWeapon>();
             _activeMeleeWeaponPrefab.SetActive(false);
+        }
+
+        private void ResetInventory(EGameStates state)
+        {
+            if(state != EGameStates.GameOver)return;
+
+            if (_activeRangeWeapon != null)
+            {
+                Destroy(_activeRangeWeaponPrefab);
+                _activeRangeWeapon = null;
+            }
+            if (_activeMeleeWeapon != null)
+            {
+                Destroy(_activeMeleeWeaponPrefab);
+                _activeMeleeWeapon = null;
+            }
+            _placeableVRItems.Clear();
         }
     }
 }

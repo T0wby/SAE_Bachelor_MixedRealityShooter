@@ -40,6 +40,7 @@ namespace Manager
         {
             _mrPlacedObjects = new List<GameObject>();
             OnGameStateChange.AddListener(SwitchObjVisibility);
+            OnGameStateChange.AddListener(DestroyPlacedVrObjects);
         }
 
         public void StartRound(PointerEvent pointEvent)
@@ -74,6 +75,18 @@ namespace Manager
                 if (placedObj == null) continue;
                 placedObj.SetGameColor();
             }
+        }
+
+        private void DestroyPlacedVrObjects(EGameStates state)
+        {
+            if (state != EGameStates.GameOver)return;
+            foreach (var obj in _mrPlacedObjects)
+            {
+                if (!obj.CompareTag("InvenObj"))continue;
+                Destroy(obj);
+            }
+            _currRound = 0;
+            _mrPlacedObjects.RemoveAll(obj => obj == null);
         }
 
         private void SwitchObjVisibility(EGameStates state)

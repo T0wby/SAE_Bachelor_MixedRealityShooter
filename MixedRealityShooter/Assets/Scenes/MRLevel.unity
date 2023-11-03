@@ -360,6 +360,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _settings:
   - {fileID: 11400000, guid: 6a40594f0a5b49145a23e0b16c1f65ef, type: 2}
+  - {fileID: 11400000, guid: c288c021a28a1874ba869aeee48ff678, type: 2}
+  - {fileID: 11400000, guid: f20ac48b31c45124bb9c24cbc3b74eb0, type: 2}
+  - {fileID: 11400000, guid: beb3bfe28d13dd746bb058c8dcd07886, type: 2}
   OnWaveChange:
     m_PersistentCalls:
       m_Calls: []
@@ -497,7 +500,7 @@ PrefabInstance:
     - target: {fileID: 8882291728291112200, guid: 3da73395eaa4f9f4492e74d90062c2ee,
         type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8882291728291112200, guid: 3da73395eaa4f9f4492e74d90062c2ee,
         type: 3}
