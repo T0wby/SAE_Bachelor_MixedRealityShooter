@@ -35,6 +35,10 @@ namespace Player
         private void Awake()
         {
             DontDestroyOnLoad(gameObject);
+        }
+
+        private void Start()
+        {
             GameManager.Instance.OnGameStateChange.AddListener(ResetInventory);
         }
 
