@@ -35,6 +35,7 @@ namespace Player
         private void Awake()
         {
             DontDestroyOnLoad(gameObject);
+            _placeableVRItems = new List<PlaceableVRItem>();
         }
 
         private void Start()

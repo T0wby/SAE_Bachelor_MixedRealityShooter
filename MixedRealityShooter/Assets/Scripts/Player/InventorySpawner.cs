@@ -23,6 +23,7 @@ namespace Player
 
             if (_playerInventory.ActiveRangeWeaponPrefab != null)
             {
+                _playerInventory.ActiveRangeWeaponPrefab.GetComponent<Rigidbody>().useGravity = false;
                 _playerInventory.ActiveRangeWeaponPrefab.SetActive(true);
                 _playerInventory.ActiveRangeWeaponPrefab.transform.position = _rangeWeaponSpawn.position;
             }

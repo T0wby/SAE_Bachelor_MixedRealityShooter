@@ -1,3 +1,4 @@
+using System;
 using Oculus.Interaction;
 using UnityEngine;
 using Utility;
@@ -20,6 +21,28 @@ namespace Weapons
         {
             _playerController = FindObjectOfType<PlayerController>();
             _projectilePool = FindObjectOfType<ProjectilePool>();
+            if (_playerController != null)
+            {
+                _playerController.OnInteraction.AddListener(FireWeaponProjectile);
+            }
+            _layerMask = 1 << _layerMaskNum;
+            
+            // Invert bitmask
+            _layerMask = ~_layerMask;
+        }
+
+        private void OnEnable()
+        {
+            if (_playerController == null)
+            {
+                _playerController = FindObjectOfType<PlayerController>();
+            }
+
+            if (_projectilePool == null)
+            {
+                _projectilePool = FindObjectOfType<ProjectilePool>();
+            }
+            
             if (_playerController != null)
             {
                 _playerController.OnInteraction.AddListener(FireWeaponProjectile);

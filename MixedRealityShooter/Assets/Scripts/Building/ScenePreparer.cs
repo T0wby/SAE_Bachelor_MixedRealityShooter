@@ -1,6 +1,7 @@
 using System;
 using Manager;
 using Oculus.Interaction;
+using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Utility;
@@ -21,6 +22,9 @@ namespace Building
         [Header("ButtonEvents")] 
         [SerializeField] private PointableUnityEventWrapper _eventsStartGameButton;
         [SerializeField] private PointableUnityEventWrapper _eventsInnerModeButton;
+        
+        [Header("NavMesh")]
+        [SerializeField] private NavMeshSurface _surface;
 
         private void Start()
         {
@@ -52,6 +56,7 @@ namespace Building
                     GameOverPreparation();
                     break;
                 case EGameStates.GameStart:
+                    PrepareNavMesh();
                     break;
                 case EGameStates.RoundOver:
                     RoundOverPreparation();
@@ -119,6 +124,11 @@ namespace Building
             _gameOverObjs.SetActive(false);
             _mrInsidePrepObjs.SetActive(false);
             _ongoingRoundObjs.SetActive(true);
+        }
+
+        private void PrepareNavMesh()
+        {
+            _surface.BuildNavMesh();
         }
 
         #region Event Methods

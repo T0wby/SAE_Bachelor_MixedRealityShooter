@@ -1032,6 +1032,7 @@ MonoBehaviour:
   _ongoingRoundObjs: {fileID: 84179694}
   _eventsStartGameButton: {fileID: 1532341961}
   _eventsInnerModeButton: {fileID: 116860141}
+  _surface: {fileID: 2058855981}
 --- !u!4 &371969676
 Transform:
   m_ObjectHideFlags: 0

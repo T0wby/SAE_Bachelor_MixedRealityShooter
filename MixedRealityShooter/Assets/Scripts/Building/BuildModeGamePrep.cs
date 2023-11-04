@@ -6,6 +6,7 @@ using Oculus.Interaction;
 using PlacedObjects;
 using Player;
 using UI;
+using Unity.AI.Navigation;
 using UnityEngine;
 using Utility;
 
@@ -60,13 +61,11 @@ public class BuildModeGamePrep : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log("Enable GamePrep");
         ConnectMethods();
     }
 
     private void OnDisable()
     {
-        Debug.Log("Disable GamePrep");
         AddPlacedObjToOverall(GameManager.Instance.MrPlacedObjects);
         DisconnectMethods();
     }
@@ -103,6 +102,8 @@ public class BuildModeGamePrep : MonoBehaviour
 
         // DeleteMode
         _playerController.OnPlaceObj.RemoveListener(DeleteFocusedObject);
+        if(!_isBuilding && _currCube != null)
+            Destroy(_currCube);
     }
 
     #region Raycast Logic

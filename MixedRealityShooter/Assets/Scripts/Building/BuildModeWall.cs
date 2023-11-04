@@ -8,6 +8,7 @@ using UnityEngine;
 using Utility;
 using Items;
 using Player;
+using Unity.AI.Navigation;
 
 namespace Building
 {
@@ -62,15 +63,15 @@ namespace Building
 
         private void OnEnable()
         {
-            Debug.Log("Enable Wall");
             ConnectMethods();
         }
 
         private void OnDisable()
         {
-            Debug.Log("Disable Wall");
             AddPlacedObjToOverall(GameManager.Instance.MrPlacedObjects);
             DisconnectMethods();
+            if(!_isBuilding && _currWall != null)
+                Destroy(_currWall);
         }
 
         private void AddPlacedObjToOverall(List<GameObject> overallList)

@@ -6,6 +6,7 @@ using Oculus.Interaction;
 using PlacedObjects;
 using Player;
 using UI;
+using Unity.AI.Navigation;
 using UnityEngine;
 using Utility;
 
@@ -13,7 +14,6 @@ public class BuildModeInner : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private GameObject _cubePrefab;
-
     [SerializeField] private PlayerController _playerController;
     [SerializeField] private MrPreparationUI _mrPreparationUI;
 
@@ -63,13 +63,11 @@ public class BuildModeInner : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log("Enable Inner");
         ConnectMethods();
     }
 
     private void OnDisable()
     {
-        Debug.Log("Disable Inner");
         DisconnectMethods();
     }
     
@@ -114,6 +112,8 @@ public class BuildModeInner : MonoBehaviour
 
         // DeleteMode
         _playerController.OnPlaceObj.RemoveListener(DeleteFocusedObject);
+        if(!_isBuilding && _currCube != null)
+            Destroy(_currCube);
     }
 
     #region Raycast Logic
