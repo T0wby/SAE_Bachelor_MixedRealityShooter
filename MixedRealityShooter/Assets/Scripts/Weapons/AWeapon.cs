@@ -34,6 +34,11 @@ namespace Weapons
             InitWeapon();
         }
 
+        private void OnEnable()
+        {
+            InitWeapon();
+        }
+
         private void InitWeapon()
         {
             InitDefaultSettings();

@@ -51,6 +51,7 @@ namespace Weapons
             
             // Invert bitmask
             _layerMask = ~_layerMask;
+            _isGrabbed = false;
         }
 
         /// <summary>
