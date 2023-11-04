@@ -854,9 +854,9 @@ GameObject:
   - component: {fileID: 2395771473794117503}
   - component: {fileID: 2173053957250213373}
   - component: {fileID: 3979025733420430827}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collider
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1745,7 +1745,7 @@ GameObject:
   - component: {fileID: 3916734754049513936}
   m_Layer: 0
   m_Name: OwnOVRCameraRig
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1766,7 +1766,7 @@ Transform:
   - {fileID: 3414705969302807475}
   - {fileID: 2395771473794117503}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1926705710425129782
 MonoBehaviour:

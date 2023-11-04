@@ -1221,36 +1221,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4493823065183307106, guid: a922cb2ef391d554a94e9f5dbce06911,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4493823065183307106, guid: a922cb2ef391d554a94e9f5dbce06911,
-        type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 4957278166467477644, guid: a922cb2ef391d554a94e9f5dbce06911,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4957278166467477644, guid: a922cb2ef391d554a94e9f5dbce06911,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4957278166467477644, guid: a922cb2ef391d554a94e9f5dbce06911,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4957278166467477644, guid: a922cb2ef391d554a94e9f5dbce06911,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7506297191509846095, guid: a922cb2ef391d554a94e9f5dbce06911,
         type: 3}
       propertyPath: m_RootOrder
@@ -1310,31 +1280,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: OwnOVRCameraRig
-      objectReference: {fileID: 0}
-    - target: {fileID: 9031611998157723857, guid: a922cb2ef391d554a94e9f5dbce06911,
-        type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 9206139211913555519, guid: a922cb2ef391d554a94e9f5dbce06911,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9206139211913555519, guid: a922cb2ef391d554a94e9f5dbce06911,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9206139211913555519, guid: a922cb2ef391d554a94e9f5dbce06911,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9206139211913555519, guid: a922cb2ef391d554a94e9f5dbce06911,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
