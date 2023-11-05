@@ -74,5 +74,24 @@ namespace Manager
             }
             return null;
         }
+
+        public void ReturnPoolObject(PlaceableVRItem item)
+        {
+            switch (item.Type)
+            {
+                case EPlaceableItemType.NONE:
+                    break;
+                case EPlaceableItemType.Wall:
+                    break;
+                case EPlaceableItemType.Sphere:
+                    _spherePool.ItemPool.ReturnItem(item);
+                    break;
+                case EPlaceableItemType.Cylinder:
+                    _cylinderPool.ItemPool.ReturnItem(item);
+                    break;
+                default:
+                    break;;
+            }
+        }
     }
 }

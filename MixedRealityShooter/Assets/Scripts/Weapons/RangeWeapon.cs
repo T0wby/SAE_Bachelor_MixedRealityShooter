@@ -33,10 +33,7 @@ namespace Weapons
 
         private void OnEnable()
         {
-            if (_playerController == null)
-            {
-                _playerController = FindObjectOfType<PlayerController>();
-            }
+            _playerController = FindObjectOfType<PlayerController>();
 
             if (_projectilePool == null)
             {

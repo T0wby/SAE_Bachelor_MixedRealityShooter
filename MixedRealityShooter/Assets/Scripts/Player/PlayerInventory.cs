@@ -41,6 +41,7 @@ namespace Player
         private void Start()
         {
             GameManager.Instance.OnGameStateChange.AddListener(ResetInventory);
+            GameManager.Instance.OnGameStateChange.AddListener(SetInventoryInactive);
         }
 
         public void AddRangeWeapon(AWeapon weapon)
@@ -70,6 +71,8 @@ namespace Player
             _activeMeleeWeaponPrefab.SetActive(false);
         }
 
+        #region Event Methods
+
         private void ResetInventory(EGameStates state)
         {
             if(state != EGameStates.GameOver)return;
@@ -86,5 +89,21 @@ namespace Player
             }
             _placeableVRItems.Clear();
         }
+
+        private void SetInventoryInactive(EGameStates state)
+        {
+            if (state != EGameStates.InHub)return;
+            
+            if (_activeRangeWeaponPrefab != null)
+            {
+                _activeRangeWeaponPrefab.SetActive(false);
+            }
+            if (_activeMeleeWeaponPrefab != null)
+            {
+                _activeMeleeWeaponPrefab.SetActive(false);
+            }
+        }
+
+        #endregion
     }
 }

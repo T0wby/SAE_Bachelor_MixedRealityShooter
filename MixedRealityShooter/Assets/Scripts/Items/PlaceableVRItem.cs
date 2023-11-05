@@ -28,7 +28,7 @@ namespace Items
 
         public void TakeDamage(int damage)
         {
-            Debug.Log($"{gameObject.name} took {damage} damage!");
+            //Debug.Log($"{gameObject.name} took {damage} damage!");
         }
     }
 }

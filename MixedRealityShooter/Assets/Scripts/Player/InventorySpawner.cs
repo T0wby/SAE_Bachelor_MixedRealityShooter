@@ -24,7 +24,7 @@ namespace Player
             if (_playerInventory.ActiveRangeWeaponPrefab != null)
             {
                 _playerInventory.ActiveRangeWeaponPrefab.GetComponent<Rigidbody>().useGravity = false;
-                _playerInventory.ActiveRangeWeaponPrefab.SetActive(true);
+                _playerInventory.ActiveRangeWeaponPrefab.SetActive(true); // TODO: Write an own function instead of relying on OnEnable
                 _playerInventory.ActiveRangeWeaponPrefab.transform.position = _rangeWeaponSpawn.position;
             }
 

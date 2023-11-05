@@ -54,7 +54,6 @@ namespace Building
 
         private void FixedUpdate()
         {
-            //PickRayMethod();
             if (_isBuilding)
                 SearchForPoint();
             else
@@ -70,7 +69,7 @@ namespace Building
         {
             AddPlacedObjToOverall(GameManager.Instance.MrPlacedObjects);
             DisconnectMethods();
-            if(!_isBuilding && _currWall != null)
+            if(_isBuilding && _currWall != null)
                 Destroy(_currWall);
         }
 
