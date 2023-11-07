@@ -21,55 +21,37 @@ namespace Inventory
         {
             _playerInventory = FindObjectOfType<PlayerInventory>();
             _inventoryUpdater = GetComponent<InventoryUpdater>();
-            SpawnRangeProp();
-            SpawnMeleeProp();
+            // SpawnRangeProp();
+            // SpawnMeleeProp();
+            SetActiveWeaponsToRack();
         }
 
-        // private void OnTriggerEnter(Collider other)
-        // {
-        //     if (_playerInventory == null)return;
-        //
-        //     _weapon = other.GetComponent<AWeapon>();
-        // }
-        //
-        // private void OnTriggerExit(Collider other)
-        // {
-        //     if (_playerInventory == null || _weapon == null )return;
-        //
-        //     if (_weapon.gameObject == other.gameObject)
-        //     {
-        //         _weapon = null;
-        //     }
-        // }
-        //
-        // private void OnTriggerStay(Collider other)
-        // {
-        //     if (_weapon == null || _weapon.IsGrabbed)return;
-        //
-        //     switch (_weapon.DefaultSettings.WeaponType)
-        //     {
-        //         case EWeaponType.AssaultRifle:
-        //             _playerInventory.AddRangeWeapon(_weapon.DefaultSettings.WeaponPrefab);
-        //             SpawnProp(_rangeSpawn, ref _spawnedRangeProp, _weapon.DefaultSettings.WeaponProp);
-        //             _weapon.gameObject.SetActive(false);
-        //             break;
-        //         case EWeaponType.Pistol:
-        //             _playerInventory.AddRangeWeapon(_weapon.DefaultSettings.WeaponPrefab);
-        //             SpawnProp(_rangeSpawn, ref _spawnedRangeProp, _weapon.DefaultSettings.WeaponProp);
-        //             _weapon.gameObject.SetActive(false);
-        //             break;
-        //         case EWeaponType.Dagger:
-        //             _playerInventory.AddMeleeWeapon(_weapon.DefaultSettings.WeaponPrefab);
-        //             SpawnProp(_meleeSpawn, ref _spawnedMeleeProp, _weapon.DefaultSettings.WeaponProp);
-        //             _weapon.gameObject.SetActive(false);
-        //             break;
-        //         case EWeaponType.Grenade:
-        //             break;
-        //         default:
-        //             throw new ArgumentOutOfRangeException();
-        //     }
-        //     
-        // }
+        public void SetActiveWeaponsToRack()
+        {
+            if (_playerInventory == null)return;
+
+            if (_playerInventory.ActiveRangeWeaponPrefab != null)
+            {
+                _playerInventory.ActiveRangeWeaponPrefab.transform.position = _rangeSpawn.position;
+                _playerInventory.ActiveRangeWeaponPrefab.transform.rotation = _rangeSpawn.rotation;
+                var rb = _playerInventory.ActiveRangeWeaponPrefab.GetComponent<Rigidbody>();
+                if (rb != null)
+                {
+                    rb.useGravity = false;
+                }
+            }
+            
+            if (_playerInventory.ActiveMeleeWeaponPrefab != null)
+            {
+                _playerInventory.ActiveMeleeWeaponPrefab.transform.position = _meleeSpawn.position;
+                _playerInventory.ActiveMeleeWeaponPrefab.transform.rotation = _meleeSpawn.rotation;
+                var rb = _playerInventory.ActiveMeleeWeaponPrefab.GetComponent<Rigidbody>();
+                if (rb != null)
+                {
+                    rb.useGravity = false;
+                }
+            }
+        }
 
         public void SpawnRangeProp()
         {

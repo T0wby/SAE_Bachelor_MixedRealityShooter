@@ -239,6 +239,13 @@ namespace Building
             if(GameManager.Instance.CurrState != EGameStates.PreparePlayScene || !_isBuilding)return;
             if(_inventory.PlaceableVRItems.Count <= 1)return;
             _placeInvenNumber = (_placeInvenNumber + 1) % _inventory.PlaceableVRItems.Count;
+            var tmp = _currCube.GetComponent<PlaceableVRItem>();
+            if (tmp != null)
+            {
+                if (!_inventory.PlaceableVRItems.Contains(tmp))
+                    _inventory.PlaceableVRItems.Add(tmp);
+                ItemManager.Instance.ReturnPoolObject(tmp);
+            }
             _currCube = null;
         }
 

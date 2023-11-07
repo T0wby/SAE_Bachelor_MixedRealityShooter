@@ -41,21 +41,22 @@ namespace Shop
             {
                 case EWeaponType.AssaultRifle:
                     _playerInventory.AddRangeWeapon(_availableWeapons[vendingNumber]);
-                    _propAdder.SpawnRangeProp();
+                    //_propAdder.SpawnRangeProp();
                     break;
                 case EWeaponType.Pistol:
                     _playerInventory.AddRangeWeapon(_availableWeapons[vendingNumber]);
-                    _propAdder.SpawnRangeProp();
+                    //_propAdder.SpawnRangeProp();
                     break;
                 case EWeaponType.Dagger:
                     _playerInventory.AddMeleeWeapon(_availableWeapons[vendingNumber]);
-                    _propAdder.SpawnMeleeProp();
+                    //_propAdder.SpawnMeleeProp();
                     break;
                 case EWeaponType.Grenade:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+            _propAdder.SetActiveWeaponsToRack();
             
             _inventoryUpdater.UpdateFields();
         }
