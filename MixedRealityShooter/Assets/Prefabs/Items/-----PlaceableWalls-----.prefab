@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3212334610956198181}
   - component: {fileID: 1826725945184858318}
   m_Layer: 0
-  m_Name: -----PlaceableSpheres-----
+  m_Name: -----PlaceableWalls-----
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5792b28614730bf4fa58b6b47bf4c929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _placeablePrefab: {fileID: 6142239915075940635, guid: 3ea34b276db21aa47829ff8fe1004226,
+  _placeablePrefab: {fileID: 1328608627446510, guid: 502cef636ebbf074ba4b00a4d3bebe5b,
     type: 3}
   _poolSize: 50
-  _ePlaceable: 2
+  _ePlaceable: 1

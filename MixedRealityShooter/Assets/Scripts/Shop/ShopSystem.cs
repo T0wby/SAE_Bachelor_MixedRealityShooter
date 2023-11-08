@@ -27,13 +27,13 @@ namespace Shop
             weapon.UpgradeFireRate();
         }
 
-        public void AddSphere()
+        public void AddWall()
         {
-            _inventory.PlaceableVRItems.Add(ItemManager.Instance.ReceivePoolObject(EPlaceableItemType.Sphere));
+            _inventory.PlaceableVRItems.Add(ItemManager.Instance.ReceivePoolObject(EPlaceableItemType.Wall));
         }
-        public void AddCylinder()
+        public void AddBarrell()
         {
-            _inventory.PlaceableVRItems.Add(ItemManager.Instance.ReceivePoolObject(EPlaceableItemType.Cylinder));
+            _inventory.PlaceableVRItems.Add(ItemManager.Instance.ReceivePoolObject(EPlaceableItemType.Barrell));
         }
         
         public void AddRandomItem()
@@ -41,10 +41,10 @@ namespace Shop
             switch (Random.Range(0, 2))
             {
                 case 0:
-                    AddCylinder();
+                    AddBarrell();
                     break;
                 case 1:
-                    AddSphere();
+                    AddWall();
                     break;
                 default:
                     break;

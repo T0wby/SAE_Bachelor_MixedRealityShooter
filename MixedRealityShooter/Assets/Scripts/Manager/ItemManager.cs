@@ -9,15 +9,15 @@ namespace Manager
     {
         #region Variables
 
-        private PlaceableItemPool _spherePool;
-        private PlaceableItemPool _cylinderPool;
+        private PlaceableItemPool _wallPool;
+        private PlaceableItemPool _barrellPool;
 
         #endregion
 
         #region Properties
 
-        public PlaceableItemPool SpherePool => _spherePool;
-        public PlaceableItemPool CylinderPool => _cylinderPool;
+        public PlaceableItemPool WallPool => _wallPool;
+        public PlaceableItemPool BarrellPool => _barrellPool;
 
         #endregion
 
@@ -39,12 +39,10 @@ namespace Manager
                     case EPlaceableItemType.NONE:
                         break;
                     case EPlaceableItemType.Wall:
+                        _wallPool = pool;
                         break;
-                    case EPlaceableItemType.Sphere:
-                        _spherePool = pool;
-                        break;
-                    case EPlaceableItemType.Cylinder:
-                        _cylinderPool = pool;
+                    case EPlaceableItemType.Barrell:
+                        _barrellPool = pool;
                         break;
                     default:
                         break;
@@ -64,11 +62,9 @@ namespace Manager
                 case EPlaceableItemType.NONE:
                     break;
                 case EPlaceableItemType.Wall:
-                    break;
-                case EPlaceableItemType.Sphere:
-                    return _spherePool.ItemPool.GetItem();
-                case EPlaceableItemType.Cylinder:
-                    return _cylinderPool.ItemPool.GetItem();
+                    return _wallPool.ItemPool.GetItem();
+                case EPlaceableItemType.Barrell:
+                    return _barrellPool.ItemPool.GetItem();
                 default:
                     return null;
             }
@@ -82,12 +78,10 @@ namespace Manager
                 case EPlaceableItemType.NONE:
                     break;
                 case EPlaceableItemType.Wall:
+                    _wallPool.ItemPool.ReturnItem(item);
                     break;
-                case EPlaceableItemType.Sphere:
-                    _spherePool.ItemPool.ReturnItem(item);
-                    break;
-                case EPlaceableItemType.Cylinder:
-                    _cylinderPool.ItemPool.ReturnItem(item);
+                case EPlaceableItemType.Barrell:
+                    _barrellPool.ItemPool.ReturnItem(item);
                     break;
                 default:
                     break;;

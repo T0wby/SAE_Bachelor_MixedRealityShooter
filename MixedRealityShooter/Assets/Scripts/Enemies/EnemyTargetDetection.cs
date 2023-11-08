@@ -87,7 +87,7 @@ namespace Enemies
             {
                 Transform furthest = FurthestPoint(ranSelect.GetValidSpawnPoints());
                 if (furthest == null)
-                    Debug.LogError("furthest Spawnpoint is null, which means no valid point was found");
+                    Debug.LogWarning("furthest Spawnpoint is null, which means no valid point was found");
                 return furthest;
             }
 

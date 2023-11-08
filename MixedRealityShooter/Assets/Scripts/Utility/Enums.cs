@@ -37,8 +37,7 @@ namespace Utility
     {
         NONE,
         Wall,
-        Sphere,
-        Cylinder
+        Barrell
     }
     public enum ENodeState
     {

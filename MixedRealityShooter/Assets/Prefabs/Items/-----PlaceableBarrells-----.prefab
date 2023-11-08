@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1337588900638611781}
   - component: {fileID: 4082088622136226150}
   m_Layer: 0
-  m_Name: -----PlaceableCylinders-----
+  m_Name: -----PlaceableBarrells-----
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5792b28614730bf4fa58b6b47bf4c929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _placeablePrefab: {fileID: 6142239915075940635, guid: b449167260fdedb49b9b6a7c0729f5dd,
+  _placeablePrefab: {fileID: 1177563166683432, guid: f1980809b400afd419cb2866b49d1014,
     type: 3}
   _poolSize: 50
-  _ePlaceable: 3
+  _ePlaceable: 2

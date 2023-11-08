@@ -4,8 +4,12 @@ namespace PlacedObjects
 {
     public abstract class APlacedObject : MonoBehaviour
     {
+        [Header("Color Properties")]
+        [Tooltip("Only used on none Items")]
         [SerializeField] protected Color _normalColor;
+        [Tooltip("Only used on none Items")]
         [SerializeField] protected Color _selectedColor;
+        [Tooltip("Only used on none Items")]
         [SerializeField] protected Color _gameColor;
         protected Material _ownMat;
 
