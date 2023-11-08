@@ -22,8 +22,16 @@ namespace UI
             
             _event.WhenSelect.AddListener(pointerEvent =>
             {
-                _inventory.ActiveRangeWeaponPrefab.SetActive(false);
-                _inventory.ActiveMeleeWeaponPrefab.SetActive(false);
+                if (_inventory.ActiveRangeWeaponPrefab != null)
+                {
+                    _inventory.ActiveRangeWeaponPrefab.SetActive(false);
+                }
+                if (_inventory.ActiveMeleeWeaponPrefab != null)
+                {
+                    _inventory.ActiveMeleeWeaponPrefab.SetActive(false);
+                }
+                
+                
             });
         }
 

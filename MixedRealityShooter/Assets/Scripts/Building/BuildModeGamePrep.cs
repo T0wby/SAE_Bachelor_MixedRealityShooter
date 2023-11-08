@@ -207,7 +207,7 @@ namespace Building
 
             _currCube.layer = LayerMask.NameToLayer("Environment");
             _placedObjects.Add(_currCube);
-            _inventory.PlaceableVRItems.RemoveAt(_placeInvenNumber);
+            _inventory.PlaceableVRItems.Remove(_currItem);
             _currCube = null;
             _currItem = null;
         }
@@ -238,7 +238,8 @@ namespace Building
         {
             if(GameManager.Instance.CurrState != EGameStates.PreparePlayScene || !_isBuilding)return;
             if(_inventory.PlaceableVRItems.Count <= 1)return;
-            _placeInvenNumber = (_placeInvenNumber + 1) % _inventory.PlaceableVRItems.Count;
+            _placeInvenNumber++;
+            _placeInvenNumber %= _inventory.PlaceableVRItems.Count;
             var tmp = _currCube.GetComponent<PlaceableVRItem>();
             if (tmp != null)
             {

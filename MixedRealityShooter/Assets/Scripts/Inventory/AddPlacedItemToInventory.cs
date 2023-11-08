@@ -39,6 +39,7 @@ namespace Inventory
                 {
                     rb.useGravity = false;
                 }
+                _playerInventory.ActiveRangeWeaponPrefab.SetActive(true);
             }
             
             if (_playerInventory.ActiveMeleeWeaponPrefab != null)
@@ -50,6 +51,7 @@ namespace Inventory
                 {
                     rb.useGravity = false;
                 }
+                _playerInventory.ActiveMeleeWeaponPrefab.SetActive(true);
             }
         }
 
