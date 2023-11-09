@@ -35,9 +35,9 @@ namespace Utility
     }
     public enum EPlaceableItemType
     {
-        NONE,
-        Wall,
-        Barrell
+        NONE = 0,
+        Wall = 1,
+        Barrell = 2
     }
     public enum ENodeState
     {

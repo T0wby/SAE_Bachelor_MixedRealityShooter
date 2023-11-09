@@ -119,7 +119,9 @@ namespace Building
             {
                 if (_currCube == null)
                 {
-                    _currItem = ItemManager.Instance.ReceivePoolObject(_inventory.PlaceableVRItems[_placeInvenNumber].Type);
+                    Debug.LogWarning($"_placeInvenNumber: {_placeInvenNumber}");
+                    Debug.LogWarning($"PlaceableVRItemsCount: {_inventory.PlaceableVRItems.Count}");
+                    _currItem = _inventory.PlaceableVRItems[_placeInvenNumber];
                     _currCube = _currItem.gameObject;
                     _currCube.SetActive(true);
                 }
@@ -128,7 +130,7 @@ namespace Building
             else
             {
                 if (_currCube != null)
-                    ItemManager.Instance.ReturnPoolObject(_currItem);
+                    _currCube.SetActive(false);
             }
         }
         
@@ -210,6 +212,7 @@ namespace Building
             _inventory.PlaceableVRItems.Remove(_currItem);
             _currCube = null;
             _currItem = null;
+            _placeInvenNumber = 0;
         }
 
         private void DeleteFocusedObject()
@@ -222,7 +225,7 @@ namespace Building
             {
                 _placedObjects.Remove(_selectedObj);
                 _inventory.PlaceableVRItems.Add(tmp);
-                ItemManager.Instance.ReturnPoolObject(tmp);
+                _selectedObj.SetActive(false);
             }
             _objToDelete = null;
             _selectedObj = null;
@@ -245,7 +248,7 @@ namespace Building
             {
                 if (!_inventory.PlaceableVRItems.Contains(tmp))
                     _inventory.PlaceableVRItems.Add(tmp);
-                ItemManager.Instance.ReturnPoolObject(tmp);
+                _currCube.SetActive(false);
             }
             _currCube = null;
         }
@@ -276,7 +279,7 @@ namespace Building
             _colliderState = _isBuilding ? EColliderState.Position : EColliderState.NONE;
             _mrPreparationUI.ChangeBuildModeName(_isBuilding);
             if(!_isBuilding && _currCube != null && _currItem != null)
-                ItemManager.Instance.ReturnPoolObject(_currItem);
+                _currCube.SetActive(false);
         }
 
         #endregion

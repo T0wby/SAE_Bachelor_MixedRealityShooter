@@ -10,14 +10,7 @@ namespace Manager
         #region Variables
 
         private PlaceableItemPool _wallPool;
-        private PlaceableItemPool _barrellPool;
-
-        #endregion
-
-        #region Properties
-
-        public PlaceableItemPool WallPool => _wallPool;
-        public PlaceableItemPool BarrellPool => _barrellPool;
+        private PlaceableItemPool _barrelPool;
 
         #endregion
 
@@ -42,7 +35,7 @@ namespace Manager
                         _wallPool = pool;
                         break;
                     case EPlaceableItemType.Barrell:
-                        _barrellPool = pool;
+                        _barrelPool = pool;
                         break;
                     default:
                         break;
@@ -64,7 +57,7 @@ namespace Manager
                 case EPlaceableItemType.Wall:
                     return _wallPool.ItemPool.GetItem();
                 case EPlaceableItemType.Barrell:
-                    return _barrellPool.ItemPool.GetItem();
+                    return _barrelPool.ItemPool.GetItem();
                 default:
                     return null;
             }
@@ -81,7 +74,7 @@ namespace Manager
                     _wallPool.ItemPool.ReturnItem(item);
                     break;
                 case EPlaceableItemType.Barrell:
-                    _barrellPool.ItemPool.ReturnItem(item);
+                    _barrelPool.ItemPool.ReturnItem(item);
                     break;
                 default:
                     break;;

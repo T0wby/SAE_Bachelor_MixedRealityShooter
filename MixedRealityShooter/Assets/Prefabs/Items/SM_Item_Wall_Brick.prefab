@@ -119,7 +119,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba269c6cb8e1c674abf423c0009817f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _normalColor: {r: 0, g: 0, b: 0, a: 0}
-  _selectedColor: {r: 0, g: 0, b: 0, a: 0}
-  _gameColor: {r: 0, g: 0, b: 0, a: 0}
+  _normalColor: {r: 1, g: 1, b: 1, a: 1}
+  _selectedColor: {r: 0.77254903, g: 0.078431375, b: 0.078431375, a: 0.90588236}
+  _gameColor: {r: 1, g: 1, b: 1, a: 1}
+  _settings: {fileID: 11400000, guid: 22a3f46595b76704b9be27f572326212, type: 2}
   _type: 1

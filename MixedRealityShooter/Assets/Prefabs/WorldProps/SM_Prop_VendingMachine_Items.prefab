@@ -5507,7 +5507,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -5687,6 +5687,9 @@ MonoBehaviour:
   _availableObjects:
   - {fileID: 5285531561311674944, guid: f1980809b400afd419cb2866b49d1014, type: 3}
   - {fileID: 3095088388481805560, guid: 502cef636ebbf074ba4b00a4d3bebe5b, type: 3}
+  OnBuyingItem:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6093878778337401443
 GameObject:
   m_ObjectHideFlags: 0
@@ -6497,7 +6500,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
