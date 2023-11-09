@@ -10,6 +10,7 @@ namespace Enemies
         [SerializeField] private EEnemyType _type = EEnemyType.Range;
         [SerializeField] private int _health;
         [SerializeField] private int _damage;
+        [SerializeField] private int _moneyValue;
         [SerializeField] private int _healthPotionAmount;
         [SerializeField] private int _healthThreshold;
         [SerializeField] private float _attackTimer;
@@ -22,6 +23,7 @@ namespace Enemies
         public EEnemyType EnemyType => _type;
         public int Health => _health;
         public int Damage => _damage;
+        public int MoneyValue => _moneyValue;
         public int HealthPotionAmount => _healthPotionAmount;
         public int HealthThreshold => _healthThreshold;
         public float AttackTimer => _attackTimer;

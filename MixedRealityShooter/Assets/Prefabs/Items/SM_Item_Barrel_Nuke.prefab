@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 4377406848035684}
   - component: {fileID: 33422718267942116}
   - component: {fileID: 23522344415124354}
-  - component: {fileID: 64892050628224356}
+  - component: {fileID: 5215726525548524483}
   - component: {fileID: 5285531561311674944}
   m_Layer: 0
   m_Name: SM_Item_Barrel_Nuke
-  m_TagString: Untagged
+  m_TagString: InvenObj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -85,8 +85,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &64892050628224356
-MeshCollider:
+--- !u!136 &5215726525548524483
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -103,10 +103,11 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 43922703871479370, guid: c04e86be8bebdb449b8e67a89f2a1b1c, type: 2}
+  serializedVersion: 2
+  m_Radius: 0.36306822
+  m_Height: 1.0454396
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.5227198, z: 0}
 --- !u!114 &5285531561311674944
 MonoBehaviour:
   m_ObjectHideFlags: 0

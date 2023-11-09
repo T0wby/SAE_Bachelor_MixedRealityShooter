@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using Player;
 using UnityEngine;
 using Utility;
 using Weapons;
@@ -18,6 +20,7 @@ namespace Enemies.TeleportRangeEnemy
         private bool _canMove = true;
         private int _layermask;
         private Vector3 _playerPos;
+        private PlayerInventory _playerInventory;
 
         #endregion
 
@@ -38,6 +41,11 @@ namespace Enemies.TeleportRangeEnemy
             _layermask = ~_layermask;
             OnHealthChange.AddListener(OnDeath);
             SpawnWeapon();
+        }
+
+        private void OnEnable()
+        {
+            _playerInventory = FindObjectOfType<PlayerInventory>();
         }
 
         private void Update()
@@ -152,6 +160,9 @@ namespace Enemies.TeleportRangeEnemy
         private void OnDeath(int health)
         {
             if (health > 0)return;
+
+            if (_playerInventory != null)
+                _playerInventory.Money += _settings.MoneyValue;
             
             _waveManager.RemoveDeadEnemy(this);
             ReturnEnemy();

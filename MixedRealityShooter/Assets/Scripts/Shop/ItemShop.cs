@@ -24,11 +24,19 @@ namespace Shop
         public void AddItemToInventory(int itemType)
         {
             if (_playerInventory == null)return;
-            // TODO: Check Money
 
-            
-            _playerInventory.PlaceableVRItems.Add(ItemManager.Instance.ReceivePoolObject((EPlaceableItemType)itemType));
-            OnBuyingItem.Invoke();
+            var obj = ItemManager.Instance.ReceivePoolObject((EPlaceableItemType)itemType);
+            // TODO: Check Money
+            if (obj.Settings.ItemCost > _playerInventory.Money)
+            {
+                obj.ReturnThisToPool();
+            }
+            else
+            {
+                _playerInventory.Money -= obj.Settings.ItemCost;
+                _playerInventory.PlaceableVRItems.Add(ItemManager.Instance.ReceivePoolObject((EPlaceableItemType)itemType));
+                OnBuyingItem.Invoke();
+            }
         }
     }
 }

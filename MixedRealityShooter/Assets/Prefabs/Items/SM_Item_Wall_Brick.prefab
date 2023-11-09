@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 4744965909008844}
   - component: {fileID: 33893170025582140}
   - component: {fileID: 23780481149896636}
-  - component: {fileID: 64745641482766562}
+  - component: {fileID: 2557035561520912083}
   - component: {fileID: 3095088388481805560}
   m_Layer: 0
   m_Name: SM_Item_Wall_Brick
-  m_TagString: Untagged
+  m_TagString: InvenObj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -85,8 +85,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &64745641482766562
-MeshCollider:
+--- !u!65 &2557035561520912083
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -103,10 +103,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 43095144947524896, guid: f443aa151ee99864e99f07a5fab22c94, type: 2}
+  serializedVersion: 3
+  m_Size: {x: 4, y: 1.5280252, z: 0.23748535}
+  m_Center: {x: -2, y: 0.7640126, z: 0.0000024400651}
 --- !u!114 &3095088388481805560
 MonoBehaviour:
   m_ObjectHideFlags: 0

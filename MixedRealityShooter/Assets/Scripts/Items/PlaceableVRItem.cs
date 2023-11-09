@@ -28,6 +28,11 @@ namespace Items
             _ownMat.SetColor("_Color", _selectedColor);
         }
 
+        public void ReturnThisToPool()
+        {
+            _pool.ReturnItem(this);
+        }
+
         #region Interface Methods
 
         public void Initialize(ObjectPool<PlaceableVRItem> pool)

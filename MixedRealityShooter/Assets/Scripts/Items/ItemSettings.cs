@@ -7,8 +7,10 @@ namespace Items
     {
         [SerializeField] private string _itemName;
         [SerializeField] private Sprite _itemImage;
+        [SerializeField] private int _itemCost;
 
         public string ItemName => _itemName;
         public Sprite ItemImage => _itemImage;
+        public int ItemCost => _itemCost;
     }
 }

@@ -27,8 +27,8 @@ namespace Enemies
             get => _currHealth;
             set
             {
-                if (value > 100)
-                    _currHealth = 100;
+                if (value > _settings.Health)
+                    _currHealth = _settings.Health;
                 else if (value < 0)
                     _currHealth = 0;
                 else
