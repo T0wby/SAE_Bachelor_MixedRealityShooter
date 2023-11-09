@@ -119,8 +119,6 @@ namespace Building
             {
                 if (_currCube == null)
                 {
-                    Debug.LogWarning($"_placeInvenNumber: {_placeInvenNumber}");
-                    Debug.LogWarning($"PlaceableVRItemsCount: {_inventory.PlaceableVRItems.Count}");
                     _currItem = _inventory.PlaceableVRItems[_placeInvenNumber];
                     _currCube = _currItem.gameObject;
                     _currCube.SetActive(true);
@@ -225,6 +223,7 @@ namespace Building
             {
                 _placedObjects.Remove(_selectedObj);
                 _inventory.PlaceableVRItems.Add(tmp);
+                _selectedObj.layer = LayerMask.NameToLayer("Default");
                 _selectedObj.SetActive(false);
             }
             _objToDelete = null;
