@@ -12,10 +12,10 @@ namespace PlacedObjects
         [SerializeField] private GameObject _heightObj;
         [SerializeField] private GameObject _endObj;
         private GameObject _self;
-        private bool _canStartTransformCheck = false;
         private Vector3 _startPos;
         private Vector3 _endPos;
         private float _heightY;
+        private bool _canStartTransformCheck = false;
 
 
         private void Start()
@@ -66,6 +66,11 @@ namespace PlacedObjects
             _canStartTransformCheck = true;
         }
 
+        public void DisableTransformChange()
+        {
+            _canStartTransformCheck = false;
+        }
+
         private void TransformUpdates()
         {
             if (!_canStartTransformCheck)return;
@@ -74,9 +79,9 @@ namespace PlacedObjects
             _endPos = _endObj.transform.position;
 
             _heightObj.transform.position = new Vector3(_startPos.x, _heightY, _startPos.z);
-            _endPos = new Vector3(_endPos.x, _heightY, _endPos.z);
+            _endObj.transform.position = new Vector3(_endPos.x, _heightY, _endPos.z);
             
-            UtilityMethods.CalcBoxTransform(ref _self, _startPos, _heightY, _endPos);
+            UtilityMethods.CalcBoxTransform(ref _self, _startPos, _heightY, _endObj.transform.position);
         }
     }
 }

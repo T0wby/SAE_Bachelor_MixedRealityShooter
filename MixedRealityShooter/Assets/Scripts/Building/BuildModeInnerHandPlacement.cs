@@ -77,6 +77,13 @@ namespace Building
         private void OnDisable()
         {
             DisconnectMethods();
+            foreach (var obj in _placedObjects)
+            {
+                if(obj == null) continue;
+                var placed = obj.GetComponent<PlacedCube>();
+                if (placed == null) continue;
+                placed.DisableTransformChange();
+            }
             if(_isBuilding && _currCube != null)
                 Destroy(_currCube);
         }
@@ -204,29 +211,14 @@ namespace Building
                     _currCube = Instantiate(_cubePrefab, Vector3.down * 20, Quaternion.identity);
                     var tmp = _currCube.GetComponent<PlacedCube>();
                     if (tmp != null)
-                    {
                         tmp.SetTransformPoints(_startPoint, _heightPoint, _endPoint);
-                    }
-                        
                     UtilityMethods.CalcBoxTransform(ref _currCube, _startPoint.transform.position, _heightY, _endPoint.transform.position);
-                    //CalcBoxTransform(_startPoint.transform.position, _heightY, _endPoint.transform.position);
                     AddPlacedObject();
                     break;
                 default:
                     return;
             }
             SwitchStates();
-        }
-
-        private void CalcBoxTransform(Vector3 startPos, float heightPos, Vector3 endPos)
-        {
-            _origin = (startPos + endPos) * 0.5f;
-            _scale = new Vector3(Math.Abs(endPos.x - startPos.x), Math.Abs(heightPos - startPos.y),
-                Math.Abs(endPos.z - startPos.z));
-
-            _currCube = Instantiate(_cubePrefab, _origin, Quaternion.identity);
-            _currCube.transform.localScale = _scale;
-            
         }
 
         private void AddPlacedObject()
