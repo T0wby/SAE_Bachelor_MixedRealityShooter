@@ -2582,6 +2582,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0983a1f88778b174da4cefa2f2311210, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &477502739 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4239638771602343199, guid: a922cb2ef391d554a94e9f5dbce06911,
+    type: 3}
+  m_PrefabInstance: {fileID: 477502737}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &528390519
 GameObject:
   m_ObjectHideFlags: 0
@@ -3749,7 +3755,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15d4531bb0d55484a8e8ca46e61e8bc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _placeableVRItems: []
+  onMoneyChange:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &793602057
 GameObject:
   m_ObjectHideFlags: 0
@@ -4011,6 +4019,7 @@ GameObject:
   m_Component:
   - component: {fileID: 998903338}
   - component: {fileID: 998903339}
+  - component: {fileID: 998903340}
   m_Layer: 0
   m_Name: BuildModeInside
   m_TagString: Untagged
@@ -4040,7 +4049,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 998903337}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b805df5905119d48b910f0960130666, type: 3}
   m_Name: 
@@ -4054,6 +4063,26 @@ MonoBehaviour:
   _layerMaskNum: 6
   _rotPower: 100
   _scalePower: 5
+--- !u!114 &998903340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 998903337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f812bbe72a87584bb01c6318adfc520, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cubePrefab: {fileID: 2553025659263086903, guid: fede3830498e1a8458463c0ba7bc80a3,
+    type: 3}
+  _playerController: {fileID: 477502738}
+  _mrPreparationUI: {fileID: 941895465}
+  _rightControllerVisual: {fileID: 477502739}
+  _layerMaskNum: 6
+  _placedPointPrefab: {fileID: 3782543072761109764, guid: acf4e608088b90747957532ca0db40d3,
+    type: 3}
 --- !u!1 &1045461935
 GameObject:
   m_ObjectHideFlags: 0

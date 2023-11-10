@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Manager;
-using Oculus.Interaction;
 using PlacedObjects;
 using Player;
 using UI;
@@ -10,7 +9,7 @@ using Utility;
 
 namespace Building
 {
-    public class BuildModeInner : MonoBehaviour
+    public class BuildModeInnerHandPlacement : MonoBehaviour
     {
         [Header("References")]
         [SerializeField] private GameObject _cubePrefab;
@@ -21,26 +20,29 @@ namespace Building
         private GameObject _prevSelectedObj;
         private GameObject _selectedObj;
         private APlacedObject _objToDelete;
-
+        private bool _isBuilding = true;
+        private List<GameObject> _placedObjects;
+        
         [Header("Raycast Logic")] [SerializeField]
         private GameObject _rightControllerVisual;
-
-        [SerializeField] private RayInteractor _rightController;
+        private Vector3 _controllerPos;
 
         [Tooltip("Number of the Layer that should be hit")] 
         [SerializeField] private int _layerMaskNum = 6;
 
         private int _layerMask;
 
-        [Header("Settings")] 
-        [SerializeField] private float _rotPower = 1.0f;
-        [SerializeField] private float _scalePower = 1.0f;
-
         [Header("NewPlaceLogic")] 
+        [SerializeField] private GameObject _placedPointPrefab;
         private GameObject _startPoint;
         private GameObject _heightPoint;
         private GameObject _endPoint;
         private Vector3 _origin;
+        private Vector3 _scale;
+        private Vector2 _startXZ;
+        private float _heightY;
+        private Vector3 _currPoint;
+        private EPlaceMode _currPlaceMode = EPlaceMode.Start;
 
         private enum EPlaceMode
         {
@@ -50,13 +52,6 @@ namespace Building
             Scale
         }
         
-
-        private int _scaleNumber = 0;
-        private int _rotationNumber = 0;
-        private Vector3 _currScale;
-        private EColliderState _colliderState = EColliderState.Position;
-        private bool _isBuilding = true;
-        private List<GameObject> _placedObjects;
 
         private void Awake()
         {
@@ -69,7 +64,7 @@ namespace Building
         private void FixedUpdate()
         {
             if (_isBuilding)
-                SearchForPoint();
+                CalculateTrackingPosition();
             else
                 SearchForObject();
         }
@@ -104,12 +99,7 @@ namespace Building
         private void ConnectMethods()
         {
             // BuildMode
-            _playerController.OnInteraction.AddListener(SwitchStates);
-            _playerController.OnSwitchRotateScale.AddListener(SwitchRotation);
-            _playerController.OnSwitchRotateScale.AddListener(SwitchScaling);
-            _playerController.OnRotation.AddListener(RotateCurrCube);
-            _playerController.OnScale.AddListener(ScaleCurrCube);
-            _playerController.OnPlaceObj.AddListener(AddPlacedObject);
+            _playerController.OnInteraction.AddListener(AddReferenceGameObject);
 
             // DeleteMode
             _playerController.OnPlaceObj.AddListener(DeleteFocusedObject);
@@ -118,12 +108,7 @@ namespace Building
         private void DisconnectMethods()
         {
             // BuildMode
-            _playerController.OnInteraction.RemoveListener(SwitchStates);
-            _playerController.OnSwitchRotateScale.RemoveListener(SwitchRotation);
-            _playerController.OnSwitchRotateScale.RemoveListener(SwitchScaling);
-            _playerController.OnRotation.RemoveListener(RotateCurrCube);
-            _playerController.OnScale.RemoveListener(ScaleCurrCube);
-            _playerController.OnPlaceObj.RemoveListener(AddPlacedObject);
+            _playerController.OnInteraction.RemoveListener(AddReferenceGameObject);
 
             // DeleteMode
             _playerController.OnPlaceObj.RemoveListener(DeleteFocusedObject);
@@ -174,23 +159,26 @@ namespace Building
         }
 
         /// <summary>
-        /// Uses a Raytrace to find a point in the Environment, to spawn and place a new Object
+        /// 
         /// </summary>
-        private void SearchForPoint()
+        private void CalculateTrackingPosition()
         {
-            if (_colliderState != EColliderState.Position) return;
-
-            if (Physics.Raycast(_rightControllerVisual.transform.position, _rightControllerVisual.transform.forward,
-                    out var hit, Mathf.Infinity, _layerMask))
+            _controllerPos = _rightControllerVisual.transform.position;
+            switch (_currPlaceMode)
             {
-                if (_currCube == null)
-                    _currCube = Instantiate(_cubePrefab, hit.transform.position, Quaternion.identity);
-                _currCube.transform.position = hit.point;
-            }
-            else
-            {
-                if (_currCube != null)
-                    Destroy(_currCube);
+                case EPlaceMode.Start:
+                    _currPoint = _controllerPos;
+                    break;
+                case EPlaceMode.Height:
+                    if (_startPoint == null)return;
+                    _currPoint = new Vector3(_startXZ.x, _controllerPos.y, _startXZ.y);
+                    break;
+                case EPlaceMode.Scale:
+                    if (_heightPoint == null)return;
+                    _currPoint = new Vector3(_controllerPos.x, _heightY, _controllerPos.z);
+                    break;
+                default:
+                    return;
             }
         }
 
@@ -198,56 +186,47 @@ namespace Building
 
         #region Placed Obj Action
 
-        private void RotateCurrCube(Vector2 thumbstickValue)
+        private void AddReferenceGameObject()
         {
-            if (_colliderState != EColliderState.Rotation || _currCube == null) return;
-
-            switch (_rotationNumber)
+            switch (_currPlaceMode)
             {
-                case 0:
-                    // Rotate Around Y Axis
-                    _currCube.transform.Rotate(Vector3.up, thumbstickValue.x * _rotPower * Time.deltaTime);
+                case EPlaceMode.Start:
+                    _startPoint = Instantiate(_placedPointPrefab, _currPoint, Quaternion.identity);
+                    _startXZ = new Vector2(_startPoint.transform.position.x, _startPoint.transform.position.z);
                     break;
-                case 1:
-                    // Rotate Around X Axis
-                    _currCube.transform.Rotate(Vector3.right, thumbstickValue.x * _rotPower * Time.deltaTime);
+                case EPlaceMode.Height:
+                    _heightPoint = Instantiate(_placedPointPrefab, _currPoint, Quaternion.identity);
+                    _heightY = _heightPoint.transform.position.y;
                     break;
-                case 2:
-                    // Rotate Around Z Axis
-                    _currCube.transform.Rotate(Vector3.forward, thumbstickValue.x * _rotPower * Time.deltaTime);
+                case EPlaceMode.Scale:
+                    _endPoint = Instantiate(_placedPointPrefab, _currPoint, Quaternion.identity);
+                    // Calculate origin, scaling and place cube prefab
+                    _currCube = Instantiate(_cubePrefab, Vector3.down * 20, Quaternion.identity);
+                    var tmp = _currCube.GetComponent<PlacedCube>();
+                    if (tmp != null)
+                    {
+                        tmp.SetTransformPoints(_startPoint, _heightPoint, _endPoint);
+                    }
+                        
+                    UtilityMethods.CalcBoxTransform(ref _currCube, _startPoint.transform.position, _heightY, _endPoint.transform.position);
+                    //CalcBoxTransform(_startPoint.transform.position, _heightY, _endPoint.transform.position);
+                    AddPlacedObject();
                     break;
                 default:
-                    _currCube.transform.Rotate(Vector3.up, thumbstickValue.x * _rotPower * Time.deltaTime);
-                    break;
+                    return;
             }
+            SwitchStates();
         }
 
-        private void ScaleCurrCube(Vector2 thumbstickValue)
+        private void CalcBoxTransform(Vector3 startPos, float heightPos, Vector3 endPos)
         {
-            if (_colliderState != EColliderState.Scale || _currCube == null) return;
+            _origin = (startPos + endPos) * 0.5f;
+            _scale = new Vector3(Math.Abs(endPos.x - startPos.x), Math.Abs(heightPos - startPos.y),
+                Math.Abs(endPos.z - startPos.z));
 
-            _currScale = _currCube.transform.localScale;
-
-            switch (_scaleNumber)
-            {
-                case 0:
-                    // Scale the Y Axis
-                    _currScale.y += thumbstickValue.y * _scalePower * Time.deltaTime;
-                    break;
-                case 1:
-                    // Scale the X Axis
-                    _currScale.x += thumbstickValue.y * _scalePower * Time.deltaTime;
-                    break;
-                case 2:
-                    // Scale the Z Axis
-                    _currScale.z += thumbstickValue.y * _scalePower * Time.deltaTime;
-                    break;
-                default:
-                    _currScale.y += thumbstickValue.y * _scalePower * Time.deltaTime;
-                    break;
-            }
-
-            _currCube.transform.localScale = _currScale;
+            _currCube = Instantiate(_cubePrefab, _origin, Quaternion.identity);
+            _currCube.transform.localScale = _scale;
+            
         }
 
         private void AddPlacedObject()
@@ -261,6 +240,9 @@ namespace Building
             _placedObjects.Add(_currCube);
             AddPlacedObjToOverall(GameManager.Instance.MrPlacedObjects);
             _currCube = null;
+            _startPoint = null;
+            _heightPoint = null;
+            _endPoint = null;
         }
 
         private void DeleteFocusedObject()
@@ -282,34 +264,18 @@ namespace Building
         {
             if (!_isBuilding) return;
 
-            int newState = (int)(_colliderState + 1);
+            int newState = (int)(_currPlaceMode + 1);
 
-            _colliderState = (EColliderState)(newState % 4); // %4 due to EColliderState having 4 different states
-            if (_colliderState == EColliderState.NONE)
-                _colliderState = EColliderState.Position;
-        }
-
-        private void SwitchRotation()
-        {
-            if (!_isBuilding) return;
-            if (_colliderState != EColliderState.Rotation) return;
-
-            _rotationNumber = (_rotationNumber + 1) % 3;
-        }
-
-        private void SwitchScaling()
-        {
-            if (!_isBuilding) return;
-            if (_colliderState != EColliderState.Scale) return;
-
-            _scaleNumber = (_scaleNumber + 1) % 3;
+            _currPlaceMode = (EPlaceMode)(newState % 4); // %4 due to EColliderState having 4 different states
+            if (_currPlaceMode == EPlaceMode.None)
+                _currPlaceMode = EPlaceMode.Start;
         }
 
         public void SwitchBuildMode()
         {
             _isBuilding = !_isBuilding;
 
-            _colliderState = _isBuilding ? EColliderState.Position : EColliderState.NONE;
+            _currPlaceMode = _isBuilding ? EPlaceMode.Start : EPlaceMode.None;
             _mrPreparationUI.ChangeBuildModeName(_isBuilding);
             if(!_isBuilding && _currCube != null)
                 Destroy(_currCube);

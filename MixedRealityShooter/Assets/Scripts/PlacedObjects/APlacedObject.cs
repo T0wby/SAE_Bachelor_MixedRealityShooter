@@ -13,7 +13,7 @@ namespace PlacedObjects
         private void Awake()
         {
             _ownMat = GetComponent<MeshRenderer>().material;
-            DontDestroyOnLoad(transform.parent.gameObject);
+            DontDestroyOnLoad(transform.parent.gameObject != null ? transform.parent.gameObject : gameObject);
             SetNormalColor();
         }
 
