@@ -1,3 +1,4 @@
+// https://docs.unity3d.com/Manual/SinglePassInstancing.html
 Shader "Unlit/ColourChangeShader"
 {
     Properties
@@ -38,6 +39,7 @@ Shader "Unlit/ColourChangeShader"
 
             float4 _MainTex_ST;
             float4 _NormalColor;
+            UNITY_DECLARE_SCREENSPACE_TEXTURE(_MainTex); //Insert
 
             v2f vert (appdata v)
             {
@@ -51,7 +53,6 @@ Shader "Unlit/ColourChangeShader"
                 return o;
             }
 
-            UNITY_DECLARE_SCREENSPACE_TEXTURE(_MainTex); //Insert
 
             fixed4 frag (v2f i) : SV_Target
             {

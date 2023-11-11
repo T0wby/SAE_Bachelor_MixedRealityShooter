@@ -1,6 +1,7 @@
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using Manager;
+using Oculus.Interaction;
 using PlacedObjects;
 using Player;
 using UI;
@@ -10,62 +11,62 @@ using Utility;
 
 namespace Building
 {
-    public class BuildModeInnerHandPlacement : MonoBehaviour
+    public class BuildModeWallThreePoint : MonoBehaviour
     {
-        [Header("References")]
-        [SerializeField] private GameObject _cubePrefab;
+        [Header("References")] 
+        [SerializeField] private GameObject _wallPrefab;
         [SerializeField] private PlayerController _playerController;
         [SerializeField] private MrPreparationUI _mrPreparationUI;
 
-        private GameObject _currCube;
+        private GameObject _currWall;
         private GameObject _prevSelectedObj;
         private GameObject _selectedObj;
         private APlacedObject _objToDelete;
-        private bool _isBuilding = true;
-        private List<GameObject> _placedObjects;
-        
+
         [Header("Raycast Logic")] 
         [SerializeField] private GameObject _rightControllerBuildPoint;
-        private Vector3 _controllerPos;
 
-        [Tooltip("Number of the Layer that should be hit")] 
-        [SerializeField] private int _layerMaskNum = 6;
+        [Tooltip("Number of the Layer that should be hit")] [SerializeField]
+        private int _layerMaskNum = 6;
 
         private int _layerMask;
-
+        
         [Header("NewPlaceLogic")] 
         [SerializeField] private GameObject _placedPointPrefab;
+        [SerializeField] private GameObject _heightWallPrefab;
+        [SerializeField] private Transform _modeParent;
         private GameObject _startPoint;
         private GameObject _heightPoint;
-        private GameObject _endPoint;
+        private GameObject _secondPoint;
+        private GameObject _heightWall;
+        private GameObject _followPoint;
+        private Vector3 _secondPos;
         private Vector3 _origin;
         private Vector3 _scale;
-        private Vector2 _startXZ;
-        private float _heightY;
         private Vector3 _currPoint;
-        private EPlaceMode _currPlaceMode = EPlaceMode.Start;
-
-        private enum EPlaceMode
+        private bool _isBuilding = true;
+        private List<GameObject> _placedObjects;
+        private EPlaceModeWall _currPlaceMode = EPlaceModeWall.Start;
+        
+        private enum EPlaceModeWall
         {
             None,
             Start,
-            Height,
-            Scale
+            SecondPoint,
+            Height
         }
-        
 
         private void Awake()
         {
             _layerMask = 1 << _layerMaskNum;
             _placedObjects = new List<GameObject>();
-            if(_mrPreparationUI != null)
-                _mrPreparationUI.ChangeBuildModeName(_isBuilding);
+            _mrPreparationUI.ChangeBuildModeName(_isBuilding);
         }
 
         private void FixedUpdate()
         {
             if (_isBuilding)
-                CalculateTrackingPosition();
+                SearchForPoint();
             else
                 SearchForObject();
         }
@@ -73,37 +74,26 @@ namespace Building
         private void OnEnable()
         {
             ConnectMethods();
+            _followPoint = Instantiate(_placedPointPrefab, Vector3.down, Quaternion.identity, _modeParent);
         }
 
         private void OnDisable()
         {
+            AddPlacedObjToOverall(GameManager.Instance.MrPlacedObjects);
             DisconnectMethods();
-            foreach (var obj in _placedObjects)
-            {
-                if(obj == null) continue;
-                var placed = obj.GetComponent<PlacedCube>();
-                if (placed == null) continue;
-                placed.DisableTransformChange();
-            }
-            if(_isBuilding && _currCube != null)
-                Destroy(_currCube);
+            if(_isBuilding && _currWall != null)
+                Destroy(_currWall);
         }
-    
+
         private void AddPlacedObjToOverall(List<GameObject> overallList)
         {
-            foreach (var obj in _placedObjects)
+            if (overallList == null)return;
+            foreach (var obj in _placedObjects.Where(obj => obj != null).Where(obj => !overallList.Contains(obj)))
             {
-                if(obj == null) continue;
-                if (overallList.Contains(obj)) continue;
                 overallList.Add(obj);
             }
         }
-        private void RemovePlacedObjFromOverall(List<GameObject> overallList, GameObject objToRemove)
-        {
-            if (overallList.Contains(objToRemove))
-                overallList.Remove(objToRemove);
-        }
-
+        
         private void ConnectMethods()
         {
             // BuildMode
@@ -132,7 +122,7 @@ namespace Building
             if (Physics.Raycast(_rightControllerBuildPoint.transform.position, _rightControllerBuildPoint.transform.forward,
                     out var hit, Mathf.Infinity, _layerMask))
             {
-                if (!hit.transform.gameObject.CompareTag("PlacedObj"))
+                if (!hit.transform.gameObject.CompareTag("Wall"))
                 {
                     Debug.DrawRay(_rightControllerBuildPoint.transform.position, _rightControllerBuildPoint.transform.forward, Color.green, 0.5f);
                     if (_objToDelete != null)
@@ -169,89 +159,79 @@ namespace Building
         }
 
         /// <summary>
-        /// 
+        /// Uses a Raytrace to find a point in the Environment, to spawn and place a new Object
         /// </summary>
-        private void CalculateTrackingPosition()
+        private void SearchForPoint()
         {
-            _controllerPos = _rightControllerBuildPoint.transform.position;
-            switch (_currPlaceMode)
+            if (_currPlaceMode == EPlaceModeWall.None) return;
+
+            if (Physics.Raycast(_rightControllerBuildPoint.transform.position, _rightControllerBuildPoint.transform.forward,
+                    out var hit, Mathf.Infinity, _layerMask))
             {
-                case EPlaceMode.Start:
-                    _currPoint = _controllerPos;
-                    break;
-                case EPlaceMode.Height:
-                    if (_startPoint == null)return;
-                    _currPoint = new Vector3(_startXZ.x, _controllerPos.y, _startXZ.y);
-                    break;
-                case EPlaceMode.Scale:
-                    if (_heightPoint == null)return;
-                    _currPoint = new Vector3(_controllerPos.x, _heightY, _controllerPos.z);
-                    break;
-                default:
-                    return;
+                _currPoint = hit.point;
+                _followPoint.transform.position = hit.point;
             }
         }
-
+        
         #endregion
 
-        #region Placed Obj Action
-
+        #region Object Interactions
+        
         private void AddReferenceGameObject()
         {
             switch (_currPlaceMode)
             {
-                case EPlaceMode.Start:
-                    _startPoint = Instantiate(_placedPointPrefab, _currPoint, Quaternion.identity);
-                    _startXZ = new Vector2(_startPoint.transform.position.x, _startPoint.transform.position.z);
+                case EPlaceModeWall.Start:
+                    _startPoint = Instantiate(_placedPointPrefab, _currPoint, Quaternion.identity, _modeParent);
                     break;
-                case EPlaceMode.Height:
-                    _heightPoint = Instantiate(_placedPointPrefab, _currPoint, Quaternion.identity);
-                    _heightY = _heightPoint.transform.position.y;
+                case EPlaceModeWall.SecondPoint:
+                    _secondPoint = Instantiate(_placedPointPrefab, _currPoint, Quaternion.identity, _modeParent);
+                    _secondPos = _secondPoint.transform.position;
+                    _heightWall = Instantiate(_heightWallPrefab, _currPoint, Quaternion.Euler(0, 90, 0), _modeParent);
                     break;
-                case EPlaceMode.Scale:
-                    _endPoint = Instantiate(_placedPointPrefab, _currPoint, Quaternion.identity);
-                    // Calculate origin, scaling and place cube prefab
-                    _currCube = Instantiate(_cubePrefab, Vector3.down * 20, Quaternion.identity);
-                    var tmp = _currCube.GetComponent<PlacedCube>();
-                    if (tmp != null)
-                        tmp.SetTransformPoints(_startPoint, _heightPoint, _endPoint);
-                    UtilityMethods.CalcBoxTransform(ref _currCube, _startPoint.transform.position, _heightY, _endPoint.transform.position);
+                case EPlaceModeWall.Height:
+                    _heightPoint = Instantiate(_placedPointPrefab, new Vector3(_secondPos.x, _currPoint.y, _secondPos.z),
+                        Quaternion.identity, _modeParent);
+                    // Calculate origin, scaling and rotation?
+                    _currWall = Instantiate(_wallPrefab, Vector3.down * 20, Quaternion.identity);
+                    UtilityMethods.CalcQuadTransform(ref _currWall, _startPoint.transform.position, _secondPos, 
+                        _heightPoint.transform.position);
                     AddPlacedObject();
+                    Destroy(_heightWall);
                     break;
                 default:
                     return;
             }
             SwitchStates();
         }
-
+       
         private void AddPlacedObject()
         {
-            if (GameManager.Instance.CurrState != EGameStates.PrepareMRSceneInner || !_isBuilding) return;
-            if (_currCube == null) return;
+            if (GameManager.Instance.CurrState != EGameStates.PrepareMRSceneWall || !_isBuilding) return;
+            if (_currWall == null) return;
 
-            _currCube.layer = LayerMask.NameToLayer("Environment");
-            _placedObjects.Add(_currCube);
-            AddPlacedObjToOverall(GameManager.Instance.MrPlacedObjects);
-            _currCube = null;
+            _currWall.layer = LayerMask.NameToLayer("Environment");
+            _placedObjects.Add(_currWall);
+            _currWall = null;
             _startPoint = null;
             _heightPoint = null;
-            _endPoint = null;
+            _secondPoint = null;
         }
-
+        
         private void DeleteFocusedObject()
         {
             if (_isBuilding) return;
             if (_objToDelete == null) return;
 
             _placedObjects.Remove(_selectedObj);
-            RemovePlacedObjFromOverall(GameManager.Instance.MrPlacedObjects, _selectedObj);
             Destroy(_selectedObj);
             _objToDelete = null;
             _selectedObj = null;
         }
+
         #endregion
 
-        #region Switch Modes
+        #region SwitchModes
 
         private void SwitchStates()
         {
@@ -259,19 +239,19 @@ namespace Building
 
             int newState = (int)(_currPlaceMode + 1);
 
-            _currPlaceMode = (EPlaceMode)(newState % 4); // %4 due to EColliderState having 4 different states
-            if (_currPlaceMode == EPlaceMode.None)
-                _currPlaceMode = EPlaceMode.Start;
+            _currPlaceMode = (EPlaceModeWall)(newState % 4); // %4 due to EColliderState having 4 different states
+            if (_currPlaceMode == EPlaceModeWall.None)
+                _currPlaceMode = EPlaceModeWall.Start;
         }
 
         public void SwitchBuildMode()
         {
             _isBuilding = !_isBuilding;
 
-            _currPlaceMode = _isBuilding ? EPlaceMode.Start : EPlaceMode.None;
+            _currPlaceMode = _isBuilding ? EPlaceModeWall.Start : EPlaceModeWall.None;
             _mrPreparationUI.ChangeBuildModeName(_isBuilding);
-            if(!_isBuilding && _currCube != null)
-                Destroy(_currCube);
+            if(!_isBuilding && _currWall != null)
+                Destroy(_currWall);
         }
 
         #endregion
