@@ -188,6 +188,8 @@ namespace Building
                     _secondPoint = Instantiate(_placedPointPrefab, _currPoint, Quaternion.identity, _modeParent);
                     _secondPos = _secondPoint.transform.position;
                     _heightWall = Instantiate(_heightWallPrefab, _currPoint, Quaternion.Euler(0, 90, 0), _modeParent);
+                    UtilityMethods.CalcQuadTransform(ref _heightWall, _startPoint.transform.position, _secondPos, 
+                        new Vector3(_secondPos.x, 1.0f, _secondPos.z), 20.0f);
                     break;
                 case EPlaceModeWall.Height:
                     _heightPoint = Instantiate(_placedPointPrefab, new Vector3(_secondPos.x, _currPoint.y, _secondPos.z),
