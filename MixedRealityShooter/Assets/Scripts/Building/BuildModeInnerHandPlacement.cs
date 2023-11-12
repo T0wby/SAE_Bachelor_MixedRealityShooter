@@ -36,11 +36,13 @@ namespace Building
         [Header("NewPlaceLogic")] 
         [SerializeField] private GameObject _placedPointPrefab;
         private GameObject _startPoint;
+        private GameObject _widthPoint;
         private GameObject _heightPoint;
         private GameObject _endPoint;
         private Vector3 _origin;
         private Vector3 _scale;
-        private Vector2 _startXZ;
+        private Vector2 _widthXZ;
+        private Vector3 _startPos;
         private float _heightY;
         private Vector3 _currPoint;
         private EPlaceMode _currPlaceMode = EPlaceMode.Start;
@@ -49,6 +51,7 @@ namespace Building
         {
             None,
             Start,
+            Width,
             Height,
             Scale
         }
@@ -179,9 +182,13 @@ namespace Building
                 case EPlaceMode.Start:
                     _currPoint = _controllerPos;
                     break;
+                case EPlaceMode.Width:
+                    if (_startPoint == null)return;
+                    _currPoint = new Vector3(_controllerPos.x, _startPos.y, _controllerPos.z);
+                    break;
                 case EPlaceMode.Height:
                     if (_startPoint == null)return;
-                    _currPoint = new Vector3(_startXZ.x, _controllerPos.y, _startXZ.y);
+                    _currPoint = new Vector3(_widthXZ.x, _controllerPos.y, _widthXZ.y);
                     break;
                 case EPlaceMode.Scale:
                     if (_heightPoint == null)return;
@@ -202,7 +209,11 @@ namespace Building
             {
                 case EPlaceMode.Start:
                     _startPoint = Instantiate(_placedPointPrefab, _currPoint, Quaternion.identity);
-                    _startXZ = new Vector2(_startPoint.transform.position.x, _startPoint.transform.position.z);
+                    _startPos = _startPoint.transform.position;
+                    break;
+                case EPlaceMode.Width:
+                    _widthPoint = Instantiate(_placedPointPrefab, _currPoint, Quaternion.identity);
+                    _widthXZ = new Vector2(_widthPoint.transform.position.x, _widthPoint.transform.position.z);
                     break;
                 case EPlaceMode.Height:
                     _heightPoint = Instantiate(_placedPointPrefab, _currPoint, Quaternion.identity);
@@ -214,8 +225,8 @@ namespace Building
                     _currCube = Instantiate(_cubePrefab, Vector3.down * 20, Quaternion.identity);
                     var tmp = _currCube.GetComponent<PlacedCube>();
                     if (tmp != null)
-                        tmp.SetTransformPoints(_startPoint, _heightPoint, _endPoint);
-                    UtilityMethods.CalcBoxTransform(ref _currCube, _startPoint.transform.position, _heightY, _endPoint.transform.position);
+                        tmp.SetTransformPoints(_startPoint, _widthPoint, _heightPoint, _endPoint);
+                    UtilityMethods.CalcBoxTransform(ref _currCube, _startPoint.transform.position, _widthPoint.transform.position, _heightY, _endPoint.transform.position);
                     AddPlacedObject();
                     break;
                 default:

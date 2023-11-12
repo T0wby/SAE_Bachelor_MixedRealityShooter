@@ -8,11 +8,13 @@ namespace PlacedObjects
     public class PlacedCube : APlacedObject
     {
         [SerializeField] private List<Transform> _aiSpawns;
-        [SerializeField] private GameObject _startObj;
-        [SerializeField] private GameObject _heightObj;
-        [SerializeField] private GameObject _endObj;
+        private GameObject _startObj;
+        private GameObject _heightObj;
+        private GameObject _endObj;
+        private GameObject _widthObj;
         private GameObject _self;
         private Vector3 _startPos;
+        private Vector3 _widthPos;
         private Vector3 _endPos;
         private float _heightY;
         private bool _canStartTransformCheck = false;
@@ -58,9 +60,10 @@ namespace PlacedObjects
             return valid;
         }
 
-        public void SetTransformPoints(GameObject startObj, GameObject heightObj, GameObject endObj)
+        public void SetTransformPoints(GameObject startObj, GameObject widthObj, GameObject heightObj, GameObject endObj)
         {
             _startObj = startObj;
+            _widthObj = widthObj;
             _heightObj = heightObj;
             _endObj = endObj;
             _canStartTransformCheck = true;
@@ -76,12 +79,14 @@ namespace PlacedObjects
             if (!_canStartTransformCheck)return;
             _heightY = _heightObj.transform.position.y;
             _startPos = _startObj.transform.position;
+            _widthPos = _widthObj.transform.position;
             _endPos = _endObj.transform.position;
 
             _heightObj.transform.position = new Vector3(_startPos.x, _heightY, _startPos.z);
             _endObj.transform.position = new Vector3(_endPos.x, _heightY, _endPos.z);
+            _widthObj.transform.position = new Vector3(_widthPos.x, _startPos.y, _widthPos.z);
             
-            UtilityMethods.CalcBoxTransform(ref _self, _startPos, _heightY, _endObj.transform.position);
+            UtilityMethods.CalcBoxTransform(ref _self, _startPos, _widthPos, _heightY, _endObj.transform.position);
         }
     }
 }
