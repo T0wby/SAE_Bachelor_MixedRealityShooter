@@ -259,7 +259,7 @@ namespace Building
 
             int newState = (int)(_currPlaceMode + 1);
 
-            _currPlaceMode = (EPlaceMode)(newState % 4); // %4 due to EColliderState having 4 different states
+            _currPlaceMode = (EPlaceMode)(newState % Enum.GetNames(typeof(EPlaceMode)).Length);
             if (_currPlaceMode == EPlaceMode.None)
                 _currPlaceMode = EPlaceMode.Start;
         }
