@@ -69,6 +69,11 @@ namespace PlacedObjects
             _canStartTransformCheck = true;
         }
 
+        private void OnDisable()
+        {
+            _canStartTransformCheck = false;
+        }
+
         public void DisableTransformChange()
         {
             _canStartTransformCheck = false;
@@ -86,7 +91,7 @@ namespace PlacedObjects
             _endObj.transform.position = new Vector3(_endPos.x, _heightY, _endPos.z);
             _widthObj.transform.position = new Vector3(_widthPos.x, _startPos.y, _widthPos.z);
             
-            UtilityMethods.CalcBoxTransform(ref _self, _startPos, _widthPos, _heightY, _endObj.transform.position);
+            UtilityMethods.CalcBoxTransform(ref _self, _startPos, _widthPos, _heightObj.transform.position, _endObj.transform.position);
         }
     }
 }

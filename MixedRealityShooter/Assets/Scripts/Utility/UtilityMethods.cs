@@ -5,19 +5,24 @@ namespace Utility
 {
     public class UtilityMethods : MonoBehaviour
     {
-        public static void CalcBoxTransform(ref GameObject box, Vector3 startPos, Vector3 widthPos, float heightPos, Vector3 endPos)
+        public static void CalcBoxTransform(ref GameObject box, Vector3 startPos, Vector3 widthPos, Vector3 heightPos, Vector3 endPos)
         {
             if (box == null)return;
-            
-            var widthMiddle = (startPos + widthPos) * 0.5f;
-            
-            var origin = (widthMiddle + endPos) * 0.5f;
-            var scale = new Vector3(Math.Abs(endPos.x - widthMiddle.x), Math.Abs(heightPos - widthMiddle.y),
-                Math.Abs(endPos.z - widthMiddle.z));
+            Vector3 widthVector = widthPos - startPos;
+            float height = Mathf.Abs(widthPos.y - heightPos.y);
+            Vector3 scaleVector = endPos - heightPos;
 
-            box.transform.position = origin;
-            box.transform.rotation = Quaternion.identity;
-            box.transform.localScale = scale;
+            Vector3 boxSize = new Vector3(widthVector.magnitude, height, scaleVector.magnitude);
+
+            // Set position
+            box.transform.position = (startPos + endPos) * 0.5f;
+
+            // Set rotation
+            var rotation = Quaternion.LookRotation(widthVector.normalized, Vector3.up)* Quaternion.Euler(0.0f, 90.0f, 0.0f);
+            box.transform.rotation = rotation;
+
+            // Set scale
+            box.transform.localScale = boxSize;
         }
         public static void CalcQuadTransform(ref GameObject quad, Vector3 startPoint, Vector3 secondPoint, Vector3 heightPoint)
         {

@@ -226,7 +226,11 @@ namespace Building
                     var tmp = _currCube.GetComponent<PlacedCube>();
                     if (tmp != null)
                         tmp.SetTransformPoints(_startPoint, _widthPoint, _heightPoint, _endPoint);
-                    UtilityMethods.CalcBoxTransform(ref _currCube, _startPoint.transform.position, _widthPoint.transform.position, _heightY, _endPoint.transform.position);
+                    
+                    UtilityMethods.CalcBoxTransform(ref _currCube, _startPoint.transform.position,
+                        _widthPoint.transform.position, _heightPoint.transform.position,
+                        _endPoint.transform.position);
+                    
                     AddPlacedObject();
                     break;
                 default:

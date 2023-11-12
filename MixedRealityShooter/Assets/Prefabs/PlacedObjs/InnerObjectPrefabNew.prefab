@@ -170,9 +170,6 @@ MonoBehaviour:
   - {fileID: 4213305133232149957}
   - {fileID: 7995375397624438520}
   - {fileID: 2050371890081409288}
-  _startObj: {fileID: 0}
-  _heightObj: {fileID: 0}
-  _endObj: {fileID: 0}
 --- !u!54 &5555245473418603912
 Rigidbody:
   m_ObjectHideFlags: 0
