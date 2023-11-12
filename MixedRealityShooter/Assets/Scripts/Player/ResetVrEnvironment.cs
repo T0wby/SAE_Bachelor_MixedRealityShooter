@@ -8,6 +8,7 @@ namespace Player
     public class ResetVrEnvironment : MonoBehaviour
     {
         [SerializeField] private List<GameObject> _vrAreas;
+        [SerializeField] private GameObject _resetObject;
         private PlayerController _playerController;
 
         private void Awake()
@@ -19,7 +20,8 @@ namespace Player
 
         private void ResetPositions()
         {
-            var pos = _playerController.transform.position;
+            if (_resetObject == null)return;
+            var pos = _resetObject.transform.position;
 
             foreach (var area in _vrAreas.Where(area => area != null))
             {

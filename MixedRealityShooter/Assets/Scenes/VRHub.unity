@@ -157,6 +157,7 @@ MonoBehaviour:
   - {fileID: 227706985}
   - {fileID: 1277493373}
   - {fileID: 1689988562}
+  _resetObject: {fileID: 1728511501}
 --- !u!4 &36212838
 Transform:
   m_ObjectHideFlags: 0
@@ -2316,6 +2317,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acb743c666c1ab34e928a0b62c2fa862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1728511501 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4493823065183307106, guid: a922cb2ef391d554a94e9f5dbce06911,
+    type: 3}
+  m_PrefabInstance: {fileID: 1225091840982157911}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1747201871
 PrefabInstance:
   m_ObjectHideFlags: 0
