@@ -86,25 +86,25 @@ namespace Building
         private void ConnectMethods()
         {
             // BuildMode
-            _playerController.OnInteraction.AddListener(SwitchStates);
-            _playerController.OnSwitchRotateScale.AddListener(SwitchRotation);
+            _playerController.onInteraction.AddListener(SwitchStates);
+            _playerController.onSecondaryButton.AddListener(SwitchRotation);
             _playerController.OnRotation.AddListener(RotateCurrCube);
-            _playerController.OnPlaceObj.AddListener(AddPlacedObjectFromInven);
+            _playerController.onPrimaryButton.AddListener(AddPlacedObjectFromInven);
 
             // DeleteMode
-            _playerController.OnPlaceObj.AddListener(DeleteFocusedObject);
+            _playerController.onPrimaryButton.AddListener(DeleteFocusedObject);
         }
 
         private void DisconnectMethods()
         {
             // BuildMode
-            _playerController.OnInteraction.RemoveListener(SwitchStates);
-            _playerController.OnSwitchRotateScale.RemoveListener(SwitchRotation);
+            _playerController.onInteraction.RemoveListener(SwitchStates);
+            _playerController.onSecondaryButton.RemoveListener(SwitchRotation);
             _playerController.OnRotation.RemoveListener(RotateCurrCube);
-            _playerController.OnPlaceObj.RemoveListener(AddPlacedObjectFromInven);
+            _playerController.onPrimaryButton.RemoveListener(AddPlacedObjectFromInven);
 
             // DeleteMode
-            _playerController.OnPlaceObj.RemoveListener(DeleteFocusedObject);
+            _playerController.onPrimaryButton.RemoveListener(DeleteFocusedObject);
         }
 
         #region Raycast Logic

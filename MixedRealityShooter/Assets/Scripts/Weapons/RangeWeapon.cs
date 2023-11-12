@@ -23,7 +23,7 @@ namespace Weapons
             _projectilePool = FindObjectOfType<ProjectilePool>();
             if (_playerController != null)
             {
-                _playerController.OnInteraction.AddListener(FireWeaponProjectile);
+                _playerController.onInteraction.AddListener(FireWeaponProjectile);
             }
             _layerMask = 1 << _layerMaskNum;
             
@@ -42,7 +42,7 @@ namespace Weapons
             
             if (_playerController != null)
             {
-                _playerController.OnInteraction.AddListener(FireWeaponProjectile);
+                _playerController.onInteraction.AddListener(FireWeaponProjectile);
             }
             _layerMask = 1 << _layerMaskNum;
             

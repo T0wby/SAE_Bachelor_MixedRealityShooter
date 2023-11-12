@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace Player
 {
@@ -13,9 +14,9 @@ namespace Player
         private InputAction _switchRotateScale;
         private InputAction _placeObj;
 
-        public UnityEvent OnInteraction;
-        public UnityEvent OnSwitchRotateScale;
-        public UnityEvent OnPlaceObj;
+        public UnityEvent onInteraction;
+        public UnityEvent onSecondaryButton;
+        public UnityEvent onPrimaryButton;
         public UnityEvent<Vector2> OnRotation;
         public UnityEvent<Vector2> OnScale;
         
@@ -50,21 +51,21 @@ namespace Player
         {
             if (context.started)
             {
-                OnInteraction.Invoke();
+                onInteraction.Invoke();
             }
         }
         public void OnSecondaryButton(InputAction.CallbackContext context)
         {
             if (context.started)
             {
-                OnSwitchRotateScale.Invoke();
+                onSecondaryButton.Invoke();
             }
         }
         public void OnPrimaryButton(InputAction.CallbackContext context)
         {
             if (context.started)
             {
-                OnPlaceObj.Invoke();
+                onPrimaryButton.Invoke();
             }
         }
         

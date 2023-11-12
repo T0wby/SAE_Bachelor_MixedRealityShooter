@@ -107,19 +107,19 @@ namespace Building
         private void ConnectMethods()
         {
             // BuildMode
-            _playerController.OnInteraction.AddListener(AddReferenceGameObject);
+            _playerController.onPrimaryButton.AddListener(AddReferenceGameObject);
 
             // DeleteMode
-            _playerController.OnPlaceObj.AddListener(DeleteFocusedObject);
+            _playerController.onPrimaryButton.AddListener(DeleteFocusedObject);
         }
 
         private void DisconnectMethods()
         {
             // BuildMode
-            _playerController.OnInteraction.RemoveListener(AddReferenceGameObject);
+            _playerController.onPrimaryButton.RemoveListener(AddReferenceGameObject);
 
             // DeleteMode
-            _playerController.OnPlaceObj.RemoveListener(DeleteFocusedObject);
+            _playerController.onPrimaryButton.RemoveListener(DeleteFocusedObject);
         }
 
         #region Raycast Logic
