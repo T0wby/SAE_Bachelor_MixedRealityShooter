@@ -5,6 +5,14 @@ namespace Utility
 {
     public class UtilityMethods : MonoBehaviour
     {
+        /// <summary>
+        /// Less accurate version than parent child calculation
+        /// </summary>
+        /// <param name="box"></param>
+        /// <param name="startPos"></param>
+        /// <param name="widthPos"></param>
+        /// <param name="heightPos"></param>
+        /// <param name="endPos"></param>
         public static void CalcBoxTransform(ref GameObject box, Vector3 startPos, Vector3 widthPos, Vector3 heightPos, Vector3 endPos)
         {
             if (box == null)return;
@@ -25,6 +33,20 @@ namespace Utility
             box.transform.localScale = boxSize;
             
         }
+        
+        /// <summary>
+        /// Using a child and parent to calculate the box transform allows me to ignore the rotation and position,
+        /// while doing the scaling with simple distance vectors. Position and rotation are handled after the scaling is
+        /// done, to fit the Box between the placed points.
+        /// Important, the end pos should be placed at the opposite corner of the start position,
+        /// otherwise the result might look funky.
+        /// </summary>
+        /// <param name="box"></param>
+        /// <param name="parent"></param>
+        /// <param name="startPos"></param>
+        /// <param name="widthPos"></param>
+        /// <param name="heightPos"></param>
+        /// <param name="endPos"></param>
         public static void CalcBoxTransform(ref GameObject box, ref GameObject parent, Vector3 startPos, Vector3 widthPos, Vector3 heightPos, Vector3 endPos)
         {
             if (box == null || parent == null)return;
@@ -43,6 +65,14 @@ namespace Utility
             rotation.x = 0; 
             parent.transform.rotation = rotation;
         }
+        
+        /// <summary>
+        /// Used to calculate the transform of the placed walls
+        /// </summary>
+        /// <param name="quad">wall object</param>
+        /// <param name="startPoint">placed start point</param>
+        /// <param name="secondPoint">placed second point(end of the wall line)</param>
+        /// <param name="heightPoint">point used to calculate the height of the wall</param>
         public static void CalcQuadTransform(ref GameObject quad, Vector3 startPoint, Vector3 secondPoint, Vector3 heightPoint)
         {
             if (quad == null)return;
@@ -59,6 +89,16 @@ namespace Utility
             quad.transform.rotation = rotation;
             quad.transform.localScale = new Vector3(scale.x, scale.y, quad.transform.localScale.z);
         }
+        
+        /// <summary>
+        /// Used to calculate the transform of a collider that is used as an invincible wall, in order for the user to
+        /// use a raycast on it, that again tracks a point that will later be used as the walls height.
+        /// </summary>
+        /// <param name="quad">collider object</param>
+        /// <param name="startPoint">placed start point</param>
+        /// <param name="secondPoint">placed second point(end of the wall line)</param>
+        /// <param name="heightPoint">should be a value above 0</param>
+        /// <param name="extraScale">Scale the will be added to the width and height</param>
         public static void CalcQuadTransform(ref GameObject quad, Vector3 startPoint, Vector3 secondPoint, Vector3 heightPoint, float extraScale)
         {
             if (quad == null)return;
