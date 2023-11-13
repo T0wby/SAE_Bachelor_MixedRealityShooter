@@ -13,6 +13,7 @@ namespace PlacedObjects
         private GameObject _endObj;
         private GameObject _widthObj;
         private GameObject _self;
+        private GameObject _parent;
         private Vector3 _startPos;
         private Vector3 _widthPos;
         private Vector3 _endPos;
@@ -23,6 +24,8 @@ namespace PlacedObjects
         private void Start()
         {
             _self = gameObject;
+            if (_self.transform.parent != null)
+             _parent = _self.transform.parent.gameObject;
         }
         
         private void LateUpdate()
@@ -87,11 +90,14 @@ namespace PlacedObjects
             _widthPos = _widthObj.transform.position;
             _endPos = _endObj.transform.position;
 
-            _heightObj.transform.position = new Vector3(_startPos.x, _heightY, _startPos.z);
-            _endObj.transform.position = new Vector3(_endPos.x, _heightY, _endPos.z);
             _widthObj.transform.position = new Vector3(_widthPos.x, _startPos.y, _widthPos.z);
-            
-            UtilityMethods.CalcBoxTransform(ref _self, _startPos, _widthPos, _heightObj.transform.position, _endObj.transform.position);
+            _heightObj.transform.position = new Vector3(_widthPos.x, _heightY, _widthPos.z);
+            _endObj.transform.position = new Vector3(_endPos.x, _heightY, _endPos.z);
+
+            if (_parent == null)
+                UtilityMethods.CalcBoxTransform(ref _self, _startPos, _widthPos, _heightObj.transform.position, _endObj.transform.position);
+            else
+                UtilityMethods.CalcBoxTransform(ref _self, ref _parent, _startPos, _widthPos, _heightObj.transform.position, _endObj.transform.position);
         }
     }
 }

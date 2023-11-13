@@ -8,11 +8,16 @@ namespace PlacedObjects
         [SerializeField] protected Color _normalColor;
         [SerializeField] protected Color _selectedColor;
         [SerializeField] protected Color _gameColor;
+        [SerializeField] protected Renderer _ownRenderer;
         protected Material _ownMat;
 
         private void Awake()
         {
-            _ownMat = GetComponent<MeshRenderer>().material;
+            if (_ownRenderer == null)
+            {
+                _ownRenderer = GetComponent<MeshRenderer>();
+            }
+            _ownMat = _ownRenderer.material;
             DontDestroyOnLoad(transform.parent != null ? transform.parent.gameObject : gameObject);
             SetNormalColor();
         }

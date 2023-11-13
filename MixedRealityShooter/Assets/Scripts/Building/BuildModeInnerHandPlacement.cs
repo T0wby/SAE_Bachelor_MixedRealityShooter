@@ -223,20 +223,38 @@ namespace Building
                     _endPoint = Instantiate(_placedPointPrefab, _currPoint, Quaternion.identity);
                     // Calculate origin, scaling and place cube prefab
                     _currCube = Instantiate(_cubePrefab, Vector3.down * 20, Quaternion.identity);
-                    var tmp = _currCube.GetComponent<PlacedCube>();
-                    if (tmp != null)
-                        tmp.SetTransformPoints(_startPoint, _widthPoint, _heightPoint, _endPoint);
-                    
-                    UtilityMethods.CalcBoxTransform(ref _currCube, _startPoint.transform.position,
-                        _widthPoint.transform.position, _heightPoint.transform.position,
-                        _endPoint.transform.position);
-                    
+                    TransformCube();
                     AddPlacedObject();
                     break;
                 default:
                     return;
             }
             SwitchStates();
+        }
+
+        private void TransformCube()
+        {
+            if (_currCube.transform.childCount > 0)
+            {
+                var child = _currCube.transform.GetChild(0).gameObject;
+                var tmp = child.GetComponent<PlacedCube>();
+                if (tmp != null)
+                    tmp.SetTransformPoints(_startPoint, _widthPoint, _heightPoint, _endPoint);
+                    
+                UtilityMethods.CalcBoxTransform(ref child,ref _currCube, _startPoint.transform.position,
+                    _widthPoint.transform.position, _heightPoint.transform.position,
+                    _endPoint.transform.position);
+            }
+            else
+            {
+                var tmp = _currCube.GetComponent<PlacedCube>();
+                if (tmp != null)
+                    tmp.SetTransformPoints(_startPoint, _widthPoint, _heightPoint, _endPoint);
+                    
+                UtilityMethods.CalcBoxTransform(ref _currCube, _startPoint.transform.position,
+                    _widthPoint.transform.position, _heightPoint.transform.position,
+                    _endPoint.transform.position);
+            }
         }
 
         private void AddPlacedObject()

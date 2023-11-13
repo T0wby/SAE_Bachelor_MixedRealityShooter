@@ -4037,6 +4037,9 @@ MonoBehaviour:
   onMoneyChange:
     m_PersistentCalls:
       m_Calls: []
+  onPlaceableInventoryChange:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &793602057
 GameObject:
   m_ObjectHideFlags: 0
@@ -4354,7 +4357,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f812bbe72a87584bb01c6318adfc520, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cubePrefab: {fileID: 2553025659263086903, guid: fede3830498e1a8458463c0ba7bc80a3,
+  _cubePrefab: {fileID: 2553025659263086903, guid: 1be07a0614e9e0449a5cd38433871dbc,
     type: 3}
   _playerController: {fileID: 477502738}
   _mrPreparationUI: {fileID: 941895465}

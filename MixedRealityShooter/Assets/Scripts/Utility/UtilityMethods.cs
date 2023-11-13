@@ -11,18 +11,37 @@ namespace Utility
             Vector3 widthVector = widthPos - startPos;
             float height = Mathf.Abs(widthPos.y - heightPos.y);
             Vector3 scaleVector = endPos - heightPos;
-
+            
             Vector3 boxSize = new Vector3(widthVector.magnitude, height, scaleVector.magnitude);
-
+            
             // Set position
             box.transform.position = (startPos + endPos) * 0.5f;
-
+            
             // Set rotation
             var rotation = Quaternion.LookRotation(widthVector.normalized, Vector3.up)* Quaternion.Euler(0.0f, 90.0f, 0.0f);
             box.transform.rotation = rotation;
-
+            
             // Set scale
             box.transform.localScale = boxSize;
+            
+        }
+        public static void CalcBoxTransform(ref GameObject box, ref GameObject parent, Vector3 startPos, Vector3 widthPos, Vector3 heightPos, Vector3 endPos)
+        {
+            if (box == null || parent == null)return;
+            
+            // scale
+            box.transform.localScale = new Vector3(Vector3.Distance(startPos, widthPos),
+                Vector3.Distance(widthPos, heightPos), Vector3.Distance(heightPos, endPos));
+            
+            // origin
+            parent.transform.position = (startPos + endPos) * 0.5f;
+            
+            // rotation
+            var rotation =
+                Quaternion.LookRotation(((startPos + widthPos) * 0.5f) - parent.transform.position, Vector3.up);
+            rotation.z = 0; 
+            rotation.x = 0; 
+            parent.transform.rotation = rotation;
         }
         public static void CalcQuadTransform(ref GameObject quad, Vector3 startPoint, Vector3 secondPoint, Vector3 heightPoint)
         {
