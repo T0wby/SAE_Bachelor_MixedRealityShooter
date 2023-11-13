@@ -83,6 +83,7 @@ namespace Building
             DisconnectMethods();
             if(_isBuilding && _currWall != null)
                 Destroy(_currWall);
+            Destroy(_followPoint);
         }
 
         private void AddPlacedObjToOverall(List<GameObject> overallList)

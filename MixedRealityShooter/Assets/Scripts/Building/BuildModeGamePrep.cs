@@ -36,7 +36,6 @@ namespace Building
         [SerializeField] private float _rotPower = 1.0f;
 
         private int _rotationNumber = 0;
-        private int _placeInvenNumber = 0;
         private Vector3 _currScale;
         private EColliderState _colliderState = EColliderState.Position;
 
@@ -111,24 +110,13 @@ namespace Building
 
         private void SearchForPointFromInven()
         {
-            if (_colliderState != EColliderState.Position) return;
-            if (_inventory.PlaceableVRItems.Count <= 0) return;
+            if (_colliderState != EColliderState.Position || _inventory.AmountPlaceableItems <= 0) return;
 
             if (Physics.Raycast(_rightControllerVisual.transform.position, _rightControllerVisual.transform.forward,
                     out var hit, Mathf.Infinity, _layerMask))
             {
-                if (_currCube == null)
-                {
-                    _currItem = _inventory.PlaceableVRItems[_placeInvenNumber];
-                    _currCube = _currItem.gameObject;
-                    _currCube.SetActive(true);
-                }
+                if (_currCube == null) return;
                 _currCube.transform.position = hit.point;
-            }
-            else
-            {
-                if (_currCube != null)
-                    _currCube.SetActive(false);
             }
         }
         
@@ -207,10 +195,9 @@ namespace Building
 
             _currCube.layer = LayerMask.NameToLayer("Environment");
             _placedObjects.Add(_currCube);
-            _inventory.PlaceableVRItems.Remove(_currItem);
+            _inventory.RemovePlaceableVrItem(_currItem);
             _currCube = null;
             _currItem = null;
-            _placeInvenNumber = 0;
         }
 
         private void DeleteFocusedObject()
@@ -222,7 +209,7 @@ namespace Building
             if (tmp != null)
             {
                 _placedObjects.Remove(_selectedObj);
-                _inventory.PlaceableVRItems.Add(tmp);
+                _inventory.AddPlaceableVrItem(tmp);
                 _selectedObj.layer = LayerMask.NameToLayer("Default");
                 _selectedObj.SetActive(false);
             }
@@ -236,20 +223,31 @@ namespace Building
         /// <summary>
         /// Ref on Button to switch through Inventory
         /// </summary>
-        public void SwitchThroughPlaceInven()
+        // public void SwitchThroughPlaceInven()
+        // {
+        //     if(GameManager.Instance.CurrState != EGameStates.PreparePlayScene || !_isBuilding)return;
+        //     if(_inventory.PlaceableVRItems.Count <= 1)return;
+        //     _placeInvenNumber++;
+        //     _placeInvenNumber %= _inventory.PlaceableVRItems.Count;
+        //     var tmp = _currCube.GetComponent<PlaceableVRItem>();
+        //     if (tmp != null)
+        //     {
+        //         if (!_inventory.PlaceableVRItems.Contains(tmp))
+        //             _inventory.PlaceableVRItems.Add(tmp);
+        //         _currCube.SetActive(false);
+        //     }
+        //     _currCube = null;
+        // }
+        
+        public void SetCurrItem(PlaceableVRItem newItem)
         {
             if(GameManager.Instance.CurrState != EGameStates.PreparePlayScene || !_isBuilding)return;
-            if(_inventory.PlaceableVRItems.Count <= 1)return;
-            _placeInvenNumber++;
-            _placeInvenNumber %= _inventory.PlaceableVRItems.Count;
-            var tmp = _currCube.GetComponent<PlaceableVRItem>();
-            if (tmp != null)
-            {
-                if (!_inventory.PlaceableVRItems.Contains(tmp))
-                    _inventory.PlaceableVRItems.Add(tmp);
+
+            if (_currCube != null)
                 _currCube.SetActive(false);
-            }
-            _currCube = null;
+            _currItem = newItem;
+            _currCube = newItem.gameObject;
+            _currCube.SetActive(true);
         }
 
         private void SwitchStates()

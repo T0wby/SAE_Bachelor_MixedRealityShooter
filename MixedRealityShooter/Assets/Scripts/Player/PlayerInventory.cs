@@ -35,6 +35,8 @@ namespace Player
         public RangeWeapon ActiveRangeWeapon => _activeRangeWeapon;
         public MeleeWeapon ActiveMeleeWeapon => _activeMeleeWeapon;
 
+        public int AmountPlaceableItems => _placeableVRItems.Count;
+
         public int Money
         {
             get => _money;
@@ -48,6 +50,7 @@ namespace Player
         #endregion
 
         public UnityEvent<int> onMoneyChange;
+        public UnityEvent onPlaceableInventoryChange;
 
         private void Awake()
         {
@@ -87,6 +90,17 @@ namespace Player
             _activeMeleeWeaponPrefab = Instantiate(weapon.DefaultSettings.WeaponPrefab, transform.position, Quaternion.identity, transform);
             _activeMeleeWeapon = _activeMeleeWeaponPrefab.GetComponent<MeleeWeapon>();
             _activeMeleeWeaponPrefab.SetActive(false);
+        }
+
+        public void AddPlaceableVrItem(PlaceableVRItem itemToAdd)
+        {
+            _placeableVRItems.Add(itemToAdd);
+            onPlaceableInventoryChange.Invoke();
+        }
+        public void RemovePlaceableVrItem(PlaceableVRItem itemToRemove)
+        {
+            _placeableVRItems.Remove(itemToRemove);
+            onPlaceableInventoryChange.Invoke();
         }
 
         #region Event Methods

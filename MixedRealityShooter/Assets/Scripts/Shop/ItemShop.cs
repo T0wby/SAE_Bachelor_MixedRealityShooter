@@ -6,6 +6,7 @@ using PlacedObjects;
 using Player;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using Utility;
 
 namespace Shop
@@ -14,7 +15,7 @@ namespace Shop
     {
         private PlayerInventory _playerInventory;
 
-        public UnityEvent OnBuyingItem;
+        public UnityEvent onBuyingItem;
 
         private void Awake()
         {
@@ -26,7 +27,6 @@ namespace Shop
             if (_playerInventory == null)return;
 
             var obj = ItemManager.Instance.ReceivePoolObject((EPlaceableItemType)itemType);
-            // TODO: Check Money
             if (obj.Settings.ItemCost > _playerInventory.Money)
             {
                 obj.ReturnThisToPool();
@@ -34,8 +34,8 @@ namespace Shop
             else
             {
                 _playerInventory.Money -= obj.Settings.ItemCost;
-                _playerInventory.PlaceableVRItems.Add(ItemManager.Instance.ReceivePoolObject((EPlaceableItemType)itemType));
-                OnBuyingItem.Invoke();
+                _playerInventory.AddPlaceableVrItem(obj);
+                onBuyingItem.Invoke();
             }
         }
     }

@@ -29,11 +29,11 @@ namespace Shop
 
         public void AddWall()
         {
-            _inventory.PlaceableVRItems.Add(ItemManager.Instance.ReceivePoolObject(EPlaceableItemType.Wall));
+            _inventory.AddPlaceableVrItem(ItemManager.Instance.ReceivePoolObject(EPlaceableItemType.Wall));
         }
         public void AddBarrell()
         {
-            _inventory.PlaceableVRItems.Add(ItemManager.Instance.ReceivePoolObject(EPlaceableItemType.Barrell));
+            _inventory.AddPlaceableVrItem(ItemManager.Instance.ReceivePoolObject(EPlaceableItemType.Barrell));
         }
         
         public void AddRandomItem()

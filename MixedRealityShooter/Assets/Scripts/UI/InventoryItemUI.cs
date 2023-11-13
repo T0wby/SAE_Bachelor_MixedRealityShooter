@@ -24,8 +24,17 @@ namespace UI
             _generatedReferences = new List<PlaceableVRItem>();
             _playerInventory = FindObjectOfType<PlayerInventory>();
             _itemShop = FindObjectOfType<ItemShop>();
+            
+            if (_playerInventory != null)
+                _playerInventory.onPlaceableInventoryChange.AddListener(UpdateInventoryUI);
+            
             if (_itemShop == null) return;
-            _itemShop.OnBuyingItem.AddListener(UpdateInventoryUI);
+            _itemShop.onBuyingItem.AddListener(UpdateInventoryUI);
+        }
+
+        private void Start()
+        {
+            UpdateInventoryUI();
         }
 
         private void UpdateInventoryUI()
@@ -45,7 +54,5 @@ namespace UI
                 itemButton.InitButton(item);
             }
         }
-        
-        
     }
 }
