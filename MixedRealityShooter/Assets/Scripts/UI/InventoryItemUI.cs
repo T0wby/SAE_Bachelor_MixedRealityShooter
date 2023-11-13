@@ -40,6 +40,7 @@ namespace UI
         private void UpdateInventoryUI()
         {
             if (_playerInventory == null)return;
+            ClearGeneratedButtons();
 
             foreach (var item in _playerInventory.PlaceableVRItems)
             {
@@ -53,6 +54,16 @@ namespace UI
                 if (itemButton == null)continue;
                 itemButton.InitButton(item);
             }
+        }
+
+        private void ClearGeneratedButtons()
+        {
+            foreach (var button in _generatedItemButtons)
+            {
+                Destroy(button);
+            }
+            _generatedItemButtons.Clear();
+            _generatedReferences.Clear();
         }
     }
 }

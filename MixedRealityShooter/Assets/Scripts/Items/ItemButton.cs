@@ -14,10 +14,6 @@ namespace Items
         [SerializeField] private Button _button;
         private PlaceableVRItem _placeableVRItemRef;
         private BuildModeGamePrep _buildMode;
-        public Image ItemImage => _image;
-        public TMP_Text Name => _name;
-        public Button ButtonRef => _button;
-        public PlaceableVRItem PlaceableVRItemRef => _placeableVRItemRef;
 
         public void InitButton(PlaceableVRItem itemRef)
         {
@@ -28,11 +24,7 @@ namespace Items
             _image.sprite = itemRef.Settings.ItemImage;
             transform.localRotation = Quaternion.identity;
             
-            _button.onClick.AddListener(() =>
-            {
-                Debug.LogWarning($"ItemName: {itemRef.Settings.ItemName}");
-                SetCurrItem();
-            });
+            _button.onClick.AddListener(SetCurrItem);
         }
 
         private void SetCurrItem()
