@@ -9,7 +9,6 @@ namespace Inventory
     public class AddPlacedItemToInventory : MonoBehaviour
     {
         [Header("Reference")] 
-        [SerializeField] private InventoryUpdater _inventoryUpdater;
         [SerializeField] private Transform _rangeSpawn;
         [SerializeField] private Transform _meleeSpawn;
         private PlayerInventory _playerInventory;
@@ -20,9 +19,6 @@ namespace Inventory
         private void Awake()
         {
             _playerInventory = FindObjectOfType<PlayerInventory>();
-            _inventoryUpdater = GetComponent<InventoryUpdater>();
-            // SpawnRangeProp();
-            // SpawnMeleeProp();
             SetActiveWeaponsToRack();
         }
 
@@ -53,27 +49,6 @@ namespace Inventory
                 }
                 _playerInventory.ActiveMeleeWeaponPrefab.SetActive(true);
             }
-        }
-
-        public void SpawnRangeProp()
-        {
-            if (_playerInventory == null || _playerInventory.ActiveRangeWeapon == null)return;
-            
-            SpawnProp(_rangeSpawn, ref _spawnedRangeProp, _playerInventory.ActiveRangeWeapon.DefaultSettings.WeaponProp);
-        }
-        public void SpawnMeleeProp()
-        {
-            if (_playerInventory == null || _playerInventory.ActiveMeleeWeapon == null)return;
-            SpawnProp(_meleeSpawn, ref _spawnedMeleeProp, _playerInventory.ActiveMeleeWeapon.DefaultSettings.WeaponProp);
-        }
-
-        private void SpawnProp(Transform spawnPoint, ref GameObject spawnRef, GameObject propToSpawn)
-        {
-            if (spawnRef != null)
-                Destroy(spawnRef);
-
-            spawnRef = Instantiate(propToSpawn, spawnPoint.position, spawnPoint.rotation);
-            _inventoryUpdater.UpdateFields();
         }
     }
 }
