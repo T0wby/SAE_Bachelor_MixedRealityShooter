@@ -134,7 +134,7 @@ PrefabInstance:
     - target: {fileID: 707285076399661452, guid: d1fb8d5b96d36864da59ce0725f1da64,
         type: 3}
       propertyPath: m_Name
-      value: -----PlaceableCylinders-----
+      value: -----PlaceableBarrell-----
       objectReference: {fileID: 0}
     - target: {fileID: 1337588900638611781, guid: d1fb8d5b96d36864da59ce0725f1da64,
         type: 3}
@@ -334,7 +334,7 @@ PrefabInstance:
     - target: {fileID: 2126241668421164347, guid: 157dfbac56c7ee54ba4312f11e90d1cf,
         type: 3}
       propertyPath: m_Name
-      value: -----PlaceableSpheres-----
+      value: -----PlaceableWalls-----
       objectReference: {fileID: 0}
     - target: {fileID: 3212334610956198181, guid: 157dfbac56c7ee54ba4312f11e90d1cf,
         type: 3}

@@ -17,6 +17,7 @@ namespace Building
         [SerializeField] private GameObject _wallPrefab;
         [SerializeField] private PlayerController _playerController;
         [SerializeField] private MrPreparationUI _mrPreparationUI;
+        //[SerializeField] private LineRenderer _lineRenderer;
 
         private GameObject _currWall;
         private GameObject _prevSelectedObj;
@@ -75,6 +76,7 @@ namespace Building
         {
             ConnectMethods();
             _followPoint = Instantiate(_placedPointPrefab, Vector3.down, Quaternion.identity, _modeParent);
+            //_lineRenderer.SetPosition(0, _rightControllerBuildPoint.transform.position);
         }
 
         private void OnDisable()
@@ -125,7 +127,6 @@ namespace Building
             {
                 if (!hit.transform.gameObject.CompareTag("Wall"))
                 {
-                    Debug.DrawRay(_rightControllerBuildPoint.transform.position, _rightControllerBuildPoint.transform.forward, Color.green, 0.5f);
                     if (_objToDelete != null)
                     {
                         _objToDelete.SetNormalColor();
@@ -134,7 +135,6 @@ namespace Building
                     _selectedObj = null;
                     return;
                 }
-                Debug.DrawRay(_rightControllerBuildPoint.transform.position, _rightControllerBuildPoint.transform.forward, Color.red, 0.5f);
                 _prevSelectedObj = _selectedObj;
                 _selectedObj = hit.transform.gameObject;
                 if (_objToDelete == null || _prevSelectedObj != _selectedObj)

@@ -8,8 +8,7 @@ namespace Inventory
 {
     public class AddPlacedItemToInventory : MonoBehaviour
     {
-        [Header("Reference")] 
-        [SerializeField] private Transform _rangeSpawn;
+        [Header("Reference")] [SerializeField] private Transform _rangeSpawn;
         [SerializeField] private Transform _meleeSpawn;
         private PlayerInventory _playerInventory;
         private AWeapon _weapon;
@@ -24,31 +23,31 @@ namespace Inventory
 
         public void SetActiveWeaponsToRack()
         {
-            if (_playerInventory == null)return;
+            if (_playerInventory == null) return;
 
             if (_playerInventory.ActiveRangeWeaponPrefab != null)
             {
-                _playerInventory.ActiveRangeWeaponPrefab.transform.position = _rangeSpawn.position;
                 _playerInventory.ActiveRangeWeaponPrefab.transform.rotation = _rangeSpawn.rotation;
-                var rb = _playerInventory.ActiveRangeWeaponPrefab.GetComponent<Rigidbody>();
-                if (rb != null)
+                _playerInventory.ActiveRangeWeaponPrefab.transform.position = _rangeSpawn.position;
+                var rbRange = _playerInventory.ActiveRangeWeaponPrefab.GetComponent<Rigidbody>();
+                if (rbRange != null)
                 {
-                    rb.useGravity = false;
+                    rbRange.useGravity = false;
                 }
+
                 _playerInventory.ActiveRangeWeaponPrefab.SetActive(true);
             }
-            
-            if (_playerInventory.ActiveMeleeWeaponPrefab != null)
+
+            if (_playerInventory.ActiveMeleeWeaponPrefab == null) return;
+            _playerInventory.ActiveMeleeWeaponPrefab.transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
+            _playerInventory.ActiveMeleeWeaponPrefab.transform.position = _meleeSpawn.position;
+            var rbMelee = _playerInventory.ActiveMeleeWeaponPrefab.GetComponent<Rigidbody>();
+            if (rbMelee != null)
             {
-                _playerInventory.ActiveMeleeWeaponPrefab.transform.position = _meleeSpawn.position;
-                _playerInventory.ActiveMeleeWeaponPrefab.transform.rotation = _meleeSpawn.rotation;
-                var rb = _playerInventory.ActiveMeleeWeaponPrefab.GetComponent<Rigidbody>();
-                if (rb != null)
-                {
-                    rb.useGravity = false;
-                }
-                _playerInventory.ActiveMeleeWeaponPrefab.SetActive(true);
+                rbMelee.useGravity = false;
             }
+
+            _playerInventory.ActiveMeleeWeaponPrefab.SetActive(true);
         }
     }
 }

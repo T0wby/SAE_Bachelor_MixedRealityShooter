@@ -17,21 +17,11 @@ namespace Shop
             _inventory = FindObjectOfType<PlayerInventory>();
         }
 
-        public void UpgradeDamage(AWeapon weapon)
-        {
-            weapon.UpgradeDamage();
-        }
-
-        public void UpgradeFireRate(AWeapon weapon)
-        {
-            weapon.UpgradeFireRate();
-        }
-
-        public void AddWall()
+        private void AddWall()
         {
             _inventory.AddPlaceableVrItem(ItemManager.Instance.ReceivePoolObject(EPlaceableItemType.Wall));
         }
-        public void AddBarrell()
+        private void AddBarrel()
         {
             _inventory.AddPlaceableVrItem(ItemManager.Instance.ReceivePoolObject(EPlaceableItemType.Barrell));
         }
@@ -41,7 +31,7 @@ namespace Shop
             switch (Random.Range(0, 2))
             {
                 case 0:
-                    AddBarrell();
+                    AddBarrel();
                     break;
                 case 1:
                     AddWall();

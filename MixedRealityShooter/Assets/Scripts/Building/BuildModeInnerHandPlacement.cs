@@ -16,6 +16,7 @@ namespace Building
         [SerializeField] private GameObject _cubePrefab;
         [SerializeField] private PlayerController _playerController;
         [SerializeField] private MrPreparationUI _mrPreparationUI;
+        //[SerializeField] private LineRenderer _lineRenderer;
 
         private GameObject _currCube;
         private GameObject _prevSelectedObj;
@@ -63,6 +64,7 @@ namespace Building
             _placedObjects = new List<GameObject>();
             if(_mrPreparationUI != null)
                 _mrPreparationUI.ChangeBuildModeName(_isBuilding);
+            //_lineRenderer.SetPosition(0, _rightControllerBuildPoint.transform.position);
         }
 
         private void FixedUpdate()
@@ -137,7 +139,6 @@ namespace Building
             {
                 if (!hit.transform.gameObject.CompareTag("PlacedObj"))
                 {
-                    Debug.DrawRay(_rightControllerBuildPoint.transform.position, _rightControllerBuildPoint.transform.forward, Color.green, 0.5f);
                     if (_objToDelete != null)
                     {
                         _objToDelete.SetNormalColor();
@@ -146,7 +147,6 @@ namespace Building
                     _selectedObj = null;
                     return;
                 }
-                Debug.DrawRay(_rightControllerBuildPoint.transform.position, _rightControllerBuildPoint.transform.forward, Color.red, 0.5f);
                 _prevSelectedObj = _selectedObj;
                 _selectedObj = hit.transform.gameObject;
                 if (_objToDelete == null || _prevSelectedObj != _selectedObj)
@@ -234,7 +234,7 @@ namespace Building
 
         private void TransformCube()
         {
-            if (_currCube.transform.childCount > 0)
+            if (_currCube.transform.childCount == 1)
             {
                 var child = _currCube.transform.GetChild(0).gameObject;
                 var tmp = child.GetComponent<PlacedCube>();
@@ -263,6 +263,8 @@ namespace Building
             if (_currCube == null) return;
 
             _currCube.layer = LayerMask.NameToLayer("Environment");
+            if (_currCube.transform.childCount == 1)
+                _currCube.transform.GetChild(0).gameObject.layer = LayerMask.NameToLayer("Environment");
             _placedObjects.Add(_currCube);
             AddPlacedObjToOverall(GameManager.Instance.MrPlacedObjects);
             _currCube = null;

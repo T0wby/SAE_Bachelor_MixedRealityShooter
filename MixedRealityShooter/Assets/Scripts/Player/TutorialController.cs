@@ -14,6 +14,7 @@ namespace Player
         private void Start()
         {
             GameManager.Instance.OnGameStateChange.AddListener(SetCurrentTutorial);
+            SetCurrentTutorial(GameManager.Instance.CurrState);
         }
 
         private void SetCurrentTutorial(EGameStates currState)

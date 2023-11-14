@@ -24,15 +24,15 @@ namespace Player
             if (_playerInventory.ActiveRangeWeaponPrefab != null)
             {
                 _playerInventory.ActiveRangeWeaponPrefab.GetComponent<Rigidbody>().useGravity = false;
-                _playerInventory.ActiveRangeWeaponPrefab.SetActive(true); // TODO: Write an own function instead of relying on OnEnable
+                _playerInventory.ActiveRangeWeaponPrefab.SetActive(true);
+                _playerInventory.ActiveRangeWeaponPrefab.transform.rotation = _rangeWeaponSpawn.rotation;
                 _playerInventory.ActiveRangeWeaponPrefab.transform.position = _rangeWeaponSpawn.position;
             }
 
-            if (_playerInventory.ActiveMeleeWeaponPrefab != null)
-            {
-                _playerInventory.ActiveMeleeWeaponPrefab.SetActive(true);
-                _playerInventory.ActiveMeleeWeaponPrefab.transform.position = _meleeWeaponSpawn.position;
-            }
+            if (_playerInventory.ActiveMeleeWeaponPrefab == null) return;
+            _playerInventory.ActiveMeleeWeaponPrefab.SetActive(true);
+            _playerInventory.ActiveMeleeWeaponPrefab.transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
+            _playerInventory.ActiveMeleeWeaponPrefab.transform.position = _meleeWeaponSpawn.position;
         }
     }
 }
