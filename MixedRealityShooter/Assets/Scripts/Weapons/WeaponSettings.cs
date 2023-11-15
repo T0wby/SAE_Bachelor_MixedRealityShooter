@@ -12,6 +12,7 @@ namespace Weapons
         [SerializeField] private int _damage;
         [SerializeField] private float _projectileSpeed;
         [SerializeField] private float _bulletsPerSecond;
+        [SerializeField] private int _value;
 
         public string WeaponName => _weaponName;
         public GameObject WeaponPrefab => _weaponPrefab;
@@ -19,5 +20,6 @@ namespace Weapons
         public int Damage => _damage;
         public float ProjectileSpeed => _projectileSpeed;
         public float BulletsPerSecond => _bulletsPerSecond;
+        public int Value => _value;
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using Player;
+using Shop;
 using UnityEngine;
 using Utility;
 using Weapons;
@@ -8,16 +9,24 @@ namespace Inventory
 {
     public class AddPlacedItemToInventory : MonoBehaviour
     {
-        [Header("Reference")] [SerializeField] private Transform _rangeSpawn;
+        [Header("Reference")] 
+        [SerializeField] private Transform _rangeSpawn;
         [SerializeField] private Transform _meleeSpawn;
         private PlayerInventory _playerInventory;
+        private WeaponShop _weaponShop;
         private AWeapon _weapon;
-        private GameObject _spawnedRangeProp;
-        private GameObject _spawnedMeleeProp;
 
         private void Awake()
         {
             _playerInventory = FindObjectOfType<PlayerInventory>();
+            _weaponShop = FindObjectOfType<WeaponShop>();
+            
+        }
+
+        private void Start()
+        {
+            if(_weaponShop != null)
+                _weaponShop.onBuyingWeapon.AddListener(SetActiveWeaponsToRack);
             SetActiveWeaponsToRack();
         }
 

@@ -321,7 +321,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _defaultSettings: {fileID: 11400000, guid: adec2abdf3e0d3442a39407fb164c7e0, type: 2}
-  _grabInteractable: {fileID: 1624447679432339223}
   _barrel: {fileID: 787837101955584382}
   _layerMaskNum: 8
 --- !u!114 &9057903899216776896

@@ -15,6 +15,8 @@ namespace Player
     {
         #region Variables
 
+        [SerializeField] private GameObject _defaultRangeWeaponPrefab;
+
         private RangeWeapon _activeRangeWeapon;
         private GameObject _activeRangeWeaponPrefab;
         private MeleeWeapon _activeMeleeWeapon;
@@ -56,6 +58,7 @@ namespace Player
         {
             DontDestroyOnLoad(gameObject);
             _placeableVRItems = new List<PlaceableVRItem>();
+            AddDefaultRangeWeapon();
         }
 
         private void Start()
@@ -75,6 +78,15 @@ namespace Player
             }
             
             _activeRangeWeaponPrefab = Instantiate(weapon.DefaultSettings.WeaponPrefab, transform.position, Quaternion.identity, transform);
+            _activeRangeWeapon = _activeRangeWeaponPrefab.GetComponent<RangeWeapon>();
+            _activeRangeWeaponPrefab.SetActive(false);
+        }
+
+        private void AddDefaultRangeWeapon()
+        {
+            if (_defaultRangeWeaponPrefab == null || _activeRangeWeaponPrefab != null) return;
+            
+            _activeRangeWeaponPrefab = Instantiate(_defaultRangeWeaponPrefab, transform.position, Quaternion.identity, transform);
             _activeRangeWeapon = _activeRangeWeaponPrefab.GetComponent<RangeWeapon>();
             _activeRangeWeaponPrefab.SetActive(false);
         }

@@ -23,16 +23,38 @@ namespace Weapons
         protected int _fireRateLevel = 0;
         protected bool _isGrabbed = false;
         private Rigidbody _thisRB;
+        private int _damageCost;
+        private int _bpsCost;
 
         protected const float UPGRADE_STRENGTH = 0.1f;
-        //protected const float BPSLIMIT = 5.0f;
         
         public WeaponSettings DefaultSettings => _defaultSettings;
         public bool IsGrabbed => _isGrabbed;
-        public int DamageLevel => _damageLevel;
-        public int FireRateLevel => _fireRateLevel;
+
+        public int DamageLevel
+        {
+            get => _damageLevel;
+            set
+            {
+                _damageLevel = value;
+                CalcCost();
+            }
+        }
+        
+        public int FireRateLevel
+        {
+            get => _fireRateLevel;
+            set
+            {
+                _fireRateLevel = value;
+                CalcCost();
+            }
+        }
+        
         public int CurrDamage => _damage;
         public float CurrBulletsPerSec => _bulletsPerSecond;
+        public int DamageCost => _damageCost;
+        public int BpsCost => _bpsCost;
 
         private void Awake()
         {
@@ -64,16 +86,21 @@ namespace Weapons
 
         public virtual void Attack(){ }
 
-        public void UpgradeDamage()
+        /// <summary>
+        /// returns true when max stat is achieved
+        /// </summary>
+        /// <returns></returns>
+        public bool UpgradeDamage()
         {
-            if (_damageLevel >= 10)return;
+            if (_damageLevel >= 10)return true;
             
             int tmp = (int)(_damage * UPGRADE_STRENGTH);
             if (tmp == 0)
                 tmp = 1;
             
             _damage += tmp;
-            _damageLevel++;
+            DamageLevel++;
+            return false;
         }
         
         /// <summary>
@@ -87,15 +114,20 @@ namespace Weapons
             
             float tmp = ((_damage /perc) * 100);
             _damage = (int)tmp;
-            _damageLevel--;
+            DamageLevel--;
         }
         
-        public void UpgradeFireRate()
+        /// <summary>
+        /// returns true when max stat is achieved
+        /// </summary>
+        /// <returns></returns>
+        public bool UpgradeFireRate()
         {
-            if (_fireRateLevel >= 10) return;
+            if (_fireRateLevel >= 10) return true;
 
             _bulletsPerSecond += (_bulletsPerSecond * UPGRADE_STRENGTH);
-            _fireRateLevel++;
+            FireRateLevel++;
+            return false;
         }
         
         /// <summary>
@@ -109,7 +141,13 @@ namespace Weapons
             
             float tmp = ((_bulletsPerSecond / perc) * 100);
             _bulletsPerSecond = tmp;
-            _fireRateLevel--;
+            FireRateLevel--;
+        }
+
+        private void CalcCost()
+        {
+            _damageCost = (int)(_damageLevel * 10 * 0.35f);
+            _bpsCost = (int)(_fireRateLevel * 10 * 0.2f);
         }
 
         protected virtual void OnGrabbed(GrabInteractor interactor)

@@ -17,6 +17,7 @@ namespace Utility
     {
         AssaultRifle,
         Pistol,
+        Revolver,
         Dagger,
         Grenade
     }

@@ -25,10 +25,10 @@ namespace Player
             {
                 var rb = _playerInventory.ActiveRangeWeaponPrefab.GetComponent<Rigidbody>();
                 rb.useGravity = false;
-                rb.velocity = Vector3.zero;
                 _playerInventory.ActiveRangeWeaponPrefab.SetActive(true);
                 _playerInventory.ActiveRangeWeaponPrefab.transform.rotation = _rangeWeaponSpawn.rotation;
                 _playerInventory.ActiveRangeWeaponPrefab.transform.position = _rangeWeaponSpawn.position;
+                rb.velocity = Vector3.zero;
             }
 
             if (_playerInventory.ActiveMeleeWeaponPrefab == null) return;
