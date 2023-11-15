@@ -40,6 +40,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "FireWeapon",
+                    "type": "Button",
+                    "id": "39964867-6e3b-4e8c-a36c-034ce9038183",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -84,6 +93,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "PlaceObj",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6cae6cea-c38a-4b73-a17c-7ea94a4788c9",
+                    "path": "<XRController>{RightHand}/triggerPressed",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FireWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "11d973a9-ae89-4eff-a063-0c01a7965a2a",
+                    "path": "<XRController>{LeftHand}/triggerPressed",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FireWeapon",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

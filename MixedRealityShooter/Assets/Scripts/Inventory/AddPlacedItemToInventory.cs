@@ -33,6 +33,7 @@ namespace Inventory
                 if (rbRange != null)
                 {
                     rbRange.useGravity = false;
+                    rbRange.velocity = Vector3.zero;
                 }
 
                 _playerInventory.ActiveRangeWeaponPrefab.SetActive(true);
@@ -45,6 +46,7 @@ namespace Inventory
             if (rbMelee != null)
             {
                 rbMelee.useGravity = false;
+                rbMelee.velocity = Vector3.zero;
             }
 
             _playerInventory.ActiveMeleeWeaponPrefab.SetActive(true);

@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using Player;
 using TMPro;
 using UnityEngine;
@@ -16,7 +17,11 @@ namespace Inventory
         
         [Header("UI_TextFields")]
         [SerializeField] private TMP_Text _dmgLevelRange;
+        [SerializeField] private TMP_Text _dmgCurrentRange;
         [SerializeField] private TMP_Text _dmgCostRange;
+        [SerializeField] private TMP_Text _bpsLevelRange;
+        [SerializeField] private TMP_Text _bpsCurrentRange;
+        [SerializeField] private TMP_Text _bpsCostRange;
         [SerializeField] private TMP_Text _dmgLevelMelee;
         [SerializeField] private TMP_Text _dmgCostMelee;
         
@@ -44,6 +49,20 @@ namespace Inventory
             DowngradeDamage(_playerInventory.ActiveRangeWeapon);
         }
         
+        public void UpgradeRangeBps()
+        {
+            if (_playerInventory == null || _playerInventory.ActiveRangeWeapon == null)return;
+            
+            UpgradeBps(_playerInventory.ActiveRangeWeapon);
+        }
+        
+        public void DowngradeRangeBps()
+        {
+            if (_playerInventory == null || _playerInventory.ActiveRangeWeapon == null)return;
+            
+            DowngradeBps(_playerInventory.ActiveRangeWeapon);
+        }
+        
         public void UpgradeMeleeDamage()
         {
             if (_playerInventory == null || _playerInventory.ActiveMeleeWeapon == null)return;
@@ -61,29 +80,46 @@ namespace Inventory
         private void UpgradeDamage(AWeapon weapon)
         {
             weapon.UpgradeDamage();
-            SetCorrectWeaponLevelText();
+            SetCorrectStatLevelText();
         }
         private void DowngradeDamage(AWeapon weapon)
         {
             weapon.DowngradeDamage();
-            SetCorrectWeaponLevelText();
+            SetCorrectStatLevelText();
+        }
+        
+        private void UpgradeBps(AWeapon weapon)
+        {
+            weapon.UpgradeFireRate();
+            SetCorrectStatLevelText();
+        }
+        private void DowngradeBps(AWeapon weapon)
+        {
+            weapon.DowngradeFireRate();
+            SetCorrectStatLevelText();
         }
 
         #endregion
 
         public void UpdateFields()
         {
-            SetCorrectWeaponLevelText();
+            SetCorrectStatLevelText();
             SetFieldsAccordingToInventory();
         }
         
-        private void SetCorrectWeaponLevelText()
+        private void SetCorrectStatLevelText()
         {
             if (_playerInventory == null) return;
             if (_playerInventory.ActiveRangeWeapon != null)
-                _dmgLevelRange.text = _playerInventory.ActiveRangeWeapon.WeaponLevel.ToString();
+            {
+                _dmgLevelRange.text = _playerInventory.ActiveRangeWeapon.DamageLevel.ToString();
+                _dmgCurrentRange.text = _playerInventory.ActiveRangeWeapon.CurrDamage.ToString();
+                _bpsLevelRange.text = _playerInventory.ActiveRangeWeapon.FireRateLevel.ToString();
+                _bpsCurrentRange.text = _playerInventory.ActiveRangeWeapon.CurrBulletsPerSec.ToString(CultureInfo.CurrentCulture);
+            }
+                
             if (_playerInventory.ActiveMeleeWeapon != null)
-                _dmgLevelMelee.text = _playerInventory.ActiveMeleeWeapon.WeaponLevel.ToString();
+                _dmgLevelMelee.text = _playerInventory.ActiveMeleeWeapon.DamageLevel.ToString();
         }
 
         private void SetFieldsAccordingToInventory()

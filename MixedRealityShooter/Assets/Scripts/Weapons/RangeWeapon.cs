@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Oculus.Interaction;
 using UnityEngine;
 using Utility;
@@ -16,15 +17,14 @@ namespace Weapons
         private PlayerController _playerController;
         private ProjectilePool _projectilePool;
         private int _layerMask;
+        private bool _canFire = false;
+        private bool _isShooting = false;
 
         private void Start()
         {
             _playerController = FindObjectOfType<PlayerController>();
             _projectilePool = FindObjectOfType<ProjectilePool>();
-            if (_playerController != null)
-            {
-                _playerController.onInteraction.AddListener(FireWeaponProjectile);
-            }
+            
             _layerMask = 1 << _layerMaskNum;
             
             // Invert bitmask
@@ -39,11 +39,6 @@ namespace Weapons
             {
                 _projectilePool = FindObjectOfType<ProjectilePool>();
             }
-            
-            if (_playerController != null)
-            {
-                _playerController.onInteraction.AddListener(FireWeaponProjectile);
-            }
             _layerMask = 1 << _layerMaskNum;
             
             // Invert bitmask
@@ -51,38 +46,47 @@ namespace Weapons
             _isGrabbed = false;
         }
 
+        private void Update()
+        {
+            FireWeaponProjectile();
+        }
+
         /// <summary>
         /// Fire Weapon using a Raycast
         /// </summary>
-        public void FireWeapon()
+        public void FireWeaponRay()
         {
             if(!_isGrabbed)return;
             
             if (Physics.Raycast(_barrel.transform.position, _barrel.transform.TransformDirection(Vector3.forward), out var hit, Mathf.Infinity, _layerMask))
             {
                 IDamage hitObject = hit.collider.gameObject.GetComponent<IDamage>();
-                if (hitObject != null)
-                {
-                    hitObject.TakeDamage(_damage);
-                    Debug.Log("Did Hit");
-                }
+                hitObject?.TakeDamage(_damage);
             }
-            
-            Debug.Log("Fire");
         }
         
         /// <summary>
         /// Fire Weapon using a projectile
         /// </summary>
-        public void FireWeaponProjectile()
+        private void FireWeaponProjectile()
         {
-            if(!_isGrabbed)return;
+            if (!_canFire) return;
+            if (_isShooting) return;
             if(_projectilePool == null)return;
+            _isShooting = true;
+            StartCoroutine(FireWeapon());
+        }
 
+        private IEnumerator FireWeapon()
+        {
             var tmp = _projectilePool.ArPool.GetItem();
             tmp.InitProjectileStats(_damage);
             tmp.transform.position = _barrel.transform.position;
+            //Debug.LogWarning($"_barrel.transform.forward: {_barrel.transform.forward}", this);
             tmp.ThisRb.AddForce(_barrel.transform.forward * _projectileSpeed, ForceMode.Impulse);
+
+            yield return new WaitForSeconds(1/_bulletsPerSecond);
+            _isShooting = false;
         }
 
         public override void Attack()
@@ -93,6 +97,33 @@ namespace Weapons
             tmp.InitProjectileStats(_damage);
             tmp.transform.position = _barrel.transform.position;
             tmp.ThisRb.AddForce(_barrel.transform.forward * _projectileSpeed, ForceMode.Impulse);
+        }
+
+        protected override void OnGrabbed(GrabInteractor interactor)
+        {
+            base.OnGrabbed(interactor);
+            if (_playerController == null)return;
+            _playerController.onFireWeapon.AddListener(EnableWeaponFire);
+            _playerController.onCancelFireWeapon.AddListener(DisableWeaponFire);
+        }
+
+        protected override void OnReleased(GrabInteractor interactor)
+        {
+            base.OnReleased(interactor);
+            if (_playerController == null)return;
+            _playerController.onFireWeapon.RemoveListener(EnableWeaponFire);
+            _playerController.onCancelFireWeapon.RemoveListener(DisableWeaponFire);
+        }
+
+        private void EnableWeaponFire()
+        {
+            Debug.LogWarning("EnableFire", this);
+            _canFire = true;
+        }
+        private void DisableWeaponFire()
+        {
+            Debug.LogWarning("DisableFire", this);
+            _canFire = false;
         }
     }
 }

@@ -10,11 +10,14 @@ namespace Player
     {
         private PlayerControls _playerControls;
         private InputAction _interact;
+        private InputAction _fireWeapon;
         private InputAction _rotateScale;
         private InputAction _switchRotateScale;
         private InputAction _placeObj;
 
         public UnityEvent onInteraction;
+        public UnityEvent onFireWeapon;
+        public UnityEvent onCancelFireWeapon;
         public UnityEvent onSecondaryButton;
         public UnityEvent onPrimaryButton;
         public UnityEvent<Vector2> OnRotation;
@@ -37,6 +40,8 @@ namespace Player
             _switchRotateScale.Enable();
             _placeObj = _playerControls.Player.PlaceObj;
             _placeObj.Enable();
+            _fireWeapon = _playerControls.Player.FireWeapon;
+            _fireWeapon.Enable();
         }
 
         private void OnDisable()
@@ -45,6 +50,7 @@ namespace Player
             _rotateScale.Disable();
             _switchRotateScale.Disable();
             _placeObj.Disable();
+            _fireWeapon.Disable();
         }
 
         public void Interact(InputAction.CallbackContext context)
@@ -74,6 +80,22 @@ namespace Player
             _thumbstickValue = context.ReadValue<Vector2>();
             OnRotation.Invoke(_thumbstickValue);
             OnScale.Invoke(_thumbstickValue);
+        }
+        
+        /// <summary>
+        /// Action on release that is why we cancel on performed
+        /// </summary>
+        /// <param name="context"></param>
+        public void FireWeapon(InputAction.CallbackContext context)
+        {
+            if(context.started)
+            {
+                onFireWeapon.Invoke();
+            }
+            if(context.performed)
+            {
+                onCancelFireWeapon.Invoke();
+            }
         }
     }
 }

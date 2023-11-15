@@ -19,16 +19,20 @@ namespace Weapons
         protected int _damage;
         protected float _projectileSpeed;
         protected float _bulletsPerSecond;
-        protected int _weaponLevel = 0;
+        protected int _damageLevel = 0;
+        protected int _fireRateLevel = 0;
         protected bool _isGrabbed = false;
         private Rigidbody _thisRB;
 
         protected const float UPGRADE_STRENGTH = 0.1f;
-        protected const float BPSLIMIT_AR = 5.0f;
+        //protected const float BPSLIMIT = 5.0f;
         
         public WeaponSettings DefaultSettings => _defaultSettings;
         public bool IsGrabbed => _isGrabbed;
-        public int WeaponLevel => _weaponLevel;
+        public int DamageLevel => _damageLevel;
+        public int FireRateLevel => _fireRateLevel;
+        public int CurrDamage => _damage;
+        public float CurrBulletsPerSec => _bulletsPerSecond;
 
         private void Awake()
         {
@@ -62,14 +66,14 @@ namespace Weapons
 
         public void UpgradeDamage()
         {
-            if (_weaponLevel >= 10)return;
+            if (_damageLevel >= 10)return;
             
             int tmp = (int)(_damage * UPGRADE_STRENGTH);
             if (tmp == 0)
                 tmp = 1;
             
             _damage += tmp;
-            _weaponLevel++;
+            _damageLevel++;
         }
         
         /// <summary>
@@ -77,36 +81,43 @@ namespace Weapons
         /// </summary>
         public void DowngradeDamage()
         {
-            if (_weaponLevel == 0)return;
+            if (_damageLevel == 0)return;
 
-            int perc = (int)UPGRADE_STRENGTH * 100 + 100;
+            float perc = UPGRADE_STRENGTH * 100 + 100;
             
-            int tmp = ((_damage /perc) * 100);
-            _damage = tmp;
-            _weaponLevel--;
+            float tmp = ((_damage /perc) * 100);
+            _damage = (int)tmp;
+            _damageLevel--;
         }
         
         public void UpgradeFireRate()
         {
-            if (_weaponLevel >= 10) return;
+            if (_fireRateLevel >= 10) return;
 
-            switch (_defaultSettings.WeaponType)
-            {
-                case EWeaponType.AssaultRifle:
-                    if (_bulletsPerSecond >= BPSLIMIT_AR)return;
-                    _bulletsPerSecond += (_bulletsPerSecond * UPGRADE_STRENGTH); 
-                    break;
-                default:
-                    return;
-            }
-            _weaponLevel++;
+            _bulletsPerSecond += (_bulletsPerSecond * UPGRADE_STRENGTH);
+            _fireRateLevel++;
         }
         
-        public void OnGrabbed(GrabInteractor interactor)
+        /// <summary>
+        /// Downgrade via rule of three
+        /// </summary>
+        public void DowngradeFireRate()
+        {
+            if (_fireRateLevel == 0)return;
+
+            float perc = UPGRADE_STRENGTH * 100 + 100;
+            
+            float tmp = ((_bulletsPerSecond / perc) * 100);
+            _bulletsPerSecond = tmp;
+            _fireRateLevel--;
+        }
+
+        protected virtual void OnGrabbed(GrabInteractor interactor)
         {
             _isGrabbed = true;
         }
-        public void OnReleased(GrabInteractor interactor)
+
+        protected virtual void OnReleased(GrabInteractor interactor)
         {
             _isGrabbed = false;
             if (_thisRB != null)
