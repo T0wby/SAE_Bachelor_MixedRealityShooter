@@ -117,12 +117,10 @@ namespace Weapons
 
         private void EnableWeaponFire()
         {
-            Debug.LogWarning("EnableFire", this);
             _canFire = true;
         }
         private void DisableWeaponFire()
         {
-            Debug.LogWarning("DisableFire", this);
             _canFire = false;
         }
     }

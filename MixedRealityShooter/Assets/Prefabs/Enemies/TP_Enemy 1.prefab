@@ -512,7 +512,7 @@ GameObject:
   - component: {fileID: 5155923785409460447}
   - component: {fileID: 7092473333786602576}
   m_Layer: 7
-  m_Name: TP_Enemy
+  m_Name: TP_Enemy 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -547,7 +547,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f73f99a4f5e0b34b9f0cfd33586d10a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _settings: {fileID: 11400000, guid: 6367e36de380fe24996833e625bfa764, type: 2}
+  _settings: {fileID: 11400000, guid: 8f5106be406f31945a6e42b911fa9564, type: 2}
   OnHealthChange:
     m_PersistentCalls:
       m_Calls: []

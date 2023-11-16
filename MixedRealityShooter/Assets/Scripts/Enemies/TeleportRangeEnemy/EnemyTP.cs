@@ -111,7 +111,7 @@ namespace Enemies.TeleportRangeEnemy
             StartCoroutine(Attack());
         }
 
-        IEnumerator Attack()
+        private IEnumerator Attack()
         {
             if (!_isAttacking)
             {

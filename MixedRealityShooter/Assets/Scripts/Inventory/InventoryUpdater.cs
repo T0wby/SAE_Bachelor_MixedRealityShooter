@@ -89,10 +89,9 @@ namespace Inventory
         
         private void UpgradeDamage(AWeapon weapon)
         {
-            if (!weapon.UpgradeDamage())
-            {
-                PayDamageCost(weapon);
-            }
+            if (weapon.CheckForMaxDmgLevel()) return;
+            if (!PayDamageCost(weapon)) return;
+            weapon.UpgradeDamage();
             SetCorrectStatLevelText();
             UpdateCost();
         }
@@ -105,10 +104,9 @@ namespace Inventory
         
         private void UpgradeBps(AWeapon weapon)
         {
-            if (!weapon.UpgradeFireRate())
-            {
-                PayBpsCost(weapon);
-            }
+            if (weapon.CheckForMaxBpsLevel()) return;
+            if (!PayBpsCost(weapon))return;
+            weapon.UpgradeFireRate();
             SetCorrectStatLevelText();
             UpdateCost();
         }
@@ -119,18 +117,18 @@ namespace Inventory
             UpdateCost();
         }
 
-        private void PayDamageCost(AWeapon weapon)
+        private bool PayDamageCost(AWeapon weapon)
         {
             switch (weapon.DefaultSettings.WeaponType)
             {
                 case EWeaponType.AssaultRifle:
                 case EWeaponType.Pistol:
                 case EWeaponType.Revolver:
-                    if (_playerInventory.ActiveRangeWeapon.DamageCost > _playerInventory.Money)return;
+                    if (_playerInventory.ActiveRangeWeapon.DamageCost > _playerInventory.Money)return false;
                     _playerInventory.Money -= _playerInventory.ActiveRangeWeapon.DamageCost;
                     break;
                 case EWeaponType.Dagger:
-                    if (_playerInventory.ActiveMeleeWeapon.DamageCost > _playerInventory.Money)return;
+                    if (_playerInventory.ActiveMeleeWeapon.DamageCost > _playerInventory.Money)return false;
                     _playerInventory.Money -= _playerInventory.ActiveMeleeWeapon.DamageCost;
                     break;
                 case EWeaponType.Grenade:
@@ -138,20 +136,23 @@ namespace Inventory
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+
+            return true;
         }
-        private void PayBpsCost(AWeapon weapon)
+        private bool PayBpsCost(AWeapon weapon)
         {
             switch (weapon.DefaultSettings.WeaponType)
             {
                 case EWeaponType.AssaultRifle:
                 case EWeaponType.Pistol:
                 case EWeaponType.Revolver:
-                    if (_playerInventory.ActiveRangeWeapon.BpsCost > _playerInventory.Money)return;
+                    if (_playerInventory.ActiveRangeWeapon.BpsCost > _playerInventory.Money)return false;
                     _playerInventory.Money -= _playerInventory.ActiveRangeWeapon.BpsCost;
                     break;
                 default:
                     break;;
             }
+            return true;
         }
 
         #endregion
@@ -160,6 +161,7 @@ namespace Inventory
         {
             SetCorrectStatLevelText();
             SetFieldsAccordingToInventory();
+            UpdateCost();
         }
         
         private void SetCorrectStatLevelText()

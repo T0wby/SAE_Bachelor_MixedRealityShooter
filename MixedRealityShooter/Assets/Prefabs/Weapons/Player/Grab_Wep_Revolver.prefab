@@ -238,7 +238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f9cbd9605824b844b129fb2fb494df8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultSettings: {fileID: 0}
+  _defaultSettings: {fileID: 11400000, guid: 25ed41e3bc91a0b409e9d4d20bf42c58, type: 2}
   _barrel: {fileID: 3769552254798569546}
   _layerMaskNum: 8
 --- !u!114 &3542946717593682678

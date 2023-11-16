@@ -24,6 +24,7 @@ namespace Utility
     public enum EEnemyType
     {
         RangeTP,
+        RangePistol,
         Range,
         Melee
     }

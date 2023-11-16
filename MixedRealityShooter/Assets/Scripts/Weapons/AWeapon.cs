@@ -23,10 +23,11 @@ namespace Weapons
         protected int _fireRateLevel = 0;
         protected bool _isGrabbed = false;
         private Rigidbody _thisRB;
-        private int _damageCost;
-        private int _bpsCost;
+        private int _damageCost = 3;
+        private int _bpsCost = 2;
 
-        protected const float UPGRADE_STRENGTH = 0.1f;
+        private const float UPGRADE_STRENGTH = 0.1f;
+        private const int MAX_LEVEL = 10;
         
         public WeaponSettings DefaultSettings => _defaultSettings;
         public bool IsGrabbed => _isGrabbed;
@@ -90,9 +91,9 @@ namespace Weapons
         /// returns true when max stat is achieved
         /// </summary>
         /// <returns></returns>
-        public bool UpgradeDamage()
+        public void UpgradeDamage()
         {
-            if (_damageLevel >= 10)return true;
+            if (CheckForMaxDmgLevel()) return;
             
             int tmp = (int)(_damage * UPGRADE_STRENGTH);
             if (tmp == 0)
@@ -100,7 +101,6 @@ namespace Weapons
             
             _damage += tmp;
             DamageLevel++;
-            return false;
         }
         
         /// <summary>
@@ -121,13 +121,12 @@ namespace Weapons
         /// returns true when max stat is achieved
         /// </summary>
         /// <returns></returns>
-        public bool UpgradeFireRate()
+        public void UpgradeFireRate()
         {
-            if (_fireRateLevel >= 10) return true;
+            if (CheckForMaxBpsLevel()) return;
 
             _bulletsPerSecond += (_bulletsPerSecond * UPGRADE_STRENGTH);
             FireRateLevel++;
-            return false;
         }
         
         /// <summary>
@@ -146,8 +145,17 @@ namespace Weapons
 
         private void CalcCost()
         {
-            _damageCost = (int)(_damageLevel * 10 * 0.35f);
-            _bpsCost = (int)(_fireRateLevel * 10 * 0.2f);
+            _damageCost += (int)(_damageLevel * 5.35f);
+            _bpsCost += (int)(_fireRateLevel * 5.2f);
+        }
+
+        public bool CheckForMaxDmgLevel()
+        {
+            return _damageLevel >= MAX_LEVEL;
+        }
+        public bool CheckForMaxBpsLevel()
+        {
+            return _fireRateLevel >= MAX_LEVEL;
         }
 
         protected virtual void OnGrabbed(GrabInteractor interactor)
