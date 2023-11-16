@@ -21,7 +21,7 @@ namespace Player
         public UnityEvent onCancelFireWeapon;
         public UnityEvent onSecondaryButton;
         public UnityEvent onPrimaryButton;
-        public UnityEvent onJoystickClick;
+        public UnityEvent onThumbstickClick;
         public UnityEvent<Vector2> OnRotation;
         public UnityEvent<Vector2> OnScale;
         
@@ -79,15 +79,13 @@ namespace Player
                 onPrimaryButton.Invoke();
             }
         }
-        public void OnJoystickClicked(InputAction.CallbackContext context)
+        public void OnThumbstickClicked(InputAction.CallbackContext context)
         {
             if (context.started)
             {
-                onJoystickClick.Invoke();
+                onThumbstickClick.Invoke();
             }
         }
-        
-        
         
         public void OnThumbstick(InputAction.CallbackContext context)
         {

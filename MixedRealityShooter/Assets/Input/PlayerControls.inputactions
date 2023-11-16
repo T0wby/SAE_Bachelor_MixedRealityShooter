@@ -86,7 +86,7 @@
                 {
                     "name": "",
                     "id": "28407a08-8e95-4a0e-b7da-96af3697f2a4",
-                    "path": "<XRController>{RightHand}/joystickClicked",
+                    "path": "<XRController>{RightHand}/thumbstickClicked",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

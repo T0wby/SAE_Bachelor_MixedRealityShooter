@@ -7,7 +7,7 @@ namespace Enemies.TeleportRangeEnemy
 {
     public class BTTeleportRange : MyTree
     {
-        [FormerlySerializedAs("_enemy")] [SerializeField] private EnemyTP enemyTp;
+        [SerializeField] private EnemyTP enemyTp;
         protected override Node SetupTree()
         {
             Node root = new Selector(new List<Node>

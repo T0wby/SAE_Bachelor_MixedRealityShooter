@@ -87,8 +87,8 @@ namespace Building
         {
             // BuildMode
             _playerController.onInteraction.AddListener(SwitchStates);
-            _playerController.onJoystickClick.AddListener(SwitchRotation);
-            _playerController.onJoystickClick.AddListener(SwitchScaling);
+            _playerController.onThumbstickClick.AddListener(SwitchRotation);
+            _playerController.onThumbstickClick.AddListener(SwitchScaling);
             _playerController.OnRotation.AddListener(RotateCurrCube);
             _playerController.OnScale.AddListener(ScaleCurrCube);
             _playerController.onPrimaryButton.AddListener(AddPlacedObject);
@@ -101,8 +101,8 @@ namespace Building
         {
             // BuildMode
             _playerController.onInteraction.RemoveListener(SwitchStates);
-            _playerController.onJoystickClick.RemoveListener(SwitchRotation);
-            _playerController.onJoystickClick.RemoveListener(SwitchScaling);
+            _playerController.onThumbstickClick.RemoveListener(SwitchRotation);
+            _playerController.onThumbstickClick.RemoveListener(SwitchScaling);
             _playerController.OnRotation.RemoveListener(RotateCurrCube);
             _playerController.OnScale.RemoveListener(ScaleCurrCube);
             _playerController.onPrimaryButton.RemoveListener(AddPlacedObject);

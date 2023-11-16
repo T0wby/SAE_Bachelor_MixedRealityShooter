@@ -21,7 +21,7 @@ namespace Player
         private GameObject _activeRangeWeaponPrefab;
         private MeleeWeapon _activeMeleeWeapon;
         private GameObject _activeMeleeWeaponPrefab;
-        private List<PlaceableVRItem> _placeableVRItems;
+        [SerializeField] private List<PlaceableVRItem> _placeableVRItems;
         private int _money;
 
         private const int STARTMONEY = 50;

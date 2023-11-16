@@ -34,6 +34,11 @@ namespace UI
 
         private void Start()
         {
+            //UpdateInventoryUI();
+        }
+
+        private void OnEnable()
+        {
             UpdateInventoryUI();
         }
 
@@ -41,7 +46,7 @@ namespace UI
         {
             if (_playerInventory == null)return;
             ClearGeneratedButtons();
-
+            
             foreach (var item in _playerInventory.PlaceableVRItems)
             {
                 if (item == null || _generatedReferences.Contains(item)) continue;
