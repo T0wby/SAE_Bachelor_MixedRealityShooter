@@ -16,8 +16,6 @@ namespace Building
         [Header("References")] 
         [SerializeField] private GameObject _wallPrefab;
         [SerializeField] private PlayerController _playerController;
-        [SerializeField] private MrPreparationUI _mrPreparationUI;
-        //[SerializeField] private LineRenderer _lineRenderer;
 
         private GameObject _currWall;
         private GameObject _prevSelectedObj;
@@ -61,7 +59,6 @@ namespace Building
         {
             _layerMask = 1 << _layerMaskNum;
             _placedObjects = new List<GameObject>();
-            _mrPreparationUI.ChangeBuildModeName(_isBuilding);
         }
 
         private void FixedUpdate()
@@ -76,7 +73,6 @@ namespace Building
         {
             ConnectMethods();
             _followPoint = Instantiate(_placedPointPrefab, Vector3.down, Quaternion.identity, _modeParent);
-            //_lineRenderer.SetPosition(0, _rightControllerBuildPoint.transform.position);
         }
 
         private void OnDisable()
@@ -195,7 +191,6 @@ namespace Building
                 case EPlaceModeWall.Height:
                     _heightPoint = Instantiate(_placedPointPrefab, new Vector3(_secondPos.x, _currPoint.y, _secondPos.z),
                         Quaternion.identity, _modeParent);
-                    // Calculate origin, scaling and rotation?
                     _currWall = Instantiate(_wallPrefab, Vector3.down * 20, Quaternion.identity);
                     UtilityMethods.CalcQuadTransform(ref _currWall, _startPoint.transform.position, _secondPos, 
                         _heightPoint.transform.position);
@@ -247,14 +242,21 @@ namespace Building
                 _currPlaceMode = EPlaceModeWall.Start;
         }
 
-        public void SwitchBuildMode()
+        public void SwitchBuildMode(bool isOn)
         {
-            _isBuilding = !_isBuilding;
+            _isBuilding = isOn;
 
             _currPlaceMode = _isBuilding ? EPlaceModeWall.Start : EPlaceModeWall.None;
-            _mrPreparationUI.ChangeBuildModeName(_isBuilding);
-            if(!_isBuilding && _currWall != null)
-                Destroy(_currWall);
+            if (_startPoint != null)
+                Destroy(_startPoint);
+            if (_secondPoint != null)
+                Destroy(_secondPoint);
+            if (_heightPoint != null)
+                Destroy(_heightPoint);
+            
+            if (!_isBuilding && _currWall != null)
+                Destroy(_currWall);  
+            
         }
 
         #endregion

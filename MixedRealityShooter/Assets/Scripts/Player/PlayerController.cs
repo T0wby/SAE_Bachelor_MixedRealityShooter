@@ -14,12 +14,14 @@ namespace Player
         private InputAction _rotateScale;
         private InputAction _switchRotateScale;
         private InputAction _placeObj;
+        private InputAction _resetView;
 
         public UnityEvent onInteraction;
         public UnityEvent onFireWeapon;
         public UnityEvent onCancelFireWeapon;
         public UnityEvent onSecondaryButton;
         public UnityEvent onPrimaryButton;
+        public UnityEvent onJoystickClick;
         public UnityEvent<Vector2> OnRotation;
         public UnityEvent<Vector2> OnScale;
         
@@ -42,6 +44,8 @@ namespace Player
             _placeObj.Enable();
             _fireWeapon = _playerControls.Player.FireWeapon;
             _fireWeapon.Enable();
+            _resetView = _playerControls.Player.ResetView;
+            _resetView.Enable();
         }
 
         private void OnDisable()
@@ -51,6 +55,7 @@ namespace Player
             _switchRotateScale.Disable();
             _placeObj.Disable();
             _fireWeapon.Disable();
+            _resetView.Disable();
         }
 
         public void Interact(InputAction.CallbackContext context)
@@ -74,6 +79,15 @@ namespace Player
                 onPrimaryButton.Invoke();
             }
         }
+        public void OnJoystickClicked(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                onJoystickClick.Invoke();
+            }
+        }
+        
+        
         
         public void OnThumbstick(InputAction.CallbackContext context)
         {

@@ -18,10 +18,6 @@ namespace Building
         [SerializeField] private GameObject _roundDoneObjs;
         [SerializeField] private GameObject _gameOverObjs;
         [SerializeField] private GameObject _ongoingRoundObjs;
-
-        [Header("ButtonEvents")] 
-        [SerializeField] private PointableUnityEventWrapper _eventsStartGameButton;
-        [SerializeField] private PointableUnityEventWrapper _eventsInnerModeButton;
         
         [Header("NavMesh")]
         [SerializeField] private NavMeshSurface _surface;
@@ -29,8 +25,6 @@ namespace Building
         private void Start()
         {
             GameManager.Instance.OnGameStateChange.AddListener(PrepareScene);
-            _eventsStartGameButton.WhenSelect.AddListener(ChangeToMrWallPrep);
-            _eventsInnerModeButton.WhenSelect.AddListener(ChangeToMrInsidePrep);
             PrepareScene(GameManager.Instance.CurrState);
         }
 
@@ -133,12 +127,12 @@ namespace Building
 
         #region Event Methods
 
-        private void ChangeToMrWallPrep(PointerEvent pointerEvent)
+        public void ChangeToMrWallPrep()
         {
             GameManager.Instance.CurrState = EGameStates.PrepareMRSceneWall;
         }
         
-        private void ChangeToMrInsidePrep(PointerEvent pointerEvent)
+        public void ChangeToMrInsidePrep()
         {
             GameManager.Instance.CurrState = EGameStates.PrepareMRSceneInner;
         }

@@ -71,6 +71,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ResetView"",
+                    ""type"": ""Button"",
+                    ""id"": ""59b97409-e6e4-48b8-bb7b-9387e76bbea0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -99,7 +108,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""28407a08-8e95-4a0e-b7da-96af3697f2a4"",
-                    ""path"": ""<XRController>{RightHand}/secondaryButton"",
+                    ""path"": ""<XRController>{RightHand}/joystickClicked"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -139,6 +148,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""FireWeapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2e9028b7-e9b6-4566-9b29-8321ed4300a6"",
+                    ""path"": ""<XRController>{RightHand}/secondaryButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ResetView"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -152,6 +172,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_SwitchRotScale = m_Player.FindAction("SwitchRotScale", throwIfNotFound: true);
         m_Player_PlaceObj = m_Player.FindAction("PlaceObj", throwIfNotFound: true);
         m_Player_FireWeapon = m_Player.FindAction("FireWeapon", throwIfNotFound: true);
+        m_Player_ResetView = m_Player.FindAction("ResetView", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -218,6 +239,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_SwitchRotScale;
     private readonly InputAction m_Player_PlaceObj;
     private readonly InputAction m_Player_FireWeapon;
+    private readonly InputAction m_Player_ResetView;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -227,6 +249,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @SwitchRotScale => m_Wrapper.m_Player_SwitchRotScale;
         public InputAction @PlaceObj => m_Wrapper.m_Player_PlaceObj;
         public InputAction @FireWeapon => m_Wrapper.m_Player_FireWeapon;
+        public InputAction @ResetView => m_Wrapper.m_Player_ResetView;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -251,6 +274,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @FireWeapon.started += instance.OnFireWeapon;
             @FireWeapon.performed += instance.OnFireWeapon;
             @FireWeapon.canceled += instance.OnFireWeapon;
+            @ResetView.started += instance.OnResetView;
+            @ResetView.performed += instance.OnResetView;
+            @ResetView.canceled += instance.OnResetView;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -270,6 +296,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @FireWeapon.started -= instance.OnFireWeapon;
             @FireWeapon.performed -= instance.OnFireWeapon;
             @FireWeapon.canceled -= instance.OnFireWeapon;
+            @ResetView.started -= instance.OnResetView;
+            @ResetView.performed -= instance.OnResetView;
+            @ResetView.canceled -= instance.OnResetView;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -294,5 +323,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnSwitchRotScale(InputAction.CallbackContext context);
         void OnPlaceObj(InputAction.CallbackContext context);
         void OnFireWeapon(InputAction.CallbackContext context);
+        void OnResetView(InputAction.CallbackContext context);
     }
 }

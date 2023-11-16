@@ -48,6 +48,11 @@ namespace Manager
             _currRound++;
             CurrState = EGameStates.InGame;
         }
+        public void StartRound()
+        {
+            _currRound++;
+            CurrState = EGameStates.InGame;
+        }
 
         public void CheckIfRoundIsOver(int livingEnemyCount)
         {

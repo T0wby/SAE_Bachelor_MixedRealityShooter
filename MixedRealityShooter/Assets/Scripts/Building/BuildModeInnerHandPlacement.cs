@@ -299,14 +299,22 @@ namespace Building
                 _currPlaceMode = EPlaceMode.Start;
         }
 
-        public void SwitchBuildMode()
+        public void SwitchBuildMode(bool isOn)
         {
-            _isBuilding = !_isBuilding;
+            _isBuilding = isOn;
 
             _currPlaceMode = _isBuilding ? EPlaceMode.Start : EPlaceMode.None;
-            _mrPreparationUI.ChangeBuildModeName(_isBuilding);
-            if(!_isBuilding && _currCube != null)
-                Destroy(_currCube);
+            if (_startPoint != null)
+                Destroy(_startPoint);
+            if (_widthPoint != null)
+                Destroy(_widthPoint);
+            if (_heightPoint != null)
+                Destroy(_heightPoint);
+            if (_endPoint != null)
+                Destroy(_endPoint);
+            
+            if (!_isBuilding && _currCube != null)
+                Destroy(_currCube);  
         }
 
         #endregion

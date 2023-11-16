@@ -13,7 +13,6 @@ namespace Building
     public class BuildModeGamePrep : MonoBehaviour
     {
         [SerializeField] private PlayerController _playerController;
-        [SerializeField] private MrPreparationUI _mrPreparationUI;
 
         private PlayerInventory _inventory;
         private GameObject _currCube;
@@ -24,8 +23,6 @@ namespace Building
 
         [Header("Raycast Logic")] 
         [SerializeField] private GameObject _rightControllerVisual;
-
-        [SerializeField] private RayInteractor _rightController;
 
         [Tooltip("Number of the Layer that should be hit")] 
         [SerializeField] private int _layerMaskNum = 6;
@@ -47,7 +44,6 @@ namespace Building
         {
             _layerMask = 1 << _layerMaskNum;
             _placedObjects = new List<GameObject>();
-            _mrPreparationUI.ChangeBuildModeName(_isBuilding);
             _inventory = FindObjectOfType<PlayerInventory>();
         }
 
@@ -86,7 +82,7 @@ namespace Building
         {
             // BuildMode
             _playerController.onInteraction.AddListener(SwitchStates);
-            _playerController.onSecondaryButton.AddListener(SwitchRotation);
+            _playerController.onJoystickClick.AddListener(SwitchRotation);
             _playerController.OnRotation.AddListener(RotateCurrCube);
             _playerController.onPrimaryButton.AddListener(AddPlacedObjectFromInven);
 
@@ -98,7 +94,7 @@ namespace Building
         {
             // BuildMode
             _playerController.onInteraction.RemoveListener(SwitchStates);
-            _playerController.onSecondaryButton.RemoveListener(SwitchRotation);
+            _playerController.onJoystickClick.RemoveListener(SwitchRotation);
             _playerController.OnRotation.RemoveListener(RotateCurrCube);
             _playerController.onPrimaryButton.RemoveListener(AddPlacedObjectFromInven);
 
@@ -219,25 +215,6 @@ namespace Building
         #endregion
 
         #region Switch Modes
-    
-        /// <summary>
-        /// Ref on Button to switch through Inventory
-        /// </summary>
-        // public void SwitchThroughPlaceInven()
-        // {
-        //     if(GameManager.Instance.CurrState != EGameStates.PreparePlayScene || !_isBuilding)return;
-        //     if(_inventory.PlaceableVRItems.Count <= 1)return;
-        //     _placeInvenNumber++;
-        //     _placeInvenNumber %= _inventory.PlaceableVRItems.Count;
-        //     var tmp = _currCube.GetComponent<PlaceableVRItem>();
-        //     if (tmp != null)
-        //     {
-        //         if (!_inventory.PlaceableVRItems.Contains(tmp))
-        //             _inventory.PlaceableVRItems.Add(tmp);
-        //         _currCube.SetActive(false);
-        //     }
-        //     _currCube = null;
-        // }
         
         public void SetCurrItem(PlaceableVRItem newItem)
         {
@@ -269,12 +246,11 @@ namespace Building
             _rotationNumber = (_rotationNumber + 1) % 3;
         }
 
-        public void SwitchBuildMode()
+        public void SwitchBuildMode(bool isOn)
         {
-            _isBuilding = !_isBuilding;
+            _isBuilding = isOn;
 
             _colliderState = _isBuilding ? EColliderState.Position : EColliderState.NONE;
-            _mrPreparationUI.ChangeBuildModeName(_isBuilding);
             if(!_isBuilding && _currCube != null && _currItem != null)
                 _currCube.SetActive(false);
         }

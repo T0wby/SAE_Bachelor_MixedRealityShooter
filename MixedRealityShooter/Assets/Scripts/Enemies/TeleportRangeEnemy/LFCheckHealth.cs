@@ -17,7 +17,8 @@ namespace Enemies.TeleportRangeEnemy
 
         public override ENodeState CalculateState()
         {
-            Debug.Log($"_currHealth: {_currHealth}");
+            Debug.LogWarning($"_currHealth: {_currHealth}");
+            Debug.LogWarning($"_healthThreshold: {_healthThreshold}");
             return _state = (_currHealth < _healthThreshold) ? ENodeState.SUCCESS : ENodeState.FAILURE;
         }
     }

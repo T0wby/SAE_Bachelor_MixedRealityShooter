@@ -958,7 +958,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2430197372268134342}
   m_Father: {fileID: 3215305100013737615}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1246,6 +1247,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _buildTutorial: {fileID: 682334204316508206}
   _placeBoughtItemsTutorial: {fileID: 5279945331001707351}
+--- !u!1 &1996594268350358173
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2430197372268134342}
+  m_Layer: 0
+  m_Name: InfoTrack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2430197372268134342
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1996594268350358173}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.496}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2967149209087149896}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2119642578510427784
 GameObject:
   m_ObjectHideFlags: 0
@@ -5567,7 +5599,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2138098259580122615}
         m_TargetAssemblyTypeName: Player.PlayerController, Assembly-CSharp
-        m_MethodName: OnSecondaryButton
+        m_MethodName: OnJoystickClicked
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5611,6 +5643,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 39964867-6e3b-4e8c-a36c-034ce9038183
     m_ActionName: Player/FireWeapon
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2138098259580122615}
+        m_TargetAssemblyTypeName: Player.PlayerController, Assembly-CSharp
+        m_MethodName: OnSecondaryButton
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 59b97409-e6e4-48b8-bb7b-9387e76bbea0
+    m_ActionName: Player/ResetView
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -5659,6 +5707,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onPrimaryButton:
+    m_PersistentCalls:
+      m_Calls: []
+  onJoystickClick:
     m_PersistentCalls:
       m_Calls: []
   OnRotation:

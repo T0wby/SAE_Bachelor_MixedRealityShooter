@@ -15,7 +15,7 @@ namespace Enemies.TeleportRangeEnemy
         
         public override ENodeState CalculateState()
         {
-            Debug.Log("LFHeal");
+            Debug.LogWarning("LFHeal");
             _enemyTpSelf.Heal();
             return ENodeState.SUCCESS;
         }
