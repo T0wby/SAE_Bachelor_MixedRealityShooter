@@ -82,7 +82,6 @@ namespace Weapons
             var tmp = _projectilePool.ArPool.GetItem();
             tmp.InitProjectileStats(_damage);
             tmp.transform.position = _barrel.transform.position;
-            //Debug.LogWarning($"_barrel.transform.forward: {_barrel.transform.forward}", this);
             tmp.ThisRb.AddForce(_barrel.transform.forward * _projectileSpeed, ForceMode.Impulse);
 
             yield return new WaitForSeconds(1/_bulletsPerSecond);
@@ -113,6 +112,10 @@ namespace Weapons
             if (_playerController == null)return;
             _playerController.onFireWeapon.RemoveListener(EnableWeaponFire);
             _playerController.onCancelFireWeapon.RemoveListener(DisableWeaponFire);
+            
+            // Disable shooting only if the last hand lets go of the weapon(counted as one)
+            if (_grabInteractable.Interactors.Count > 1)return;
+            _canFire = false;
         }
 
         private void EnableWeaponFire()

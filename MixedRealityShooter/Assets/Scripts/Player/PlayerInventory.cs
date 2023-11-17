@@ -24,7 +24,7 @@ namespace Player
         [SerializeField] private List<PlaceableVRItem> _placeableVRItems;
         private int _money;
 
-        private const int STARTMONEY = 50;
+        private const int STARTMONEY = 100;
         // throwable Items?
 
         #endregion

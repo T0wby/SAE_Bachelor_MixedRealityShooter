@@ -5564,10 +5564,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fa9979fd1dcebe448c7a101a6fa0b98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _availableWeaponPrefabs:
-  - {fileID: 2193878248088033636, guid: 76ab2617340c0de43b9ff6891f65b26f, type: 3}
-  - {fileID: 1562996608389564, guid: c6aa8ec413dfcd24791391ed325e9729, type: 3}
-  _availableWeapons: []
+  _availableWeaponSettings:
+  - {fileID: 11400000, guid: adec2abdf3e0d3442a39407fb164c7e0, type: 2}
+  - {fileID: 11400000, guid: 714cb359c3ab0d44da51f623dbcac860, type: 2}
   _arCost: {fileID: 3837453116397800093}
   _pistolCost: {fileID: 7567905812911774552}
   onBuyingWeapon:

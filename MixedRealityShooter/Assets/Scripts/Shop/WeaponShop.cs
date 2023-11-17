@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Inventory;
 using Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using Utility;
 using Weapons;
 
@@ -13,8 +15,7 @@ namespace Shop
     public class WeaponShop : MonoBehaviour
     {
         [Header("Weapons")]
-        [SerializeField] private List<GameObject> _availableWeaponPrefabs;
-        [SerializeField] private List<AWeapon> _availableWeapons;
+        [SerializeField] private List<WeaponSettings> _availableWeaponSettings;
 
         [Header("Text")] 
         [SerializeField] private TMP_Text _arCost;
@@ -32,18 +33,15 @@ namespace Shop
 
         private void SetWeaponCostText()
         {
-            foreach (var obj in _availableWeaponPrefabs)
+            foreach (var settings in _availableWeaponSettings.Where(obj => obj != null))
             {
-                if (obj == null)continue;
-                var wpn = obj.GetComponent<AWeapon>();
-                if (wpn == null)continue;
-                switch (wpn.DefaultSettings.WeaponType)
+                switch (settings.WeaponType)
                 {
                     case EWeaponType.AssaultRifle:
-                        _arCost.text = $"{wpn.DefaultSettings.Value.ToString()}$";
+                        _arCost.text = $"{settings.Value}$";
                         break;
                     case EWeaponType.Pistol:
-                        _pistolCost.text = $"{wpn.DefaultSettings.Value.ToString()}$";
+                        _pistolCost.text = $"{settings.Value}$";
                         break;
                     case EWeaponType.Revolver:
                         break;
@@ -59,28 +57,28 @@ namespace Shop
         
         public void AddBoughtWeaponToInven(int vendingNumber)
         {
-            if (vendingNumber >= _availableWeaponPrefabs.Count || vendingNumber < 0)return;
+            if (vendingNumber >= _availableWeaponSettings.Count || vendingNumber < 0)return;
+
+            var settings = _availableWeaponSettings[vendingNumber];
             
-            AWeapon wpn = _availableWeaponPrefabs[vendingNumber].GetComponent<AWeapon>();
-            if (wpn == null)return;
-            if (wpn.DefaultSettings.Value > _playerInventory.Money)return;
+            if (settings.Value > _playerInventory.Money)return;
             
-            switch (wpn.DefaultSettings.WeaponType)
+            switch (settings.WeaponType)
             {
                 case EWeaponType.AssaultRifle:
                 case EWeaponType.Revolver:
                 case EWeaponType.Pistol:
-                    _playerInventory.AddRangeWeapon(wpn);
+                    _playerInventory.AddRangeWeapon(settings.WeaponPrefab.GetComponent<AWeapon>());
                     break;
                 case EWeaponType.Dagger:
-                    _playerInventory.AddMeleeWeapon(wpn);
+                    _playerInventory.AddMeleeWeapon(settings.WeaponPrefab.GetComponent<AWeapon>());
                     break;
                 case EWeaponType.Grenade:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            _playerInventory.Money -= wpn.DefaultSettings.Value;
+            _playerInventory.Money -= settings.Value;
             
             onBuyingWeapon.Invoke();
         }

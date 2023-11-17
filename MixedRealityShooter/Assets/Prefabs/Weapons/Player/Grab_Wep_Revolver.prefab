@@ -97,8 +97,8 @@ GameObject:
   - component: {fileID: 64068215276121056}
   - component: {fileID: 6459984855786414741}
   - component: {fileID: 1379265068437884159}
-  - component: {fileID: 3542946717593682678}
   - component: {fileID: 3926295893562142858}
+  - component: {fileID: 4257194884760846907}
   m_Layer: 0
   m_Name: Grab_Wep_Revolver
   m_TagString: Untagged
@@ -124,6 +124,7 @@ Transform:
   - {fileID: 4495450913700772}
   - {fileID: 5203862116994899700}
   - {fileID: 6339349245459156442}
+  - {fileID: 2190708455246210447}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -239,31 +240,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _defaultSettings: {fileID: 11400000, guid: 25ed41e3bc91a0b409e9d4d20bf42c58, type: 2}
+  _grabInteractable: {fileID: 8004284920659868371}
   _barrel: {fileID: 3769552254798569546}
   _layerMaskNum: 8
---- !u!114 &3542946717593682678
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1111015175407080}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a1bc992571301d4a9602ac95ef4c71a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interactorFilters: []
-  _maxInteractors: -1
-  _maxSelectingInteractors: -1
-  _data: {fileID: 0}
-  _pointableElement: {fileID: 3926295893562142858}
-  _rigidbody: {fileID: 6459984855786414741}
-  _grabSource: {fileID: 6339349245459156442}
-  _useClosestPointAsGrabSource: 0
-  _releaseDistance: 0
-  _resetGrabOnGrabsUpdated: 1
-  _physicsGrabbable: {fileID: 0}
 --- !u!114 &3926295893562142858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283,6 +262,21 @@ MonoBehaviour:
   _twoGrabTransformer: {fileID: 0}
   _targetTransform: {fileID: 0}
   _maxGrabPoints: -1
+--- !u!114 &4257194884760846907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1111015175407080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bedaac29a943f844a7074b53c8bdf9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _grabbable: {fileID: 3926295893562142858}
+  _rigidbody: {fileID: 6459984855786414741}
+  _scaleMassWithSize: 1
 --- !u!1 &1377983362077928
 GameObject:
   m_ObjectHideFlags: 0
@@ -1036,6 +1030,61 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &813552098980670529
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2190708455246210447}
+  - component: {fileID: 8004284920659868371}
+  m_Layer: 0
+  m_Name: GrabInteractable
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2190708455246210447
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 813552098980670529}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4030818715711028}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8004284920659868371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 813552098980670529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a1bc992571301d4a9602ac95ef4c71a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactorFilters: []
+  _maxInteractors: -1
+  _maxSelectingInteractors: -1
+  _data: {fileID: 0}
+  _pointableElement: {fileID: 3926295893562142858}
+  _rigidbody: {fileID: 6459984855786414741}
+  _grabSource: {fileID: 6339349245459156442}
+  _useClosestPointAsGrabSource: 0
+  _releaseDistance: 0
+  _resetGrabOnGrabsUpdated: 1
+  _physicsGrabbable: {fileID: 0}
 --- !u!1 &3769552254798569546
 GameObject:
   m_ObjectHideFlags: 0
@@ -1077,7 +1126,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6339349245459156442}
   m_Layer: 0
-  m_Name: Grab
+  m_Name: GrabSource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

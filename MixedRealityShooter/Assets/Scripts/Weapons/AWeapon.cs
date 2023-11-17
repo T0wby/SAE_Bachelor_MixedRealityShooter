@@ -9,13 +9,13 @@ using Utility;
 
 namespace Weapons
 {
-    [RequireComponent(typeof(GrabInteractable), typeof(Rigidbody))]
+    [RequireComponent( typeof(Rigidbody))]
     public abstract class AWeapon : MonoBehaviour
     {
         [Header("Settings")]
         [SerializeField] protected WeaponSettings _defaultSettings;
         [Header("GrabEvent")]
-        private GrabInteractable _grabInteractable;
+        [SerializeField] protected GrabInteractable _grabInteractable;
         protected int _damage;
         protected float _projectileSpeed;
         protected float _bulletsPerSecond;
@@ -71,8 +71,6 @@ namespace Weapons
         private void InitWeapon()
         {
             _thisRB = GetComponent<Rigidbody>();
-            if (_grabInteractable != null) return;
-            _grabInteractable = GetComponent<GrabInteractable>();
             if (_grabInteractable == null) return;
             _grabInteractable.WhenSelectingInteractorAdded.Action += OnGrabbed;
             _grabInteractable.WhenSelectingInteractorRemoved.Action += OnReleased;
