@@ -11,10 +11,17 @@ namespace Player
         [SerializeField] private Transform _meleeWeaponSpawn;
         private PlayerInventory _playerInventory;
 
-        private void OnEnable()
+        private void Awake()
         {
             _playerInventory = FindObjectOfType<PlayerInventory>();
-            SpawnInventory(GameManager.Instance.CurrState);
+            GameManager.Instance.OnGameStateChange.AddListener(SpawnInventory);
+        }
+
+        private void OnEnable()
+        {
+            // _playerInventory = FindObjectOfType<PlayerInventory>();
+            // GameManager.Instance.OnGameStateChange.AddListener(SpawnInventory);
+            // SpawnInventory(GameManager.Instance.CurrState);
         }
 
         private void SpawnInventory(EGameStates state)
