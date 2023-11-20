@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using PlacedObjects;
 using Player;
@@ -5,6 +6,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Utility;
 using Weapons;
+using Random = UnityEngine.Random;
 
 namespace Enemies.WalkingRangeEnemy
 {
@@ -32,6 +34,11 @@ namespace Enemies.WalkingRangeEnemy
         {
             _playerInventory = FindObjectOfType<PlayerInventory>();
             GetSpawnPoint();
+        }
+
+        private void Update()
+        {
+            _activeWeapon.transform.localPosition = Vector3.zero;
         }
 
         #endregion
