@@ -16,9 +16,7 @@ namespace Enemies.TeleportRangeEnemy
         
         private Transform _destination;
         private AWeapon _activeWeapon;
-        private bool _isAttacking = false;
         private bool _canMove = true;
-        private int _layermask;
         private Vector3 _playerPos;
         private PlayerInventory _playerInventory;
 
@@ -27,7 +25,6 @@ namespace Enemies.TeleportRangeEnemy
         #region Properties
 
         public Transform Destination{ get => _destination; set => _destination = value; }
-        public bool IsAttacking => _isAttacking;
         public bool CanMove => _canMove;
 
         #endregion
@@ -37,8 +34,8 @@ namespace Enemies.TeleportRangeEnemy
         private void Awake()
         {
             SetDefaultStats();
-            _layermask = LayerMask.NameToLayer("Enemy");
-            _layermask = ~_layermask;
+            _ignoreLayers = LayerMask.NameToLayer("Enemy");
+            _ignoreLayers = ~_ignoreLayers;
             OnHealthChange.AddListener(OnDeath);
             SpawnWeapon();
         }
@@ -106,12 +103,12 @@ namespace Enemies.TeleportRangeEnemy
             yield return null;
         }
 
-        public void StartAttack()
+        public override void Attack()
         {
-            StartCoroutine(Attack());
+            StartCoroutine(StartAttack());
         }
 
-        private IEnumerator Attack()
+        private IEnumerator StartAttack()
         {
             if (!_isAttacking)
             {
@@ -145,7 +142,7 @@ namespace Enemies.TeleportRangeEnemy
             {
                 Vector3 dir = _ownTargetDetection.Player.transform.position - _weaponSlot.transform.position;
                 dir.y *= 0.5f;
-                if (Physics.Raycast(_weaponSlot.transform.position, dir, out var hit, Mathf.Infinity, _layermask))
+                if (Physics.Raycast(_weaponSlot.transform.position, dir, out var hit, Mathf.Infinity, _ignoreLayers))
                 {
                     Debug.DrawRay(_weaponSlot.transform.position, dir * 2, Color.red, 2.0f);
                     return hit.transform.CompareTag("Player");

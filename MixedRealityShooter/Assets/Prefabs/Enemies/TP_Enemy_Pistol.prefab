@@ -512,7 +512,7 @@ GameObject:
   - component: {fileID: 5155923785409460447}
   - component: {fileID: 7092473333786602576}
   m_Layer: 7
-  m_Name: TP_Enemy 1
+  m_Name: TP_Enemy_Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

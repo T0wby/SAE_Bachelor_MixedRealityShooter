@@ -6,7 +6,7 @@ namespace Enemies.BehaviorTree
     public abstract class MyTree : MonoBehaviour
     {
         private Node _root = null;
-        protected NavMeshAgent _agent;
+        [SerializeField] protected NavMeshAgent _agent;
         protected int _enemyLayerMask;
 
         protected void Start()

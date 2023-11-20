@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 23780481149896636}
   - component: {fileID: 2557035561520912083}
   - component: {fileID: 3095088388481805560}
+  - component: {fileID: 4362843957189716163}
   m_Layer: 0
   m_Name: SM_Item_Wall_Brick
   m_TagString: InvenObj
@@ -121,5 +122,22 @@ MonoBehaviour:
   _normalColor: {r: 1, g: 1, b: 1, a: 1}
   _selectedColor: {r: 0.77254903, g: 0.078431375, b: 0.078431375, a: 0.90588236}
   _gameColor: {r: 1, g: 1, b: 1, a: 1}
+  _ownRenderer: {fileID: 0}
   _settings: {fileID: 11400000, guid: 22a3f46595b76704b9be27f572326212, type: 2}
   _type: 1
+--- !u!208 &4362843957189716163
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1328608627446510}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 2, y: 0.76400006, z: 0.119}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -2, y: 0.76400006, z: 0}
+  m_TimeToStationary: 0.5

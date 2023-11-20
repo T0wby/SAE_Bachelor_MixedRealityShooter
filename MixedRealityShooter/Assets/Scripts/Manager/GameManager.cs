@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Enemies;
 using Oculus.Interaction;
 using PlacedObjects;
@@ -50,6 +51,11 @@ namespace Manager
         }
         public void StartRound()
         {
+            foreach (var placedObj in _mrPlacedObjects.Where(obj => obj != null))
+            {
+                placedObj.isStatic = true;
+            }
+            
             _currRound++;
             CurrState = EGameStates.InGame;
         }
@@ -57,6 +63,11 @@ namespace Manager
         public void CheckIfRoundIsOver(int livingEnemyCount)
         {
             if (livingEnemyCount > 0)return;
+            
+            foreach (var placedObj in _mrPlacedObjects.Where(obj => obj != null))
+            {
+                placedObj.isStatic = false;
+            }
 
             CurrState = EGameStates.RoundOver;
         }

@@ -1,5 +1,6 @@
 using System;
 using Manager;
+using Player;
 using UnityEngine;
 using UnityEngine.Events;
 using Utility;
@@ -15,6 +16,9 @@ namespace Enemies
         protected int _healthPotionAmount = 0;
         protected int _currHealth = 0;
         protected WaveManager _waveManager;
+        protected PlayerDamageHandler _player;
+        protected int _ignoreLayers;
+        protected bool _isAttacking = false;
 
         #endregion
 
@@ -22,6 +26,9 @@ namespace Enemies
 
         public EnemySettings Settings => _settings;
         public int HealthPotionAmount => _healthPotionAmount;
+        public int IgnoreLayer => _ignoreLayers;
+        public bool IsAttacking => _isAttacking;
+        public Transform PlayerTransform => _player.transform;
         public int CurrHealth
         {
             get => _currHealth;
@@ -53,6 +60,8 @@ namespace Enemies
 
         #region Virtual Methods
 
+        public virtual void Attack(){}
+        
         public virtual void TakeDamage(int damage)
         {
             throw new NotImplementedException();

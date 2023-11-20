@@ -180,7 +180,6 @@ GameObject:
   - component: {fileID: 64840824895857894}
   - component: {fileID: 553196905934887633}
   - component: {fileID: 2059794033372095646}
-  - component: {fileID: 1624447679432339223}
   m_Layer: 9
   m_Name: Wep_Pistol_AI
   m_TagString: Untagged
@@ -275,7 +274,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
@@ -320,31 +319,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _defaultSettings: {fileID: 11400000, guid: adec2abdf3e0d3442a39407fb164c7e0, type: 2}
+  _grabInteractable: {fileID: 0}
   _barrel: {fileID: 787837101955584382}
   _layerMaskNum: 8
---- !u!114 &1624447679432339223
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1562996608389564}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a1bc992571301d4a9602ac95ef4c71a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interactorFilters: []
-  _maxInteractors: -1
-  _maxSelectingInteractors: -1
-  _data: {fileID: 0}
-  _pointableElement: {fileID: 0}
-  _rigidbody: {fileID: 553196905934887633}
-  _grabSource: {fileID: 7560744566047599911}
-  _useClosestPointAsGrabSource: 0
-  _releaseDistance: 0
-  _resetGrabOnGrabsUpdated: 1
-  _physicsGrabbable: {fileID: 0}
 --- !u!1 &1823660752924116
 GameObject:
   m_ObjectHideFlags: 0

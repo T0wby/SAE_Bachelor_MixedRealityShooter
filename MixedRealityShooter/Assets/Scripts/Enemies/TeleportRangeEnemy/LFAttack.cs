@@ -6,16 +6,16 @@ namespace Enemies.TeleportRangeEnemy
 {
     public class LFAttack : Node
     {
-        private EnemyTP _enemyTp;
+        private AEnemy _enemy;
         
-        public LFAttack(EnemyTP enemyTp)
+        public LFAttack(AEnemy enemy)
         {
-            _enemyTp = enemyTp;
+            _enemy = enemy;
         }
         
         public override ENodeState CalculateState()
         {
-            _enemyTp.StartAttack();
+            _enemy.Attack();
             return ENodeState.SUCCESS;
         }
     }

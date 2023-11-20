@@ -7,7 +7,7 @@ namespace Enemies
     public class EnemySettings : ScriptableObject
     {
         [SerializeField] private string _name;
-        [SerializeField] private EEnemyType _type = EEnemyType.Range;
+        [SerializeField] private EEnemyType _type = EEnemyType.RangeTP;
         [SerializeField] private int _health;
         [SerializeField] private int _damage;
         [SerializeField] private int _moneyValue;

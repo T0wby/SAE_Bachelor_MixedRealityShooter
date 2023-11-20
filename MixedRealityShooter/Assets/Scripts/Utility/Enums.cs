@@ -25,7 +25,7 @@ namespace Utility
     {
         RangeTP,
         RangePistol,
-        Range,
+        RangeWalk,
         Melee
     }
     public enum EColliderState
