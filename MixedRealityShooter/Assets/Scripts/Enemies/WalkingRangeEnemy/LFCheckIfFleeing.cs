@@ -2,22 +2,22 @@ using Enemies.BehaviorTree;
 using UnityEngine;
 using Utility;
 
-namespace Enemies.TeleportRangeEnemy
+namespace Enemies.WalkingRangeEnemy
 {
-    public class LFHeal : Node
+    public class LFCheckIfFleeing : Node
     {
         private readonly AEnemy _enemy;
-        
-        public LFHeal(AEnemy enemy)
+        public LFCheckIfFleeing(AEnemy enemy)
         {
             _enemy = enemy;
         }
-        
+
         public override ENodeState CalculateState()
         {
-            _enemy.IsFleeing = false;
-            _enemy.Heal();
+            if (_enemy.IsFleeing) return ENodeState.FAILURE;
+            _enemy.IsFleeing = true;
             return ENodeState.SUCCESS;
+
         }
     }
 }

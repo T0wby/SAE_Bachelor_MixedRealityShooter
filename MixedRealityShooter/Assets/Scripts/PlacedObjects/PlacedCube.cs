@@ -7,7 +7,8 @@ namespace PlacedObjects
 {
     public class PlacedCube : APlacedObject
     {
-        [SerializeField] private List<Transform> _aiSpawns;
+        [SerializeField] private List<Transform> _aiSpawnsUpper;
+        [SerializeField] private List<Transform> _aiSpawnsLower;
         private GameObject _startObj;
         private GameObject _heightObj;
         private GameObject _endObj;
@@ -33,17 +34,27 @@ namespace PlacedObjects
             TransformUpdates();
         }
 
+        public List<Transform> GetValidUpperSpawns()
+        {
+            return GetValidSpawnPoints(_aiSpawnsUpper);
+        }
+        
+        public List<Transform> GetValidLowerSpawns()
+        {
+            return GetValidSpawnPoints(_aiSpawnsLower);
+        }
+
         /// <summary>
         /// Returns a List of spawn points that are not obstructed by a collider
         /// </summary>
         /// <returns>List of Transforms</returns>
-        public List<Transform> GetValidSpawnPoints()
+        private List<Transform> GetValidSpawnPoints(List<Transform> aiSpawns)
         {
             List<Transform> valid = new List<Transform>();
             Collider[] hitColliders = new Collider[20];
             bool hasCollision = false;
 
-            foreach (var spawn in _aiSpawns)
+            foreach (var spawn in aiSpawns)
             {
                 Physics.OverlapSphereNonAlloc(spawn.position, 0.0f, hitColliders);
                 foreach (var coll in hitColliders)

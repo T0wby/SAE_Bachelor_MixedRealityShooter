@@ -5676,7 +5676,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3f508e6df9ed7e47ad068e34e172d39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 100
+  _health: 10000
   _centerEyeAnchor: {fileID: 2967149209087149896}
   _thisCollider: {fileID: 2173053957250213373}
   onHealthChange:

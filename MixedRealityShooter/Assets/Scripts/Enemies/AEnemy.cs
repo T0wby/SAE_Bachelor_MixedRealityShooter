@@ -14,11 +14,12 @@ namespace Enemies
         [SerializeField] protected EnemySettings _settings;
         protected ObjectPool<AEnemy> _pool;
         protected int _healthPotionAmount = 0;
-        protected int _currHealth = 0;
+        [SerializeField] protected int _currHealth = 0;
         protected WaveManager _waveManager;
         protected PlayerDamageHandler _player;
         protected int _ignoreLayers;
         protected bool _isAttacking = false;
+        protected bool _isFleeing = false;
 
         #endregion
 
@@ -49,6 +50,12 @@ namespace Enemies
             get => _waveManager;
             set => _waveManager = value;
         }
+        
+        public bool IsFleeing
+        {
+            get => _isFleeing;
+            set => _isFleeing = value;
+        }
 
         #endregion
         
@@ -61,6 +68,13 @@ namespace Enemies
         #region Virtual Methods
 
         public virtual void Attack(){}
+        
+        public virtual void Heal()
+        {
+            if(_healthPotionAmount <= 0) return;
+            CurrHealth += _settings.HealthPotionStrength;
+            _healthPotionAmount--;
+        }
         
         public virtual void TakeDamage(int damage)
         {

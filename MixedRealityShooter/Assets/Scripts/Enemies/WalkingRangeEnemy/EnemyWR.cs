@@ -28,6 +28,7 @@ namespace Enemies.WalkingRangeEnemy
             _ignoreLayers = ~_ignoreLayers;
             OnHealthChange.AddListener(OnDeath);
             SpawnWeapon();
+            _player = FindObjectOfType<PlayerDamageHandler>();
         }
         
         private void OnEnable()

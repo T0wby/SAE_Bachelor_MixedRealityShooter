@@ -243,6 +243,7 @@ MonoBehaviour:
   _grabInteractable: {fileID: 8004284920659868371}
   _barrel: {fileID: 3769552254798569546}
   _layerMaskNum: 8
+  _ignorePlayer: 1
 --- !u!114 &3926295893562142858
 MonoBehaviour:
   m_ObjectHideFlags: 0

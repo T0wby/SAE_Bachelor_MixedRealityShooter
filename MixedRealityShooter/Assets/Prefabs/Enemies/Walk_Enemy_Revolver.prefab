@@ -496,6 +496,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _agent: {fileID: 6655958960372007887}
   _enemyWr: {fileID: 6204886993569958189}
+  _targetDetection: {fileID: 3521321706712875014}
 --- !u!195 &6655958960372007887
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -613,6 +614,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7342669677090084179}
+  - component: {fileID: 4161994207884436175}
+  - component: {fileID: 3521321706712875014}
   m_Layer: 7
   m_Name: WeaponSlot
   m_TagString: Untagged
@@ -635,6 +638,40 @@ Transform:
   m_Father: {fileID: 3968838072890278990}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &4161994207884436175
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7706116070428755589}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3521321706712875014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7706116070428755589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a504dcfb7af461943a1aac175b3f5276, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemy: {fileID: 6204886993569958189}
 --- !u!1 &7757929339039113175
 GameObject:
   m_ObjectHideFlags: 0

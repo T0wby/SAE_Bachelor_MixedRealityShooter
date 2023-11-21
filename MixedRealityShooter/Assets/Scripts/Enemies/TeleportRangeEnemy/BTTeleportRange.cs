@@ -14,7 +14,7 @@ namespace Enemies.TeleportRangeEnemy
             {
                 new Sequence(new List<Node>
                 {
-                    new LFCheckHealth(enemyTp.CurrHealth, enemyTp.Settings.HealthThreshold),
+                    new LFCheckHealth(enemyTp, enemyTp.Settings.HealthThreshold),
                     new LFCheckForPotion(enemyTp),
                     new LFHeal(enemyTp),
                 }),

@@ -14,6 +14,7 @@ namespace Weapons
         [SerializeField] private GameObject _barrel;
         [Tooltip("Number of the Layer that should be ignored")]
         [SerializeField] private int _layerMaskNum = 8;
+        [SerializeField] private bool _ignorePlayer = false;
         private PlayerController _playerController;
         private ProjectilePool _projectilePool;
         private int _layerMask;
@@ -80,7 +81,7 @@ namespace Weapons
         private IEnumerator FireWeapon()
         {
             var tmp = _projectilePool.ArPool.GetItem();
-            tmp.InitProjectileStats(_damage);
+            tmp.InitProjectileStats(_damage, _ignorePlayer);
             tmp.transform.position = _barrel.transform.position;
             tmp.ThisRb.AddForce(_barrel.transform.forward * _projectileSpeed, ForceMode.Impulse);
 
@@ -93,7 +94,7 @@ namespace Weapons
             if(_projectilePool == null)return;
 
             var tmp = _projectilePool.ArPool.GetItem();
-            tmp.InitProjectileStats(_damage);
+            tmp.InitProjectileStats(_damage, _ignorePlayer);
             tmp.transform.position = _barrel.transform.position;
             tmp.ThisRb.AddForce(_barrel.transform.forward * _projectileSpeed, ForceMode.Impulse);
         }

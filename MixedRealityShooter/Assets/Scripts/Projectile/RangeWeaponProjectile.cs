@@ -9,6 +9,7 @@ namespace Projectile
     {
         //TODO: Add settings for Projectiles
         private int _damage = 0;
+        private bool _ignorePlayer = false;
         private ObjectPool<RangeWeaponProjectile> _pool;
         private Rigidbody _thisRb;
         private IDamage _objToDamage;
@@ -20,9 +21,10 @@ namespace Projectile
             _thisRb = GetComponent<Rigidbody>();
         }
 
-        public void InitProjectileStats(int damage)
+        public void InitProjectileStats(int damage, bool ignorePlayer)
         {
             _damage = damage;
+            _ignorePlayer = ignorePlayer;
         }
 
         public void Initialize(ObjectPool<RangeWeaponProjectile> pool)
@@ -48,6 +50,9 @@ namespace Projectile
             if (other.gameObject.layer == LayerMask.NameToLayer("Environment"))
             {
                 _pool.ReturnItem(this);
+            }
+            else if (_ignorePlayer && other.CompareTag("Player"))
+            {
             }
             else if (_objToDamage != null)
             {

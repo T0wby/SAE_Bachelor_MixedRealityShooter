@@ -28,13 +28,13 @@ namespace Player
                     SetupBuildTutorial();
                     break;
                 case EGameStates.PreparePlayScene:
-                    SetupBuildTutorial();
+                    SetupIngameTutorial();
                     break;
                 case EGameStates.InHub:
                     SetupHubTutorial();
                     break;
                 case EGameStates.InGame:
-                    SetupIngameTutorial();
+                    DeactivateTutorials();
                     break;
                 case EGameStates.GameOver:
                     DeactivateTutorials();

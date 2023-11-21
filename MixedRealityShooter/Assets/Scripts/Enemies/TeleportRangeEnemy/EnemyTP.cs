@@ -48,7 +48,7 @@ namespace Enemies.TeleportRangeEnemy
         private void Update()
         {
             if (_ownTargetDetection == null || _ownTargetDetection.Player == null) return;
-            _playerPos = _ownTargetDetection.Player.ColliderPos;
+            _playerPos = _ownTargetDetection.Player.transform.position;
             transform.rotation = Quaternion.LookRotation(_playerPos - transform.position, Vector3.up);
             RotateWeaponToTarget();
         }
@@ -81,11 +81,11 @@ namespace Enemies.TeleportRangeEnemy
             StartCoroutine(Teleport());
         }
         
-        IEnumerator Teleport()
+        private IEnumerator Teleport()
         {
             if (_canMove)
             {
-                _ownTargetDetection.GetSpawnPoint();
+                _destination = _ownTargetDetection.GetSpawnPointTransform(true);
                 if (_destination != null)
                 {
                     _canMove = false;
@@ -121,11 +121,7 @@ namespace Enemies.TeleportRangeEnemy
             yield return null;
         }
 
-        public void Heal()
-        {
-            if(_healthPotionAmount <= 0) return;
-            CurrHealth += 20;
-        }
+        
 
         public override void TakeDamage(int damage)
         {
