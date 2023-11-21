@@ -31,6 +31,7 @@ namespace Enemies.WalkingRangeEnemy
 
             if (!(_angle <= _settings.FOV)) return false;
             Vector3 dir = _enemy.PlayerTransform.transform.position - _enemy.transform.position;
+            Debug.DrawRay(_pos, dir, Color.green, 1.0f);
             return Physics.Raycast(_pos, dir, out var hit, Mathf.Infinity, _enemy.IgnoreLayer) && hit.transform.CompareTag("Player");
         }
     }
