@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4389793416851796}
   - component: {fileID: 33495576682654528}
   - component: {fileID: 23761909137395854}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SM_Wep_Pistol_01_Trigger_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 4643839630470814}
   - component: {fileID: 33577224928813808}
   - component: {fileID: 23299596719339052}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SM_Wep_Pistol_01_Slide_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -181,12 +181,8 @@ GameObject:
   - component: {fileID: 553196905934887633}
   - component: {fileID: 2059794033372095646}
   - component: {fileID: 9057903899216776896}
-  - component: {fileID: 1624447679432339223}
-  - component: {fileID: 5103009437916976382}
-  - component: {fileID: 9140227709138607164}
-  - component: {fileID: 5113718194116318257}
-  - component: {fileID: 7687603062793655233}
-  m_Layer: 0
+  - component: {fileID: 124373402662995804}
+  m_Layer: 9
   m_Name: Grab_Wep_Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -209,6 +205,8 @@ Transform:
   - {fileID: 4643839630470814}
   - {fileID: 4389793416851796}
   - {fileID: 8741495145149934706}
+  - {fileID: 7560744566047599911}
+  - {fileID: 580207258870762792}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -324,11 +322,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _defaultSettings: {fileID: 11400000, guid: adec2abdf3e0d3442a39407fb164c7e0, type: 2}
+  _grabInteractable: {fileID: 2340926351117627807}
   _barrel: {fileID: 787837101955584382}
   _layerMaskNum: 8
-  _rightHandEvent: {fileID: 5103009437916976382}
-  _leftHandEvent: {fileID: 9140227709138607164}
-  _activeStateEvent: {fileID: 7687603062793655233}
+  _ignorePlayer: 1
 --- !u!114 &9057903899216776896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -348,7 +345,7 @@ MonoBehaviour:
   _twoGrabTransformer: {fileID: 0}
   _targetTransform: {fileID: 0}
   _maxGrabPoints: -1
---- !u!114 &1624447679432339223
+--- !u!114 &124373402662995804
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -357,84 +354,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1562996608389564}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a1bc992571301d4a9602ac95ef4c71a, type: 3}
+  m_Script: {fileID: 11500000, guid: 1bedaac29a943f844a7074b53c8bdf9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactorFilters: []
-  _maxInteractors: -1
-  _maxSelectingInteractors: -1
-  _data: {fileID: 0}
-  _pointableElement: {fileID: 9057903899216776896}
+  _grabbable: {fileID: 9057903899216776896}
   _rigidbody: {fileID: 553196905934887633}
-  _grabSource: {fileID: 0}
-  _useClosestPointAsGrabSource: 0
-  _releaseDistance: 0
-  _resetGrabOnGrabsUpdated: 1
-  _physicsGrabbable: {fileID: 0}
---- !u!114 &5103009437916976382
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1562996608389564}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a56054f6e3838f4e85dce4e71979800, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interactor: {fileID: 0}
-  _property: 4
---- !u!114 &9140227709138607164
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1562996608389564}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a56054f6e3838f4e85dce4e71979800, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interactor: {fileID: 0}
-  _property: 4
---- !u!114 &5113718194116318257
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1562996608389564}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aebd5da9a8bd22243b407f1927f4965b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _activeStates:
-  - {fileID: 5103009437916976382}
-  - {fileID: 9140227709138607164}
-  _logicOperator: 1
---- !u!114 &7687603062793655233
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1562996608389564}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d2705674196dfc4da9c25fbacda72d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _activeState: {fileID: 5113718194116318257}
-  _whenActivated:
-    m_PersistentCalls:
-      m_Calls: []
-  _whenDeactivated:
-    m_PersistentCalls:
-      m_Calls: []
-  _emitOnFirstUpdate: 1
+  _scaleMassWithSize: 1
 --- !u!1 &1823660752924116
 GameObject:
   m_ObjectHideFlags: 0
@@ -446,7 +371,7 @@ GameObject:
   - component: {fileID: 4949550751971396}
   - component: {fileID: 33621400450968114}
   - component: {fileID: 23675158842297408}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SM_Wep_Pistol_01_Magazine_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -527,7 +452,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8741495145149934706}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -549,3 +474,89 @@ Transform:
   m_Father: {fileID: 4300965689403036}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &824193772554669789
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7560744566047599911}
+  m_Layer: 9
+  m_Name: GrabTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7560744566047599911
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 824193772554669789}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.053, z: -0.01}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4300965689403036}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4598507702605830974
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 580207258870762792}
+  - component: {fileID: 2340926351117627807}
+  m_Layer: 9
+  m_Name: GrabInteractable
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &580207258870762792
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4598507702605830974}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4300965689403036}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2340926351117627807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4598507702605830974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a1bc992571301d4a9602ac95ef4c71a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactorFilters: []
+  _maxInteractors: -1
+  _maxSelectingInteractors: -1
+  _data: {fileID: 0}
+  _pointableElement: {fileID: 9057903899216776896}
+  _rigidbody: {fileID: 553196905934887633}
+  _grabSource: {fileID: 7560744566047599911}
+  _useClosestPointAsGrabSource: 0
+  _releaseDistance: 0
+  _resetGrabOnGrabsUpdated: 1
+  _physicsGrabbable: {fileID: 0}

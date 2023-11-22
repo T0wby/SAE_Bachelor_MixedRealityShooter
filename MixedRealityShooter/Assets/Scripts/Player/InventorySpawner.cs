@@ -17,12 +17,31 @@ namespace Player
             GameManager.Instance.OnGameStateChange.AddListener(SpawnInventory);
         }
 
+        private void OnEnable()
+        {
+            // _playerInventory = FindObjectOfType<PlayerInventory>();
+            // GameManager.Instance.OnGameStateChange.AddListener(SpawnInventory);
+            // SpawnInventory(GameManager.Instance.CurrState);
+        }
+
         private void SpawnInventory(EGameStates state)
         {
-            if (state != EGameStates.InGame)return; // Might need to do it on Enable instead
+            if (_playerInventory == null || state != EGameStates.InGame)return;
 
-            Instantiate(_playerInventory.ActiveRangeWeapon.gameObject, _rangeWeaponSpawn.position, Quaternion.identity);
-            Instantiate(_playerInventory.ActiveMeleeWeapon.gameObject, _meleeWeaponSpawn.position, Quaternion.identity);
+            if (_playerInventory.ActiveRangeWeaponPrefab != null)
+            {
+                var rb = _playerInventory.ActiveRangeWeaponPrefab.GetComponent<Rigidbody>();
+                rb.useGravity = false;
+                _playerInventory.ActiveRangeWeaponPrefab.SetActive(true);
+                _playerInventory.ActiveRangeWeaponPrefab.transform.rotation = _rangeWeaponSpawn.rotation;
+                _playerInventory.ActiveRangeWeaponPrefab.transform.position = _rangeWeaponSpawn.position;
+                rb.velocity = Vector3.zero;
+            }
+
+            if (_playerInventory.ActiveMeleeWeaponPrefab == null) return;
+            _playerInventory.ActiveMeleeWeaponPrefab.SetActive(true);
+            _playerInventory.ActiveMeleeWeaponPrefab.transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
+            _playerInventory.ActiveMeleeWeaponPrefab.transform.position = _meleeWeaponSpawn.position;
         }
     }
 }

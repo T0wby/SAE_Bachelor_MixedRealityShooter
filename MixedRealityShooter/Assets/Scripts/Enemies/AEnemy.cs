@@ -1,5 +1,6 @@
 using System;
 using Manager;
+using Player;
 using UnityEngine;
 using UnityEngine.Events;
 using Utility;
@@ -13,8 +14,12 @@ namespace Enemies
         [SerializeField] protected EnemySettings _settings;
         protected ObjectPool<AEnemy> _pool;
         protected int _healthPotionAmount = 0;
-        protected int _currHealth = 0;
+        [SerializeField] protected int _currHealth = 0;
         protected WaveManager _waveManager;
+        protected PlayerDamageHandler _player;
+        protected int _ignoreLayers;
+        protected bool _isAttacking = false;
+        protected bool _isFleeing = false;
 
         #endregion
 
@@ -22,13 +27,16 @@ namespace Enemies
 
         public EnemySettings Settings => _settings;
         public int HealthPotionAmount => _healthPotionAmount;
+        public int IgnoreLayer => _ignoreLayers;
+        public bool IsAttacking => _isAttacking;
+        public Transform PlayerTransform => _player.transform;
         public int CurrHealth
         {
             get => _currHealth;
             set
             {
-                if (value > 100)
-                    _currHealth = 100;
+                if (value > _settings.Health)
+                    _currHealth = _settings.Health;
                 else if (value < 0)
                     _currHealth = 0;
                 else
@@ -42,6 +50,12 @@ namespace Enemies
             get => _waveManager;
             set => _waveManager = value;
         }
+        
+        public bool IsFleeing
+        {
+            get => _isFleeing;
+            set => _isFleeing = value;
+        }
 
         #endregion
         
@@ -53,12 +67,26 @@ namespace Enemies
 
         #region Virtual Methods
 
+        public virtual void Attack(){}
+        
+        public virtual void Heal()
+        {
+            if(_healthPotionAmount <= 0) return;
+            CurrHealth += _settings.HealthPotionStrength;
+            _healthPotionAmount--;
+        }
+        
         public virtual void TakeDamage(int damage)
         {
             throw new NotImplementedException();
         }
 
         #region Pooling Methods
+        
+        public void ReturnEnemy()
+        {
+            _pool.ReturnItem(this);
+        }
 
         public virtual void Initialize(ObjectPool<AEnemy> pool)
         {

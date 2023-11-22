@@ -17,13 +17,15 @@ namespace Utility
     {
         AssaultRifle,
         Pistol,
+        Revolver,
         Dagger,
         Grenade
     }
     public enum EEnemyType
     {
         RangeTP,
-        Range,
+        RangePistol,
+        RangeWalk,
         Melee
     }
     public enum EColliderState
@@ -35,10 +37,9 @@ namespace Utility
     }
     public enum EPlaceableItemType
     {
-        NONE,
-        Wall,
-        Sphere,
-        Cylinder
+        NONE = 0,
+        Wall = 1,
+        Barrell = 2
     }
     public enum ENodeState
     {

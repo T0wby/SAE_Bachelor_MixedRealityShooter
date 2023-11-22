@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Enemies;
 using UnityEngine;
@@ -57,6 +58,7 @@ namespace Manager
         {
             OnEnemyCountChange.AddListener(GameManager.Instance.CheckIfRoundIsOver);
             GameManager.Instance.OnGameStateChange.AddListener(StartWaves);
+            GameManager.Instance.OnGameStateChange.AddListener(PlayerDeath);
             _enemyPools = FindObjectsByType<EnemyPool>(FindObjectsInactive.Include,FindObjectsSortMode.None);
             _enemyFactory = new EnemyFactory(_enemyPools);
         }
@@ -89,13 +91,25 @@ namespace Manager
         {
             if (currWave > _settings.Count) return;
 
+            StartCoroutine(SpawnWaveTimer(currWave));
+        }
+
+        private IEnumerator SpawnWaveTimer(int currWave)
+        {
+            // StartCountdown
+            yield return new WaitForSeconds(_settings[currWave - 1].StartCountdown);
+
             for (int i = 0; i < _settings[currWave - 1].EnemyAmount; i++)
             {
                 var ran = Random.Range(0, _settings[currWave - 1].EnemyTypes.Count);
                 var tmp = _enemyFactory.CreateEnemy(_settings[currWave - 1].EnemyTypes[ran]);
                 tmp.WaveManager = this;
                 AddLivingEnemy(tmp);
+                // Time between spawns
+                yield return new WaitForSeconds(_settings[currWave - 1].SpawnRate);
             }
+
+            yield return null;
         }
 
         #endregion
@@ -109,6 +123,17 @@ namespace Manager
         {
             _enemiesAlive.Remove(enemyToRemove);
             OnEnemyCountChange.Invoke(_enemiesAlive.Count);
+        }
+
+        private void PlayerDeath(EGameStates state)
+        {
+            if (state != EGameStates.GameOver)return;
+            foreach (var enemy in _enemiesAlive)
+            {
+                enemy.ReturnEnemy();
+            }
+            
+            _enemiesAlive.Clear();
         }
     }
 }

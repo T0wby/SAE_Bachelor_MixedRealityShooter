@@ -221,7 +221,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
@@ -266,9 +266,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _defaultSettings: {fileID: 11400000, guid: 714cb359c3ab0d44da51f623dbcac860, type: 2}
+  _grabInteractable: {fileID: 0}
   _barrel: {fileID: 1182300125785582002}
   _layerMaskNum: 8
-  _activeStateEvent: {fileID: 0}
 --- !u!1 &3941537639718258303
 GameObject:
   m_ObjectHideFlags: 0

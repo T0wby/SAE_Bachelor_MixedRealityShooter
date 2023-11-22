@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace Player
 {
@@ -9,13 +10,18 @@ namespace Player
     {
         private PlayerControls _playerControls;
         private InputAction _interact;
+        private InputAction _fireWeapon;
         private InputAction _rotateScale;
         private InputAction _switchRotateScale;
         private InputAction _placeObj;
+        private InputAction _resetView;
 
-        public UnityEvent OnInteraction;
-        public UnityEvent OnSwitchRotateScale;
-        public UnityEvent OnPlaceObj;
+        public UnityEvent onInteraction;
+        public UnityEvent onFireWeapon;
+        public UnityEvent onCancelFireWeapon;
+        public UnityEvent onSecondaryButton;
+        public UnityEvent onPrimaryButton;
+        public UnityEvent onThumbstickClick;
         public UnityEvent<Vector2> OnRotation;
         public UnityEvent<Vector2> OnScale;
         
@@ -36,6 +42,10 @@ namespace Player
             _switchRotateScale.Enable();
             _placeObj = _playerControls.Player.PlaceObj;
             _placeObj.Enable();
+            _fireWeapon = _playerControls.Player.FireWeapon;
+            _fireWeapon.Enable();
+            _resetView = _playerControls.Player.ResetView;
+            _resetView.Enable();
         }
 
         private void OnDisable()
@@ -44,27 +54,36 @@ namespace Player
             _rotateScale.Disable();
             _switchRotateScale.Disable();
             _placeObj.Disable();
+            _fireWeapon.Disable();
+            _resetView.Disable();
         }
 
         public void Interact(InputAction.CallbackContext context)
         {
             if (context.started)
             {
-                OnInteraction.Invoke();
+                onInteraction.Invoke();
             }
         }
         public void OnSecondaryButton(InputAction.CallbackContext context)
         {
             if (context.started)
             {
-                OnSwitchRotateScale.Invoke();
+                onSecondaryButton.Invoke();
             }
         }
         public void OnPrimaryButton(InputAction.CallbackContext context)
         {
             if (context.started)
             {
-                OnPlaceObj.Invoke();
+                onPrimaryButton.Invoke();
+            }
+        }
+        public void OnThumbstickClicked(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                onThumbstickClick.Invoke();
             }
         }
         
@@ -73,6 +92,22 @@ namespace Player
             _thumbstickValue = context.ReadValue<Vector2>();
             OnRotation.Invoke(_thumbstickValue);
             OnScale.Invoke(_thumbstickValue);
+        }
+        
+        /// <summary>
+        /// Action on release that is why we cancel on performed
+        /// </summary>
+        /// <param name="context"></param>
+        public void FireWeapon(InputAction.CallbackContext context)
+        {
+            if(context.started)
+            {
+                onFireWeapon.Invoke();
+            }
+            if(context.performed)
+            {
+                onCancelFireWeapon.Invoke();
+            }
         }
     }
 }

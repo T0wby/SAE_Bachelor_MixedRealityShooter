@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using Player;
 using UnityEngine;
 using Utility;
 using Weapons;
@@ -14,21 +16,15 @@ namespace Enemies.TeleportRangeEnemy
         
         private Transform _destination;
         private AWeapon _activeWeapon;
-        private bool _isAttacking = false;
         private bool _canMove = true;
-        private int _layermask;
         private Vector3 _playerPos;
+        private PlayerInventory _playerInventory;
 
         #endregion
 
         #region Properties
 
-        public Transform Destination
-        {
-            get => _destination;
-            set => _destination = value;
-        }
-        public bool IsAttacking => _isAttacking;
+        public Transform Destination{ get => _destination; set => _destination = value; }
         public bool CanMove => _canMove;
 
         #endregion
@@ -38,10 +34,15 @@ namespace Enemies.TeleportRangeEnemy
         private void Awake()
         {
             SetDefaultStats();
-            _layermask = LayerMask.NameToLayer("Enemy");
-            _layermask = ~_layermask;
+            _ignoreLayers = LayerMask.NameToLayer("Enemy");
+            _ignoreLayers = ~_ignoreLayers;
             OnHealthChange.AddListener(OnDeath);
             SpawnWeapon();
+        }
+
+        private void OnEnable()
+        {
+            _playerInventory = FindObjectOfType<PlayerInventory>();
         }
 
         private void Update()
@@ -71,7 +72,7 @@ namespace Enemies.TeleportRangeEnemy
         private void RotateWeaponToTarget()
         {
             if(_activeWeapon == null)return;
-            _playerPos.y *= 0.5f;
+            //_playerPos.y *= 0.5f;
             _activeWeapon.transform.rotation = Quaternion.LookRotation(_playerPos - _activeWeapon.transform.position, Vector3.up);
         }
 
@@ -80,11 +81,11 @@ namespace Enemies.TeleportRangeEnemy
             StartCoroutine(Teleport());
         }
         
-        IEnumerator Teleport()
+        private IEnumerator Teleport()
         {
             if (_canMove)
             {
-                _ownTargetDetection.GetSpawnPoint();
+                _destination = _ownTargetDetection.GetSpawnPointTransform(true);
                 if (_destination != null)
                 {
                     _canMove = false;
@@ -102,12 +103,12 @@ namespace Enemies.TeleportRangeEnemy
             yield return null;
         }
 
-        public void StartAttack()
+        public override void Attack()
         {
-            StartCoroutine(Attack());
+            StartCoroutine(StartAttack());
         }
 
-        IEnumerator Attack()
+        private IEnumerator StartAttack()
         {
             if (!_isAttacking)
             {
@@ -120,11 +121,7 @@ namespace Enemies.TeleportRangeEnemy
             yield return null;
         }
 
-        public void Heal()
-        {
-            if(_healthPotionAmount <= 0) return;
-            CurrHealth += 20;
-        }
+        
 
         public override void TakeDamage(int damage)
         {
@@ -141,7 +138,7 @@ namespace Enemies.TeleportRangeEnemy
             {
                 Vector3 dir = _ownTargetDetection.Player.transform.position - _weaponSlot.transform.position;
                 dir.y *= 0.5f;
-                if (Physics.Raycast(_weaponSlot.transform.position, dir, out var hit, Mathf.Infinity, _layermask))
+                if (Physics.Raycast(_weaponSlot.transform.position, dir, out var hit, Mathf.Infinity, _ignoreLayers))
                 {
                     Debug.DrawRay(_weaponSlot.transform.position, dir * 2, Color.red, 2.0f);
                     return hit.transform.CompareTag("Player");
@@ -156,11 +153,13 @@ namespace Enemies.TeleportRangeEnemy
         private void OnDeath(int health)
         {
             if (health > 0)return;
+
+            if (_playerInventory != null)
+                _playerInventory.Money += _settings.MoneyValue;
             
             _waveManager.RemoveDeadEnemy(this);
-            _pool.ReturnItem(this);
+            ReturnEnemy();
         }
-        
 
         #region Pool Methods
 

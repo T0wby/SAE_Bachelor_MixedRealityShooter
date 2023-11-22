@@ -17,19 +17,13 @@ namespace Shop
             _inventory = FindObjectOfType<PlayerInventory>();
         }
 
-        public void UpgradeDamage(AWeapon weapon)
+        private void AddWall()
         {
-            weapon.UpgradeDamage();
+            _inventory.AddPlaceableVrItem(ItemManager.Instance.ReceivePoolObject(EPlaceableItemType.Wall));
         }
-
-        public void UpgradeFireRate(AWeapon weapon)
+        private void AddBarrel()
         {
-            weapon.UpgradeFireRate();
-        }
-
-        public void AddSphere()
-        {
-            _inventory.PlaceableVRItems.Add(ItemManager.Instance.ReceivePoolObject(EPlaceableItemType.Sphere));
+            _inventory.AddPlaceableVrItem(ItemManager.Instance.ReceivePoolObject(EPlaceableItemType.Barrell));
         }
         
         public void AddRandomItem()
@@ -37,10 +31,10 @@ namespace Shop
             switch (Random.Range(0, 2))
             {
                 case 0:
-                    _inventory.PlaceableVRItems.Add(ItemManager.Instance.ReceivePoolObject(EPlaceableItemType.Cylinder));
+                    AddBarrel();
                     break;
                 case 1:
-                    _inventory.PlaceableVRItems.Add(ItemManager.Instance.ReceivePoolObject(EPlaceableItemType.Sphere));
+                    AddWall();
                     break;
                 default:
                     break;

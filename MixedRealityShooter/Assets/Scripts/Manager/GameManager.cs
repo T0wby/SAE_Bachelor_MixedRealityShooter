@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Enemies;
 using Oculus.Interaction;
+using PlacedObjects;
 using UnityEngine;
 using UnityEngine.Events;
 using Utility;
@@ -39,6 +41,7 @@ namespace Manager
         {
             _mrPlacedObjects = new List<GameObject>();
             OnGameStateChange.AddListener(SwitchObjVisibility);
+            OnGameStateChange.AddListener(DestroyPlacedVrObjects);
         }
 
         public void StartRound(PointerEvent pointEvent)
@@ -46,10 +49,25 @@ namespace Manager
             _currRound++;
             CurrState = EGameStates.InGame;
         }
+        public void StartRound()
+        {
+            foreach (var placedObj in _mrPlacedObjects.Where(obj => obj != null))
+            {
+                placedObj.isStatic = true;
+            }
+            
+            _currRound++;
+            CurrState = EGameStates.InGame;
+        }
 
         public void CheckIfRoundIsOver(int livingEnemyCount)
         {
             if (livingEnemyCount > 0)return;
+            
+            foreach (var placedObj in _mrPlacedObjects.Where(obj => obj != null))
+            {
+                placedObj.isStatic = false;
+            }
 
             CurrState = EGameStates.RoundOver;
         }
@@ -64,6 +82,29 @@ namespace Manager
             }
         }
 
+        private void ChangeToGameMaterial()
+        {
+            foreach (var obj in _mrPlacedObjects)
+            {
+                if(obj == null || obj.CompareTag("InvenObj")) continue;
+                var placedObj = obj.transform.childCount > 0 ? obj.transform.GetChild(0).GetComponent<APlacedObject>() : obj.GetComponent<APlacedObject>();
+                if (placedObj == null) continue;
+                placedObj.SetGameColor();
+            }
+        }
+
+        private void DestroyPlacedVrObjects(EGameStates state)
+        {
+            if (state != EGameStates.GameOver)return;
+            foreach (var obj in _mrPlacedObjects)
+            {
+                if (!obj.CompareTag("InvenObj"))continue;
+                Destroy(obj);
+            }
+            _currRound = 0;
+            _mrPlacedObjects.RemoveAll(obj => obj == null);
+        }
+
         private void SwitchObjVisibility(EGameStates state)
         {
             switch (state)
@@ -73,6 +114,7 @@ namespace Manager
                 case EGameStates.PrepareMRSceneInner:
                     break;
                 case EGameStates.PreparePlayScene:
+                    ChangeToGameMaterial();
                     ChangeMrObjectStatus(true);
                     break;
                 case EGameStates.InHub:
@@ -83,6 +125,8 @@ namespace Manager
                 case EGameStates.GameOver:
                     break;
                 case EGameStates.GameStart:
+                    break;
+                case EGameStates.RoundOver:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

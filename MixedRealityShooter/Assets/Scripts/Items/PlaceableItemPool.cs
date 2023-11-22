@@ -9,7 +9,7 @@ namespace Items
     {
         [SerializeField] private GameObject _placeablePrefab;
         [SerializeField] private int _poolSize = 50;
-        [SerializeField] private EPlaceableItemType _ePlaceable = EPlaceableItemType.Cylinder;
+        [SerializeField] private EPlaceableItemType _ePlaceable = EPlaceableItemType.Barrell;
 
         private ObjectPool<PlaceableVRItem> _itemPool;
 

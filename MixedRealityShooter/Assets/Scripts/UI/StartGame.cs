@@ -1,16 +1,17 @@
 using Manager;
 using Oculus.Interaction;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UI
 {
     public class StartGame : MonoBehaviour
     {
-        [SerializeField] private PointableUnityEventWrapper _pointableUnityEvent;
+        [SerializeField] private Button _button;
 
         private void Start()
         {
-            _pointableUnityEvent.WhenSelect.AddListener(GameManager.Instance.StartRound);
+            _button.onClick.AddListener(GameManager.Instance.StartRound);
         }
     }
 }

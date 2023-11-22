@@ -1,6 +1,7 @@
 using System;
 using Manager;
 using Oculus.Interaction;
+using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Utility;
@@ -17,16 +18,13 @@ namespace Building
         [SerializeField] private GameObject _roundDoneObjs;
         [SerializeField] private GameObject _gameOverObjs;
         [SerializeField] private GameObject _ongoingRoundObjs;
-
-        [Header("ButtonEvents")] 
-        [SerializeField] private PointableUnityEventWrapper _eventsStartGameButton;
-        [SerializeField] private PointableUnityEventWrapper _eventsInnerModeButton;
+        
+        [Header("NavMesh")]
+        [SerializeField] private NavMeshSurface _surface;
 
         private void Start()
         {
             GameManager.Instance.OnGameStateChange.AddListener(PrepareScene);
-            _eventsStartGameButton.WhenSelect.AddListener(ChangeToMrWallPrep);
-            _eventsInnerModeButton.WhenSelect.AddListener(ChangeToMrInsidePrep);
             PrepareScene(GameManager.Instance.CurrState);
         }
 
@@ -52,6 +50,7 @@ namespace Building
                     GameOverPreparation();
                     break;
                 case EGameStates.GameStart:
+                    PrepareNavMesh();
                     break;
                 case EGameStates.RoundOver:
                     RoundOverPreparation();
@@ -121,14 +120,20 @@ namespace Building
             _ongoingRoundObjs.SetActive(true);
         }
 
+        private void PrepareNavMesh()
+        {
+            Debug.LogError("Build Navmesh");
+            _surface.BuildNavMesh();
+        }
+
         #region Event Methods
 
-        private void ChangeToMrWallPrep(PointerEvent pointerEvent)
+        public void ChangeToMrWallPrep()
         {
             GameManager.Instance.CurrState = EGameStates.PrepareMRSceneWall;
         }
         
-        private void ChangeToMrInsidePrep(PointerEvent pointerEvent)
+        public void ChangeToMrInsidePrep()
         {
             GameManager.Instance.CurrState = EGameStates.PrepareMRSceneInner;
         }
