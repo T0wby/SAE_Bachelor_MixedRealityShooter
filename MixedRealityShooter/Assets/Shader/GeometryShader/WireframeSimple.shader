@@ -41,13 +41,14 @@ Shader "Unlit/WireframeSimple"
                 UNITY_FOG_COORDS(1)
                 float4 vertex : SV_POSITION;
 
-                UNITY_VERTEX_OUTPUT_STEREO //Insert
+                UNITY_VERTEX_OUTPUT_STEREO_EYE_INDEX
             };
 
             struct g2f
             {
                 float4 pos : POSITION;
                 float3 barycentric : TEXCOORD0;
+                UNITY_VERTEX_OUTPUT_STEREO //Insert
             };
 
             float4 _MainTex_ST;
@@ -58,7 +59,8 @@ Shader "Unlit/WireframeSimple"
             void geom(triangle v2f IN[3], inout TriangleStream<g2f> triStream)
             {
                 g2f o;
-
+                UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(IN[0]);
+                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
                 
                 o.pos = IN[0].vertex;
                 o.barycentric = float3(1.0, 0.0, 0.0);
