@@ -24,15 +24,16 @@ namespace PlacedObjects
 
         public virtual void SetSelectedColor()
         {
-            _ownMat.SetColor("_NormalColor", _selectedColor);
+            _ownMat.SetColor("_WireframeColor", _selectedColor);
         }
         public virtual void SetNormalColor()
         {
-            _ownMat.SetColor("_NormalColor", _normalColor);
+            _ownMat.SetColor("_WireframeColor", _normalColor);
         }
         public virtual void SetGameColor()
         {
-            _ownMat.SetColor("_NormalColor", _gameColor);
+            _ownMat.SetColor("_WireframeColor", _gameColor);
+            _ownMat.SetFloat("_WireframeWidth", 0.0f);
         }
     }
 }

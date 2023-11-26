@@ -122,7 +122,6 @@ namespace Building
 
         private void PrepareNavMesh()
         {
-            Debug.LogError("Build Navmesh");
             _surface.BuildNavMesh();
         }
 

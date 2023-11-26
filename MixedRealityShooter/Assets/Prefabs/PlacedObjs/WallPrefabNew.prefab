@@ -43,7 +43,6 @@ GameObject:
   - component: {fileID: 4741583373949804768}
   - component: {fileID: 2827176050510868093}
   - component: {fileID: 4936741325591035774}
-  - component: {fileID: 4055594931089121692}
   - component: {fileID: 8343289505536467090}
   - component: {fileID: 3945407823734075586}
   m_Layer: 0
@@ -98,7 +97,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2042f67f55748f443ab601d9338395a4, type: 2}
+  - {fileID: 2100000, guid: 9937cf52bf955df42a7f89c90ddf175e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -141,23 +140,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4055594931089121692
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2553025659263086903}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd11d91b1a7d90942b6a6b8c02b31c3a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _normalColor: {r: 0.3647059, g: 0.19607843, b: 0.9137255, a: 0.6666667}
-  _selectedColor: {r: 1, g: 0, b: 0, a: 0.7882353}
-  _gameColor: {r: 0.3647059, g: 0.19607843, b: 0.9137255, a: 0.078431375}
-  _ownRenderer: {fileID: 0}
-  _aiSpawns: []
 --- !u!114 &8343289505536467090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,9 +152,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7422bc390f561004283ab615dfde9460, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _normalColor: {r: 0.3647059, g: 0.19607843, b: 0.9137255, a: 0.6666667}
-  _selectedColor: {r: 1, g: 0, b: 0, a: 0.7882353}
-  _gameColor: {r: 0.3647059, g: 0.19607843, b: 0.9137255, a: 0.078431375}
+  _normalColor: {r: 0.1882353, g: 1, b: 0, a: 0.78431374}
+  _selectedColor: {r: 1, g: 0, b: 0, a: 0.78431374}
+  _gameColor: {r: 0.1882353, g: 1, b: 0, a: 0}
   _ownRenderer: {fileID: 2827176050510868093}
   _aiSpawns:
   - {fileID: 9183301311239024260}

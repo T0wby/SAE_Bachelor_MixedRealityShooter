@@ -18,6 +18,7 @@ namespace Manager
         private List<GameObject> _mrPlacedObjects;
         private int _currRound = 0;
         public UnityEvent<EGameStates> OnGameStateChange;
+
         #endregion
 
         #region Properties
@@ -31,6 +32,7 @@ namespace Manager
                 OnGameStateChange.Invoke(_currState);
             }
         }
+
         public List<GameObject> MrPlacedObjects => _mrPlacedObjects;
         public int CurrRound => _currRound;
 
@@ -49,21 +51,22 @@ namespace Manager
             _currRound++;
             CurrState = EGameStates.InGame;
         }
+
         public void StartRound()
         {
             foreach (var placedObj in _mrPlacedObjects.Where(obj => obj != null))
             {
                 placedObj.isStatic = true;
             }
-            
+
             _currRound++;
             CurrState = EGameStates.InGame;
         }
 
         public void CheckIfRoundIsOver(int livingEnemyCount)
         {
-            if (livingEnemyCount > 0)return;
-            
+            if (livingEnemyCount > 0) return;
+
             foreach (var placedObj in _mrPlacedObjects.Where(obj => obj != null))
             {
                 placedObj.isStatic = false;
@@ -76,8 +79,8 @@ namespace Manager
         {
             foreach (var obj in _mrPlacedObjects)
             {
-                if(obj == null) continue;
-                
+                if (obj == null) continue;
+
                 obj.SetActive(statusToChangeTo);
             }
         }
@@ -86,8 +89,17 @@ namespace Manager
         {
             foreach (var obj in _mrPlacedObjects)
             {
-                if(obj == null || obj.CompareTag("InvenObj")) continue;
-                var placedObj = obj.transform.childCount > 0 ? obj.transform.GetChild(0).GetComponent<APlacedObject>() : obj.GetComponent<APlacedObject>();
+                if (obj == null || obj.CompareTag("InvenObj")) continue;
+
+                if (obj.CompareTag("Wall"))
+                {
+                    var placedWall = obj.GetComponent<APlacedObject>();
+                    if (placedWall == null) continue;
+                    placedWall.SetGameColor();
+                }
+
+                if (!obj.CompareTag("PlacedObj")) continue;
+                var placedObj = obj.transform.GetChild(0).GetComponent<APlacedObject>();
                 if (placedObj == null) continue;
                 placedObj.SetGameColor();
             }
@@ -95,12 +107,13 @@ namespace Manager
 
         private void DestroyPlacedVrObjects(EGameStates state)
         {
-            if (state != EGameStates.GameOver)return;
+            if (state != EGameStates.GameOver) return;
             foreach (var obj in _mrPlacedObjects)
             {
-                if (!obj.CompareTag("InvenObj"))continue;
+                if (!obj.CompareTag("InvenObj")) continue;
                 Destroy(obj);
             }
+
             _currRound = 0;
             _mrPlacedObjects.RemoveAll(obj => obj == null);
         }

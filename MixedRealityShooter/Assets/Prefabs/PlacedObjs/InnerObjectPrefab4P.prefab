@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 6477807211363765846}
   m_Layer: 0
   m_Name: InnerObjectPrefab4P
-  m_TagString: Untagged
+  m_TagString: PlacedObj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -258,7 +258,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6253d56846cd2ab4b8576e30db526671, type: 2}
+  - {fileID: 2100000, guid: 9937cf52bf955df42a7f89c90ddf175e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -340,9 +340,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd11d91b1a7d90942b6a6b8c02b31c3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _normalColor: {r: 0.90588236, g: 0.9137255, b: 0.38431373, a: 0.6666667}
+  _normalColor: {r: 0.8113208, g: 0.5057863, b: 0.04209684, a: 1}
   _selectedColor: {r: 1, g: 0, b: 0, a: 0.7882353}
-  _gameColor: {r: 0.90588236, g: 0.9137255, b: 0.38431373, a: 0.078431375}
+  _gameColor: {r: 0.8117647, g: 0.5058824, b: 0.043137256, a: 0}
   _ownRenderer: {fileID: 1847743978747788428}
   _aiSpawnsUpper:
   - {fileID: 998982656492257408}
