@@ -9,15 +9,10 @@ namespace Enemies.BehaviorTree
         //And operator
 
         #region Constructors
-        public Sequence() : base()
-        {
+        public Sequence() : base() {}
 
-        }
-
-        public Sequence(List<Node> children) : base(children)
-        {
-
-        }
+        public Sequence(List<Node> children) : base(children){}
+        
         #endregion
 
         public override ENodeState CalculateState()
