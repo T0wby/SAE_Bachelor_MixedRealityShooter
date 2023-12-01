@@ -18,6 +18,7 @@ namespace Building
         [SerializeField] private GameObject _roundDoneObjs;
         [SerializeField] private GameObject _gameOverObjs;
         [SerializeField] private GameObject _ongoingRoundObjs;
+        [SerializeField] private GameObject _anchorGameObject;
         
         [Header("NavMesh")]
         [SerializeField] private NavMeshSurface _surface;
@@ -45,12 +46,13 @@ namespace Building
                     break;
                 case EGameStates.InGame:
                     OngoingRoundObjs();
+                    PrepareNavMesh();
                     break;
                 case EGameStates.GameOver:
                     GameOverPreparation();
                     break;
                 case EGameStates.GameStart:
-                    PrepareNavMesh();
+                    CheckIfAnchorsExist();
                     break;
                 case EGameStates.RoundOver:
                     RoundOverPreparation();
@@ -135,6 +137,15 @@ namespace Building
         public void ChangeToMrInsidePrep()
         {
             GameManager.Instance.CurrState = EGameStates.PrepareMRSceneInner;
+        }
+
+        private void CheckIfAnchorsExist()
+        {
+            if (AnchorManager.Instance.CheckForAnchors())
+            {
+                // Open UI to ask if the user wishes to use the anchors or not
+                _anchorGameObject.SetActive(true);
+            }
         }
 
         #endregion

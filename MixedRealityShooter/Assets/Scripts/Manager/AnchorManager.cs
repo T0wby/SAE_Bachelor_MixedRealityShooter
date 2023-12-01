@@ -47,7 +47,7 @@ namespace Manager
         /// adds the UUIDS to an Array that is used to find Anchors on the HMD
         /// </summary>
         /// <returns>If a file was found or not</returns>
-        private bool CheckForAnchors()
+        public bool CheckForAnchors()
         {
             if (!File.Exists(_filePathSavedObjs))return false;
 
@@ -60,7 +60,7 @@ namespace Manager
             
             _loadedPlacedObjects = JsonConvert.DeserializeObject<List<SPLacedObject>>(json);
 
-            for (int i = 0; i < _loadedPlacedObjects.Count(); i++)
+            for (int i = 0; i < _loadedPlacedObjects.Count; i++)
             {
                 _anchorSavedUUIDList[i] = _loadedPlacedObjects[i].UniqueId;
                 _anchorSavedUUIDListSize = i;
