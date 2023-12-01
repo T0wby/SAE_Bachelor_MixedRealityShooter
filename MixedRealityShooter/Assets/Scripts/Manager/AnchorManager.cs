@@ -113,23 +113,10 @@ namespace Manager
                 if (success)
                 {
                     _allSavedAnchors.Add(anch);
-                    // Save UUID in external storage aka JSON by writing the list?
                     saveStruct.UniqueId = anch.Uuid;
-                    //_anchorSavedUUIDList[_anchorSavedUUIDListSize] = anch.Uuid;
-                    //SaveUuidInJson();
                 }
             });
         }
-
-        // private void SaveUuidInJson()
-        // {
-        //     string json = JsonConvert.SerializeObject(_anchorSavedUUIDList);
-        //     
-        //     using (StreamWriter writer = File.CreateText(_filePathUUIDList))
-        //     {
-        //         writer.Write(json);
-        //     }
-        // }
 
         public void LoadAllAnchors()
         {
@@ -220,7 +207,36 @@ namespace Manager
             _allRunningAnchors.Add(_workingAnchor);
             GameManager.Instance.MrPlacedObjects.Add(go);
         }
-        
-        
+
+        public void EraseAllAnchors()
+        {
+            foreach (var tmpAnchor in _allSavedAnchors)
+            {
+                if (tmpAnchor)
+                {
+                    //use a Unity coroutine to manage the async save
+                    StartCoroutine(AnchorErased(tmpAnchor));
+                }
+            }
+
+            _allSavedAnchors.Clear();
+        }
+
+        private IEnumerator AnchorErased(OVRSpatialAnchor osAnchor)
+        {
+            while (!osAnchor.Created)
+            {
+                yield return new WaitForEndOfFrame();
+            }
+
+            osAnchor.Erase((anchor, success) =>
+            {
+                if (!success)
+                {
+                    Debug.LogWarning("Anchor " + osAnchor.Uuid.ToString() + " NOT Erased!");
+                }
+                return;
+            });
+        }
     }
 }
