@@ -18,7 +18,7 @@ namespace Utility
         AssaultRifle,
         Pistol,
         Revolver,
-        Dagger,
+        BatSaw,
         Grenade
     }
     public enum EEnemyType

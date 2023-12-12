@@ -127,7 +127,7 @@ namespace Inventory
                     if (_playerInventory.ActiveRangeWeapon.DamageCost > _playerInventory.Money)return false;
                     _playerInventory.Money -= _playerInventory.ActiveRangeWeapon.DamageCost;
                     break;
-                case EWeaponType.Dagger:
+                case EWeaponType.BatSaw:
                     if (_playerInventory.ActiveMeleeWeapon.DamageCost > _playerInventory.Money)return false;
                     _playerInventory.Money -= _playerInventory.ActiveMeleeWeapon.DamageCost;
                     break;

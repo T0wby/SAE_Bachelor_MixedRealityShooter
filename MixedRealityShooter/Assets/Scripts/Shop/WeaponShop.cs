@@ -20,6 +20,7 @@ namespace Shop
         [Header("Text")] 
         [SerializeField] private TMP_Text _arCost;
         [SerializeField] private TMP_Text _pistolCost;
+        [SerializeField] private TMP_Text _batCost;
         
         private PlayerInventory _playerInventory;
         
@@ -45,7 +46,8 @@ namespace Shop
                         break;
                     case EWeaponType.Revolver:
                         break;
-                    case EWeaponType.Dagger:
+                    case EWeaponType.BatSaw:
+                        _batCost.text = $"{settings.Value}$";
                         break;
                     case EWeaponType.Grenade:
                         break;
@@ -70,7 +72,7 @@ namespace Shop
                 case EWeaponType.Pistol:
                     _playerInventory.AddRangeWeapon(settings.WeaponPrefab.GetComponent<AWeapon>());
                     break;
-                case EWeaponType.Dagger:
+                case EWeaponType.BatSaw:
                     _playerInventory.AddMeleeWeapon(settings.WeaponPrefab.GetComponent<AWeapon>());
                     break;
                 case EWeaponType.Grenade:
