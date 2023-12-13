@@ -14,7 +14,7 @@ namespace Player
         private void Awake()
         {
             _playerInventory = FindObjectOfType<PlayerInventory>();
-            GameManager.Instance.OnGameStateChange.AddListener(SpawnInventory);
+            GameManager.Instance.onGameStateChange.AddListener(SpawnInventory);
         }
 
         private void OnEnable()

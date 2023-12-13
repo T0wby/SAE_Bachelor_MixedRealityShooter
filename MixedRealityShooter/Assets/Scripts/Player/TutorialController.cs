@@ -13,7 +13,7 @@ namespace Player
 
         private void Start()
         {
-            GameManager.Instance.OnGameStateChange.AddListener(SetCurrentTutorial);
+            GameManager.Instance.onGameStateChange.AddListener(SetCurrentTutorial);
             SetCurrentTutorial(GameManager.Instance.CurrState);
         }
 

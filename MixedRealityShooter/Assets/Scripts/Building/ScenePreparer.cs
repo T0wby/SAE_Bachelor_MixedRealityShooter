@@ -17,6 +17,7 @@ namespace Building
         [SerializeField] private GameObject _startObjs;
         [SerializeField] private GameObject _roundDoneObjs;
         [SerializeField] private GameObject _gameOverObjs;
+        [SerializeField] private GameObject _gameDoneObjs;
         [SerializeField] private GameObject _ongoingRoundObjs;
         [SerializeField] private GameObject _anchorGameObject;
         
@@ -25,7 +26,7 @@ namespace Building
 
         private void Start()
         {
-            GameManager.Instance.OnGameStateChange.AddListener(PrepareScene);
+            GameManager.Instance.onGameStateChange.AddListener(PrepareScene);
             PrepareScene(GameManager.Instance.CurrState);
         }
 
@@ -57,6 +58,9 @@ namespace Building
                 case EGameStates.RoundOver:
                     RoundOverPreparation();
                     break;
+                case EGameStates.GameDone:
+                    GameDonePreparation();
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -67,6 +71,7 @@ namespace Building
             _playPrepObjs.SetActive(false);
             _mrInsidePrepObjs.SetActive(false);
             _roundDoneObjs.SetActive(false);
+            _gameDoneObjs.SetActive(false);
             _gameOverObjs.SetActive(false);
             _ongoingRoundObjs.SetActive(false);
             _mrWallPrepObjs.SetActive(true);
@@ -77,6 +82,7 @@ namespace Building
             _playPrepObjs.SetActive(false);
             _mrWallPrepObjs.SetActive(false);
             _roundDoneObjs.SetActive(false);
+            _gameDoneObjs.SetActive(false);
             _gameOverObjs.SetActive(false);
             _ongoingRoundObjs.SetActive(false);
             _mrInsidePrepObjs.SetActive(true);
@@ -87,6 +93,7 @@ namespace Building
             _playPrepObjs.SetActive(true);
             _mrWallPrepObjs.SetActive(false);
             _roundDoneObjs.SetActive(false);
+            _gameDoneObjs.SetActive(false);
             _gameOverObjs.SetActive(false);
             _ongoingRoundObjs.SetActive(false);
             _mrInsidePrepObjs.SetActive(false);
@@ -97,7 +104,19 @@ namespace Building
             _playPrepObjs.SetActive(false);
             _mrWallPrepObjs.SetActive(false);
             _roundDoneObjs.SetActive(false);
+            _gameDoneObjs.SetActive(false);
             _gameOverObjs.SetActive(true);
+            _mrInsidePrepObjs.SetActive(false);
+            _ongoingRoundObjs.SetActive(false);
+        }
+        private void GameDonePreparation()
+        {
+            _startObjs.SetActive(false);
+            _playPrepObjs.SetActive(false);
+            _mrWallPrepObjs.SetActive(false);
+            _roundDoneObjs.SetActive(false);
+            _gameDoneObjs.SetActive(true);
+            _gameOverObjs.SetActive(false);
             _mrInsidePrepObjs.SetActive(false);
             _ongoingRoundObjs.SetActive(false);
         }
@@ -107,6 +126,7 @@ namespace Building
             _playPrepObjs.SetActive(false);
             _mrWallPrepObjs.SetActive(false);
             _roundDoneObjs.SetActive(true);
+            _gameDoneObjs.SetActive(false);
             _gameOverObjs.SetActive(false);
             _mrInsidePrepObjs.SetActive(false);
             _ongoingRoundObjs.SetActive(false);
@@ -117,6 +137,7 @@ namespace Building
             _playPrepObjs.SetActive(false);
             _mrWallPrepObjs.SetActive(false);
             _roundDoneObjs.SetActive(false);
+            _gameDoneObjs.SetActive(false);
             _gameOverObjs.SetActive(false);
             _mrInsidePrepObjs.SetActive(false);
             _ongoingRoundObjs.SetActive(true);

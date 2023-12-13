@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Oculus.Interaction;
 using PlacedObjects;
 using UnityEngine;
 using UnityEngine.Events;
@@ -16,7 +15,7 @@ namespace Manager
         private EGameStates _currState = EGameStates.GameStart;
         private List<GameObject> _mrPlacedObjects;
         private int _currRound = 0;
-        public UnityEvent<EGameStates> OnGameStateChange;
+        public UnityEvent<EGameStates> onGameStateChange;
 
         #endregion
 
@@ -28,7 +27,7 @@ namespace Manager
             set
             {
                 _currState = value;
-                OnGameStateChange.Invoke(_currState);
+                onGameStateChange.Invoke(_currState);
             }
         }
 
@@ -43,8 +42,8 @@ namespace Manager
         private void Start()
         {
             _mrPlacedObjects = new List<GameObject>();
-            OnGameStateChange.AddListener(SwitchObjVisibility);
-            OnGameStateChange.AddListener(DestroyPlacedVrObjects);
+            onGameStateChange.AddListener(SwitchObjVisibility);
+            onGameStateChange.AddListener(DestroyPlacedVrObjects);
         }
         
         public void StartRound()

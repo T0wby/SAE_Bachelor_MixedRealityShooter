@@ -63,8 +63,8 @@ namespace Player
 
         private void Start()
         {
-            GameManager.Instance.OnGameStateChange.AddListener(ResetInventory);
-            GameManager.Instance.OnGameStateChange.AddListener(SetInventoryInactive);
+            GameManager.Instance.onGameStateChange.AddListener(ResetInventory);
+            GameManager.Instance.onGameStateChange.AddListener(SetInventoryInactive);
             Money = STARTMONEY;
         }
 

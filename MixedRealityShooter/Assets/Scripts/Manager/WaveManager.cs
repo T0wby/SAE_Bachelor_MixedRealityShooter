@@ -59,8 +59,8 @@ namespace Manager
         private void Start()
         {
             onEnemyCountChange.AddListener(GameManager.Instance.CheckIfRoundIsOver);
-            GameManager.Instance.OnGameStateChange.AddListener(StartWaves);
-            GameManager.Instance.OnGameStateChange.AddListener(PlayerDeath);
+            GameManager.Instance.onGameStateChange.AddListener(StartWaves);
+            GameManager.Instance.onGameStateChange.AddListener(PlayerDeath);
             GameManager.Instance.MaxRounds = _settings.Count;
             _enemyPools = FindObjectsByType<EnemyPool>(FindObjectsInactive.Include,FindObjectsSortMode.None);
             _enemyFactory = new EnemyFactory(_enemyPools);
@@ -68,7 +68,7 @@ namespace Manager
 
         private void OnDestroy()
         {
-            GameManager.Instance.OnGameStateChange.RemoveListener(StartWaves);
+            GameManager.Instance.onGameStateChange.RemoveListener(StartWaves);
         }
 
         #endregion
