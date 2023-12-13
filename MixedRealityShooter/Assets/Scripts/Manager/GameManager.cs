@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Enemies;
 using Oculus.Interaction;
 using PlacedObjects;
 using UnityEngine;
@@ -36,6 +35,8 @@ namespace Manager
         public List<GameObject> MrPlacedObjects => _mrPlacedObjects;
         public int CurrRound => _currRound;
 
+        public int MaxRounds { get; set; }
+
         #endregion
 
 
@@ -45,13 +46,7 @@ namespace Manager
             OnGameStateChange.AddListener(SwitchObjVisibility);
             OnGameStateChange.AddListener(DestroyPlacedVrObjects);
         }
-
-        public void StartRound(PointerEvent pointEvent)
-        {
-            _currRound++;
-            CurrState = EGameStates.InGame;
-        }
-
+        
         public void StartRound()
         {
             foreach (var placedObj in _mrPlacedObjects.Where(obj => obj != null))
@@ -63,9 +58,15 @@ namespace Manager
             CurrState = EGameStates.InGame;
         }
 
-        public void CheckIfRoundIsOver(int livingEnemyCount)
+        public void CheckIfRoundIsOver(int livingEnemyCount, int enemiesLeftToSpawn)
         {
-            if (livingEnemyCount > 0) return;
+            if (livingEnemyCount > 0 || enemiesLeftToSpawn > 0) return;
+
+            if (_currRound + 1 > MaxRounds)
+            {
+                CurrState = EGameStates.GameDone;
+                return;
+            }
 
             foreach (var placedObj in _mrPlacedObjects.Where(obj => obj != null))
             {
@@ -140,6 +141,8 @@ namespace Manager
                 case EGameStates.GameStart:
                     break;
                 case EGameStates.RoundOver:
+                    break;
+                case EGameStates.GameDone:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

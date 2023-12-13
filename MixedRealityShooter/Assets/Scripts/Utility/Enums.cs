@@ -11,7 +11,8 @@ namespace Utility
         InGame,
         GameOver,
         GameStart,
-        RoundOver
+        RoundOver,
+        GameDone
     }
     public enum EWeaponType
     {

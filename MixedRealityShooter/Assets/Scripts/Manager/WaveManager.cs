@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Enemies;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using Utility;
 using Waves;
 using Random = UnityEngine.Random;
@@ -16,6 +17,7 @@ namespace Manager
 
         [SerializeField] private List<WaveSettings> _settings;
         private int _currWaveNumb = 0;
+        private int _enemiesLeftToSpawn = 0;
         private List<AEnemy> _enemiesAlive = new List<AEnemy>();
         private EnemyPool[] _enemyPools;
         private EnemyFactory _enemyFactory;
@@ -32,7 +34,7 @@ namespace Manager
                 if (_currWaveNumb != value)
                 {
                     _currWaveNumb = value;
-                    OnWaveChange.Invoke(_currWaveNumb);
+                    onWaveChange.Invoke(_currWaveNumb);
                 }
             }
         }
@@ -42,8 +44,8 @@ namespace Manager
 
         #region Events
 
-        public UnityEvent<int> OnWaveChange;
-        public UnityEvent<int> OnEnemyCountChange;
+        public UnityEvent<int> onWaveChange;
+        public UnityEvent<int, int> onEnemyCountChange;
 
         #endregion
 
@@ -51,14 +53,15 @@ namespace Manager
 
         private void Awake()
         {
-            OnWaveChange.AddListener(SpawnWave);
+            onWaveChange.AddListener(SpawnWave);
         }
 
         private void Start()
         {
-            OnEnemyCountChange.AddListener(GameManager.Instance.CheckIfRoundIsOver);
+            onEnemyCountChange.AddListener(GameManager.Instance.CheckIfRoundIsOver);
             GameManager.Instance.OnGameStateChange.AddListener(StartWaves);
             GameManager.Instance.OnGameStateChange.AddListener(PlayerDeath);
+            GameManager.Instance.MaxRounds = _settings.Count;
             _enemyPools = FindObjectsByType<EnemyPool>(FindObjectsInactive.Include,FindObjectsSortMode.None);
             _enemyFactory = new EnemyFactory(_enemyPools);
         }
@@ -90,7 +93,7 @@ namespace Manager
         private void SpawnWave(int currWave)
         {
             if (currWave > _settings.Count) return;
-
+            _enemiesLeftToSpawn = _settings[currWave - 1].EnemyAmount;
             StartCoroutine(SpawnWaveTimer(currWave));
         }
 
@@ -105,6 +108,7 @@ namespace Manager
                 var tmp = _enemyFactory.CreateEnemy(_settings[currWave - 1].EnemyTypes[ran]);
                 tmp.WaveManager = this;
                 AddLivingEnemy(tmp);
+                _enemiesLeftToSpawn--;
                 // Time between spawns
                 yield return new WaitForSeconds(_settings[currWave - 1].SpawnRate);
             }
@@ -117,12 +121,12 @@ namespace Manager
         private void AddLivingEnemy(AEnemy enemyToAdd)
         {
             _enemiesAlive.Add(enemyToAdd);
-            OnEnemyCountChange.Invoke(_enemiesAlive.Count);
+            onEnemyCountChange.Invoke(_enemiesAlive.Count, _enemiesLeftToSpawn);
         }
         public void RemoveDeadEnemy(AEnemy enemyToRemove)
         {
             _enemiesAlive.Remove(enemyToRemove);
-            OnEnemyCountChange.Invoke(_enemiesAlive.Count);
+            onEnemyCountChange.Invoke(_enemiesAlive.Count, _enemiesLeftToSpawn);
         }
 
         private void PlayerDeath(EGameStates state)
