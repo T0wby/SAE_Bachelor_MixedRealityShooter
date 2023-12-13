@@ -14,6 +14,7 @@ namespace Enemies
         [SerializeField] private int _healthPotionAmount;
         [SerializeField] private int _healthPotionStrength;
         [SerializeField] private int _healthThreshold;
+        [SerializeField] private float _attackRange;
         [SerializeField] private float _attackTimer;
         [SerializeField] private float _moveTimer;
         [SerializeField] private float _searchRange;
@@ -28,6 +29,7 @@ namespace Enemies
         public int HealthPotionAmount => _healthPotionAmount;
         public int HealthPotionStrength => _healthPotionStrength;
         public int HealthThreshold => _healthThreshold;
+        public float AttackRange => _attackRange;
         public float AttackTimer => _attackTimer;
         public float MoveTimer => _moveTimer;
         public float SearchRange => _searchRange;

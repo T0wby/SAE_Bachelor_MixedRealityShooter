@@ -13,6 +13,8 @@ namespace Weapons
         [SerializeField] private float _projectileSpeed;
         [SerializeField] private float _bulletsPerSecond;
         [SerializeField] private int _value;
+        [SerializeField] private float _spinningSpeed;
+        [SerializeField] private float _spinningAngle;
 
         public string WeaponName => _weaponName;
         public GameObject WeaponPrefab => _weaponPrefab;
@@ -21,5 +23,7 @@ namespace Weapons
         public float ProjectileSpeed => _projectileSpeed;
         public float BulletsPerSecond => _bulletsPerSecond;
         public int Value => _value;
+        public float SpinningSpeed => _spinningSpeed;
+        public float SpinningAngle => _spinningAngle;
     }
 }
