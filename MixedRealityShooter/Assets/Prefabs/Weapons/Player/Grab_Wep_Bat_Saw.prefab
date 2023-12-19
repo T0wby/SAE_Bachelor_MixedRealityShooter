@@ -151,8 +151,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75494e7b7ca78774da6ea392b64902be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultSettings: {fileID: 0}
-  _grabInteractable: {fileID: 0}
+  _defaultSettings: {fileID: 11400000, guid: a7cb5e70f29ea8044b18013bcd8b3624, type: 2}
+  _grabInteractable: {fileID: 3675342293533264780}
+  _rotationTransform: {fileID: 3033344707592080207}
 --- !u!114 &8597244455789271667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,14 +333,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2275347824699557931}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.3483405, y: -0, z: -0, w: 0.9373681}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4239141226350128}
   m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -40.772, y: 0, z: 0}
 --- !u!114 &3675342293533264780
 MonoBehaviour:
   m_ObjectHideFlags: 0

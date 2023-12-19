@@ -43,11 +43,12 @@ namespace Enemies.WalkingRangeEnemy
                     new LFAttack(_enemyWr),
                 }),
                 // Stop Movement
-                // new Sequence(new List<Node>
-                // {
-                //     new LFCheckAgentDistance(_agent, _enemyWr, 1.0f),
-                //     new LFStopMovement(_agent)
-                // }),
+                 new Sequence(new List<Node>
+                 {
+                     new LFCheckAgentDistance(_agent, _enemyWr, 1.0f),
+                     new LFCheckForPlayer(_enemyWr),
+                     new LFStopMovement(_agent)
+                 }),
                 // Walk to player
                 new LFSetEnemyDestination(_enemyWr, _agent)
             });

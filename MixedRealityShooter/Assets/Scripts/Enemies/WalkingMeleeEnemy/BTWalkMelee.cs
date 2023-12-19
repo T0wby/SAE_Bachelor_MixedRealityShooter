@@ -42,6 +42,11 @@ namespace Enemies.WalkingMeleeEnemy
                     new LFStopMovement(_agent),
                     new LFAttack(_enemyBat),
                 }),
+                new Sequence(new List<Node>
+                {
+                    new LFCheckAgentDistance(_agent, _enemyBat, 0.4f),
+                    new LFStopMovement(_agent)
+                }),
                 // Walk to player
                 new LFSetEnemyDestination(_enemyBat, _agent)
             });

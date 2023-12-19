@@ -15,13 +15,8 @@ namespace Enemies.WalkingRangeEnemy
         
         public override ENodeState CalculateState()
         {
-            return StopMovingToDestination() ? ENodeState.SUCCESS : ENodeState.FAILURE;
-        }
-
-        private bool StopMovingToDestination()
-        {
-            _agent.isStopped = true;
-            return _agent.isStopped;
+            _agent.destination = _agent.transform.position;
+            return ENodeState.SUCCESS;
         }
     }
 }

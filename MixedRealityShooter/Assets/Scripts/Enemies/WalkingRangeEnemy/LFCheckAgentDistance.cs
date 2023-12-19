@@ -8,13 +8,13 @@ namespace Enemies.WalkingRangeEnemy
     public class LFCheckAgentDistance : Node
     {
         private readonly NavMeshAgent _agent;
-        private readonly Vector3 _playerPos;
+        private readonly AEnemy _enemy;
         private readonly float _distanceToStop;
         
         public LFCheckAgentDistance(NavMeshAgent agent, AEnemy enemyWr, float distanceToStop)
         {
             _agent = agent;
-            _playerPos = enemyWr.PlayerTransform.position;
+            _enemy = enemyWr;
             _distanceToStop = distanceToStop;
         }
         
@@ -25,7 +25,7 @@ namespace Enemies.WalkingRangeEnemy
 
         private bool CheckIfMinValueReached()
         {
-            return (_agent.transform.position - _playerPos).magnitude < _distanceToStop;
+            return (_agent.transform.position - _enemy.PlayerTransform.position).magnitude < _distanceToStop;
         }
     }
 }

@@ -8,6 +8,8 @@ namespace Utility
     {
         public Guid UniqueId;
         public bool IsWall;
-        public Vector3 Scaling;
+        public float ScalingX;
+        public float ScalingY;
+        public float ScalingZ;
     }
 }
