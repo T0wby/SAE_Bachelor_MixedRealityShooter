@@ -54,8 +54,11 @@ namespace Enemies.WalkingRangeEnemy
         {
             var walls = FindObjectsByType<PlacedWall>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
             if (walls.Length <= 0) return;
+            
+            var wall = walls[Random.Range(0, walls.Length)]; 
 
-            transform.position = walls[Random.Range(0, walls.Length)].Spawn.position;
+            transform.position = wall.Spawn.position;
+            wall.gameObject.SetActive(true);
         }
         
         private void SetDefaultStats()

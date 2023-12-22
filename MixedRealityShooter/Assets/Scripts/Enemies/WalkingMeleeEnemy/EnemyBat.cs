@@ -59,7 +59,10 @@ namespace Enemies.WalkingMeleeEnemy
             var walls = FindObjectsByType<PlacedWall>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
             if (walls.Length <= 0) return;
 
-            transform.position = walls[Random.Range(0, walls.Length)].Spawn.position;
+            var wall = walls[Random.Range(0, walls.Length)]; 
+            
+            transform.position = wall.Spawn.position;
+            wall.gameObject.SetActive(true);
         }
         
         private void SetDefaultStats()

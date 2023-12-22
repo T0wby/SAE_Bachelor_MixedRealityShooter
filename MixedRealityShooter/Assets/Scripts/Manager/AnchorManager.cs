@@ -19,7 +19,7 @@ namespace Manager
         private List<OVRSpatialAnchor> _allSavedAnchors;
         private List<OVRSpatialAnchor> _allRunningAnchors;
         
-        //private int _anchorSavedUUIDListSize;
+        private int _anchorSavedUUIDListSize;
         private const int _anchorSavedUUIDListMaxSize = 50;
         private Guid[] _anchorSavedUUIDList;
         private string _filePathSavedObjs;
@@ -38,37 +38,106 @@ namespace Manager
             _allRunningAnchors = new List<OVRSpatialAnchor>();
             _placedObjects = new List<SPLacedObject>();
             _anchorSavedUUIDList = new Guid[_anchorSavedUUIDListMaxSize];
-            //_anchorSavedUUIDListSize = 0;
+            _anchorSavedUUIDListSize = 0;
             _filePathSavedObjs = $"{Application.dataPath}/mrobjs.json";
             _onLoadAnchor = OnLocalized;
         }
+
+        #region JSONList
 
         /// <summary>
         /// Checks if a file for the Anchors does exist and
         /// adds the UUIDS to an Array that is used to find Anchors on the HMD
         /// </summary>
         /// <returns>If a file was found or not</returns>
-        // public bool CheckForAnchors()
-        // {
-        //     if (!File.Exists(_filePathSavedObjs))return false;
-        //
-        //     string json = string.Empty;
-        //     
-        //     using (StreamReader reader = File.OpenText(_filePathSavedObjs))
-        //     {
-        //         json = reader.ReadToEnd();
-        //     }
-        //     
-        //     _loadedPlacedObjects = JsonConvert.DeserializeObject<List<SPLacedObject>>(json);
-        //
-        //     for (int i = 0; i < _loadedPlacedObjects.Count; i++)
-        //     {
-        //         _anchorSavedUUIDList[i] = _loadedPlacedObjects[i].UniqueId;
-        //         _anchorSavedUUIDListSize = i;
-        //     }
-        //
-        //     return true;
-        // }
+        public bool CheckForAnchors()
+        {
+            if (!File.Exists(_filePathSavedObjs))return false;
+            string json = string.Empty;
+            
+            using (StreamReader reader = File.OpenText(_filePathSavedObjs))
+            {
+                json = reader.ReadToEnd();
+            }
+            
+            _loadedPlacedObjects = JsonConvert.DeserializeObject<List<SPLacedObject>>(json);
+            for (int i = 0; i < _loadedPlacedObjects.Count; i++)
+            {
+                _anchorSavedUUIDList[i] = _loadedPlacedObjects[i].UniqueId;
+                _anchorSavedUUIDListSize = i;
+            }
+            return true;
+        }
+        
+        private void SaveAnchorUuidToExternalStore(OVRSpatialAnchor spAnchor)
+        {
+            var go = spAnchor.gameObject;
+            var tmp = new SPLacedObject
+            {
+                UniqueId = spAnchor.Uuid
+            };
+            if (go.CompareTag("Wall"))
+            {
+                tmp.IsWall = true;
+                tmp.ScalingX = go.transform.localScale.x;
+                tmp.ScalingY = go.transform.localScale.y;
+                tmp.ScalingZ = go.transform.localScale.z;
+            }
+            else
+            {
+                tmp.IsWall = false;
+                tmp.ScalingX = go.transform.GetChild(0).localScale.x;
+                tmp.ScalingY = go.transform.GetChild(0).localScale.y;
+                tmp.ScalingZ = go.transform.GetChild(0).localScale.z;
+            }
+            _placedObjects.Add(tmp);
+            
+            string json = JsonConvert.SerializeObject(_placedObjects);
+            
+            using (StreamWriter writer = File.CreateText(_filePathSavedObjs))
+            {
+                writer.Write(json);
+            }
+        }
+
+        public void LoadAllAnchors()
+        {
+            OVRSpatialAnchor.LoadOptions options = new OVRSpatialAnchor.LoadOptions
+            {
+                Timeout = 0,
+                StorageLocation = OVRSpace.StorageLocation.Local,
+                Uuids = GetLocallySavedAnchorsUuids()
+            };
+            
+            OVRSpatialAnchor.LoadUnboundAnchors(options, _anchorSavedUUIDList =>
+            {
+                if (_anchorSavedUUIDList == null) return;
+        
+                for (int i = 0; i < _anchorSavedUUIDList.Length; i++)
+                {
+                    if (_anchorSavedUUIDList[i].Localized)
+                    {
+                        _onLoadAnchor(_anchorSavedUUIDList[i], true);
+                    }
+                    else if (!_anchorSavedUUIDList[i].Localizing)
+                    {
+                        _anchorSavedUUIDList[i].Localize(_onLoadAnchor);
+                    }
+                }
+            });
+        }
+        
+        private Guid[] GetLocallySavedAnchorsUuids()
+        {
+            if (CheckForAnchors())
+            {
+                return _anchorSavedUUIDList;
+            }
+        
+            return GetRuntimeSavedAnchorsUuids();
+        }
+
+        #endregion
 
         public bool CheckForAnchorsPrefs()
         {
@@ -100,6 +169,7 @@ namespace Manager
         private void CreateAnchor(GameObject usedObj)
         {
             _workingAnchor = usedObj.AddComponent<OVRSpatialAnchor>();
+            Debug.LogWarning("Create Anchor: " + _workingAnchor.gameObject.name);
             StartCoroutine(AnchorCreated(_workingAnchor));
         }
 
@@ -114,16 +184,10 @@ namespace Manager
             Debug.LogWarning("anchor.Save");
             anchor.Save((anch, success) =>
             {
-                if (success)
-                {
-                    _allSavedAnchors.Add(anch);
-                    SaveUuidToPlayerPrefs(anch.Uuid, anch.gameObject);
-                    //SaveAnchorUuidToExternalStore(anchor);
-                }
-                else
-                {
-                    Debug.LogWarning("Save Failed: " + anch.gameObject.name);
-                }
+                if (!success) return;
+                _allSavedAnchors.Add(anch);
+                //SaveUuidToPlayerPrefs(anch.Uuid, anch.gameObject);
+                SaveAnchorUuidToExternalStore(anchor);
             });
         }
         
@@ -155,57 +219,6 @@ namespace Manager
             PlayerPrefs.SetInt(NumUuidsPlayerPref, ++playerNumUuids);
             Debug.LogWarning(saveObj.name + playerNumUuids);
         }
-        
-        // private void SaveAnchorUuidToExternalStore(OVRSpatialAnchor spAnchor)
-        // {
-        //     var go = spAnchor.gameObject;
-        //     var tmp = new SPLacedObject
-        //     {
-        //         UniqueId = spAnchor.Uuid
-        //     };
-        //     if (go.CompareTag("Wall"))
-        //     {
-        //         tmp.IsWall = true;
-        //         tmp.ScalingX = go.transform.localScale.x;
-        //         tmp.ScalingY = go.transform.localScale.y;
-        //         tmp.ScalingZ = go.transform.localScale.z;
-        //     }
-        //     else
-        //     {
-        //         tmp.IsWall = false;
-        //         tmp.ScalingX = go.transform.GetChild(0).localScale.x;
-        //         tmp.ScalingY = go.transform.GetChild(0).localScale.y;
-        //         tmp.ScalingZ = go.transform.GetChild(0).localScale.z;
-        //     }
-        //     _placedObjects.Add(tmp);
-        // }
-
-        // public void LoadAllAnchors()
-        // {
-        //      OVRSpatialAnchor.LoadOptions options = new OVRSpatialAnchor.LoadOptions
-        //      {
-        //          Timeout = 0,
-        //          StorageLocation = OVRSpace.StorageLocation.Local,
-        //          Uuids = GetLocallySavedAnchorsUuids()
-        //      };
-        //     
-        //      OVRSpatialAnchor.LoadUnboundAnchors(options, _anchorSavedUUIDList =>
-        //      {
-        //          if (_anchorSavedUUIDList == null) return;
-        //
-        //          for (int i = 0; i < _anchorSavedUUIDList.Length; i++)
-        //          {
-        //              if (_anchorSavedUUIDList[i].Localized)
-        //              {
-        //                  _onLoadAnchor(_anchorSavedUUIDList[i], true);
-        //              }
-        //              else if (!_anchorSavedUUIDList[i].Localizing)
-        //              {
-        //                  _anchorSavedUUIDList[i].Localize(_onLoadAnchor);
-        //              }
-        //          }
-        //      });
-        // }
         
         public void LoadAnchorsByUuid()
         {
@@ -276,16 +289,6 @@ namespace Manager
             return uuids;
         }
 
-        // private Guid[] GetLocallySavedAnchorsUuids()
-        // {
-        //     if (CheckForAnchors())
-        //     {
-        //         return _anchorSavedUUIDList;
-        //     }
-        //
-        //     return GetRuntimeSavedAnchorsUuids();
-        // }
-        
         private void OnLocalized(OVRSpatialAnchor.UnboundAnchor unboundAnchor, bool success)
         {
             var pose = unboundAnchor.Pose;

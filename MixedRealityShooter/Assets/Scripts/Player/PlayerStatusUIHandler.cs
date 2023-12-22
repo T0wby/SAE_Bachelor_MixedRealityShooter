@@ -11,6 +11,8 @@ namespace Player
         [SerializeField] private PlayerStatus _player;
         [SerializeField] private Renderer _rendererRight;
         [SerializeField] private Renderer _rendererLeft;
+        [SerializeField] private TMP_Text _healthPercentLeft;
+        [SerializeField] private TMP_Text _healthPercentRight;
         private Material _matRight;
         private Material _matLeft;
         [Header("PlayerMoney")]
@@ -38,15 +40,17 @@ namespace Player
 
         private void UpdateHealthBar(int newHealthValue)
         {
-            //_slider.value = newHealthValue / (float)_player.MaxHealth;
-            _matRight.SetFloat("_Cutoff", 1f - (newHealthValue / (float)_player.MaxHealth));
-            _matLeft.SetFloat("_Cutoff", 1f - (newHealthValue / (float)_player.MaxHealth));
+            var percent = newHealthValue / (float)_player.MaxHealth;
+            _matRight.SetFloat("_Cutoff", 1f - percent);
+            _matLeft.SetFloat("_Cutoff", 1f - percent);
+            _healthPercentLeft.text = $"{(int)percent * 100}%";
+            _healthPercentRight.text = $"{(int)percent * 100}%";
         }
 
         private void UpdateMoneyText(int newMoneyValue)
         {
-            _moneyValueTextLeft.text = newMoneyValue.ToString();
-            _moneyValueTextRight.text = newMoneyValue.ToString();
+            _moneyValueTextLeft.text = $"{newMoneyValue}$";
+            _moneyValueTextRight.text = $"{newMoneyValue}$";
         }
     }
 }
