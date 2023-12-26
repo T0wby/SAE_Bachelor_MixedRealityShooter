@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.VFX;
 using Utility;
 using Random = UnityEngine.Random;
 
@@ -14,7 +15,7 @@ namespace Items.Barrel
         [Header("ExplosionSettings")]
         [SerializeField] private GameObject _originalObj;
         [SerializeField] private GameObject _fracturedObj;
-        [SerializeField] private GameObject _explosionVFX;
+        [SerializeField] private VisualEffect _explosionVFX;
         [SerializeField] private int _explosionDamage = 30;
         [SerializeField] private float _explosionMinForce = 5;
         [SerializeField] private float _explosionMaxForce = 100;
@@ -26,6 +27,7 @@ namespace Items.Barrel
         {
             //Trigger VFX and List of Damageable Items
             AddExplosionForce();
+            _explosionVFX.Play();
             foreach (var target in _collector.TargetsInRange)
             {
                 target.TakeDamage(_explosionDamage);
