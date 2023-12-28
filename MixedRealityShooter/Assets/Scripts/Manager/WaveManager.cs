@@ -18,6 +18,7 @@ namespace Manager
         [SerializeField] private List<WaveSettings> _settings;
         private int _currWaveNumb = 0;
         private int _enemiesLeftToSpawn = 0;
+        private int _enemiesDefeatedCount = 0;
         private List<AEnemy> _enemiesAlive = new List<AEnemy>();
         private EnemyPool[] _enemyPools;
         private EnemyFactory _enemyFactory;
@@ -31,14 +32,24 @@ namespace Manager
             get => _currWaveNumb;
             set
             {
-                if (_currWaveNumb != value)
-                {
-                    _currWaveNumb = value;
-                    onWaveChange.Invoke(_currWaveNumb);
-                }
+                if (_currWaveNumb == value) return;
+                _currWaveNumb = value;
+                onWaveChange.Invoke(_currWaveNumb);
             }
         }
         public List<AEnemy> EnemiesAlive => _enemiesAlive;
+
+        public int CurrRoundEnemySpawnCount => _settings[_currWaveNumb - 1].EnemyAmount;
+        public int EnemiesDefeatedCount
+        {
+            get => _enemiesDefeatedCount;
+            set
+            {
+                if (_enemiesDefeatedCount == value) return;
+                _enemiesDefeatedCount = value;
+                onEnemyRemoved.Invoke(_enemiesDefeatedCount);
+            }
+        }
 
         #endregion
 
@@ -46,6 +57,7 @@ namespace Manager
 
         public UnityEvent<int> onWaveChange;
         public UnityEvent<int, int> onEnemyCountChange;
+        public UnityEvent<int> onEnemyRemoved;
 
         #endregion
 
@@ -94,6 +106,7 @@ namespace Manager
         {
             if (currWave > _settings.Count) return;
             _enemiesLeftToSpawn = _settings[currWave - 1].EnemyAmount;
+            _enemiesDefeatedCount = 0;
             StartCoroutine(SpawnWaveTimer(currWave));
         }
 
@@ -127,6 +140,7 @@ namespace Manager
         {
             _enemiesAlive.Remove(enemyToRemove);
             onEnemyCountChange.Invoke(_enemiesAlive.Count, _enemiesLeftToSpawn);
+            EnemiesDefeatedCount++;
         }
 
         private void PlayerDeath(EGameStates state)
