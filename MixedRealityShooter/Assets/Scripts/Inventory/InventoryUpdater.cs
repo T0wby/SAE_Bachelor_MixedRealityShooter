@@ -25,6 +25,7 @@ namespace Inventory
         [SerializeField] private TMP_Text _bpsCurrentRange;
         [SerializeField] private TMP_Text _bpsCostRange;
         [SerializeField] private TMP_Text _dmgLevelMelee;
+        [SerializeField] private TMP_Text _dmgCurrentMelee;
         [SerializeField] private TMP_Text _dmgCostMelee;
         
         private PlayerInventory _playerInventory;
@@ -174,9 +175,10 @@ namespace Inventory
                 _bpsLevelRange.text = _playerInventory.ActiveRangeWeapon.FireRateLevel.ToString();
                 _bpsCurrentRange.text = _playerInventory.ActiveRangeWeapon.CurrBulletsPerSec.ToString(CultureInfo.CurrentCulture);
             }
-                
-            if (_playerInventory.ActiveMeleeWeapon != null)
-                _dmgLevelMelee.text = _playerInventory.ActiveMeleeWeapon.DamageLevel.ToString();
+
+            if (_playerInventory.ActiveMeleeWeapon == null) return;
+            _dmgLevelMelee.text = _playerInventory.ActiveMeleeWeapon.DamageLevel.ToString();
+            _dmgCurrentMelee.text = _playerInventory.ActiveMeleeWeapon.CurrDamage.ToString();
         }
 
         private void SetFieldsAccordingToInventory()
