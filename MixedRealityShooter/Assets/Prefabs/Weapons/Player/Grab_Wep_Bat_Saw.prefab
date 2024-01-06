@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3976260686563083160}
   - component: {fileID: 8597244455789271667}
   - component: {fileID: 2021366601959311823}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Grab_Wep_Bat_Saw
   m_TagString: Untagged
   m_Icon: {fileID: 0}

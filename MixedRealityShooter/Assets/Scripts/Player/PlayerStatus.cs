@@ -50,6 +50,7 @@ namespace Player
             _thisCollider.height = _centerEyeAnchor.position.y;
             _colliderGO.transform.position = new Vector3(_centerEyeAnchor.position.x, _thisCollider.height * 0.5f,
                 _centerEyeAnchor.position.z);
+            _colliderGO.transform.rotation = Quaternion.Euler(0.0f, _centerEyeAnchor.rotation.y, 0.0f);
         }
 
         private void CheckForDeath(int newHealthValue)

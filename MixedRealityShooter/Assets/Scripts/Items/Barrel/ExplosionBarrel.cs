@@ -14,6 +14,7 @@ namespace Items.Barrel
         
         [Header("ExplosionSettings")]
         [SerializeField] private GameObject _originalObj;
+        [SerializeField] private CapsuleCollider _originalCollider;
         [SerializeField] private GameObject _fracturedObj;
         [SerializeField] private VisualEffect _explosionVFX;
         [SerializeField] private int _explosionDamage = 30;
@@ -36,6 +37,7 @@ namespace Items.Barrel
 
         public void AddExplosionForce()
         {
+            _originalCollider.enabled = false;
             _originalObj.SetActive(false);
             _fracturedObj.SetActive(true);
             foreach (Transform tform in _fracturedObj.transform)

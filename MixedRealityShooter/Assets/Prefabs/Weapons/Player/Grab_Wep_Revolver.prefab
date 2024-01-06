@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 1379265068437884159}
   - component: {fileID: 3926295893562142858}
   - component: {fileID: 4257194884760846907}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Grab_Wep_Revolver
   m_TagString: Untagged
   m_Icon: {fileID: 0}

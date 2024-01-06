@@ -45,11 +45,7 @@ namespace Projectile
 
         private void OnTriggerEnter(Collider other)
         {
-            if (_ignorePlayer && other.CompareTag("Player"))
-            {
-                _pool.ReturnItem(this);
-                return;
-            }
+            if (_ignorePlayer && other.CompareTag("Player"))return;
             _objToDamage = other.GetComponent<IDamage>();
             if (_objToDamage != null)
             {

@@ -39,7 +39,7 @@ namespace Manager
         }
         public List<AEnemy> EnemiesAlive => _enemiesAlive;
 
-        public int CurrRoundEnemySpawnCount => _settings[_currWaveNumb - 1].EnemyAmount;
+        public int CurrRoundEnemySpawnCount => _currWaveNumb <= 0 ? _settings[_currWaveNumb].EnemyAmount : _settings[_currWaveNumb - 1].EnemyAmount;
         public int EnemiesDefeatedCount
         {
             get => _enemiesDefeatedCount;

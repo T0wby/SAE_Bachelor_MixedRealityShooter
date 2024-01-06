@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 4377406848035684}
   - component: {fileID: 5933133865058121137}
   - component: {fileID: 3363111729079517930}
+  - component: {fileID: 7824429694335078584}
+  - component: {fileID: 8368127460239864778}
   m_Layer: 0
   m_Name: SM_Item_Barrel_Explosion
   m_TagString: InvenObj
@@ -50,8 +52,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _collector: {fileID: 1050666900315155529}
   _originalObj: {fileID: 2299442175272361562}
+  _originalCollider: {fileID: 7824429694335078584}
   _fracturedObj: {fileID: 5995925181639938010}
-  _explosionVFX: {fileID: 0}
+  _explosionVFX: {fileID: 7391986354463050010}
   _explosionDamage: 30
   _explosionMinForce: 5
   _explosionMaxForce: 100
@@ -75,6 +78,45 @@ MonoBehaviour:
   _ownRenderer: {fileID: 5572730133259305281}
   _settings: {fileID: 11400000, guid: 1d97e1533c01f754492702eed4c90259, type: 2}
   _type: 2
+--- !u!136 &7824429694335078584
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1177563166683432}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.36306822
+  m_Height: 1.0454396
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.5227198, z: 0}
+--- !u!208 &8368127460239864778
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1177563166683432}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.363, y: 0.523, z: 0.35300002}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.523, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &1385741249809592026
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,8 +248,6 @@ GameObject:
   - component: {fileID: 6065221772315188389}
   - component: {fileID: 7655209504486862153}
   - component: {fileID: 5572730133259305281}
-  - component: {fileID: 2081043747543781635}
-  - component: {fileID: 6979758899021594390}
   m_Layer: 0
   m_Name: OriginalObject
   m_TagString: InvenObj
@@ -281,45 +321,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &2081043747543781635
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2299442175272361562}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.36306822
-  m_Height: 1.0454396
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.5227198, z: 0}
---- !u!208 &6979758899021594390
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2299442175272361562}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.363, y: 0.523, z: 0.35300002}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0.523, z: 0}
-  m_TimeToStationary: 0.5
 --- !u!1 &5192301427998503301
 GameObject:
   m_ObjectHideFlags: 0
