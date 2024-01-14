@@ -7483,7 +7483,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 644307450}
         m_TargetAssemblyTypeName: Manager.AnchorManager, Assembly-CSharp
-        m_MethodName: LoadAnchorsByUuid
+        m_MethodName: LoadAllAnchors
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9408,7 +9408,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1971499600}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe684c840172c23499f99b8cbac97504, type: 3}
   m_Name: 
@@ -9636,6 +9636,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 644307450}
+        m_TargetAssemblyTypeName: Manager.AnchorManager, Assembly-CSharp
+        m_MethodName: EraseAllAnchors
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 371969675}
         m_TargetAssemblyTypeName: Building.ScenePreparer, Assembly-CSharp
         m_MethodName: ChangeToMrWallPrep

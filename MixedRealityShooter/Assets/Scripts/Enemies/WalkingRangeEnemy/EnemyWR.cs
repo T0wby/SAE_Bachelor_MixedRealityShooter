@@ -34,7 +34,7 @@ namespace Enemies.WalkingRangeEnemy
         private void OnEnable()
         {
             _playerInventory = FindObjectOfType<PlayerInventory>();
-            GetSpawnPoint();
+            //GetSpawnPoint();
         }
 
         private void Update()
@@ -58,6 +58,7 @@ namespace Enemies.WalkingRangeEnemy
             var wall = walls[Random.Range(0, walls.Length)]; 
 
             transform.position = wall.Spawn.position;
+            Debug.LogError($"{wall.gameObject.name}", wall);
             wall.gameObject.SetActive(true);
         }
         
@@ -112,6 +113,7 @@ namespace Enemies.WalkingRangeEnemy
             if (_player == null)
                 _player = FindObjectOfType<PlayerDamageHandler>();
             gameObject.SetActive(true);
+            GetSpawnPoint();
         }
 
         public override void Deactivate()

@@ -34,7 +34,7 @@ namespace Enemies.WalkingMeleeEnemy
         private void OnEnable()
         {
             _playerInventory = FindObjectOfType<PlayerInventory>();
-            GetSpawnPoint();
+            //GetSpawnPoint();
         }
 
         private void Update()
@@ -116,6 +116,7 @@ namespace Enemies.WalkingMeleeEnemy
             if (_player == null)
                 _player = FindObjectOfType<PlayerDamageHandler>();
             gameObject.SetActive(true);
+            GetSpawnPoint();
         }
 
         public override void Deactivate()

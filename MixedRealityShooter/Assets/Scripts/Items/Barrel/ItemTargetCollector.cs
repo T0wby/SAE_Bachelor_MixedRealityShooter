@@ -22,7 +22,7 @@ namespace Items.Barrel
         private void OnTriggerEnter(Collider other)
         {
             var target = other.GetComponent<IDamage>();
-            if (target == null) return;
+            if (target == null || other.CompareTag("Projectile")) return;
             _targetsInRange.Add(target);
         }
 

@@ -92,6 +92,8 @@ namespace Manager
             }
             _placedObjects.Add(tmp);
             
+            Debug.LogWarning("Create Anchor: " + spAnchor.gameObject.name);
+            
             string json = JsonConvert.SerializeObject(_placedObjects);
             
             using (StreamWriter writer = File.CreateText(_filePathSavedObjs))
@@ -109,19 +111,19 @@ namespace Manager
                 Uuids = GetLocallySavedAnchorsUuids()
             };
             
-            OVRSpatialAnchor.LoadUnboundAnchors(options, _anchorSavedUUIDList =>
+            OVRSpatialAnchor.LoadUnboundAnchors(options, unboundAnchors =>
             {
-                if (_anchorSavedUUIDList == null) return;
+                if (unboundAnchors == null) return;
         
-                for (int i = 0; i < _anchorSavedUUIDList.Length; i++)
+                for (int i = 0; i < unboundAnchors.Length; i++)
                 {
-                    if (_anchorSavedUUIDList[i].Localized)
+                    if (unboundAnchors[i].Localized)
                     {
-                        _onLoadAnchor(_anchorSavedUUIDList[i], true);
+                        _onLoadAnchor(unboundAnchors[i], true);
                     }
-                    else if (!_anchorSavedUUIDList[i].Localizing)
+                    else if (!unboundAnchors[i].Localizing)
                     {
-                        _anchorSavedUUIDList[i].Localize(_onLoadAnchor);
+                        unboundAnchors[i].Localize(_onLoadAnchor);
                     }
                 }
             });
@@ -169,7 +171,6 @@ namespace Manager
         private void CreateAnchor(GameObject usedObj)
         {
             _workingAnchor = usedObj.AddComponent<OVRSpatialAnchor>();
-            Debug.LogWarning("Create Anchor: " + _workingAnchor.gameObject.name);
             StartCoroutine(AnchorCreated(_workingAnchor));
         }
 
@@ -181,7 +182,6 @@ namespace Manager
             }
             
             _allRunningAnchors.Add(anchor);
-            Debug.LogWarning("anchor.Save");
             anchor.Save((anch, success) =>
             {
                 if (!success) return;
@@ -289,28 +289,62 @@ namespace Manager
             return uuids;
         }
 
+        // private void OnLocalized(OVRSpatialAnchor.UnboundAnchor unboundAnchor, bool success)
+        // {
+        //     var pose = unboundAnchor.Pose;
+        //     //SPLacedObject tmp = new SPLacedObject();
+        //     int isWall = 0;
+        //     float scaleX = 0.0f;
+        //     float scaleY = 0.0f;
+        //     float scaleZ = 0.0f;
+        //
+        //     foreach (var ID in _anchorSavedUUIDList)
+        //     {
+        //         if (unboundAnchor.Uuid == ID)
+        //         {
+        //             isWall = PlayerPrefs.GetInt("isWall" + ID);
+        //             scaleX = PlayerPrefs.GetFloat("ScalingX" + ID);
+        //             scaleY = PlayerPrefs.GetFloat("ScalingY" + ID);
+        //             scaleZ = PlayerPrefs.GetFloat("ScalingZ" + ID);
+        //             break;
+        //         }
+        //     }
+        //
+        //     var go = Instantiate(isWall > 0 ? _wallPrefab : _innerPrefab, pose.position, pose.rotation);
+        //
+        //     go.transform.localScale = new Vector3(scaleX,scaleY,scaleZ);
+        //     
+        //     go.layer = LayerMask.NameToLayer("Environment");
+        //     go.transform.GetChild(0).transform.gameObject.layer =
+        //         LayerMask.NameToLayer("Environment");
+        //     
+        //     _workingAnchor = go.AddComponent<OVRSpatialAnchor>();
+        //     unboundAnchor.BindTo(_workingAnchor);
+        //     _allRunningAnchors.Add(_workingAnchor);
+        //     GameManager.Instance.MrPlacedObjects.Add(go);
+        // }
+        
         private void OnLocalized(OVRSpatialAnchor.UnboundAnchor unboundAnchor, bool success)
         {
             var pose = unboundAnchor.Pose;
-            //SPLacedObject tmp = new SPLacedObject();
-            int isWall = 0;
+            bool isWall = false;
             float scaleX = 0.0f;
             float scaleY = 0.0f;
             float scaleZ = 0.0f;
 
-            foreach (var ID in _anchorSavedUUIDList)
+            foreach (var loadedObj in _loadedPlacedObjects)
             {
-                if (unboundAnchor.Uuid == ID)
+                if (unboundAnchor.Uuid == loadedObj.UniqueId)
                 {
-                    isWall = PlayerPrefs.GetInt("isWall" + ID);
-                    scaleX = PlayerPrefs.GetFloat("ScalingX" + ID);
-                    scaleY = PlayerPrefs.GetFloat("ScalingY" + ID);
-                    scaleZ = PlayerPrefs.GetFloat("ScalingZ" + ID);
+                    isWall = loadedObj.IsWall;
+                    scaleX = loadedObj.ScalingX;
+                    scaleY = loadedObj.ScalingY;
+                    scaleZ = loadedObj.ScalingZ;
                     break;
                 }
             }
 
-            var go = Instantiate(isWall > 0 ? _wallPrefab : _innerPrefab, pose.position, pose.rotation);
+            var go = Instantiate(isWall ? _wallPrefab : _innerPrefab, pose.position, pose.rotation);
 
             go.transform.localScale = new Vector3(scaleX,scaleY,scaleZ);
             
@@ -330,7 +364,6 @@ namespace Manager
             {
                 if (tmpAnchor)
                 {
-                    //use a Unity coroutine to manage the async save
                     StartCoroutine(AnchorErased(tmpAnchor));
                 }
             }

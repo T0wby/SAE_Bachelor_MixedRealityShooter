@@ -55,7 +55,7 @@ namespace Player
         {
             var percent = newHealthValue / (float)_player.MaxHealth;
             _matRight.SetFloat("_Cutoff", 1f - percent);
-            _healthPercentRight.text = $"{(int)percent * 100}%";
+            _healthPercentRight.text = $"{(int)(percent * 100)}%";
         }
 
         private void UpdateMoneyText(int newMoneyValue)

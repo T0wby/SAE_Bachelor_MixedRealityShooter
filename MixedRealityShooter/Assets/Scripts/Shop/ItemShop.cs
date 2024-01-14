@@ -56,10 +56,10 @@ namespace Shop
                 switch (settings.ItemType)
                 {
                     case EPlaceableItemType.Wall:
-                        _barrelCost.text = $"{settings.ItemCost}$";
+                        _wallCost.text = $"{settings.ItemCost}$";
                         break;
                     case EPlaceableItemType.Barrell:
-                        _wallCost.text = $"{settings.ItemCost}$";
+                        _barrelCost.text = $"{settings.ItemCost}$";
                         break;
                     default:
                         break;
