@@ -3,12 +3,13 @@ using Enemies.BehaviorTree;
 using Enemies.TeleportRangeEnemy;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 
 namespace Enemies.WalkingRangeEnemy
 {
     public class BTWalkRange : MyTree
     {
-        [SerializeField] private EnemyWR _enemyWr;
+        [FormerlySerializedAs("_enemyWr")] [SerializeField] private EnemyWalkRange enemyWalkRange;
         [SerializeField] private EnemyTargetDetection _targetDetection;
         protected override Node SetupTree()
         {
@@ -16,41 +17,41 @@ namespace Enemies.WalkingRangeEnemy
             {
                 new Sequence(new List<Node>
                 {
-                    new LFCheckHealth(_enemyWr, _enemyWr.Settings.HealthThreshold),
+                    new LFCheckHealth(enemyWalkRange, enemyWalkRange.Settings.HealthThreshold),
                     new Selector(new List<Node>
                     {
                         // Flee to furthest point
                         new Sequence(new List<Node>
                         {
-                            new LFCheckIfFleeing(_enemyWr),
+                            new LFCheckIfFleeing(enemyWalkRange),
                             new LFFleeToFurthestPoint(_agent, _targetDetection)
                         }),
-                        new LFCheckFleeDestination(_enemyWr, _agent),
+                        new LFCheckFleeDestination(enemyWalkRange, _agent),
                         // Heal
                         new Sequence(new List<Node>
                         {
-                            new LFCheckForPotion(_enemyWr),
-                            new LFHeal(_enemyWr),
+                            new LFCheckForPotion(enemyWalkRange),
+                            new LFHeal(enemyWalkRange),
                         }),
                     })
                 }),
                 // Attack Player
                 new Sequence(new List<Node>
                 {
-                    new LFCheckForPlayer(_enemyWr),
-                    new LFCheckAttackTimer(_enemyWr),
+                    new LFCheckForPlayer(enemyWalkRange),
+                    new LFCheckAttackTimer(enemyWalkRange),
                     new LFStopMovement(_agent),
-                    new LFAttack(_enemyWr),
+                    new LFAttack(enemyWalkRange),
                 }),
                 // Stop Movement
                  new Sequence(new List<Node>
                  {
-                     new LFCheckAgentDistance(_agent, _enemyWr, 1.0f),
-                     new LFCheckForPlayer(_enemyWr),
+                     new LFCheckAgentDistance(_agent, enemyWalkRange, 1.0f),
+                     new LFCheckForPlayer(enemyWalkRange),
                      new LFStopMovement(_agent)
                  }),
                 // Walk to player
-                new LFSetEnemyDestination(_enemyWr, _agent)
+                new LFSetEnemyDestination(enemyWalkRange, _agent)
             });
         
             return root;

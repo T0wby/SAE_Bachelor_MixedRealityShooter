@@ -10,7 +10,7 @@ using Random = UnityEngine.Random;
 
 namespace Enemies.WalkingRangeEnemy
 {
-    public class EnemyWR : AEnemy
+    public class EnemyWalkRange : AEnemy
     {
         [Header("Navigation")]
         [SerializeField] private NavMeshAgent _agent;
@@ -58,8 +58,7 @@ namespace Enemies.WalkingRangeEnemy
             var wall = walls[Random.Range(0, walls.Length)]; 
 
             transform.position = wall.Spawn.position;
-            Debug.LogError($"{wall.gameObject.name}", wall);
-            wall.gameObject.SetActive(true);
+            wall.Spawn.gameObject.SetActive(true);
         }
         
         private void SetDefaultStats()

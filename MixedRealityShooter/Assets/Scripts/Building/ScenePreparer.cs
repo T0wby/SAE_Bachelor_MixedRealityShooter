@@ -162,7 +162,7 @@ namespace Building
 
         private void CheckIfAnchorsExist()
         {
-            if (AnchorManager.Instance.CheckForAnchors())
+            if (AnchorManager.Instance && AnchorManager.Instance.CheckForAnchors())
             {
                 // Open UI to ask if the user wishes to use the anchors or not
                 _anchorGameObject.SetActive(true);
