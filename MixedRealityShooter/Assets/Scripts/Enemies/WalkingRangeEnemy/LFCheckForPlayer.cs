@@ -27,12 +27,14 @@ namespace Enemies.WalkingRangeEnemy
             if (_enemy.PlayerTransform == null) return false;
 
             _pos = _enemy.transform.position;
-            _angle = Vector3.Angle(_pos, _enemy.PlayerTransform.position);
+
+            var dir = (_enemy.PlayerTransform.position - _pos).normalized;
+            _angle = Vector3.Angle(_enemy.PlayerTransform.forward, dir);
 
             if (!(_angle <= _settings.FOV)) return false;
-            Vector3 dir = _enemy.PlayerTransform.transform.position - _enemy.transform.position;
             Debug.DrawRay(_pos, dir, Color.green, 1.0f);
-            return Physics.Raycast(_pos, dir, out var hit, Mathf.Infinity, _enemy.IgnoreLayer) && hit.transform.CompareTag("Player");
+            var plhit = Physics.Raycast(_pos, dir, out var hit, _settings.AttackRange + 1.0f, _enemy.IgnoreLayer) && hit.transform.CompareTag("Player");
+            return plhit;
         }
     }
 }

@@ -47,7 +47,6 @@ namespace Enemies.WalkingRangeEnemy
                  new Sequence(new List<Node>
                  {
                      new LFCheckAgentDistance(_agent, enemyWalkRange, 1.0f),
-                     new LFCheckForPlayer(enemyWalkRange),
                      new LFStopMovement(_agent)
                  }),
                 // Walk to player
