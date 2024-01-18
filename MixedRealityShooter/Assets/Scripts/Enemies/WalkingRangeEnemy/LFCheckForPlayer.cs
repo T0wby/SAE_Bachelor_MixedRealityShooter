@@ -10,18 +10,18 @@ namespace Enemies.WalkingRangeEnemy
         private readonly EnemySettings _settings;
         private Vector3 _pos;
         private float _angle;
-        
+
         public LFCheckForPlayer(AEnemy enemy)
         {
             _enemy = enemy;
             _settings = enemy.Settings;
         }
-        
+
         public override ENodeState CalculateState()
         {
             return CheckForPlayerInSight() ? ENodeState.SUCCESS : ENodeState.FAILURE;
         }
-        
+
         private bool CheckForPlayerInSight()
         {
             if (_enemy.PlayerTransform == null) return false;
@@ -29,12 +29,21 @@ namespace Enemies.WalkingRangeEnemy
             _pos = _enemy.transform.position;
 
             var dir = (_enemy.PlayerTransform.position - _pos).normalized;
-            _angle = Vector3.Angle(_enemy.PlayerTransform.forward, dir);
+            _angle = Vector3.Angle(_enemy.transform.TransformDirection(_enemy.PlayerTransform.forward), dir);
 
             if (!(_angle <= _settings.FOV)) return false;
-            Debug.DrawRay(_pos, dir, Color.green, 1.0f);
-            var plhit = Physics.Raycast(_pos, dir, out var hit, _settings.AttackRange + 1.0f, _enemy.IgnoreLayer) && hit.transform.CompareTag("Player");
-            return plhit;
+            if (Physics.Raycast(_pos, dir, out var hit, _settings.AttackRange + 1.0f, _enemy.IgnoreLayer))
+            {
+                if (hit.transform.CompareTag("Player"))
+                {
+                    Debug.DrawRay(_pos, dir, Color.green, 1.0f);
+                    return true;
+                }
+                Debug.DrawRay(_pos, dir, Color.red, 1.0f);
+                return false;
+            }
+
+            return false;
         }
     }
 }
