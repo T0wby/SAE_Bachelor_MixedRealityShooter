@@ -80,6 +80,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ResetWeapons"",
+                    ""type"": ""Button"",
+                    ""id"": ""a084930a-87ec-4335-b198-7883e622430b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -159,6 +168,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""ResetView"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""83c5a796-5c1f-4f60-bc7d-603fb6c6b6c6"",
+                    ""path"": ""<XRController>{LeftHand}/thumbstickClicked"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ResetWeapons"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1b662c9c-ea4f-4605-afe9-8ee65a71a22b"",
+                    ""path"": ""<XRController>{RightHand}/thumbstickClicked"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ResetWeapons"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -173,6 +204,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_PlaceObj = m_Player.FindAction("PlaceObj", throwIfNotFound: true);
         m_Player_FireWeapon = m_Player.FindAction("FireWeapon", throwIfNotFound: true);
         m_Player_ResetView = m_Player.FindAction("ResetView", throwIfNotFound: true);
+        m_Player_ResetWeapons = m_Player.FindAction("ResetWeapons", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -240,6 +272,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_PlaceObj;
     private readonly InputAction m_Player_FireWeapon;
     private readonly InputAction m_Player_ResetView;
+    private readonly InputAction m_Player_ResetWeapons;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -250,6 +283,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @PlaceObj => m_Wrapper.m_Player_PlaceObj;
         public InputAction @FireWeapon => m_Wrapper.m_Player_FireWeapon;
         public InputAction @ResetView => m_Wrapper.m_Player_ResetView;
+        public InputAction @ResetWeapons => m_Wrapper.m_Player_ResetWeapons;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -277,6 +311,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @ResetView.started += instance.OnResetView;
             @ResetView.performed += instance.OnResetView;
             @ResetView.canceled += instance.OnResetView;
+            @ResetWeapons.started += instance.OnResetWeapons;
+            @ResetWeapons.performed += instance.OnResetWeapons;
+            @ResetWeapons.canceled += instance.OnResetWeapons;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -299,6 +336,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @ResetView.started -= instance.OnResetView;
             @ResetView.performed -= instance.OnResetView;
             @ResetView.canceled -= instance.OnResetView;
+            @ResetWeapons.started -= instance.OnResetWeapons;
+            @ResetWeapons.performed -= instance.OnResetWeapons;
+            @ResetWeapons.canceled -= instance.OnResetWeapons;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -324,5 +364,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnPlaceObj(InputAction.CallbackContext context);
         void OnFireWeapon(InputAction.CallbackContext context);
         void OnResetView(InputAction.CallbackContext context);
+        void OnResetWeapons(InputAction.CallbackContext context);
     }
 }

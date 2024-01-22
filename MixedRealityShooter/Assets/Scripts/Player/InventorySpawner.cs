@@ -7,6 +7,7 @@ namespace Player
 {
     public class InventorySpawner : MonoBehaviour
     {
+        [SerializeField] private PlayerController _playerController;
         [SerializeField] private Transform _rangeWeaponSpawn;
         [SerializeField] private Transform _meleeWeaponSpawn;
         private PlayerInventory _playerInventory;
@@ -15,13 +16,12 @@ namespace Player
         {
             _playerInventory = FindObjectOfType<PlayerInventory>();
             GameManager.Instance.onGameStateChange.AddListener(SpawnInventory);
+            _playerController.onThumbstickClick.AddListener(ResetWeaponsToPlayer);
         }
-
-        private void OnEnable()
+        
+        private void OnDisable()
         {
-            // _playerInventory = FindObjectOfType<PlayerInventory>();
-            // GameManager.Instance.OnGameStateChange.AddListener(SpawnInventory);
-            // SpawnInventory(GameManager.Instance.CurrState);
+            _playerController.onThumbstickClick.RemoveListener(ResetWeaponsToPlayer);
         }
 
         private void SpawnInventory(EGameStates state)
@@ -40,6 +40,20 @@ namespace Player
 
             if (_playerInventory.ActiveMeleeWeaponPrefab == null) return;
             _playerInventory.ActiveMeleeWeaponPrefab.SetActive(true);
+            _playerInventory.ActiveMeleeWeaponPrefab.transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
+            _playerInventory.ActiveMeleeWeaponPrefab.transform.position = _meleeWeaponSpawn.position;
+        }
+        
+
+        private void ResetWeaponsToPlayer()
+        {
+            if (_playerInventory.ActiveRangeWeaponPrefab != null)
+            {
+                _playerInventory.ActiveRangeWeaponPrefab.transform.rotation = _rangeWeaponSpawn.rotation;
+                _playerInventory.ActiveRangeWeaponPrefab.transform.position = _rangeWeaponSpawn.position;
+            }
+
+            if (_playerInventory.ActiveMeleeWeaponPrefab == null) return;
             _playerInventory.ActiveMeleeWeaponPrefab.transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
             _playerInventory.ActiveMeleeWeaponPrefab.transform.position = _meleeWeaponSpawn.position;
         }

@@ -15,6 +15,7 @@ namespace Player
         private InputAction _switchRotateScale;
         private InputAction _placeObj;
         private InputAction _resetView;
+        private InputAction _resetWeapons;
 
         public UnityEvent onInteraction;
         public UnityEvent onFireWeapon;
@@ -22,8 +23,8 @@ namespace Player
         public UnityEvent onSecondaryButton;
         public UnityEvent onPrimaryButton;
         public UnityEvent onThumbstickClick;
-        public UnityEvent<Vector2> OnRotation;
-        public UnityEvent<Vector2> OnScale;
+        public UnityEvent<Vector2> onRotation;
+        public UnityEvent<Vector2> onScale;
         
         private Vector2 _thumbstickValue = Vector2.zero;
 
@@ -46,6 +47,8 @@ namespace Player
             _fireWeapon.Enable();
             _resetView = _playerControls.Player.ResetView;
             _resetView.Enable();
+            _resetWeapons = _playerControls.Player.ResetWeapons;
+            _resetWeapons.Enable();
         }
 
         private void OnDisable()
@@ -56,6 +59,7 @@ namespace Player
             _placeObj.Disable();
             _fireWeapon.Disable();
             _resetView.Disable();
+            _resetWeapons.Disable();
         }
 
         public void Interact(InputAction.CallbackContext context)
@@ -90,8 +94,8 @@ namespace Player
         public void OnThumbstick(InputAction.CallbackContext context)
         {
             _thumbstickValue = context.ReadValue<Vector2>();
-            OnRotation.Invoke(_thumbstickValue);
-            OnScale.Invoke(_thumbstickValue);
+            onRotation.Invoke(_thumbstickValue);
+            onScale.Invoke(_thumbstickValue);
         }
         
         /// <summary>
