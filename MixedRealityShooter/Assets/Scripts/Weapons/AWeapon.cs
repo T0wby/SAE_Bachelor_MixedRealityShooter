@@ -156,8 +156,8 @@ namespace Weapons
             }
             else if (_damageLevel < _prevDamageLevel || _fireRateLevel < _prevFireRateLevel)
             {
-                _damageCost += (int)(_prevDamageLevel * 5.35f);
-                _bpsCost += (int)(_prevFireRateLevel * 5.2f);
+                _damageCost -= (int)(_prevDamageLevel * 5.35f);
+                _bpsCost -= (int)(_prevFireRateLevel * 5.2f);
             }
         }
 
