@@ -39,6 +39,8 @@ namespace Player
             }
 
             if (_playerInventory.ActiveMeleeWeaponPrefab == null) return;
+            var rb2 = _playerInventory.ActiveMeleeWeaponPrefab.GetComponent<Rigidbody>();
+            rb2.useGravity = false;
             _playerInventory.ActiveMeleeWeaponPrefab.SetActive(true);
             _playerInventory.ActiveMeleeWeaponPrefab.transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
             _playerInventory.ActiveMeleeWeaponPrefab.transform.position = _meleeWeaponSpawn.position;
@@ -49,11 +51,15 @@ namespace Player
         {
             if (_playerInventory.ActiveRangeWeaponPrefab != null)
             {
+                var rb = _playerInventory.ActiveRangeWeaponPrefab.GetComponent<Rigidbody>();
+                rb.useGravity = false;
                 _playerInventory.ActiveRangeWeaponPrefab.transform.rotation = _rangeWeaponSpawn.rotation;
                 _playerInventory.ActiveRangeWeaponPrefab.transform.position = _rangeWeaponSpawn.position;
             }
 
             if (_playerInventory.ActiveMeleeWeaponPrefab == null) return;
+            var rb2 = _playerInventory.ActiveMeleeWeaponPrefab.GetComponent<Rigidbody>();
+            rb2.useGravity = false;
             _playerInventory.ActiveMeleeWeaponPrefab.transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
             _playerInventory.ActiveMeleeWeaponPrefab.transform.position = _meleeWeaponSpawn.position;
         }
