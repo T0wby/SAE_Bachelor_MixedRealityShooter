@@ -19,7 +19,9 @@ namespace Weapons
         protected int _damage;
         protected float _projectileSpeed;
         protected float _bulletsPerSecond;
+        protected int _prevDamageLevel = 0;
         protected int _damageLevel = 0;
+        protected int _prevFireRateLevel = 0;
         protected int _fireRateLevel = 0;
         protected bool _isGrabbed = false;
         private Rigidbody _thisRB;
@@ -98,6 +100,7 @@ namespace Weapons
                 tmp = 1;
             
             _damage += tmp;
+            _prevDamageLevel = DamageLevel;
             DamageLevel++;
         }
         
@@ -112,6 +115,7 @@ namespace Weapons
             
             float tmp = ((_damage /perc) * 100);
             _damage = (int)tmp;
+            _prevDamageLevel = DamageLevel;
             DamageLevel--;
         }
         
@@ -124,6 +128,7 @@ namespace Weapons
             if (CheckForMaxBpsLevel()) return;
 
             _bulletsPerSecond += (_bulletsPerSecond * UPGRADE_STRENGTH);
+            _prevFireRateLevel = FireRateLevel;
             FireRateLevel++;
         }
         
@@ -138,13 +143,22 @@ namespace Weapons
             
             float tmp = ((_bulletsPerSecond / perc) * 100);
             _bulletsPerSecond = tmp;
+            _prevFireRateLevel = FireRateLevel;
             FireRateLevel--;
         }
 
         private void CalcCost()
         {
-            _damageCost += (int)(_damageLevel * 5.35f);
-            _bpsCost += (int)(_fireRateLevel * 5.2f);
+            if (_damageLevel > _prevDamageLevel || _fireRateLevel > _prevFireRateLevel)
+            {
+                _damageCost += (int)(_damageLevel * 5.35f);
+                _bpsCost += (int)(_fireRateLevel * 5.2f);
+            }
+            else if (_damageLevel < _prevDamageLevel || _fireRateLevel < _prevFireRateLevel)
+            {
+                _damageCost += (int)(_prevDamageLevel * 5.35f);
+                _bpsCost += (int)(_prevFireRateLevel * 5.2f);
+            }
         }
 
         public bool CheckForMaxDmgLevel()

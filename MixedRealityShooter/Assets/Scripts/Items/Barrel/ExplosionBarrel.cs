@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.VFX;
 using Utility;
@@ -29,7 +30,7 @@ namespace Items.Barrel
             //Trigger VFX and List of Damageable Items
             AddExplosionForce();
             _explosionVFX.Play();
-            foreach (var target in _collector.TargetsInRange)
+            foreach (var target in _collector.TargetsInRange.Where(target => target != null))
             {
                 target.TakeDamage(_explosionDamage);
             }
