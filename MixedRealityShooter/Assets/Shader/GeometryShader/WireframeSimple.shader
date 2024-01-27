@@ -91,8 +91,8 @@ Shader "Unlit/WireframeSimple"
             fixed4 frag(g2f i) : SV_Target
             {
                 UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);
-                
-                float closest = min(i.barycentric.x, min(i.barycentric.y, i.barycentric.z));
+
+                const float closest = min(i.barycentric.x, min(i.barycentric.y, i.barycentric.z));
                 float alpha = step(closest, _WireframeWidth);
                 return fixed4(_WireframeColor.rgb, alpha);
             }
