@@ -16,12 +16,14 @@ namespace Player
         private InputAction _placeObj;
         private InputAction _resetView;
         private InputAction _resetWeapons;
+        private InputAction _activateBuildUI;
 
         public UnityEvent onInteraction;
         public UnityEvent onFireWeapon;
         public UnityEvent onCancelFireWeapon;
         public UnityEvent onSecondaryButton;
         public UnityEvent onPrimaryButton;
+        public UnityEvent onPrimaryButtonLeft;
         public UnityEvent onThumbstickClick;
         public UnityEvent<Vector2> onRotation;
         public UnityEvent<Vector2> onScale;
@@ -49,6 +51,8 @@ namespace Player
             _resetView.Enable();
             _resetWeapons = _playerControls.Player.ResetWeapons;
             _resetWeapons.Enable();
+            _activateBuildUI = _playerControls.Player.ActivateBuildUI;
+            _activateBuildUI.Enable();
         }
 
         private void OnDisable()
@@ -60,6 +64,7 @@ namespace Player
             _fireWeapon.Disable();
             _resetView.Disable();
             _resetWeapons.Disable();
+            _activateBuildUI.Disable();
         }
 
         public void Interact(InputAction.CallbackContext context)
@@ -111,6 +116,14 @@ namespace Player
             if(context.performed)
             {
                 onCancelFireWeapon.Invoke();
+            }
+        }
+        
+        public void OnLeftPrimary(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                onPrimaryButtonLeft.Invoke();
             }
         }
     }

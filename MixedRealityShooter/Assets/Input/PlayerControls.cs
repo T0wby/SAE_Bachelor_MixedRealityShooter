@@ -89,6 +89,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ActivateBuildUI"",
+                    ""type"": ""Button"",
+                    ""id"": ""82886f08-02c3-4917-91dd-9ca39af486f3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -190,6 +199,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""ResetWeapons"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2aeeb9d8-0228-4d55-9be6-91a1ce4a618b"",
+                    ""path"": ""<XRController>{LeftHand}/primaryButton"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ActivateBuildUI"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -205,6 +225,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_FireWeapon = m_Player.FindAction("FireWeapon", throwIfNotFound: true);
         m_Player_ResetView = m_Player.FindAction("ResetView", throwIfNotFound: true);
         m_Player_ResetWeapons = m_Player.FindAction("ResetWeapons", throwIfNotFound: true);
+        m_Player_ActivateBuildUI = m_Player.FindAction("ActivateBuildUI", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -273,6 +294,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_FireWeapon;
     private readonly InputAction m_Player_ResetView;
     private readonly InputAction m_Player_ResetWeapons;
+    private readonly InputAction m_Player_ActivateBuildUI;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -284,6 +306,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @FireWeapon => m_Wrapper.m_Player_FireWeapon;
         public InputAction @ResetView => m_Wrapper.m_Player_ResetView;
         public InputAction @ResetWeapons => m_Wrapper.m_Player_ResetWeapons;
+        public InputAction @ActivateBuildUI => m_Wrapper.m_Player_ActivateBuildUI;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -314,6 +337,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @ResetWeapons.started += instance.OnResetWeapons;
             @ResetWeapons.performed += instance.OnResetWeapons;
             @ResetWeapons.canceled += instance.OnResetWeapons;
+            @ActivateBuildUI.started += instance.OnActivateBuildUI;
+            @ActivateBuildUI.performed += instance.OnActivateBuildUI;
+            @ActivateBuildUI.canceled += instance.OnActivateBuildUI;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -339,6 +365,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @ResetWeapons.started -= instance.OnResetWeapons;
             @ResetWeapons.performed -= instance.OnResetWeapons;
             @ResetWeapons.canceled -= instance.OnResetWeapons;
+            @ActivateBuildUI.started -= instance.OnActivateBuildUI;
+            @ActivateBuildUI.performed -= instance.OnActivateBuildUI;
+            @ActivateBuildUI.canceled -= instance.OnActivateBuildUI;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -365,5 +394,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnFireWeapon(InputAction.CallbackContext context);
         void OnResetView(InputAction.CallbackContext context);
         void OnResetWeapons(InputAction.CallbackContext context);
+        void OnActivateBuildUI(InputAction.CallbackContext context);
     }
 }

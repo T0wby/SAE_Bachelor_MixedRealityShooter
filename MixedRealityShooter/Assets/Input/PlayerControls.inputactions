@@ -67,6 +67,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ActivateBuildUI",
+                    "type": "Button",
+                    "id": "82886f08-02c3-4917-91dd-9ca39af486f3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -166,6 +175,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "ResetWeapons",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2aeeb9d8-0228-4d55-9be6-91a1ce4a618b",
+                    "path": "<XRController>{LeftHand}/primaryButton",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ActivateBuildUI",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
