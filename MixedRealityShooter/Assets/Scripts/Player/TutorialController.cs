@@ -10,6 +10,8 @@ namespace Player
         [Header("References")] 
         [SerializeField] private GameObject _buildTutorial;
         [SerializeField] private GameObject _placeBoughtItemsTutorial;
+        [SerializeField] private GameObject _leftHandIngameInfo;
+        [SerializeField] private GameObject _leftHandBuildInfo;
 
         private void Start()
         {
@@ -52,21 +54,27 @@ namespace Player
         {
             _buildTutorial.SetActive(true);
             _placeBoughtItemsTutorial.SetActive(false);
+            _leftHandBuildInfo.SetActive(false);
         }
         private void SetupHubTutorial()
         {
             _buildTutorial.SetActive(false);
             _placeBoughtItemsTutorial.SetActive(false);
+            _leftHandBuildInfo.SetActive(false);
         }
         private void SetupIngameTutorial()
         {
             _buildTutorial.SetActive(false);
+            _leftHandIngameInfo.SetActive(false);
+            _leftHandBuildInfo.SetActive(true);
             _placeBoughtItemsTutorial.SetActive(true);
         }
         private void DeactivateTutorials()
         {
             _buildTutorial.SetActive(false);
             _placeBoughtItemsTutorial.SetActive(false);
+            _leftHandBuildInfo.SetActive(false);
+            _leftHandIngameInfo.SetActive(true);
         }
     }
 }

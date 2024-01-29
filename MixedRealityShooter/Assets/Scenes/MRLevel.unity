@@ -1230,6 +1230,72 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 297634712}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &308880411 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7346088187873020999, guid: a922cb2ef391d554a94e9f5dbce06911,
+    type: 3}
+  m_PrefabInstance: {fileID: 477502737}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &308880412 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 267196163803013951, guid: a922cb2ef391d554a94e9f5dbce06911,
+    type: 3}
+  m_PrefabInstance: {fileID: 477502737}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &308880413 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5102918265414079188, guid: a922cb2ef391d554a94e9f5dbce06911,
+    type: 3}
+  m_PrefabInstance: {fileID: 477502737}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &308880414 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7222423226464409376, guid: a922cb2ef391d554a94e9f5dbce06911,
+    type: 3}
+  m_PrefabInstance: {fileID: 477502737}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &308880415 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 543228644748680171, guid: a922cb2ef391d554a94e9f5dbce06911,
+    type: 3}
+  m_PrefabInstance: {fileID: 477502737}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &308880416 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3742273720503936684, guid: a922cb2ef391d554a94e9f5dbce06911,
+    type: 3}
+  m_PrefabInstance: {fileID: 477502737}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &317719441
 GameObject:
   m_ObjectHideFlags: 0
@@ -1983,7 +2049,7 @@ PrefabInstance:
     - target: {fileID: 120066092027046189, guid: 67ccb43a54663cb408e93f0a085a23e7,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: -489.66208
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4210339401729308190, guid: 67ccb43a54663cb408e93f0a085a23e7,
         type: 3}
@@ -1993,57 +2059,57 @@ PrefabInstance:
     - target: {fileID: 6672219638673666277, guid: 67ccb43a54663cb408e93f0a085a23e7,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6672219638673666277, guid: 67ccb43a54663cb408e93f0a085a23e7,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6672219638673666277, guid: 67ccb43a54663cb408e93f0a085a23e7,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 468
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6672219638673666277, guid: 67ccb43a54663cb408e93f0a085a23e7,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 250
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6672219638673666277, guid: 67ccb43a54663cb408e93f0a085a23e7,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -32
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7118696799607127923, guid: 67ccb43a54663cb408e93f0a085a23e7,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7118696799607127923, guid: 67ccb43a54663cb408e93f0a085a23e7,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7118696799607127923, guid: 67ccb43a54663cb408e93f0a085a23e7,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 460.39505
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7118696799607127923, guid: 67ccb43a54663cb408e93f0a085a23e7,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 246.19753
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7118696799607127923, guid: 67ccb43a54663cb408e93f0a085a23e7,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -32
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8010480481319227958, guid: 67ccb43a54663cb408e93f0a085a23e7,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: -490.27692
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8599598268128919492, guid: 67ccb43a54663cb408e93f0a085a23e7,
         type: 3}
@@ -2254,6 +2320,26 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4519553512422216860, guid: a922cb2ef391d554a94e9f5dbce06911,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4519553512422216860, guid: a922cb2ef391d554a94e9f5dbce06911,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4519553512422216860, guid: a922cb2ef391d554a94e9f5dbce06911,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4519553512422216860, guid: a922cb2ef391d554a94e9f5dbce06911,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4957278166467477644, guid: a922cb2ef391d554a94e9f5dbce06911,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -2300,6 +2386,26 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5728919825986386469, guid: a922cb2ef391d554a94e9f5dbce06911,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5767116928182049564, guid: a922cb2ef391d554a94e9f5dbce06911,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5767116928182049564, guid: a922cb2ef391d554a94e9f5dbce06911,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5767116928182049564, guid: a922cb2ef391d554a94e9f5dbce06911,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5767116928182049564, guid: a922cb2ef391d554a94e9f5dbce06911,
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
@@ -2357,6 +2463,36 @@ PrefabInstance:
     - target: {fileID: 7506297191509846095, guid: a922cb2ef391d554a94e9f5dbce06911,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7528331431045983724, guid: a922cb2ef391d554a94e9f5dbce06911,
+        type: 3}
+      propertyPath: _leftHandBuildInfo
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7528331431045983724, guid: a922cb2ef391d554a94e9f5dbce06911,
+        type: 3}
+      propertyPath: _leftHandIngameInfo
+      value: 
+      objectReference: {fileID: 308880411}
+    - target: {fileID: 7610351461757267226, guid: a922cb2ef391d554a94e9f5dbce06911,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7610351461757267226, guid: a922cb2ef391d554a94e9f5dbce06911,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7610351461757267226, guid: a922cb2ef391d554a94e9f5dbce06911,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7610351461757267226, guid: a922cb2ef391d554a94e9f5dbce06911,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8949016586901330535, guid: a922cb2ef391d554a94e9f5dbce06911,
@@ -4012,7 +4148,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &896512133
 Transform:
   m_ObjectHideFlags: 0
@@ -6060,8 +6196,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Pick an Item out of your inventory on the left.\n\nRight Trigger:\nSwitch
-    between manipulating \nthe position and rotation of the item\n\nRight joystick:\nClick
+  m_text: "Pick an Item out of your inventory on the left.\n\nUse the UI on your
+    left hand to switch between positioning and rotating the item.\n\nRight joystick:\nClick
     the joystick to switch the rotation between x,y and z.\nMove the joystick to
     rotate on the current axis\n\nRight A button: \nPlace the item"
   m_isRightToLeft: 0
@@ -6855,7 +6991,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1449015879
 Transform:
   m_ObjectHideFlags: 0
@@ -7952,6 +8088,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerController: {fileID: 477502738}
+  _rotationButton: {fileID: 308880416}
+  _rotXButton: {fileID: 308880415}
+  _rotYButton: {fileID: 308880414}
+  _rotZButton: {fileID: 308880413}
+  _positionButton: {fileID: 308880412}
   _rightControllerVisual: {fileID: 1376203894}
   _layerMaskNum: 6
   _rotPower: 100

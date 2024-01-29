@@ -1,17 +1,17 @@
 using System.Collections.Generic;
 using Items;
 using Manager;
-using Oculus.Interaction;
 using PlacedObjects;
 using Player;
-using UI;
 using UnityEngine;
+using UnityEngine.UI;
 using Utility;
 
 namespace Building
 {
     public class BuildModeGamePrep : MonoBehaviour
     {
+        [Header("References")] 
         [SerializeField] private PlayerController _playerController;
 
         private PlayerInventory _inventory;
@@ -20,6 +20,13 @@ namespace Building
         private GameObject _prevSelectedObj;
         private GameObject _selectedObj;
         private APlacedObject _objToDelete;
+
+        [Header("UI References")] 
+        [SerializeField] private Button _rotationButton;
+        [SerializeField] private Button _rotXButton;
+        [SerializeField] private Button _rotYButton;
+        [SerializeField] private Button _rotZButton;
+        [SerializeField] private Button _positionButton;
 
         [Header("Raycast Logic")] 
         [SerializeField] private GameObject _rightControllerVisual;
@@ -81,8 +88,13 @@ namespace Building
         private void ConnectMethods()
         {
             // BuildMode
-            _playerController.onInteraction.AddListener(SwitchStates);
-            _playerController.onThumbstickClick.AddListener(SwitchRotation);
+            //_playerController.onInteraction.AddListener(SwitchStates);
+            //_playerController.onThumbstickClick.AddListener(SwitchRotation);
+            _rotationButton.onClick.AddListener(SetRotationState);
+            _positionButton.onClick.AddListener(SetPositionState);
+            _rotXButton.onClick.AddListener(SetRotationAroundXAxis);
+            _rotYButton.onClick.AddListener(SetRotationAroundYAxis);
+            _rotZButton.onClick.AddListener(SetRotationAroundZAxis);
             _playerController.onRotation.AddListener(RotateCurrCube);
             _playerController.onPrimaryButton.AddListener(AddPlacedObjectFromInven);
 
@@ -93,8 +105,13 @@ namespace Building
         private void DisconnectMethods()
         {
             // BuildMode
-            _playerController.onInteraction.RemoveListener(SwitchStates);
-            _playerController.onThumbstickClick.RemoveListener(SwitchRotation);
+            //_playerController.onInteraction.RemoveListener(SwitchStates);
+            //_playerController.onThumbstickClick.RemoveListener(SwitchRotation);
+            _rotationButton.onClick.RemoveListener(SetRotationState);
+            _positionButton.onClick.RemoveListener(SetPositionState);
+            _rotXButton.onClick.RemoveListener(SetRotationAroundXAxis);
+            _rotYButton.onClick.RemoveListener(SetRotationAroundYAxis);
+            _rotZButton.onClick.RemoveListener(SetRotationAroundZAxis);
             _playerController.onRotation.RemoveListener(RotateCurrCube);
             _playerController.onPrimaryButton.RemoveListener(AddPlacedObjectFromInven);
 
@@ -238,12 +255,47 @@ namespace Building
                 _colliderState = EColliderState.Position;
         }
 
+        private void SetRotationState()
+        {
+            if (!_isBuilding) return;
+
+            _colliderState = EColliderState.Rotation;
+        }
+        private void SetPositionState()
+        {
+            if (!_isBuilding) return;
+
+            _colliderState = EColliderState.Position;
+        }
+
         private void SwitchRotation()
         {
             if (!_isBuilding) return;
             if (_colliderState != EColliderState.Rotation) return;
 
             _rotationNumber = (_rotationNumber + 1) % 3;
+        }
+
+        private void SetRotationAroundXAxis()
+        {
+            if (!_isBuilding) return;
+            if (_colliderState != EColliderState.Rotation) return;
+
+            _rotationNumber = 1;
+        }
+        private void SetRotationAroundYAxis()
+        {
+            if (!_isBuilding) return;
+            if (_colliderState != EColliderState.Rotation) return;
+
+            _rotationNumber = 0;
+        }
+        private void SetRotationAroundZAxis()
+        {
+            if (!_isBuilding) return;
+            if (_colliderState != EColliderState.Rotation) return;
+
+            _rotationNumber = 2;
         }
 
         public void SwitchBuildMode(bool isOn)
