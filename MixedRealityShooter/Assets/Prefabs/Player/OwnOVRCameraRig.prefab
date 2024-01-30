@@ -6795,6 +6795,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: a084930a-87ec-4335-b198-7883e622430b
     m_ActionName: Player/ResetWeapons
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 82886f08-02c3-4917-91dd-9ca39af486f3
+    m_ActionName: Player/ActivateBuildUI
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -6843,6 +6847,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onPrimaryButton:
+    m_PersistentCalls:
+      m_Calls: []
+  onPrimaryButtonLeft:
     m_PersistentCalls:
       m_Calls: []
   onThumbstickClick:
