@@ -37,7 +37,6 @@ Shader "Unlit/WireframeSimple_Fragment"
             struct v2f
             {
                 float2 uv : TEXCOORD0;
-                UNITY_FOG_COORDS(1)
                 float4 vertex : SV_POSITION;
 
                 UNITY_VERTEX_OUTPUT_STEREO_EYE_INDEX
@@ -56,7 +55,6 @@ Shader "Unlit/WireframeSimple_Fragment"
                 UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o); //Insert
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
-                UNITY_TRANSFER_FOG(o, o.vertex);
                 return o;
             }
 

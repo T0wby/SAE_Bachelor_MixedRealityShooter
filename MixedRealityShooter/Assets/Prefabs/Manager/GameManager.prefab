@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8485964082512323572}
   - component: {fileID: 8264710664698826838}
   - component: {fileID: 7022102954683323842}
-  - component: {fileID: 4970333610327292691}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -32,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8264710664698826838
 MonoBehaviour:
@@ -47,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 1
-  OnGameStateChange:
+  onGameStateChange:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &7022102954683323842
@@ -63,23 +62,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 1
---- !u!114 &4970333610327292691
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2320226887009353037}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15d4531bb0d55484a8e8ca46e61e8bc3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _defaultRangeWeaponPrefab: {fileID: 1111015175407080, guid: 092e556737ce546478e3743382dec06f,
-    type: 3}
-  onMoneyChange:
-    m_PersistentCalls:
-      m_Calls: []
-  onPlaceableInventoryChange:
-    m_PersistentCalls:
-      m_Calls: []
