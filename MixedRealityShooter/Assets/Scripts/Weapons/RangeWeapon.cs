@@ -15,6 +15,8 @@ namespace Weapons
         [Tooltip("Number of the Layer that should be ignored")]
         [SerializeField] private int _layerMaskNum = 8;
         [SerializeField] private bool _ignorePlayer = false;
+        [Header("VFX")] 
+        [SerializeField] private ParticleSystem _gunshot;
         private PlayerController _playerController;
         private ProjectilePool _projectilePool;
         private int _layerMask;
@@ -84,6 +86,7 @@ namespace Weapons
             tmp.InitProjectileStats(_damage, _ignorePlayer);
             tmp.transform.position = _barrel.transform.position;
             tmp.ThisRb.AddForce(_barrel.transform.forward * _projectileSpeed, ForceMode.Impulse);
+            _gunshot.Play();
 
             yield return new WaitForSeconds(1/_bulletsPerSecond);
             _isShooting = false;
