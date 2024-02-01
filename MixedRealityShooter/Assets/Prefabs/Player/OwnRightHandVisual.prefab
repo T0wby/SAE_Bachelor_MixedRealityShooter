@@ -987,7 +987,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1678554349857304353}
-  - component: {fileID: 1678554349857304354}
   m_Layer: 0
   m_Name: OwnRightHandVisual
   m_TagString: Untagged
@@ -1011,49 +1010,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1678554349857304354
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1678554349857304352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9af9ea683544b184083cef283557012d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _hand: {fileID: 0}
-  _skinnedMeshRenderer: {fileID: 1678554350674794614}
-  _updateRootPose: 1
-  _updateRootScale: 1
-  _root: {fileID: 0}
-  _handMaterialPropertyBlockEditor: {fileID: 9202309754318694273}
-  _jointTransforms:
-  - {fileID: 1678554350306187114}
-  - {fileID: 1678554350336767127}
-  - {fileID: 1678554350337775633}
-  - {fileID: 1678554349800314520}
-  - {fileID: 1678554349319180111}
-  - {fileID: 1678554349395148009}
-  - {fileID: 1678554349280456365}
-  - {fileID: 1678554350734427095}
-  - {fileID: 1678554350917617724}
-  - {fileID: 1678554349782705801}
-  - {fileID: 1678554350390129158}
-  - {fileID: 1678554350873507099}
-  - {fileID: 1678554350456850153}
-  - {fileID: 1678554350882151098}
-  - {fileID: 1678554351195580383}
-  - {fileID: 1678554350022880501}
-  - {fileID: 1678554350494267787}
-  - {fileID: 1678554349726216339}
-  - {fileID: 1678554351164923749}
-  - {fileID: 1678554349869442577}
-  - {fileID: 1678554349979641345}
-  - {fileID: 1678554349188605870}
-  - {fileID: 1678554350487550514}
-  - {fileID: 1678554349719938632}
 --- !u!1 &1678554349869442576
 GameObject:
   m_ObjectHideFlags: 0
@@ -2033,7 +1989,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1678554350610931687}
-  - component: {fileID: 1678554350610931680}
   m_Layer: 0
   m_Name: OculusHand_R
   m_TagString: Untagged
@@ -2058,27 +2013,6 @@ Transform:
   m_Father: {fileID: 1678554349857304353}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &1678554350610931680
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1678554350610931686}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 88e2e1bfe11ec6c438b0ade27eaeded1, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1678554350645997266
 GameObject:
   m_ObjectHideFlags: 0
