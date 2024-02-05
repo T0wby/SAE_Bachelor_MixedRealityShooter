@@ -96,9 +96,13 @@ namespace PlacedObjects
         private void TransformUpdates()
         {
             if (!_canStartTransformCheck)return;
+            if (_heightObj == null)return;
             _heightY = _heightObj.transform.position.y;
+            if (_startObj == null)return;
             _startPos = _startObj.transform.position;
+            if (_widthObj == null)return;
             _widthPos = _widthObj.transform.position;
+            if (_endObj == null)return;
             _endPos = _endObj.transform.position;
 
             _widthObj.transform.position = new Vector3(_widthPos.x, _startPos.y, _widthPos.z);
