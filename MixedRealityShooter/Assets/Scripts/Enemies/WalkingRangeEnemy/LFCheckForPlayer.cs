@@ -26,7 +26,7 @@ namespace Enemies.WalkingRangeEnemy
         {
             if (_enemy.PlayerTransform == null) return false;
 
-            _pos = _enemy.transform.position;
+            _pos = _enemy.WeaponTransform.position;
 
             var dir = (_enemy.PlayerTransform.position - _pos).normalized;
             _angle = Vector3.Angle(_enemy.transform.TransformDirection(_enemy.PlayerTransform.forward), dir);

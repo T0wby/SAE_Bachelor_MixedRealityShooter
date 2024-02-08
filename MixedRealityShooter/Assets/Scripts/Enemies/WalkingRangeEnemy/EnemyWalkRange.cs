@@ -14,8 +14,6 @@ namespace Enemies.WalkingRangeEnemy
     {
         [Header("Navigation")]
         [SerializeField] private NavMeshAgent _agent;
-        [Header("Weapon")]
-        [SerializeField] private Transform _weaponSlot;
         private PlayerInventory _playerInventory;
         private AWeapon _activeWeapon;
 
@@ -26,7 +24,7 @@ namespace Enemies.WalkingRangeEnemy
             SetDefaultStats();
             _ignoreLayers = LayerMask.NameToLayer("Enemy");
             _ignoreLayers = ~_ignoreLayers;
-            OnHealthChange.AddListener(OnDeath);
+            onHealthChange.AddListener(OnDeath);
             SpawnWeapon();
             _player = FindObjectOfType<PlayerDamageHandler>();
         }

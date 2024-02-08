@@ -3,6 +3,7 @@ using Manager;
 using Player;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using Utility;
 
 namespace Enemies
@@ -15,6 +16,8 @@ namespace Enemies
         protected ObjectPool<AEnemy> _pool;
         protected int _healthPotionAmount = 0;
         [SerializeField] protected int _currHealth = 0;
+        [Header("Weapon")]
+        [SerializeField] protected Transform _weaponSlot;
         protected WaveManager _waveManager;
         protected PlayerDamageHandler _player;
         protected int _ignoreLayers;
@@ -30,6 +33,7 @@ namespace Enemies
         public int IgnoreLayer => _ignoreLayers;
         public bool IsAttacking => _isAttacking;
         public Transform PlayerTransform => _player.transform;
+        public Transform WeaponTransform => _weaponSlot;
         public int CurrHealth
         {
             get => _currHealth;
@@ -42,7 +46,7 @@ namespace Enemies
                 else
                     _currHealth = value;
                 
-                OnHealthChange.Invoke(_currHealth);
+                onHealthChange.Invoke(_currHealth);
             }
         }
         public WaveManager WaveManager
@@ -61,7 +65,7 @@ namespace Enemies
         
         #region Events
 
-        public UnityEvent<int> OnHealthChange;
+        public UnityEvent<int> onHealthChange;
 
         #endregion
 

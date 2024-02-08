@@ -13,8 +13,6 @@ namespace Enemies.WalkingMeleeEnemy
     {
         [Header("Navigation")]
         [SerializeField] private NavMeshAgent _agent;
-        [Header("Weapon")]
-        [SerializeField] private Transform _weaponSlot;
         [SerializeField] private Transform _rotationSlot;
         private PlayerInventory _playerInventory;
         private MeleeWeapon _activeWeapon;
@@ -26,7 +24,7 @@ namespace Enemies.WalkingMeleeEnemy
             SetDefaultStats();
             _ignoreLayers = LayerMask.NameToLayer("Enemy");
             _ignoreLayers = ~_ignoreLayers;
-            OnHealthChange.AddListener(OnDeath);
+            onHealthChange.AddListener(OnDeath);
             SpawnWeapon();
             _player = FindObjectOfType<PlayerDamageHandler>();
         }

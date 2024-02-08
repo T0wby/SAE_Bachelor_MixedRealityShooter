@@ -10,6 +10,10 @@ namespace Enemies.WalkingRangeEnemy
         private readonly NavMeshAgent _agent;
         private readonly AEnemy _enemy;
         private readonly float _distanceToStop;
+        private Vector3 _playerPos;
+        private Vector2 _playerPoint;
+        private Vector3 _agentPos;
+        private Vector2 _agentPoint;
         
         public LFCheckAgentDistance(NavMeshAgent agent, AEnemy enemyWr, float distanceToStop)
         {
@@ -25,7 +29,12 @@ namespace Enemies.WalkingRangeEnemy
 
         private bool CheckIfMinValueReached()
         {
-            return (_agent.transform.position - _enemy.PlayerTransform.position).magnitude < _distanceToStop;
+            _playerPos = _enemy.PlayerTransform.position;
+            _agentPos = _agent.transform.position;
+            _agentPoint = new Vector2(_agentPos.x, _agentPos.z);
+            _playerPoint = new Vector2(_playerPos.x, _playerPos.z);
+            //Debug.LogWarning((_agentPoint - _playerPoint).magnitude);
+            return (_agentPoint - _playerPoint).magnitude < _distanceToStop;
         }
     }
 }

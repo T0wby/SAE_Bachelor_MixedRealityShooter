@@ -23,11 +23,5 @@ namespace Enemies.WalkingRangeEnemy
             
             return ENodeState.SUCCESS;
         }
-
-        private bool StopMovingToDestination()
-        {
-            _agent.isStopped = true;
-            return _agent.isStopped;
-        }
     }
 }

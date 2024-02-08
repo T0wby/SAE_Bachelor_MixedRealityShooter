@@ -9,7 +9,7 @@ namespace Enemies.WalkingRangeEnemy
 {
     public class BTWalkRange : MyTree
     {
-        [FormerlySerializedAs("_enemyWr")] [SerializeField] private EnemyWalkRange enemyWalkRange;
+        [SerializeField] private EnemyWalkRange enemyWalkRange;
         [SerializeField] private EnemyTargetDetection _targetDetection;
         protected override Node SetupTree()
         {
@@ -47,7 +47,7 @@ namespace Enemies.WalkingRangeEnemy
                 // Stop Movement
                  new Sequence(new List<Node>
                  {
-                     new LFCheckAgentDistance(_agent, enemyWalkRange, 1.0f),
+                     new LFCheckAgentDistance(_agent, enemyWalkRange, 3.0f),
                      new LFCheckForPlayer(enemyWalkRange),
                      new LFStopMovement(_agent)
                  }),

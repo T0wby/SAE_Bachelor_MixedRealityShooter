@@ -12,7 +12,6 @@ namespace Enemies.TeleportRangeEnemy
         #region Variables
 
         [SerializeField] private EnemyTargetDetection _ownTargetDetection;
-        [SerializeField] private Transform _weaponSlot;
         
         private Transform _destination;
         private AWeapon _activeWeapon;
@@ -36,7 +35,7 @@ namespace Enemies.TeleportRangeEnemy
             SetDefaultStats();
             _ignoreLayers = LayerMask.NameToLayer("Enemy");
             _ignoreLayers = ~_ignoreLayers;
-            OnHealthChange.AddListener(OnDeath);
+            onHealthChange.AddListener(OnDeath);
             SpawnWeapon();
         }
 
