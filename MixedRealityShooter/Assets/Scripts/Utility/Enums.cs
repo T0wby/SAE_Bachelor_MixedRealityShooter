@@ -40,7 +40,8 @@ namespace Utility
     {
         NONE = 0,
         Wall = 1,
-        Barrell = 2
+        Barrell = 2,
+        Shroom = 3
     }
     public enum ENodeState
     {

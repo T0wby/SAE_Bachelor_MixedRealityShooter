@@ -1783,6 +1783,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Walk_Enemy_Revolver
       objectReference: {fileID: 0}
+    - target: {fileID: 6323178400535022785, guid: 3f65af90ec939cc418c5533d34bcc267,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

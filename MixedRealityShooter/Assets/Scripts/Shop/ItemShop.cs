@@ -21,6 +21,7 @@ namespace Shop
         [Header("Text")] 
         [SerializeField] private TMP_Text _barrelCost;
         [SerializeField] private TMP_Text _wallCost;
+        [SerializeField] private TMP_Text _shroomCost;
         
         private PlayerInventory _playerInventory;
 
@@ -59,6 +60,9 @@ namespace Shop
                         _wallCost.text = $"{settings.ItemCost}$";
                         break;
                     case EPlaceableItemType.Barrell:
+                        _barrelCost.text = $"{settings.ItemCost}$";
+                        break;
+                    case EPlaceableItemType.Shroom:
                         _barrelCost.text = $"{settings.ItemCost}$";
                         break;
                     default:

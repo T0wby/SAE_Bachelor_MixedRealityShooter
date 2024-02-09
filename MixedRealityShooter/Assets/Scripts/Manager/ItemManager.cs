@@ -11,6 +11,7 @@ namespace Manager
 
         private PlaceableItemPool _wallPool;
         private PlaceableItemPool _barrelPool;
+        private PlaceableItemPool _shroomPool;
 
         #endregion
 
@@ -37,6 +38,9 @@ namespace Manager
                     case EPlaceableItemType.Barrell:
                         _barrelPool = pool;
                         break;
+                    case EPlaceableItemType.Shroom:
+                        _shroomPool = pool;
+                        break;
                     default:
                         break;
                 }
@@ -58,6 +62,8 @@ namespace Manager
                     return _wallPool.ItemPool.GetItem();
                 case EPlaceableItemType.Barrell:
                     return _barrelPool.ItemPool.GetItem();
+                case EPlaceableItemType.Shroom:
+                    return _shroomPool.ItemPool.GetItem();
                 default:
                     return null;
             }
@@ -76,8 +82,11 @@ namespace Manager
                 case EPlaceableItemType.Barrell:
                     _barrelPool.ItemPool.ReturnItem(item);
                     break;
+                case EPlaceableItemType.Shroom:
+                    _shroomPool.ItemPool.ReturnItem(item);
+                    break;
                 default:
-                    break;;
+                    break;
             }
         }
     }
