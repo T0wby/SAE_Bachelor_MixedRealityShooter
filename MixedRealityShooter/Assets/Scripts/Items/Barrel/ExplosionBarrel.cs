@@ -29,11 +29,12 @@ namespace Items.Barrel
         {
             //Trigger VFX and List of Damageable Items
             AddExplosionForce();
-            _explosionVFX.Play();
             foreach (var target in _collector.TargetsInRange.Where(target => target != null))
             {
                 target.TakeDamage(_explosionDamage);
             }
+            _explosionVFX.Play();
+            
         }
 
         public void AddExplosionForce()

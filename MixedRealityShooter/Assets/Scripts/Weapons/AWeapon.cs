@@ -100,7 +100,7 @@ namespace Weapons
                 tmp = 1;
             
             _damage += tmp;
-            _prevDamageLevel = DamageLevel;
+            SetAllPrevLevel();
             DamageLevel++;
         }
         
@@ -115,7 +115,7 @@ namespace Weapons
             
             float tmp = ((_damage /perc) * 100);
             _damage = (int)tmp;
-            _prevDamageLevel = DamageLevel;
+            SetAllPrevLevel();
             DamageLevel--;
         }
         
@@ -128,7 +128,7 @@ namespace Weapons
             if (CheckForMaxBpsLevel()) return;
 
             _bulletsPerSecond += (_bulletsPerSecond * UPGRADE_STRENGTH);
-            _prevFireRateLevel = FireRateLevel;
+            SetAllPrevLevel();
             FireRateLevel++;
         }
         
@@ -143,22 +143,34 @@ namespace Weapons
             
             float tmp = ((_bulletsPerSecond / perc) * 100);
             _bulletsPerSecond = tmp;
-            _prevFireRateLevel = FireRateLevel;
+            SetAllPrevLevel();
             FireRateLevel--;
         }
 
         private void CalcCost()
         {
-            if (_damageLevel > _prevDamageLevel || _fireRateLevel > _prevFireRateLevel)
+            if (_damageLevel > _prevDamageLevel)
             {
                 _damageCost += (int)(_damageLevel * 5.35f);
+            }
+            else if (_fireRateLevel > _prevFireRateLevel)
+            {
                 _bpsCost += (int)(_fireRateLevel * 5.2f);
             }
-            else if (_damageLevel < _prevDamageLevel || _fireRateLevel < _prevFireRateLevel)
+            else if (_damageLevel < _prevDamageLevel)
             {
                 _damageCost -= (int)(_prevDamageLevel * 5.35f);
+            }
+            else if (_fireRateLevel < _prevFireRateLevel)
+            {
                 _bpsCost -= (int)(_prevFireRateLevel * 5.2f);
             }
+        }
+
+        private void SetAllPrevLevel()
+        {
+            _prevFireRateLevel = FireRateLevel;
+            _prevDamageLevel = DamageLevel;
         }
 
         public bool CheckForMaxDmgLevel()

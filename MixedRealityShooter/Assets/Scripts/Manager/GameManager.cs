@@ -99,6 +99,7 @@ namespace Manager
                 }
 
                 if (!obj.CompareTag("PlacedObj")) continue;
+                if (obj.transform.childCount == 0) continue;
                 var placedObj = obj.transform.GetChild(0).GetComponent<APlacedObject>();
                 if (placedObj == null) continue;
                 placedObj.SetGameColor();

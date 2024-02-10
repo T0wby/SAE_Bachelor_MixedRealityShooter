@@ -15,6 +15,7 @@ namespace Items.Barrel
         private void OnEnable()
         {
             var sphere = GetComponent<SphereCollider>();
+            _targetsInRange = new List<IDamage>();
             sphere.radius = _collectionRange;
             sphere.isTrigger = true;
         }

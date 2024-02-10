@@ -469,8 +469,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 337945509}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1282,52 +1281,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &337945508
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 337945509}
-  - component: {fileID: 337945510}
-  m_Layer: 0
-  m_Name: InGameController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &337945509
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 337945508}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 84179695}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &337945510
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 337945508}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c27c957b2828a74cb7b07b2d6561ef1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerController: {fileID: 0}
-  _inventory: {fileID: 0}
 --- !u!1001 &340428486
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2951,7 +2904,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 541336918}
   m_LocalRotation: {x: -0.017614676, y: -0, z: -0, w: 0.9998449}
-  m_LocalPosition: {x: 0, y: 0, z: -49}
+  m_LocalPosition: {x: 0, y: 0, z: -51}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2960,7 +2913,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 319}
+  m_AnchoredPosition: {x: -0, y: 375}
   m_SizeDelta: {x: 750, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &541336920
@@ -3090,7 +3043,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _vrAreas:
-  - {fileID: 0}
   - {fileID: 861213075}
   - {fileID: 2002398290}
   - {fileID: 1449015878}
@@ -4250,7 +4202,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0, y: -47}
+  m_AnchoredPosition: {x: 0, y: -63}
   m_SizeDelta: {x: 750, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &870155478
@@ -4287,7 +4239,12 @@ MonoBehaviour:
 
 
     - Should you lose your weapons anyway you can get them back
-    by pressing the right thumbstick during a round.'
+    by pressing the right thumbstick during a round.
+
+
+    - If any VR Element is
+    obstructed by a physical one you can re-center them on you again by pressing
+    B.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -9612,11 +9569,7 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 870155477}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8861979910673089342, guid: cc569c246cc407f4f8059091d0187222,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1902085945}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc569c246cc407f4f8059091d0187222, type: 3}
 --- !u!4 &1902085942 stripped
 Transform:
@@ -9630,26 +9583,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1902085941}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1902085944 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8861979910673089342, guid: cc569c246cc407f4f8059091d0187222,
-    type: 3}
-  m_PrefabInstance: {fileID: 1902085941}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1902085945
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1902085944}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe684c840172c23499f99b8cbac97504, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _cameraPoint: {fileID: 390764612}
-  _camera: {fileID: 390764611}
 --- !u!1 &1927731532
 GameObject:
   m_ObjectHideFlags: 0

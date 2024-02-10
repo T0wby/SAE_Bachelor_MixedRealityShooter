@@ -101,6 +101,7 @@ namespace Inventory
             weapon.DowngradeDamage();
             SetCorrectStatLevelText();
             UpdateCost();
+            ReturnDamageCost(weapon);
         }
         
         private void UpgradeBps(AWeapon weapon)
@@ -116,6 +117,7 @@ namespace Inventory
             weapon.DowngradeFireRate();
             SetCorrectStatLevelText();
             UpdateCost();
+            ReturnBpsCost(weapon);
         }
 
         private bool PayDamageCost(AWeapon weapon)
@@ -149,6 +151,45 @@ namespace Inventory
                 case EWeaponType.Revolver:
                     if (_playerInventory.ActiveRangeWeapon.BpsCost > _playerInventory.Money)return false;
                     _playerInventory.Money -= _playerInventory.ActiveRangeWeapon.BpsCost;
+                    break;
+                default:
+                    break;;
+            }
+            return true;
+        }
+        
+        private bool ReturnDamageCost(AWeapon weapon)
+        {
+            switch (weapon.DefaultSettings.WeaponType)
+            {
+                case EWeaponType.AssaultRifle:
+                case EWeaponType.Pistol:
+                case EWeaponType.Revolver:
+                    if (_playerInventory.ActiveRangeWeapon.DamageLevel <= 0) return false;
+                    _playerInventory.Money += _playerInventory.ActiveRangeWeapon.DamageCost;
+                    break;
+                case EWeaponType.BatSaw:
+                    if (_playerInventory.ActiveMeleeWeapon.DamageLevel <= 0) return false;
+                    _playerInventory.Money += _playerInventory.ActiveMeleeWeapon.DamageCost;
+                    break;
+                case EWeaponType.Grenade:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            return true;
+        }
+        
+        private bool ReturnBpsCost(AWeapon weapon)
+        {
+            switch (weapon.DefaultSettings.WeaponType)
+            {
+                case EWeaponType.AssaultRifle:
+                case EWeaponType.Pistol:
+                case EWeaponType.Revolver:
+                    if (_playerInventory.ActiveRangeWeapon.FireRateLevel <= 0) return false;
+                    _playerInventory.Money += _playerInventory.ActiveRangeWeapon.BpsCost;
                     break;
                 default:
                     break;;

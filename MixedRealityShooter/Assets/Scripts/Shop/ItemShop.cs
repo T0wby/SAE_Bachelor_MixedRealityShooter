@@ -63,7 +63,7 @@ namespace Shop
                         _barrelCost.text = $"{settings.ItemCost}$";
                         break;
                     case EPlaceableItemType.Shroom:
-                        _barrelCost.text = $"{settings.ItemCost}$";
+                        _shroomCost.text = $"{settings.ItemCost}$";
                         break;
                     default:
                         break;

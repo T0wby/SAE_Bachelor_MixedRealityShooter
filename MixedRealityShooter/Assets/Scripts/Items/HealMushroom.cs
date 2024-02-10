@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Oculus.Interaction;
 using Player;
 using UnityEngine;
@@ -9,6 +10,7 @@ namespace Items
     {
         [Header("Settings")] 
         [SerializeField] private int _healAmount = 10;
+        [SerializeField] private PlaceableVRItem _selfPlaceable;
         [Header("GrabEvent")] 
         [SerializeField] protected GrabInteractable _grabInteractable;
 
@@ -16,10 +18,10 @@ namespace Items
 
         private void Awake()
         {
-            _grabInteractable.WhenSelectingInteractorAdded.Action += OnGrabbed;
+            _grabInteractable.WhenSelectingInteractorRemoved.Action += OnReleased;
         }
 
-        private void OnGrabbed(GrabInteractor interactor)
+        private void OnReleased(GrabInteractor interactor)
         {
             HealPlayer();
         }
@@ -28,6 +30,14 @@ namespace Items
         {
             _player = FindObjectOfType<PlayerStatus>();
             _player.HealPlayer(_healAmount);
+            StartCoroutine(ReturnShroom());
+        }
+        
+        IEnumerator ReturnShroom()
+        {
+            yield return new WaitForSeconds(2.0f);
+            _selfPlaceable.ReturnThisToPool();
+            yield return null;
         }
     }
 }
