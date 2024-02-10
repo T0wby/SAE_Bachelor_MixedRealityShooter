@@ -14,17 +14,17 @@ namespace Enemies
     {
         #region Variables
 
-        [SerializeField] private EnemyTP _enemy;
+        [SerializeField] private AEnemy _enemy;
         private SphereCollider _collider;
         private List<GameObject> _placedObjs;
-        private PlayerStatus _player;
+        private Collider _player;
 
         #endregion
 
         #region Properties
 
         public List<GameObject> PlacedObjs => _placedObjs;
-        public PlayerStatus Player => _player;
+        public Collider Player => _player;
 
         #endregion
 
@@ -41,7 +41,7 @@ namespace Enemies
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.CompareTag("Player"))
-                _player = other.transform.parent.GetComponent<PlayerStatus>();
+                _player = other;
             else if (other.gameObject.CompareTag("PlacedObj"))
             {
                 if (_placedObjs.Contains(other.gameObject))return;
@@ -63,19 +63,18 @@ namespace Enemies
         #endregion
 
         #region Find Destination Methods
-
-        public void GetSpawnPoint()
+        
+        public Transform GetSpawnPointTransform(bool searchUpper)
         {
-            Transform point = GetRandomSpawnPoint();
+            var point = searchUpper ? GetFurthestSpawnPointUpper() : GetFurthestSpawnPointLower();
+            
             if (point == null)
-            {
                 point = GetRandomPointAroundPlayer();
-            }
 
-            _enemy.Destination = point;
+            return point;
         }
 
-        private Transform GetRandomSpawnPoint()
+        private Transform GetFurthestSpawnPointUpper()
         {
             int count = _placedObjs.Count;
 
@@ -83,15 +82,26 @@ namespace Enemies
             
             int ran = Random.Range(0, count);
             var ranSelect = _placedObjs[ran].GetComponent<PlacedCube>();
-            if (ranSelect != null)
-            {
-                Transform furthest = FurthestPoint(ranSelect.GetValidSpawnPoints());
-                if (furthest == null)
-                    Debug.LogError("furthest Spawnpoint is null, which means no valid point was found");
-                return furthest;
-            }
+            if (ranSelect == null) return null;
+            Transform furthest = FurthestPoint(ranSelect.GetValidUpperSpawns());
+            if (furthest == null)
+                Debug.LogWarning("furthest Spawnpoint is null, which means no valid point was found");
+            return furthest;
+        }
+        
+        private Transform GetFurthestSpawnPointLower()
+        {
+            int count = _placedObjs.Count;
 
-            return null;
+            if (count == 0) return null;
+            
+            int ran = Random.Range(0, count);
+            var ranSelect = _placedObjs[ran].GetComponent<PlacedCube>();
+            if (ranSelect == null) return null;
+            Transform furthest = FurthestPoint(ranSelect.GetValidLowerSpawns());
+            if (furthest == null)
+                Debug.LogWarning("furthest Spawnpoint is null, which means no valid point was found");
+            return furthest;
         }
 
         private Transform GetRandomPointAroundPlayer()

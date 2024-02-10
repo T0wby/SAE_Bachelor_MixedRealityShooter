@@ -86,29 +86,29 @@ namespace Building
         private void ConnectMethods()
         {
             // BuildMode
-            _playerController.OnInteraction.AddListener(SwitchStates);
-            _playerController.OnSwitchRotateScale.AddListener(SwitchRotation);
-            _playerController.OnSwitchRotateScale.AddListener(SwitchScaling);
-            _playerController.OnRotation.AddListener(RotateCurrCube);
-            _playerController.OnScale.AddListener(ScaleCurrCube);
-            _playerController.OnPlaceObj.AddListener(AddPlacedObject);
+            _playerController.onInteraction.AddListener(SwitchStates);
+            _playerController.onThumbstickClick.AddListener(SwitchRotation);
+            _playerController.onThumbstickClick.AddListener(SwitchScaling);
+            _playerController.onRotation.AddListener(RotateCurrCube);
+            _playerController.onScale.AddListener(ScaleCurrCube);
+            _playerController.onPrimaryButton.AddListener(AddPlacedObject);
 
             // DeleteMode
-            _playerController.OnPlaceObj.AddListener(DeleteFocusedObject);
+            _playerController.onPrimaryButton.AddListener(DeleteFocusedObject);
         }
 
         private void DisconnectMethods()
         {
             // BuildMode
-            _playerController.OnInteraction.RemoveListener(SwitchStates);
-            _playerController.OnSwitchRotateScale.RemoveListener(SwitchRotation);
-            _playerController.OnSwitchRotateScale.RemoveListener(SwitchScaling);
-            _playerController.OnRotation.RemoveListener(RotateCurrCube);
-            _playerController.OnScale.RemoveListener(ScaleCurrCube);
-            _playerController.OnPlaceObj.RemoveListener(AddPlacedObject);
+            _playerController.onInteraction.RemoveListener(SwitchStates);
+            _playerController.onThumbstickClick.RemoveListener(SwitchRotation);
+            _playerController.onThumbstickClick.RemoveListener(SwitchScaling);
+            _playerController.onRotation.RemoveListener(RotateCurrCube);
+            _playerController.onScale.RemoveListener(ScaleCurrCube);
+            _playerController.onPrimaryButton.RemoveListener(AddPlacedObject);
 
             // DeleteMode
-            _playerController.OnPlaceObj.RemoveListener(DeleteFocusedObject);
+            _playerController.onPrimaryButton.RemoveListener(DeleteFocusedObject);
         }
 
         #region Raycast Logic

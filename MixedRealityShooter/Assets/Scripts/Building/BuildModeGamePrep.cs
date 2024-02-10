@@ -1,19 +1,18 @@
 using System.Collections.Generic;
 using Items;
 using Manager;
-using Oculus.Interaction;
 using PlacedObjects;
 using Player;
-using UI;
 using UnityEngine;
+using UnityEngine.UI;
 using Utility;
 
 namespace Building
 {
     public class BuildModeGamePrep : MonoBehaviour
     {
+        [Header("References")] 
         [SerializeField] private PlayerController _playerController;
-        [SerializeField] private MrPreparationUI _mrPreparationUI;
 
         private PlayerInventory _inventory;
         private GameObject _currCube;
@@ -22,10 +21,15 @@ namespace Building
         private GameObject _selectedObj;
         private APlacedObject _objToDelete;
 
+        [Header("UI References")] 
+        [SerializeField] private Button _rotationButton;
+        [SerializeField] private Button _rotXButton;
+        [SerializeField] private Button _rotYButton;
+        [SerializeField] private Button _rotZButton;
+        [SerializeField] private Button _positionButton;
+
         [Header("Raycast Logic")] 
         [SerializeField] private GameObject _rightControllerVisual;
-
-        [SerializeField] private RayInteractor _rightController;
 
         [Tooltip("Number of the Layer that should be hit")] 
         [SerializeField] private int _layerMaskNum = 6;
@@ -36,7 +40,6 @@ namespace Building
         [SerializeField] private float _rotPower = 1.0f;
 
         private int _rotationNumber = 0;
-        private int _placeInvenNumber = 0;
         private Vector3 _currScale;
         private EColliderState _colliderState = EColliderState.Position;
 
@@ -48,7 +51,6 @@ namespace Building
         {
             _layerMask = 1 << _layerMaskNum;
             _placedObjects = new List<GameObject>();
-            _mrPreparationUI.ChangeBuildModeName(_isBuilding);
             _inventory = FindObjectOfType<PlayerInventory>();
         }
 
@@ -86,49 +88,48 @@ namespace Building
         private void ConnectMethods()
         {
             // BuildMode
-            _playerController.OnInteraction.AddListener(SwitchStates);
-            _playerController.OnSwitchRotateScale.AddListener(SwitchRotation);
-            _playerController.OnRotation.AddListener(RotateCurrCube);
-            _playerController.OnPlaceObj.AddListener(AddPlacedObjectFromInven);
+            //_playerController.onInteraction.AddListener(SwitchStates);
+            //_playerController.onThumbstickClick.AddListener(SwitchRotation);
+            _rotationButton.onClick.AddListener(SetRotationState);
+            _positionButton.onClick.AddListener(SetPositionState);
+            _rotXButton.onClick.AddListener(SetRotationAroundXAxis);
+            _rotYButton.onClick.AddListener(SetRotationAroundYAxis);
+            _rotZButton.onClick.AddListener(SetRotationAroundZAxis);
+            _playerController.onRotation.AddListener(RotateCurrCube);
+            _playerController.onPrimaryButton.AddListener(AddPlacedObjectFromInven);
 
             // DeleteMode
-            _playerController.OnPlaceObj.AddListener(DeleteFocusedObject);
+            _playerController.onPrimaryButton.AddListener(DeleteFocusedObject);
         }
 
         private void DisconnectMethods()
         {
             // BuildMode
-            _playerController.OnInteraction.RemoveListener(SwitchStates);
-            _playerController.OnSwitchRotateScale.RemoveListener(SwitchRotation);
-            _playerController.OnRotation.RemoveListener(RotateCurrCube);
-            _playerController.OnPlaceObj.RemoveListener(AddPlacedObjectFromInven);
+            //_playerController.onInteraction.RemoveListener(SwitchStates);
+            //_playerController.onThumbstickClick.RemoveListener(SwitchRotation);
+            _rotationButton.onClick.RemoveListener(SetRotationState);
+            _positionButton.onClick.RemoveListener(SetPositionState);
+            _rotXButton.onClick.RemoveListener(SetRotationAroundXAxis);
+            _rotYButton.onClick.RemoveListener(SetRotationAroundYAxis);
+            _rotZButton.onClick.RemoveListener(SetRotationAroundZAxis);
+            _playerController.onRotation.RemoveListener(RotateCurrCube);
+            _playerController.onPrimaryButton.RemoveListener(AddPlacedObjectFromInven);
 
             // DeleteMode
-            _playerController.OnPlaceObj.RemoveListener(DeleteFocusedObject);
+            _playerController.onPrimaryButton.RemoveListener(DeleteFocusedObject);
         }
 
         #region Raycast Logic
 
         private void SearchForPointFromInven()
         {
-            if (_colliderState != EColliderState.Position) return;
-            if (_inventory.PlaceableVRItems.Count <= 0) return;
+            if (_colliderState != EColliderState.Position || _inventory.AmountPlaceableItems <= 0) return;
 
             if (Physics.Raycast(_rightControllerVisual.transform.position, _rightControllerVisual.transform.forward,
                     out var hit, Mathf.Infinity, _layerMask))
             {
-                if (_currCube == null)
-                {
-                    _currItem = ItemManager.Instance.ReceivePoolObject(_inventory.PlaceableVRItems[_placeInvenNumber].Type);
-                    _currCube = _currItem.gameObject;
-                    _currCube.SetActive(true);
-                }
+                if (_currCube == null) return;
                 _currCube.transform.position = hit.point;
-            }
-            else
-            {
-                if (_currCube != null)
-                    ItemManager.Instance.ReturnPoolObject(_currItem);
             }
         }
         
@@ -207,7 +208,7 @@ namespace Building
 
             _currCube.layer = LayerMask.NameToLayer("Environment");
             _placedObjects.Add(_currCube);
-            _inventory.PlaceableVRItems.RemoveAt(_placeInvenNumber);
+            _inventory.RemovePlaceableVrItem(_currItem);
             _currCube = null;
             _currItem = null;
         }
@@ -221,8 +222,9 @@ namespace Building
             if (tmp != null)
             {
                 _placedObjects.Remove(_selectedObj);
-                _inventory.PlaceableVRItems.Add(tmp);
-                ItemManager.Instance.ReturnPoolObject(tmp);
+                _inventory.AddPlaceableVrItem(tmp);
+                _selectedObj.layer = LayerMask.NameToLayer("Default");
+                _selectedObj.SetActive(false);
             }
             _objToDelete = null;
             _selectedObj = null;
@@ -230,16 +232,16 @@ namespace Building
         #endregion
 
         #region Switch Modes
-    
-        /// <summary>
-        /// Ref on Button to switch through Inventory
-        /// </summary>
-        public void SwitchThroughPlaceInven()
+        
+        public void SetCurrItem(PlaceableVRItem newItem)
         {
             if(GameManager.Instance.CurrState != EGameStates.PreparePlayScene || !_isBuilding)return;
-            if(_inventory.PlaceableVRItems.Count <= 1)return;
-            _placeInvenNumber = (_placeInvenNumber + 1) % _inventory.PlaceableVRItems.Count;
-            _currCube = null;
+
+            if (_currCube != null)
+                _currCube.SetActive(false);
+            _currItem = newItem;
+            _currCube = newItem.gameObject;
+            _currCube.SetActive(true);
         }
 
         private void SwitchStates()
@@ -253,6 +255,19 @@ namespace Building
                 _colliderState = EColliderState.Position;
         }
 
+        private void SetRotationState()
+        {
+            if (!_isBuilding) return;
+
+            _colliderState = EColliderState.Rotation;
+        }
+        private void SetPositionState()
+        {
+            if (!_isBuilding) return;
+
+            _colliderState = EColliderState.Position;
+        }
+
         private void SwitchRotation()
         {
             if (!_isBuilding) return;
@@ -261,14 +276,35 @@ namespace Building
             _rotationNumber = (_rotationNumber + 1) % 3;
         }
 
-        public void SwitchBuildMode()
+        private void SetRotationAroundXAxis()
         {
-            _isBuilding = !_isBuilding;
+            if (!_isBuilding) return;
+            if (_colliderState != EColliderState.Rotation) return;
+
+            _rotationNumber = 1;
+        }
+        private void SetRotationAroundYAxis()
+        {
+            if (!_isBuilding) return;
+            if (_colliderState != EColliderState.Rotation) return;
+
+            _rotationNumber = 0;
+        }
+        private void SetRotationAroundZAxis()
+        {
+            if (!_isBuilding) return;
+            if (_colliderState != EColliderState.Rotation) return;
+
+            _rotationNumber = 2;
+        }
+
+        public void SwitchBuildMode(bool isOn)
+        {
+            _isBuilding = isOn;
 
             _colliderState = _isBuilding ? EColliderState.Position : EColliderState.NONE;
-            _mrPreparationUI.ChangeBuildModeName(_isBuilding);
             if(!_isBuilding && _currCube != null && _currItem != null)
-                ItemManager.Instance.ReturnPoolObject(_currItem);
+                _currCube.SetActive(false);
         }
 
         #endregion

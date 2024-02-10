@@ -11,19 +11,22 @@ namespace Utility
         InGame,
         GameOver,
         GameStart,
-        RoundOver
+        RoundOver,
+        GameDone
     }
     public enum EWeaponType
     {
         AssaultRifle,
         Pistol,
-        Dagger,
+        Revolver,
+        BatSaw,
         Grenade
     }
     public enum EEnemyType
     {
         RangeTP,
-        Range,
+        RangePistol,
+        RangeWalk,
         Melee
     }
     public enum EColliderState
@@ -35,10 +38,10 @@ namespace Utility
     }
     public enum EPlaceableItemType
     {
-        NONE,
-        Wall,
-        Sphere,
-        Cylinder
+        NONE = 0,
+        Wall = 1,
+        Barrell = 2,
+        Shroom = 3
     }
     public enum ENodeState
     {

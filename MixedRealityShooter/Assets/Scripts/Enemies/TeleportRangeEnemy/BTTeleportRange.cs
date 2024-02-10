@@ -7,14 +7,14 @@ namespace Enemies.TeleportRangeEnemy
 {
     public class BTTeleportRange : MyTree
     {
-        [FormerlySerializedAs("_enemy")] [SerializeField] private EnemyTP enemyTp;
+        [SerializeField] private EnemyTP enemyTp;
         protected override Node SetupTree()
         {
             Node root = new Selector(new List<Node>
             {
                 new Sequence(new List<Node>
                 {
-                    new LFCheckHealth(enemyTp.CurrHealth, enemyTp.Settings.HealthThreshold),
+                    new LFCheckHealth(enemyTp, enemyTp.Settings.HealthThreshold),
                     new LFCheckForPotion(enemyTp),
                     new LFHeal(enemyTp),
                 }),

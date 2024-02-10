@@ -1,16 +1,17 @@
 using Manager;
 using Oculus.Interaction;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Waves
 {
     public class RoundDone : MonoBehaviour
     {
-        [SerializeField] private PointableUnityEventWrapper _pointableUnityEvent;
+        [SerializeField] private Button _button;
 
         private void OnEnable()
         {
-            _pointableUnityEvent.WhenSelect.AddListener(OWNSceneManager.Instance.LoadVRScene);
+            _button.onClick.AddListener(OWNSceneManager.Instance.LoadVRScene);
         }
     }
 }

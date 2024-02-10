@@ -17,20 +17,16 @@ namespace Building
         [SerializeField] private GameObject _startObjs;
         [SerializeField] private GameObject _roundDoneObjs;
         [SerializeField] private GameObject _gameOverObjs;
+        [SerializeField] private GameObject _gameDoneObjs;
         [SerializeField] private GameObject _ongoingRoundObjs;
-
-        [Header("ButtonEvents")] 
-        [SerializeField] private PointableUnityEventWrapper _eventsStartGameButton;
-        [SerializeField] private PointableUnityEventWrapper _eventsInnerModeButton;
+        [SerializeField] private GameObject _anchorGameObject;
         
         [Header("NavMesh")]
         [SerializeField] private NavMeshSurface _surface;
 
         private void Start()
         {
-            GameManager.Instance.OnGameStateChange.AddListener(PrepareScene);
-            _eventsStartGameButton.WhenSelect.AddListener(ChangeToMrWallPrep);
-            _eventsInnerModeButton.WhenSelect.AddListener(ChangeToMrInsidePrep);
+            GameManager.Instance.onGameStateChange.AddListener(PrepareScene);
             PrepareScene(GameManager.Instance.CurrState);
         }
 
@@ -51,15 +47,19 @@ namespace Building
                     break;
                 case EGameStates.InGame:
                     OngoingRoundObjs();
+                    PrepareNavMesh();
                     break;
                 case EGameStates.GameOver:
                     GameOverPreparation();
                     break;
                 case EGameStates.GameStart:
-                    PrepareNavMesh();
+                    CheckIfAnchorsExist();
                     break;
                 case EGameStates.RoundOver:
                     RoundOverPreparation();
+                    break;
+                case EGameStates.GameDone:
+                    GameDonePreparation();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -71,6 +71,7 @@ namespace Building
             _playPrepObjs.SetActive(false);
             _mrInsidePrepObjs.SetActive(false);
             _roundDoneObjs.SetActive(false);
+            _gameDoneObjs.SetActive(false);
             _gameOverObjs.SetActive(false);
             _ongoingRoundObjs.SetActive(false);
             _mrWallPrepObjs.SetActive(true);
@@ -81,6 +82,7 @@ namespace Building
             _playPrepObjs.SetActive(false);
             _mrWallPrepObjs.SetActive(false);
             _roundDoneObjs.SetActive(false);
+            _gameDoneObjs.SetActive(false);
             _gameOverObjs.SetActive(false);
             _ongoingRoundObjs.SetActive(false);
             _mrInsidePrepObjs.SetActive(true);
@@ -91,6 +93,7 @@ namespace Building
             _playPrepObjs.SetActive(true);
             _mrWallPrepObjs.SetActive(false);
             _roundDoneObjs.SetActive(false);
+            _gameDoneObjs.SetActive(false);
             _gameOverObjs.SetActive(false);
             _ongoingRoundObjs.SetActive(false);
             _mrInsidePrepObjs.SetActive(false);
@@ -101,7 +104,19 @@ namespace Building
             _playPrepObjs.SetActive(false);
             _mrWallPrepObjs.SetActive(false);
             _roundDoneObjs.SetActive(false);
+            _gameDoneObjs.SetActive(false);
             _gameOverObjs.SetActive(true);
+            _mrInsidePrepObjs.SetActive(false);
+            _ongoingRoundObjs.SetActive(false);
+        }
+        private void GameDonePreparation()
+        {
+            _startObjs.SetActive(false);
+            _playPrepObjs.SetActive(false);
+            _mrWallPrepObjs.SetActive(false);
+            _roundDoneObjs.SetActive(false);
+            _gameDoneObjs.SetActive(true);
+            _gameOverObjs.SetActive(false);
             _mrInsidePrepObjs.SetActive(false);
             _ongoingRoundObjs.SetActive(false);
         }
@@ -111,6 +126,7 @@ namespace Building
             _playPrepObjs.SetActive(false);
             _mrWallPrepObjs.SetActive(false);
             _roundDoneObjs.SetActive(true);
+            _gameDoneObjs.SetActive(false);
             _gameOverObjs.SetActive(false);
             _mrInsidePrepObjs.SetActive(false);
             _ongoingRoundObjs.SetActive(false);
@@ -121,6 +137,7 @@ namespace Building
             _playPrepObjs.SetActive(false);
             _mrWallPrepObjs.SetActive(false);
             _roundDoneObjs.SetActive(false);
+            _gameDoneObjs.SetActive(false);
             _gameOverObjs.SetActive(false);
             _mrInsidePrepObjs.SetActive(false);
             _ongoingRoundObjs.SetActive(true);
@@ -133,14 +150,23 @@ namespace Building
 
         #region Event Methods
 
-        private void ChangeToMrWallPrep(PointerEvent pointerEvent)
+        public void ChangeToMrWallPrep()
         {
             GameManager.Instance.CurrState = EGameStates.PrepareMRSceneWall;
         }
         
-        private void ChangeToMrInsidePrep(PointerEvent pointerEvent)
+        public void ChangeToMrInsidePrep()
         {
             GameManager.Instance.CurrState = EGameStates.PrepareMRSceneInner;
+        }
+
+        private void CheckIfAnchorsExist()
+        {
+            if (AnchorManager.Instance && AnchorManager.Instance.CheckForAnchors())
+            {
+                // Open UI to ask if the user wishes to use the anchors or not
+                _anchorGameObject.SetActive(true);
+            }
         }
 
         #endregion

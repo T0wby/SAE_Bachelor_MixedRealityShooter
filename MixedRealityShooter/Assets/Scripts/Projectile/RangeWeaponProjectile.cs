@@ -7,8 +7,8 @@ namespace Projectile
     [RequireComponent(typeof(Rigidbody))]
     public class RangeWeaponProjectile : MonoBehaviour, IPoolable<RangeWeaponProjectile>
     {
-        //TODO: Add settings for Projectiles
         private int _damage = 0;
+        private bool _ignorePlayer = false;
         private ObjectPool<RangeWeaponProjectile> _pool;
         private Rigidbody _thisRb;
         private IDamage _objToDamage;
@@ -20,9 +20,10 @@ namespace Projectile
             _thisRb = GetComponent<Rigidbody>();
         }
 
-        public void InitProjectileStats(int damage)
+        public void InitProjectileStats(int damage, bool ignorePlayer)
         {
             _damage = damage;
+            _ignorePlayer = ignorePlayer;
         }
 
         public void Initialize(ObjectPool<RangeWeaponProjectile> pool)
@@ -44,15 +45,18 @@ namespace Projectile
 
         private void OnTriggerEnter(Collider other)
         {
+            if (_ignorePlayer && other.CompareTag("Player"))return;
             _objToDamage = other.GetComponent<IDamage>();
-            if (other.gameObject.layer == LayerMask.NameToLayer("Environment"))
-            {
-                _pool.ReturnItem(this);
-            }
-            else if (_objToDamage != null)
+            if (_objToDamage != null)
             {
                 _objToDamage.TakeDamage(_damage);
                 _objToDamage = null;
+                _pool.ReturnItem(this);
+                return;
+            }
+           
+            if (other.gameObject.layer == LayerMask.NameToLayer("Environment"))
+            {
                 _pool.ReturnItem(this);
             }
         }

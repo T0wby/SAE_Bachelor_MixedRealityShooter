@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Enemies;
-using Oculus.Interaction;
+using System.Linq;
 using PlacedObjects;
 using UnityEngine;
 using UnityEngine.Events;
@@ -16,7 +15,8 @@ namespace Manager
         private EGameStates _currState = EGameStates.GameStart;
         private List<GameObject> _mrPlacedObjects;
         private int _currRound = 0;
-        public UnityEvent<EGameStates> OnGameStateChange;
+        public UnityEvent<EGameStates> onGameStateChange;
+
         #endregion
 
         #region Properties
@@ -27,11 +27,14 @@ namespace Manager
             set
             {
                 _currState = value;
-                OnGameStateChange.Invoke(_currState);
+                onGameStateChange.Invoke(_currState);
             }
         }
+
         public List<GameObject> MrPlacedObjects => _mrPlacedObjects;
         public int CurrRound => _currRound;
+
+        public int MaxRounds { get; set; }
 
         #endregion
 
@@ -39,19 +42,35 @@ namespace Manager
         private void Start()
         {
             _mrPlacedObjects = new List<GameObject>();
-            OnGameStateChange.AddListener(SwitchObjVisibility);
-            OnGameStateChange.AddListener(DestroyPlacedVrObjects);
+            onGameStateChange.AddListener(SwitchObjVisibility);
+            onGameStateChange.AddListener(DestroyPlacedVrObjects);
         }
-
-        public void StartRound(PointerEvent pointEvent)
+        
+        public void StartRound()
         {
+            foreach (var placedObj in _mrPlacedObjects.Where(obj => obj != null))
+            {
+                placedObj.isStatic = true;
+            }
+
             _currRound++;
             CurrState = EGameStates.InGame;
         }
 
-        public void CheckIfRoundIsOver(int livingEnemyCount)
+        public void CheckIfRoundIsOver(int livingEnemyCount, int enemiesLeftToSpawn)
         {
-            if (livingEnemyCount > 0)return;
+            if (livingEnemyCount > 0 || enemiesLeftToSpawn > 0) return;
+
+            if (_currRound + 1 > MaxRounds)
+            {
+                CurrState = EGameStates.GameDone;
+                return;
+            }
+
+            foreach (var placedObj in _mrPlacedObjects.Where(obj => obj != null))
+            {
+                placedObj.isStatic = false;
+            }
 
             CurrState = EGameStates.RoundOver;
         }
@@ -60,8 +79,8 @@ namespace Manager
         {
             foreach (var obj in _mrPlacedObjects)
             {
-                if(obj == null) continue;
-                
+                if (obj == null) continue;
+
                 obj.SetActive(statusToChangeTo);
             }
         }
@@ -70,7 +89,17 @@ namespace Manager
         {
             foreach (var obj in _mrPlacedObjects)
             {
-                if(obj == null || obj.CompareTag("InvenObj")) continue;
+                if (obj == null || obj.CompareTag("InvenObj")) continue;
+
+                if (obj.CompareTag("Wall"))
+                {
+                    var placedWall = obj.GetComponent<APlacedObject>();
+                    if (placedWall == null) continue;
+                    placedWall.SetGameColor();
+                }
+
+                if (!obj.CompareTag("PlacedObj")) continue;
+                if (obj.transform.childCount == 0) continue;
                 var placedObj = obj.transform.GetChild(0).GetComponent<APlacedObject>();
                 if (placedObj == null) continue;
                 placedObj.SetGameColor();
@@ -79,12 +108,13 @@ namespace Manager
 
         private void DestroyPlacedVrObjects(EGameStates state)
         {
-            if (state != EGameStates.GameOver)return;
+            if (state != EGameStates.GameOver) return;
             foreach (var obj in _mrPlacedObjects)
             {
-                if (!obj.CompareTag("InvenObj"))continue;
+                if (!obj.CompareTag("InvenObj")) continue;
                 Destroy(obj);
             }
+
             _currRound = 0;
             _mrPlacedObjects.RemoveAll(obj => obj == null);
         }
@@ -111,6 +141,8 @@ namespace Manager
                 case EGameStates.GameStart:
                     break;
                 case EGameStates.RoundOver:
+                    break;
+                case EGameStates.GameDone:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

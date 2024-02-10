@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Weapons;
 using Items;
 using Manager;
+using UnityEngine.Events;
+using UnityEngine.Serialization;
 using Utility;
 
 namespace Player
@@ -12,12 +15,16 @@ namespace Player
     {
         #region Variables
 
+        [SerializeField] private GameObject _defaultRangeWeaponPrefab;
+
         private RangeWeapon _activeRangeWeapon;
         private GameObject _activeRangeWeaponPrefab;
         private MeleeWeapon _activeMeleeWeapon;
         private GameObject _activeMeleeWeaponPrefab;
-
         [SerializeField] private List<PlaceableVRItem> _placeableVRItems;
+        private int _money;
+
+        private const int STARTMONEY = 100;
         // throwable Items?
 
         #endregion
@@ -30,18 +37,35 @@ namespace Player
         public RangeWeapon ActiveRangeWeapon => _activeRangeWeapon;
         public MeleeWeapon ActiveMeleeWeapon => _activeMeleeWeapon;
 
+        public int AmountPlaceableItems => _placeableVRItems.Count;
+
+        public int Money
+        {
+            get => _money;
+            set
+            {
+                _money = value <= 0 ? 0 : value;
+                onMoneyChange.Invoke(_money);
+            }
+        }
+
         #endregion
+
+        public UnityEvent<int> onMoneyChange;
+        public UnityEvent onPlaceableInventoryChange;
 
         private void Awake()
         {
             DontDestroyOnLoad(gameObject);
             _placeableVRItems = new List<PlaceableVRItem>();
+            AddDefaultRangeWeapon();
         }
 
         private void Start()
         {
-            GameManager.Instance.OnGameStateChange.AddListener(ResetInventory);
-            GameManager.Instance.OnGameStateChange.AddListener(SetInventoryInactive);
+            GameManager.Instance.onGameStateChange.AddListener(ResetInventory);
+            GameManager.Instance.onGameStateChange.AddListener(SetInventoryInactive);
+            Money = STARTMONEY;
         }
 
         public void AddRangeWeapon(AWeapon weapon)
@@ -54,6 +78,15 @@ namespace Player
             }
             
             _activeRangeWeaponPrefab = Instantiate(weapon.DefaultSettings.WeaponPrefab, transform.position, Quaternion.identity, transform);
+            _activeRangeWeapon = _activeRangeWeaponPrefab.GetComponent<RangeWeapon>();
+            _activeRangeWeaponPrefab.SetActive(false);
+        }
+
+        private void AddDefaultRangeWeapon()
+        {
+            if (_defaultRangeWeaponPrefab == null || _activeRangeWeaponPrefab != null) return;
+            
+            _activeRangeWeaponPrefab = Instantiate(_defaultRangeWeaponPrefab, transform.position, Quaternion.identity, transform);
             _activeRangeWeapon = _activeRangeWeaponPrefab.GetComponent<RangeWeapon>();
             _activeRangeWeaponPrefab.SetActive(false);
         }
@@ -71,6 +104,17 @@ namespace Player
             _activeMeleeWeaponPrefab.SetActive(false);
         }
 
+        public void AddPlaceableVrItem(PlaceableVRItem itemToAdd)
+        {
+            _placeableVRItems.Add(itemToAdd);
+            onPlaceableInventoryChange.Invoke();
+        }
+        public void RemovePlaceableVrItem(PlaceableVRItem itemToRemove)
+        {
+            _placeableVRItems.Remove(itemToRemove);
+            onPlaceableInventoryChange.Invoke();
+        }
+
         #region Event Methods
 
         private void ResetInventory(EGameStates state)
@@ -86,6 +130,13 @@ namespace Player
             {
                 Destroy(_activeMeleeWeaponPrefab);
                 _activeMeleeWeapon = null;
+            }
+
+            Money = STARTMONEY;
+
+            foreach (var obj in _placeableVRItems.Where(obj => obj != null))
+            {
+                obj.ReturnThisToPool();
             }
             _placeableVRItems.Clear();
         }

@@ -109,7 +109,7 @@ namespace Enemies.BehaviorTree
         /// <returns>Returns the root Node reference</returns>
         public Node GetRoot(Node node)
         {
-            if (node.Parent is null)
+            if (node.Parent == null)
                 return node;
 
             return GetRoot(node.Parent);

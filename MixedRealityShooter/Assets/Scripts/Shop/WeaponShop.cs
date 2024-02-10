@@ -1,8 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Inventory;
 using Player;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.Serialization;
 using Utility;
 using Weapons;
 
@@ -10,54 +14,75 @@ namespace Shop
 {
     public class WeaponShop : MonoBehaviour
     {
-        [SerializeField] private List<GameObject> _availableWeaponPrefabs;
-        [SerializeField] private List<AWeapon> _availableWeapons;
-        [SerializeField] private Transform _weaponSpawn;
-        [SerializeField] private InventoryUpdater _inventoryUpdater;
-        private AddPlacedItemToInventory _propAdder;
+        [Header("Weapons")]
+        [SerializeField] private List<WeaponSettings> _availableWeaponSettings;
+
+        [Header("Text")] 
+        [SerializeField] private TMP_Text _arCost;
+        [SerializeField] private TMP_Text _pistolCost;
+        [SerializeField] private TMP_Text _batCost;
+        
         private PlayerInventory _playerInventory;
+        
+        public UnityEvent onBuyingWeapon;
 
         private void Awake()
         {
             _playerInventory = FindObjectOfType<PlayerInventory>();
-            _inventoryUpdater = FindObjectOfType<InventoryUpdater>();
-            _propAdder = FindObjectOfType<AddPlacedItemToInventory>();
+            SetWeaponCostText();
         }
 
-        public void SpawnBoughtWeapon(int vendingNumber)
+        private void SetWeaponCostText()
         {
-            if (vendingNumber >= _availableWeaponPrefabs.Count || vendingNumber < 0)return;
-            
-            Instantiate(_availableWeaponPrefabs[vendingNumber], _weaponSpawn.position, Quaternion.identity, _weaponSpawn);
+            foreach (var settings in _availableWeaponSettings.Where(obj => obj != null))
+            {
+                switch (settings.WeaponType)
+                {
+                    case EWeaponType.AssaultRifle:
+                        _arCost.text = $"{settings.Value}$";
+                        break;
+                    case EWeaponType.Pistol:
+                        _pistolCost.text = $"{settings.Value}$";
+                        break;
+                    case EWeaponType.Revolver:
+                        break;
+                    case EWeaponType.BatSaw:
+                        _batCost.text = $"{settings.Value}$";
+                        break;
+                    case EWeaponType.Grenade:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
         }
         
         public void AddBoughtWeaponToInven(int vendingNumber)
         {
-            if (vendingNumber >= _availableWeaponPrefabs.Count || vendingNumber < 0)return;
+            if (vendingNumber >= _availableWeaponSettings.Count || vendingNumber < 0)return;
+
+            var settings = _availableWeaponSettings[vendingNumber];
             
-            AWeapon wpn = _availableWeaponPrefabs[vendingNumber].GetComponent<AWeapon>();
-            if (wpn == null)return;
-            switch (wpn.DefaultSettings.WeaponType)
+            if (settings.Value > _playerInventory.Money)return;
+            
+            switch (settings.WeaponType)
             {
                 case EWeaponType.AssaultRifle:
-                    _playerInventory.AddRangeWeapon(_availableWeapons[vendingNumber]);
-                    _propAdder.SpawnRangeProp();
-                    break;
+                case EWeaponType.Revolver:
                 case EWeaponType.Pistol:
-                    _playerInventory.AddRangeWeapon(_availableWeapons[vendingNumber]);
-                    _propAdder.SpawnRangeProp();
+                    _playerInventory.AddRangeWeapon(settings.WeaponPrefab.GetComponent<AWeapon>());
                     break;
-                case EWeaponType.Dagger:
-                    _playerInventory.AddMeleeWeapon(_availableWeapons[vendingNumber]);
-                    _propAdder.SpawnMeleeProp();
+                case EWeaponType.BatSaw:
+                    _playerInventory.AddMeleeWeapon(settings.WeaponPrefab.GetComponent<AWeapon>());
                     break;
                 case EWeaponType.Grenade:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+            _playerInventory.Money -= settings.Value;
             
-            _inventoryUpdater.UpdateFields();
+            onBuyingWeapon.Invoke();
         }
     }
 }

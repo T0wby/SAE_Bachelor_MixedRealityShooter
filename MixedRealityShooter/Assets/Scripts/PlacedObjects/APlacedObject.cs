@@ -4,29 +4,36 @@ namespace PlacedObjects
 {
     public abstract class APlacedObject : MonoBehaviour
     {
+        [Header("Color Properties")]
         [SerializeField] protected Color _normalColor;
         [SerializeField] protected Color _selectedColor;
         [SerializeField] protected Color _gameColor;
+        [SerializeField] protected Renderer _ownRenderer;
         protected Material _ownMat;
 
         private void Awake()
         {
-            _ownMat = GetComponent<MeshRenderer>().material;
-            DontDestroyOnLoad(transform.parent.gameObject);
+            if (_ownRenderer == null)
+            {
+                _ownRenderer = GetComponent<MeshRenderer>();
+            }
+            _ownMat = _ownRenderer.material;
+            DontDestroyOnLoad(transform.parent != null ? transform.parent.gameObject : gameObject);
             SetNormalColor();
         }
 
-        public void SetSelectedColor()
+        public virtual void SetSelectedColor()
         {
-            _ownMat.SetColor("_NormalColor", _selectedColor);
+            _ownMat.SetColor("_WireframeColor", _selectedColor);
         }
-        public void SetNormalColor()
+        public virtual void SetNormalColor()
         {
-            _ownMat.SetColor("_NormalColor", _normalColor);
+            _ownMat.SetColor("_WireframeColor", _normalColor);
         }
-        public void SetGameColor()
+        public virtual void SetGameColor()
         {
-            _ownMat.SetColor("_NormalColor", _gameColor);
+            _ownMat.SetColor("_WireframeColor", _gameColor);
+            _ownMat.SetFloat("_WireframeWidth", 0.0f);
         }
     }
 }

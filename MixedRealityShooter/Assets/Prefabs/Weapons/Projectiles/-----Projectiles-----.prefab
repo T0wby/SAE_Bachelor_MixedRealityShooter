@@ -45,6 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 0
-  _arProjectilePrefab: {fileID: 1520972823433770572, guid: 1e8163956001a61469954113dcf2fab1,
+  _projectilePrefab: {fileID: 1520972823433770572, guid: 1e8163956001a61469954113dcf2fab1,
     type: 3}
   _poolSize: 50

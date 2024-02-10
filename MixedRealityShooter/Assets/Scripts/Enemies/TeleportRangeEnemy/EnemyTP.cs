@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using Player;
 using UnityEngine;
 using Utility;
 using Weapons;
@@ -10,21 +12,18 @@ namespace Enemies.TeleportRangeEnemy
         #region Variables
 
         [SerializeField] private EnemyTargetDetection _ownTargetDetection;
-        [SerializeField] private Transform _weaponSlot;
         
         private Transform _destination;
         private AWeapon _activeWeapon;
-        private bool _isAttacking = false;
         private bool _canMove = true;
-        private int _layermask;
         private Vector3 _playerPos;
+        private PlayerInventory _playerInventory;
 
         #endregion
 
         #region Properties
 
         public Transform Destination{ get => _destination; set => _destination = value; }
-        public bool IsAttacking => _isAttacking;
         public bool CanMove => _canMove;
 
         #endregion
@@ -34,16 +33,21 @@ namespace Enemies.TeleportRangeEnemy
         private void Awake()
         {
             SetDefaultStats();
-            _layermask = LayerMask.NameToLayer("Enemy");
-            _layermask = ~_layermask;
-            OnHealthChange.AddListener(OnDeath);
+            _ignoreLayers = LayerMask.NameToLayer("Enemy");
+            _ignoreLayers = ~_ignoreLayers;
+            onHealthChange.AddListener(OnDeath);
             SpawnWeapon();
+        }
+
+        private void OnEnable()
+        {
+            _playerInventory = FindObjectOfType<PlayerInventory>();
         }
 
         private void Update()
         {
             if (_ownTargetDetection == null || _ownTargetDetection.Player == null) return;
-            _playerPos = _ownTargetDetection.Player.ColliderPos;
+            _playerPos = _ownTargetDetection.Player.transform.position;
             transform.rotation = Quaternion.LookRotation(_playerPos - transform.position, Vector3.up);
             RotateWeaponToTarget();
         }
@@ -76,11 +80,11 @@ namespace Enemies.TeleportRangeEnemy
             StartCoroutine(Teleport());
         }
         
-        IEnumerator Teleport()
+        private IEnumerator Teleport()
         {
             if (_canMove)
             {
-                _ownTargetDetection.GetSpawnPoint();
+                _destination = _ownTargetDetection.GetSpawnPointTransform(true);
                 if (_destination != null)
                 {
                     _canMove = false;
@@ -98,12 +102,12 @@ namespace Enemies.TeleportRangeEnemy
             yield return null;
         }
 
-        public void StartAttack()
+        public override void Attack()
         {
-            StartCoroutine(Attack());
+            StartCoroutine(StartAttack());
         }
 
-        IEnumerator Attack()
+        private IEnumerator StartAttack()
         {
             if (!_isAttacking)
             {
@@ -116,11 +120,7 @@ namespace Enemies.TeleportRangeEnemy
             yield return null;
         }
 
-        public void Heal()
-        {
-            if(_healthPotionAmount <= 0) return;
-            CurrHealth += 20;
-        }
+        
 
         public override void TakeDamage(int damage)
         {
@@ -137,7 +137,7 @@ namespace Enemies.TeleportRangeEnemy
             {
                 Vector3 dir = _ownTargetDetection.Player.transform.position - _weaponSlot.transform.position;
                 dir.y *= 0.5f;
-                if (Physics.Raycast(_weaponSlot.transform.position, dir, out var hit, Mathf.Infinity, _layermask))
+                if (Physics.Raycast(_weaponSlot.transform.position, dir, out var hit, Mathf.Infinity, _ignoreLayers))
                 {
                     Debug.DrawRay(_weaponSlot.transform.position, dir * 2, Color.red, 2.0f);
                     return hit.transform.CompareTag("Player");
@@ -152,6 +152,9 @@ namespace Enemies.TeleportRangeEnemy
         private void OnDeath(int health)
         {
             if (health > 0)return;
+
+            if (_playerInventory != null)
+                _playerInventory.Money += _settings.MoneyValue;
             
             _waveManager.RemoveDeadEnemy(this);
             ReturnEnemy();

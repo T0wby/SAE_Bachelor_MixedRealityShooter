@@ -6,19 +6,21 @@ namespace Enemies.TeleportRangeEnemy
 {
     public class LFCheckHealth : Node
     {
-        private int _currHealth;
+        private AEnemy _enemy;
         private int _healthThreshold;
 
-        public LFCheckHealth(int currHealth, int threshold)
+        public LFCheckHealth(AEnemy enemy, int threshold)
         {
-            _currHealth = currHealth;
+            _enemy = enemy;
             _healthThreshold = threshold;
         }
 
         public override ENodeState CalculateState()
         {
-            Debug.Log("LFCheckHealth");
-            return _state = (_currHealth < _healthThreshold) ? ENodeState.SUCCESS : ENodeState.FAILURE;
+            if (_enemy.CurrHealth < _healthThreshold)
+                return ENodeState.SUCCESS;
+            _enemy.IsFleeing = false;
+            return ENodeState.FAILURE;
         }
     }
 }

@@ -6,16 +6,15 @@ namespace Enemies.TeleportRangeEnemy
 {
     public class LFCheckAttackTimer : Node
     {
-        private EnemyTP _enemyTp;
-        public LFCheckAttackTimer(EnemyTP enemyTp)
+        private AEnemy _enemy;
+        public LFCheckAttackTimer(AEnemy enemy)
         {
-            _enemyTp = enemyTp;
+            _enemy = enemy;
         }
 
         public override ENodeState CalculateState()
         {
-            Debug.Log("LFCheckAttackTimer");
-            return _enemyTp.IsAttacking ? ENodeState.FAILURE : ENodeState.SUCCESS;
+            return _enemy.IsAttacking ? ENodeState.FAILURE : ENodeState.SUCCESS;
         }
     }
 }

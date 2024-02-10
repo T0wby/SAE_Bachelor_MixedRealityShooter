@@ -2,6 +2,7 @@ using System;
 using Manager;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using Utility;
 
 namespace Player
@@ -27,23 +28,20 @@ namespace Player
             get => _health;
             set
             {
-                if (value > MAXHEALTH)
-                    _health = MAXHEALTH;
-                else
-                    _health = value;
-                OnHealthChange.Invoke(_health);
+                _health = value > MAXHEALTH ? MAXHEALTH : value;
+                onHealthChange.Invoke(_health);
             }
         }
 
         #endregion
 
-        public UnityEvent<int> OnHealthChange;
+        public UnityEvent<int> onHealthChange;
 
         private void Awake()
         {
             if(_thisCollider == null)return;
             _colliderGO = _thisCollider.gameObject;
-            OnHealthChange.AddListener(CheckForDeath);
+            onHealthChange.AddListener(CheckForDeath);
         }
 
         private void Update()
@@ -52,6 +50,7 @@ namespace Player
             _thisCollider.height = _centerEyeAnchor.position.y;
             _colliderGO.transform.position = new Vector3(_centerEyeAnchor.position.x, _thisCollider.height * 0.5f,
                 _centerEyeAnchor.position.z);
+            _colliderGO.transform.rotation = Quaternion.Euler(0.0f, _centerEyeAnchor.rotation.y, 0.0f);
         }
 
         private void CheckForDeath(int newHealthValue)

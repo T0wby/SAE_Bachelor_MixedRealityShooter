@@ -14,7 +14,7 @@ namespace UI
 
         private void Awake()
         {
-            _enemy.OnHealthChange.AddListener(UpdateHealthBar);
+            _enemy.onHealthChange.AddListener(UpdateHealthBar);
         }
 
         private void UpdateHealthBar(int newHealthValue)

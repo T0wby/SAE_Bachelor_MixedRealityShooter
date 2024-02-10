@@ -62,6 +62,42 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FireWeapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""39964867-6e3b-4e8c-a36c-034ce9038183"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ResetView"",
+                    ""type"": ""Button"",
+                    ""id"": ""59b97409-e6e4-48b8-bb7b-9387e76bbea0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ResetWeapons"",
+                    ""type"": ""Button"",
+                    ""id"": ""a084930a-87ec-4335-b198-7883e622430b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ActivateBuildUI"",
+                    ""type"": ""Button"",
+                    ""id"": ""82886f08-02c3-4917-91dd-9ca39af486f3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -90,7 +126,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""28407a08-8e95-4a0e-b7da-96af3697f2a4"",
-                    ""path"": ""<XRController>{RightHand}/secondaryButton"",
+                    ""path"": ""<XRController>{RightHand}/thumbstickClicked"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -108,6 +144,72 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""PlaceObj"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6cae6cea-c38a-4b73-a17c-7ea94a4788c9"",
+                    ""path"": ""<XRController>{RightHand}/triggerPressed"",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FireWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""11d973a9-ae89-4eff-a063-0c01a7965a2a"",
+                    ""path"": ""<XRController>{LeftHand}/triggerPressed"",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FireWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2e9028b7-e9b6-4566-9b29-8321ed4300a6"",
+                    ""path"": ""<XRController>{RightHand}/secondaryButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ResetView"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""83c5a796-5c1f-4f60-bc7d-603fb6c6b6c6"",
+                    ""path"": ""<XRController>{LeftHand}/thumbstickClicked"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ResetWeapons"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1b662c9c-ea4f-4605-afe9-8ee65a71a22b"",
+                    ""path"": ""<XRController>{RightHand}/thumbstickClicked"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ResetWeapons"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2aeeb9d8-0228-4d55-9be6-91a1ce4a618b"",
+                    ""path"": ""<XRController>{LeftHand}/primaryButton"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ActivateBuildUI"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -120,6 +222,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_RotateAndScale = m_Player.FindAction("RotateAndScale", throwIfNotFound: true);
         m_Player_SwitchRotScale = m_Player.FindAction("SwitchRotScale", throwIfNotFound: true);
         m_Player_PlaceObj = m_Player.FindAction("PlaceObj", throwIfNotFound: true);
+        m_Player_FireWeapon = m_Player.FindAction("FireWeapon", throwIfNotFound: true);
+        m_Player_ResetView = m_Player.FindAction("ResetView", throwIfNotFound: true);
+        m_Player_ResetWeapons = m_Player.FindAction("ResetWeapons", throwIfNotFound: true);
+        m_Player_ActivateBuildUI = m_Player.FindAction("ActivateBuildUI", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -185,6 +291,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_RotateAndScale;
     private readonly InputAction m_Player_SwitchRotScale;
     private readonly InputAction m_Player_PlaceObj;
+    private readonly InputAction m_Player_FireWeapon;
+    private readonly InputAction m_Player_ResetView;
+    private readonly InputAction m_Player_ResetWeapons;
+    private readonly InputAction m_Player_ActivateBuildUI;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -193,6 +303,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @RotateAndScale => m_Wrapper.m_Player_RotateAndScale;
         public InputAction @SwitchRotScale => m_Wrapper.m_Player_SwitchRotScale;
         public InputAction @PlaceObj => m_Wrapper.m_Player_PlaceObj;
+        public InputAction @FireWeapon => m_Wrapper.m_Player_FireWeapon;
+        public InputAction @ResetView => m_Wrapper.m_Player_ResetView;
+        public InputAction @ResetWeapons => m_Wrapper.m_Player_ResetWeapons;
+        public InputAction @ActivateBuildUI => m_Wrapper.m_Player_ActivateBuildUI;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -214,6 +328,18 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @PlaceObj.started += instance.OnPlaceObj;
             @PlaceObj.performed += instance.OnPlaceObj;
             @PlaceObj.canceled += instance.OnPlaceObj;
+            @FireWeapon.started += instance.OnFireWeapon;
+            @FireWeapon.performed += instance.OnFireWeapon;
+            @FireWeapon.canceled += instance.OnFireWeapon;
+            @ResetView.started += instance.OnResetView;
+            @ResetView.performed += instance.OnResetView;
+            @ResetView.canceled += instance.OnResetView;
+            @ResetWeapons.started += instance.OnResetWeapons;
+            @ResetWeapons.performed += instance.OnResetWeapons;
+            @ResetWeapons.canceled += instance.OnResetWeapons;
+            @ActivateBuildUI.started += instance.OnActivateBuildUI;
+            @ActivateBuildUI.performed += instance.OnActivateBuildUI;
+            @ActivateBuildUI.canceled += instance.OnActivateBuildUI;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -230,6 +356,18 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @PlaceObj.started -= instance.OnPlaceObj;
             @PlaceObj.performed -= instance.OnPlaceObj;
             @PlaceObj.canceled -= instance.OnPlaceObj;
+            @FireWeapon.started -= instance.OnFireWeapon;
+            @FireWeapon.performed -= instance.OnFireWeapon;
+            @FireWeapon.canceled -= instance.OnFireWeapon;
+            @ResetView.started -= instance.OnResetView;
+            @ResetView.performed -= instance.OnResetView;
+            @ResetView.canceled -= instance.OnResetView;
+            @ResetWeapons.started -= instance.OnResetWeapons;
+            @ResetWeapons.performed -= instance.OnResetWeapons;
+            @ResetWeapons.canceled -= instance.OnResetWeapons;
+            @ActivateBuildUI.started -= instance.OnActivateBuildUI;
+            @ActivateBuildUI.performed -= instance.OnActivateBuildUI;
+            @ActivateBuildUI.canceled -= instance.OnActivateBuildUI;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -253,5 +391,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnRotateAndScale(InputAction.CallbackContext context);
         void OnSwitchRotScale(InputAction.CallbackContext context);
         void OnPlaceObj(InputAction.CallbackContext context);
+        void OnFireWeapon(InputAction.CallbackContext context);
+        void OnResetView(InputAction.CallbackContext context);
+        void OnResetWeapons(InputAction.CallbackContext context);
+        void OnActivateBuildUI(InputAction.CallbackContext context);
     }
 }

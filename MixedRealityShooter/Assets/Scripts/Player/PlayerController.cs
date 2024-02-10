@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace Player
 {
@@ -9,15 +10,23 @@ namespace Player
     {
         private PlayerControls _playerControls;
         private InputAction _interact;
+        private InputAction _fireWeapon;
         private InputAction _rotateScale;
         private InputAction _switchRotateScale;
         private InputAction _placeObj;
+        private InputAction _resetView;
+        private InputAction _resetWeapons;
+        private InputAction _activateBuildUI;
 
-        public UnityEvent OnInteraction;
-        public UnityEvent OnSwitchRotateScale;
-        public UnityEvent OnPlaceObj;
-        public UnityEvent<Vector2> OnRotation;
-        public UnityEvent<Vector2> OnScale;
+        public UnityEvent onInteraction;
+        public UnityEvent onFireWeapon;
+        public UnityEvent onCancelFireWeapon;
+        public UnityEvent onSecondaryButton;
+        public UnityEvent onPrimaryButton;
+        public UnityEvent onPrimaryButtonLeft;
+        public UnityEvent onThumbstickClick;
+        public UnityEvent<Vector2> onRotation;
+        public UnityEvent<Vector2> onScale;
         
         private Vector2 _thumbstickValue = Vector2.zero;
 
@@ -36,6 +45,14 @@ namespace Player
             _switchRotateScale.Enable();
             _placeObj = _playerControls.Player.PlaceObj;
             _placeObj.Enable();
+            _fireWeapon = _playerControls.Player.FireWeapon;
+            _fireWeapon.Enable();
+            _resetView = _playerControls.Player.ResetView;
+            _resetView.Enable();
+            _resetWeapons = _playerControls.Player.ResetWeapons;
+            _resetWeapons.Enable();
+            _activateBuildUI = _playerControls.Player.ActivateBuildUI;
+            _activateBuildUI.Enable();
         }
 
         private void OnDisable()
@@ -44,35 +61,70 @@ namespace Player
             _rotateScale.Disable();
             _switchRotateScale.Disable();
             _placeObj.Disable();
+            _fireWeapon.Disable();
+            _resetView.Disable();
+            _resetWeapons.Disable();
+            _activateBuildUI.Disable();
         }
 
         public void Interact(InputAction.CallbackContext context)
         {
             if (context.started)
             {
-                OnInteraction.Invoke();
+                onInteraction.Invoke();
             }
         }
         public void OnSecondaryButton(InputAction.CallbackContext context)
         {
             if (context.started)
             {
-                OnSwitchRotateScale.Invoke();
+                onSecondaryButton.Invoke();
             }
         }
         public void OnPrimaryButton(InputAction.CallbackContext context)
         {
             if (context.started)
             {
-                OnPlaceObj.Invoke();
+                onPrimaryButton.Invoke();
+            }
+        }
+        public void OnThumbstickClicked(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                onThumbstickClick.Invoke();
             }
         }
         
         public void OnThumbstick(InputAction.CallbackContext context)
         {
             _thumbstickValue = context.ReadValue<Vector2>();
-            OnRotation.Invoke(_thumbstickValue);
-            OnScale.Invoke(_thumbstickValue);
+            onRotation.Invoke(_thumbstickValue);
+            onScale.Invoke(_thumbstickValue);
+        }
+        
+        /// <summary>
+        /// Action on release that is why we cancel on performed
+        /// </summary>
+        /// <param name="context"></param>
+        public void FireWeapon(InputAction.CallbackContext context)
+        {
+            if(context.started)
+            {
+                onFireWeapon.Invoke();
+            }
+            if(context.performed)
+            {
+                onCancelFireWeapon.Invoke();
+            }
+        }
+        
+        public void OnLeftPrimary(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                onPrimaryButtonLeft.Invoke();
+            }
         }
     }
 }
