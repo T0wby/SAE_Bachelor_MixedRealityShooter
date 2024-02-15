@@ -4,7 +4,7 @@ Shader "Unlit/WireframeSimple_Fragment"
     {
         _MainTex ("Texture", 2D) = "white" {}
         _WireframeColor ("WireframeColor", Color) = (1,0,0,1)
-        _WireframeWidth ("WireframeWidth", float) = 0.05
+        _WireframeWidth ("WireframeWidth", Range(0, 0.5)) = 0.05
     }
     SubShader
     {
@@ -39,7 +39,7 @@ Shader "Unlit/WireframeSimple_Fragment"
                 float2 uv : TEXCOORD0;
                 float4 vertex : SV_POSITION;
 
-                UNITY_VERTEX_OUTPUT_STEREO_EYE_INDEX
+                UNITY_VERTEX_OUTPUT_STEREO
             };
 
             float4 _MainTex_ST;
@@ -64,11 +64,7 @@ Shader "Unlit/WireframeSimple_Fragment"
             {
                 UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);
 
-                float2 uv = i.uv;
-                uv.y = 1.0 - uv.y; // Flip y-coordinate to match Unity's texture coordinates
-                fixed4 col = tex2D(_MainTex, uv);
-                const float closest = min(col.r, min(col.g, col.b));
-                float alpha = step(closest, _WireframeWidth);
+                float alpha = 1.0 - step(0.5 - _WireframeWidth, min(min(i.uv.x, i.uv.y), min(1.0 - i.uv.x, 1.0 - i.uv.y)));
                 return fixed4(_WireframeColor.rgb, alpha);
             }
             ENDCG

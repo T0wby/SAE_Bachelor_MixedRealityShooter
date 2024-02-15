@@ -47,7 +47,7 @@ namespace Building
                     break;
                 case EGameStates.InGame:
                     OngoingRoundObjs();
-                    PrepareNavMesh();
+                    //PrepareNavMesh();
                     break;
                 case EGameStates.GameOver:
                     GameOverPreparation();

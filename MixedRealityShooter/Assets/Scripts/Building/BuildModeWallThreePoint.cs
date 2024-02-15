@@ -214,9 +214,6 @@ namespace Building
             Destroy(_startPoint);
             Destroy(_heightPoint);
             Destroy(_secondPoint);
-            //_startPoint = null;
-            //_heightPoint = null;
-            //_secondPoint = null;
         }
         
         private void DeleteFocusedObject()
