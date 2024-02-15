@@ -22,6 +22,7 @@ namespace Manager
         private List<AEnemy> _enemiesAlive = new List<AEnemy>();
         private EnemyPool[] _enemyPools;
         private EnemyFactory _enemyFactory;
+        private Coroutine _waveCoroutine;
 
         #endregion
 
@@ -107,7 +108,7 @@ namespace Manager
             if (currWave > _settings.Count) return;
             _enemiesLeftToSpawn = _settings[currWave - 1].EnemyAmount;
             _enemiesDefeatedCount = 0;
-            StartCoroutine(SpawnWaveTimer(currWave));
+            _waveCoroutine = StartCoroutine(SpawnWaveTimer(currWave));
         }
 
         private IEnumerator SpawnWaveTimer(int currWave)
@@ -136,6 +137,7 @@ namespace Manager
             _enemiesAlive.Add(enemyToAdd);
             onEnemyCountChange.Invoke(_enemiesAlive.Count, _enemiesLeftToSpawn);
         }
+        
         public void RemoveDeadEnemy(AEnemy enemyToRemove)
         {
             _enemiesAlive.Remove(enemyToRemove);
@@ -146,6 +148,7 @@ namespace Manager
         private void PlayerDeath(EGameStates state)
         {
             if (state != EGameStates.GameOver)return;
+            StopCoroutine(_waveCoroutine);
             foreach (var enemy in _enemiesAlive)
             {
                 enemy.ReturnEnemy();

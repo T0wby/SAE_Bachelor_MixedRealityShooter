@@ -211,9 +211,12 @@ namespace Building
             _currWall.layer = LayerMask.NameToLayer("Environment");
             _placedObjects.Add(_currWall);
             _currWall = null;
-            _startPoint = null;
-            _heightPoint = null;
-            _secondPoint = null;
+            Destroy(_startPoint);
+            Destroy(_heightPoint);
+            Destroy(_secondPoint);
+            //_startPoint = null;
+            //_heightPoint = null;
+            //_secondPoint = null;
         }
         
         private void DeleteFocusedObject()

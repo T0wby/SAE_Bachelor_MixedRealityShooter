@@ -304,6 +304,14 @@ namespace Building
             _isBuilding = isOn;
 
             _currPlaceMode = _isBuilding ? EPlaceMode.Start : EPlaceMode.None;
+            DestroyConnectionPoints();
+            
+            if (!_isBuilding && _currCube != null)
+                Destroy(_currCube);  
+        }
+
+        public void DestroyConnectionPoints()
+        {
             if (_startPoint != null)
                 Destroy(_startPoint);
             if (_widthPoint != null)
@@ -312,9 +320,6 @@ namespace Building
                 Destroy(_heightPoint);
             if (_endPoint != null)
                 Destroy(_endPoint);
-            
-            if (!_isBuilding && _currCube != null)
-                Destroy(_currCube);  
         }
 
         #endregion
