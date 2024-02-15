@@ -29,7 +29,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _WireframeWidth: 0.464
+    - _WireframeWidth: 0.493
     m_Colors:
     - _WireframeColor: {r: 0.20064259, g: 1, b: 0, a: 1}
   m_BuildTextureStacks: []
