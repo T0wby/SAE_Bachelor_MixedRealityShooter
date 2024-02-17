@@ -40,6 +40,7 @@ Material:
     m_Floats:
     - _AlphaClipThreshold: 1
     - _EdgeThickness: 0.009
+    - _NoiseScale: 400
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:

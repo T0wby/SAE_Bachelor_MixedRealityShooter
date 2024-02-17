@@ -1456,7 +1456,7 @@ MonoBehaviour:
   - {fileID: 1269153925}
   - {fileID: 366583381}
   _gamePrepObj: {fileID: 916715366}
-  _dissolveTime: 2
+  _dissolveTime: 5
 --- !u!1 &230074297
 GameObject:
   m_ObjectHideFlags: 0
@@ -7066,6 +7066,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 4717318269752495987}
+        m_TargetAssemblyTypeName: Inventory.WeaponRackManager, Assembly-CSharp
+        m_MethodName: SetActiveWeaponsToRack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1081496233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10421,6 +10433,30 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 4717318269752495985}
+        m_TargetAssemblyTypeName: Inventory.InventoryUpdater, Assembly-CSharp
+        m_MethodName: UpdateFields
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4717318269752495987}
+        m_TargetAssemblyTypeName: Inventory.WeaponRackManager, Assembly-CSharp
+        m_MethodName: SetActiveWeaponsToRack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1492838126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10930,7 +10966,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1540249644}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.001, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 20, y: 1, z: 20}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11190,6 +11226,30 @@ MonoBehaviour:
       - m_Target: {fileID: 227706987}
         m_TargetAssemblyTypeName: DissolveController, Assembly-CSharp
         m_MethodName: ReturnDissolve
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4717318269752495985}
+        m_TargetAssemblyTypeName: Inventory.InventoryUpdater, Assembly-CSharp
+        m_MethodName: UpdateFields
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4717318269752495987}
+        m_TargetAssemblyTypeName: Inventory.WeaponRackManager, Assembly-CSharp
+        m_MethodName: SetActiveWeaponsToRack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13901,7 +13961,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2014688267}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.001, z: 0}
   m_LocalScale: {x: 50, y: 1, z: 50}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17457,6 +17517,111 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1277493374}
     m_Modifications:
+    - target: {fileID: 670627262093040918, guid: b6938364e12ec144ca64e44892ea13f6,
+        type: 3}
+      propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 670627262093040918, guid: b6938364e12ec144ca64e44892ea13f6,
+        type: 3}
+      propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 670627262093040918, guid: b6938364e12ec144ca64e44892ea13f6,
+        type: 3}
+      propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 4717318269752495985}
+    - target: {fileID: 670627262093040918, guid: b6938364e12ec144ca64e44892ea13f6,
+        type: 3}
+      propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 670627262093040918, guid: b6938364e12ec144ca64e44892ea13f6,
+        type: 3}
+      propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: UpdateFields
+      objectReference: {fileID: 0}
+    - target: {fileID: 670627262093040918, guid: b6938364e12ec144ca64e44892ea13f6,
+        type: 3}
+      propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Inventory.InventoryUpdater, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 670627262093040918, guid: b6938364e12ec144ca64e44892ea13f6,
+        type: 3}
+      propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2345246955187506510, guid: b6938364e12ec144ca64e44892ea13f6,
+        type: 3}
+      propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2345246955187506510, guid: b6938364e12ec144ca64e44892ea13f6,
+        type: 3}
+      propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2345246955187506510, guid: b6938364e12ec144ca64e44892ea13f6,
+        type: 3}
+      propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 4717318269752495985}
+    - target: {fileID: 2345246955187506510, guid: b6938364e12ec144ca64e44892ea13f6,
+        type: 3}
+      propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2345246955187506510, guid: b6938364e12ec144ca64e44892ea13f6,
+        type: 3}
+      propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: UpdateFields
+      objectReference: {fileID: 0}
+    - target: {fileID: 2345246955187506510, guid: b6938364e12ec144ca64e44892ea13f6,
+        type: 3}
+      propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Inventory.InventoryUpdater, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2345246955187506510, guid: b6938364e12ec144ca64e44892ea13f6,
+        type: 3}
+      propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2938998456731921182, guid: b6938364e12ec144ca64e44892ea13f6,
+        type: 3}
+      propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2938998456731921182, guid: b6938364e12ec144ca64e44892ea13f6,
+        type: 3}
+      propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2938998456731921182, guid: b6938364e12ec144ca64e44892ea13f6,
+        type: 3}
+      propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 4717318269752495985}
+    - target: {fileID: 2938998456731921182, guid: b6938364e12ec144ca64e44892ea13f6,
+        type: 3}
+      propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2938998456731921182, guid: b6938364e12ec144ca64e44892ea13f6,
+        type: 3}
+      propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: UpdateFields
+      objectReference: {fileID: 0}
+    - target: {fileID: 2938998456731921182, guid: b6938364e12ec144ca64e44892ea13f6,
+        type: 3}
+      propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Inventory.InventoryUpdater, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2938998456731921182, guid: b6938364e12ec144ca64e44892ea13f6,
+        type: 3}
+      propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4209525632484241578, guid: b6938364e12ec144ca64e44892ea13f6,
         type: 3}
       propertyPath: m_RootOrder
@@ -18579,6 +18744,41 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -25
       objectReference: {fileID: 0}
+    - target: {fileID: 8169263196085322992, guid: 5771431c326afbb408a9c2eb1276ad19,
+        type: 3}
+      propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8169263196085322992, guid: 5771431c326afbb408a9c2eb1276ad19,
+        type: 3}
+      propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8169263196085322992, guid: 5771431c326afbb408a9c2eb1276ad19,
+        type: 3}
+      propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 4717318269752495985}
+    - target: {fileID: 8169263196085322992, guid: 5771431c326afbb408a9c2eb1276ad19,
+        type: 3}
+      propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8169263196085322992, guid: 5771431c326afbb408a9c2eb1276ad19,
+        type: 3}
+      propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: UpdateFields
+      objectReference: {fileID: 0}
+    - target: {fileID: 8169263196085322992, guid: 5771431c326afbb408a9c2eb1276ad19,
+        type: 3}
+      propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Inventory.InventoryUpdater, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8169263196085322992, guid: 5771431c326afbb408a9c2eb1276ad19,
+        type: 3}
+      propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8349364433386748215, guid: 5771431c326afbb408a9c2eb1276ad19,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -18782,6 +18982,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4717318269752495984}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4717318269752495987 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2427803696619609463, guid: 5771431c326afbb408a9c2eb1276ad19,
+    type: 3}
+  m_PrefabInstance: {fileID: 4717318269752495984}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4717318269752495986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a85c09718407064468c495b36aaae4f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5634743373555488188 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8305791899002282979, guid: a3a1458e05b31034aacaf21fb347db43,

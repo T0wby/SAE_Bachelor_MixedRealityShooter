@@ -29,8 +29,9 @@ public class DissolveController : MonoBehaviour
             entity.DissolveMaterial(_dissolveTime);
         }
         GameManager.Instance.CurrState = EGameStates.PreparePlayScene;
-        yield return new WaitForSeconds(_dissolveTime);
+        yield return new WaitForSeconds(_dissolveTime + 0.5f);
         
+        GameManager.Instance.CurrState = EGameStates.PreparePlayScene;
         _gamePrepObj.SetActive(true);
     }
     
@@ -51,7 +52,7 @@ public class DissolveController : MonoBehaviour
             entity.ReturnMaterial(_dissolveTime);
         }
 
-        yield return new WaitForSeconds(_dissolveTime);
+        yield return new WaitForSeconds(_dissolveTime + 0.5f);
         GameManager.Instance.CurrState = EGameStates.InHub;
         
         foreach (var entity in _toggleObjsVR)

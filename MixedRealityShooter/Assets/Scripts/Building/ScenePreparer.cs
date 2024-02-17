@@ -47,7 +47,6 @@ namespace Building
                     break;
                 case EGameStates.InGame:
                     OngoingRoundObjs();
-                    //PrepareNavMesh();
                     break;
                 case EGameStates.GameOver:
                     GameOverPreparation();
@@ -141,11 +140,6 @@ namespace Building
             _gameOverObjs.SetActive(false);
             _mrInsidePrepObjs.SetActive(false);
             _ongoingRoundObjs.SetActive(true);
-        }
-
-        private void PrepareNavMesh()
-        {
-            _surface.BuildNavMesh();
         }
 
         #region Event Methods

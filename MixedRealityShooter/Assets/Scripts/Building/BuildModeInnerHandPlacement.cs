@@ -16,12 +16,11 @@ namespace Building
         [SerializeField] private GameObject _cubePrefab;
         [SerializeField] private PlayerController _playerController;
         [SerializeField] private MrPreparationUI _mrPreparationUI;
-        //[SerializeField] private LineRenderer _lineRenderer;
 
         private GameObject _currCube;
         private GameObject _prevSelectedObj;
         private GameObject _selectedObj;
-        private APlacedObject _objToDelete;
+        private PlacedCube _objToDelete;
         private bool _isBuilding = true;
         private List<GameObject> _placedObjects;
         
@@ -152,7 +151,7 @@ namespace Building
                 if (_objToDelete == null || _prevSelectedObj != _selectedObj)
                 {
                     ResetPrevSelected();
-                    _objToDelete = _selectedObj.GetComponent<APlacedObject>();
+                    _objToDelete = _selectedObj.GetComponent<PlacedCube>();
                     _objToDelete.SetSelectedColor();
                 }
             }
@@ -280,6 +279,7 @@ namespace Building
 
             _placedObjects.Remove(_selectedObj);
             RemovePlacedObjFromOverall(GameManager.Instance.MrPlacedObjects, _selectedObj);
+            _objToDelete.DeleteTransformPoints();
             Destroy(_selectedObj);
             _objToDelete = null;
             _selectedObj = null;
