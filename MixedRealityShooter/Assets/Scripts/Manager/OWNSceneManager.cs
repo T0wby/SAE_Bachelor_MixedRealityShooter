@@ -7,21 +7,20 @@ namespace Manager
 {
     public class OWNSceneManager : Singleton<OWNSceneManager>
     {
+        [SerializeField] private DissolveController _dissolveController;
+        
         public void LoadVRScene(PointerEvent pointerEvent)
         {
-            SceneManager.LoadScene(2);
-            GameManager.Instance.CurrState = EGameStates.InHub;
+            _dissolveController.ReturnDissolve();
         }
         public void LoadVRScene()
         {
-            SceneManager.LoadScene(2);
-            GameManager.Instance.CurrState = EGameStates.InHub;
+            _dissolveController.ReturnDissolve();
         }
         
         public void LoadMRScene()
         {
-            SceneManager.LoadScene(1);
-            GameManager.Instance.CurrState = EGameStates.PreparePlayScene;
+            _dissolveController.StartDissolve();
         }
 
         public void QuitGame()

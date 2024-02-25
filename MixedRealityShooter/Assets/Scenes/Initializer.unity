@@ -200,7 +200,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _enemyPrefab
       value: 
-      objectReference: {fileID: 6323178400535022785, guid: 6dda419b22f6b5646ba2f6fbb1d42e53,
+      objectReference: {fileID: 6086948636235612236, guid: 6dda419b22f6b5646ba2f6fbb1d42e53,
         type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

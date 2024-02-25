@@ -33,7 +33,7 @@ namespace PlacedObjects
         public virtual void SetGameColor()
         {
             _ownMat.SetColor("_WireframeColor", _gameColor);
-            _ownMat.SetFloat("_WireframeWidth", 0.0f);
+            _ownMat.SetFloat("_WireframeWidth", 0.5f);
         }
     }
 }

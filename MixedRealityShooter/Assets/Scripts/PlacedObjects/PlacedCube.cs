@@ -114,5 +114,17 @@ namespace PlacedObjects
             else
                 UtilityMethods.CalcBoxTransform(ref _self, ref _parent, _startPos, _widthPos, _heightObj.transform.position, _endObj.transform.position);
         }
+
+        public void DeleteTransformPoints()
+        {
+            if (_heightObj != null)
+                Destroy(_heightObj);
+            if (_startObj != null)
+                Destroy(_startObj);
+            if (_widthObj != null)
+                Destroy(_widthObj);
+            if (_endObj != null)
+                Destroy(_endObj);
+        }
     }
 }

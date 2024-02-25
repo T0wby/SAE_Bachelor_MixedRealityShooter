@@ -235,11 +235,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f9cbd9605824b844b129fb2fb494df8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultSettings: {fileID: 11400000, guid: 25ed41e3bc91a0b409e9d4d20bf42c58, type: 2}
+  _defaultSettings: {fileID: 11400000, guid: 125efa7189450c845ad937e6401f2ab0, type: 2}
   _grabInteractable: {fileID: 0}
   _barrel: {fileID: 3769552254798569546}
   _layerMaskNum: 8
   _ignorePlayer: 0
+  _gunshot: {fileID: 0}
 --- !u!1 &1377983362077928
 GameObject:
   m_ObjectHideFlags: 0

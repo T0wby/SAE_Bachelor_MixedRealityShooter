@@ -44,6 +44,11 @@ namespace Player
             onHealthChange.AddListener(CheckForDeath);
         }
 
+        private void Start()
+        {
+            GameManager.Instance.onGameStateChange.AddListener(HealPlayerFull);
+        }
+
         private void Update()
         {
             if(_centerEyeAnchor == null) return;
@@ -58,6 +63,13 @@ namespace Player
             if (newHealthValue > 0)return;
 
             GameManager.Instance.CurrState = EGameStates.GameOver;
+        }
+
+        private void HealPlayerFull(EGameStates currState)
+        {
+            if (currState != EGameStates.InHub)return;
+
+            HealPlayer(MAXHEALTH);
         }
 
         public void HealPlayer(int amount)

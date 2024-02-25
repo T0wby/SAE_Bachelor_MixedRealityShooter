@@ -199,7 +199,7 @@ namespace Inventory
 
         #endregion
 
-        private void UpdateFields()
+        public void UpdateFields()
         {
             SetCorrectStatLevelText();
             SetFieldsAccordingToInventory();

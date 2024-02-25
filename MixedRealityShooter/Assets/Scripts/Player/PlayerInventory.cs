@@ -124,11 +124,13 @@ namespace Player
             if (_activeRangeWeapon != null)
             {
                 Destroy(_activeRangeWeaponPrefab);
+                _activeRangeWeaponPrefab = null;
                 _activeRangeWeapon = null;
             }
             if (_activeMeleeWeapon != null)
             {
                 Destroy(_activeMeleeWeaponPrefab);
+                _activeMeleeWeaponPrefab = null;
                 _activeMeleeWeapon = null;
             }
 
@@ -139,6 +141,7 @@ namespace Player
                 obj.ReturnThisToPool();
             }
             _placeableVRItems.Clear();
+            AddDefaultRangeWeapon();
         }
 
         private void SetInventoryInactive(EGameStates state)

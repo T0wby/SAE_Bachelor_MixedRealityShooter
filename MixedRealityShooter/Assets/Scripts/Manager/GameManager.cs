@@ -82,6 +82,13 @@ namespace Manager
                 if (obj == null) continue;
 
                 obj.SetActive(statusToChangeTo);
+
+                if (obj.CompareTag("PlacedObj"))
+                {
+                    var cube = obj.GetComponentInChildren<PlacedCube>();
+                    if (cube == null) continue;
+                    cube.DeleteTransformPoints();
+                }
             }
         }
 
@@ -109,7 +116,7 @@ namespace Manager
         private void DestroyPlacedVrObjects(EGameStates state)
         {
             if (state != EGameStates.GameOver) return;
-            foreach (var obj in _mrPlacedObjects)
+            foreach (var obj in _mrPlacedObjects.Where(obj => obj != null))
             {
                 if (!obj.CompareTag("InvenObj")) continue;
                 Destroy(obj);
